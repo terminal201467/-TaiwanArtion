@@ -7,6 +7,9 @@ target 'TaiwanArtion' do
 
   # Pods for TaiwanArtion
   pod 'SnapKit'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxRelay'
 
   target 'TaiwanArtionTests' do
     inherit! :search_paths
