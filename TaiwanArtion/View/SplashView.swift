@@ -168,7 +168,6 @@ class SplashView: UIView {
             .when(.recognized)
             .subscribe(onNext: { _ in
                 self.step += 1
-                print("step:\(self.step)")
             })
             .disposed(by: disposeBag)
         
@@ -185,8 +184,8 @@ class SplashView: UIView {
         }
 
         nextImage.snp.makeConstraints { make in
-            make.height.equalTo(20)
-            make.width.equalTo(20)
+            make.height.equalTo(16)
+            make.width.equalTo(16)
         }
         
         nextButton.addSubview(nextStack)
