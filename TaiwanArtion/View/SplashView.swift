@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 enum StepType: Int, CaseIterable{
     case stepOne = 0, stepTwo, stepThree, stepFour
@@ -97,17 +98,37 @@ class SplashView: UIView {
         return stackView
     }()
     
-    let nextButton: UIButton = {
-        let button = UIButton()
-        button.roundCorners(cornerRadius: 20)
-        button.backgroundColor = .brownColor
-        button.setImage(UIImage(named: "next"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        return button
+    private let nextLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let nextImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "next")
+        return imageView
+    }()
+    
+    private lazy var nextStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [nextLabel, nextImage])
+        stackView.spacing = 5
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        return stackView
+    }()
+    
+    private let nextButton: UIView = {
+       let view = UIView()
+        view.roundCorners(cornerRadius: 20)
+        view.backgroundColor = .brownColor
+        return view
     }()
 
-    
     //MARK: - Background Object
     private let middleWaveImage: UIImageView = {
         let imageView = UIImageView()
@@ -143,9 +164,11 @@ class SplashView: UIView {
     }
     
     private func setNextButtonBinding() {
-        nextButton.rx.tap
-            .subscribe(onNext: {
+        nextButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
                 self.step += 1
+                print("step:\(self.step)")
             })
             .disposed(by: disposeBag)
         
@@ -157,6 +180,21 @@ class SplashView: UIView {
     }
     
     private func foregroundAutoLayout() {
+        nextLabel.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
+
+        nextImage.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.width.equalTo(20)
+        }
+        
+        nextButton.addSubview(nextStack)
+        nextStack.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
         addSubview(skipView)
         skipView.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.8)
@@ -246,11 +284,11 @@ class SplashView: UIView {
         stepImageView.image = UIImage(named: step.stepImage)
         titleLabel.text = step.titleText
         hintLabel.text = step.hintText
-        nextButton.setTitle(step.buttonText, for: .normal)
+        nextLabel.text = step.buttonText
         if step == .stepFour {
-            nextButton.imageView?.isHidden = true
+            nextImage.isHidden = true
         } else {
-            nextButton.imageView?.isHidden = false
+            nextImage.isHidden = false
         }
     }
     

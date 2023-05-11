@@ -10,6 +10,7 @@ target 'TaiwanArtion' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxRelay'
+  pod 'RxGesture'
 
   target 'TaiwanArtionTests' do
     inherit! :search_paths

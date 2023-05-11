@@ -119,7 +119,6 @@ class SkipView: UIView {
                         make.width.equalToSuperview().multipliedBy(100.0 / 390.0)
                         make.height.equalToSuperview().multipliedBy(12 / 844)
                     }
-                    self.layoutIfNeeded()
                 }
             }
         }
