@@ -53,6 +53,8 @@ class SplashView: UIView {
     //MARK: - Rx Settings
     private let disposeBag = DisposeBag()
     
+    private let countDownTimer = CountdownTimer(timeInterval: 3)
+    
     private var step: Int = 0 {
         didSet {
             setForegroundStepSetting(by: .init(rawValue: step)!)
@@ -62,6 +64,8 @@ class SplashView: UIView {
     }
     
     //MARK: - Forground Object
+    private let startView = StartView()
+    
     private let skipView = SkipView()
     
     let stepImageView: UIImageView = {
@@ -99,9 +103,10 @@ class SplashView: UIView {
         button.backgroundColor = .brownColor
         button.setImage(UIImage(named: "next"), for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         return button
     }()
+
     
     //MARK: - Background Object
     private let middleWaveImage: UIImageView = {
@@ -129,6 +134,8 @@ class SplashView: UIView {
         setNextButtonBinding()
         setForegroundStepSetting(by: .init(rawValue: step)!)
         setBackgroundStepSetting(by: .init(rawValue: step)!)
+        setStartView()
+        setStartViewRoutine()
     }
     
     required init?(coder: NSCoder) {
@@ -141,10 +148,15 @@ class SplashView: UIView {
                 self.step += 1
             })
             .disposed(by: disposeBag)
+        
+        skipView.skipValue
+            .subscribe(onNext: { value in
+                self.step = 5
+            })
+            .disposed(by: disposeBag)
     }
     
     private func foregroundAutoLayout() {
-        //SkipView
         addSubview(skipView)
         skipView.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.8)
@@ -156,20 +168,20 @@ class SplashView: UIView {
         addSubview(stepImageView)
         stepImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50)
             make.width.equalTo(330)
             make.height.equalTo(316)
         }
         
         addSubview(labelStack)
         labelStack.snp.makeConstraints { make in
-            make.top.equalTo(stepImageView.snp.bottom).offset(30)
+            make.top.equalTo(stepImageView.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
         }
         
         addSubview(nextButton)
         nextButton.snp.makeConstraints { make in
-            make.top.equalTo(labelStack.snp.bottom).offset(20)
+            make.top.equalTo(labelStack.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.width.equalTo(150)
             make.height.equalTo(40)
@@ -240,5 +252,31 @@ class SplashView: UIView {
         } else {
             nextButton.imageView?.isHidden = false
         }
+    }
+    
+    private func setStartViewRoutine() {
+        countDownTimer.onTick = { timeRemaining in
+            print("Time remaining: \(timeRemaining)")
+        }
+        countDownTimer.onCompleted = {
+            self.removeStartView()
+        }
+        countDownTimer.start()
+    }
+    
+    private func setStartView() {
+        addSubview(startView)
+        startView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    private func removeStartView() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.startView.alpha = 0
+        }) { _ in
+            self.startView.removeFromSuperview()
+        }
+
     }
 }

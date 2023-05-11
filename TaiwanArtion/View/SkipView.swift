@@ -17,6 +17,8 @@ class SkipView: UIView {
         }
     }
     
+    let skipValue: PublishSubject = PublishSubject<Int>()
+    
     private let disposeBag = DisposeBag()
     
     private let stepOneView: UIView = {
@@ -50,7 +52,7 @@ class SkipView: UIView {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 7
+        stackView.spacing = 10
         return stackView
     }()
 
@@ -58,7 +60,7 @@ class SkipView: UIView {
         let button = UIButton()
         button.setTitle("Skip", for: .normal)
         button.setTitleColor(.brownColor, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return button
     }()
     
@@ -76,7 +78,7 @@ class SkipView: UIView {
     private func setButtonBinding() {
         skipButton.rx.tap
             .subscribe(onNext: {
-                self.currentSteps += 1
+                self.skipValue.onNext(5)
             })
             .disposed(by: disposeBag)
     }
@@ -104,8 +106,8 @@ class SkipView: UIView {
             if index == currentSteps {
                 UIView.animate(withDuration: 0.3) {
                     bar.backgroundColor = .brown
-                    bar.snp.updateConstraints { make in
-                        make.width.equalToSuperview().multipliedBy(25 / 390)
+                    bar.snp.makeConstraints { make in
+                        make.width.equalToSuperview().multipliedBy(45.0 / 390.0)
                         make.height.equalToSuperview().multipliedBy(12 / 844)
                     }
                     self.layoutIfNeeded()
@@ -113,8 +115,8 @@ class SkipView: UIView {
             } else {
                 UIView.animate(withDuration: 0.3) {
                     bar.backgroundColor = .white
-                    bar.snp.updateConstraints { make in
-                        make.width.equalToSuperview().multipliedBy(64 / 390)
+                    bar.snp.makeConstraints { make in
+                        make.width.equalToSuperview().multipliedBy(100.0 / 390.0)
                         make.height.equalToSuperview().multipliedBy(12 / 844)
                     }
                     self.layoutIfNeeded()
