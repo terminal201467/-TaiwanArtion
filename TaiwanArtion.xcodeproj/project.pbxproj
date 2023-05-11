@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19703945C8A3DC8163F6B353 /* Pods_TaiwanArtion_TaiwanArtionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */; };
+		312571B3EEECB9F7C5CD3B99 /* Pods_TaiwanArtionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014A2C7A7A3F85FF4D3CEE24 /* Pods_TaiwanArtionTests.framework */; };
+		42CD7883526BCC1131AC1105 /* Pods_TaiwanArtion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* ViewController.swift */; };
@@ -15,6 +18,11 @@
 		97D66A0D2A0C6C3800A25935 /* TaiwanArtionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A0C2A0C6C3800A25935 /* TaiwanArtionTests.swift */; };
 		97D66A172A0C6C3800A25935 /* TaiwanArtionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A162A0C6C3800A25935 /* TaiwanArtionUITests.swift */; };
 		97D66A192A0C6C3800A25935 /* TaiwanArtionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A182A0C6C3800A25935 /* TaiwanArtionUITestsLaunchTests.swift */; };
+		97D66A262A0C723800A25935 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A252A0C723800A25935 /* SplashViewController.swift */; };
+		97D66A282A0C724F00A25935 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A272A0C724F00A25935 /* SplashView.swift */; };
+		97D66A2A2A0C729400A25935 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A292A0C729400A25935 /* UIView.swift */; };
+		97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A2C2A0C730A00A25935 /* UIColor.swift */; };
+		97D66A2F2A0C770700A25935 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A2E2A0C770700A25935 /* StartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		014A2C7A7A3F85FF4D3CEE24 /* Pods_TaiwanArtionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaiwanArtionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14682FC619A78F88E1CEEC95 /* Pods-TaiwanArtionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtionTests.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtionTests/Pods-TaiwanArtionTests.debug.xcconfig"; sourceTree = "<group>"; };
+		32DB8B2332C019BA38D5F558 /* Pods-TaiwanArtionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtionTests.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtionTests/Pods-TaiwanArtionTests.release.xcconfig"; sourceTree = "<group>"; };
+		567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaiwanArtion_TaiwanArtionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CDA925BDC580285C3F0BA4C /* Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +60,15 @@
 		97D66A122A0C6C3800A25935 /* TaiwanArtionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaiwanArtionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D66A162A0C6C3800A25935 /* TaiwanArtionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanArtionUITests.swift; sourceTree = "<group>"; };
 		97D66A182A0C6C3800A25935 /* TaiwanArtionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanArtionUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		97D66A252A0C723800A25935 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		97D66A272A0C724F00A25935 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		97D66A292A0C729400A25935 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		97D66A2C2A0C730A00A25935 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		97D66A2E2A0C770700A25935 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		C08E8E419B4D485FD3769595 /* Pods-TaiwanArtion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.release.xcconfig"; sourceTree = "<group>"; };
+		C44A9F25A18373C8BF9B8EA9 /* Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CB247D84AA40C78F18BC6E21 /* Pods-TaiwanArtion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.debug.xcconfig"; sourceTree = "<group>"; };
+		E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaiwanArtion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42CD7883526BCC1131AC1105 /* Pods_TaiwanArtion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				312571B3EEECB9F7C5CD3B99 /* Pods_TaiwanArtionTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,12 +92,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19703945C8A3DC8163F6B353 /* Pods_TaiwanArtion_TaiwanArtionUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42D2A900F387B96FEC85A743 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */,
+				567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */,
+				014A2C7A7A3F85FF4D3CEE24 /* Pods_TaiwanArtionTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		97D669E92A0C6C3600A25935 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +116,8 @@
 				97D66A0B2A0C6C3800A25935 /* TaiwanArtionTests */,
 				97D66A152A0C6C3800A25935 /* TaiwanArtionUITests */,
 				97D669F32A0C6C3600A25935 /* Products */,
+				F7DDB3605FD1ABAC38323100 /* Pods */,
+				42D2A900F387B96FEC85A743 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +137,10 @@
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
 				97D669F92A0C6C3600A25935 /* ViewController.swift */,
+				97D66A2E2A0C770700A25935 /* StartView.swift */,
+				97D66A252A0C723800A25935 /* SplashViewController.swift */,
+				97D66A272A0C724F00A25935 /* SplashView.swift */,
+				97D66A2B2A0C72A300A25935 /* Extension */,
 				97D669FE2A0C6C3700A25935 /* Assets.xcassets */,
 				97D66A002A0C6C3700A25935 /* LaunchScreen.storyboard */,
 				97D66A032A0C6C3700A25935 /* Info.plist */,
@@ -124,6 +165,28 @@
 			path = TaiwanArtionUITests;
 			sourceTree = "<group>";
 		};
+		97D66A2B2A0C72A300A25935 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				97D66A292A0C729400A25935 /* UIView.swift */,
+				97D66A2C2A0C730A00A25935 /* UIColor.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		F7DDB3605FD1ABAC38323100 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CB247D84AA40C78F18BC6E21 /* Pods-TaiwanArtion.debug.xcconfig */,
+				C08E8E419B4D485FD3769595 /* Pods-TaiwanArtion.release.xcconfig */,
+				6CDA925BDC580285C3F0BA4C /* Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig */,
+				C44A9F25A18373C8BF9B8EA9 /* Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig */,
+				14682FC619A78F88E1CEEC95 /* Pods-TaiwanArtionTests.debug.xcconfig */,
+				32DB8B2332C019BA38D5F558 /* Pods-TaiwanArtionTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,9 +194,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97D66A1C2A0C6C3800A25935 /* Build configuration list for PBXNativeTarget "TaiwanArtion" */;
 			buildPhases = (
+				432BB2DE2CA48590BED732A0 /* [CP] Check Pods Manifest.lock */,
 				97D669EE2A0C6C3600A25935 /* Sources */,
 				97D669EF2A0C6C3600A25935 /* Frameworks */,
 				97D669F02A0C6C3600A25935 /* Resources */,
+				948F4291F9ACE7F1609FBB82 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -148,6 +213,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97D66A1F2A0C6C3800A25935 /* Build configuration list for PBXNativeTarget "TaiwanArtionTests" */;
 			buildPhases = (
+				0CF31D7D113CD34D28CC9A9A /* [CP] Check Pods Manifest.lock */,
 				97D66A042A0C6C3800A25935 /* Sources */,
 				97D66A052A0C6C3800A25935 /* Frameworks */,
 				97D66A062A0C6C3800A25935 /* Resources */,
@@ -166,9 +232,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97D66A222A0C6C3800A25935 /* Build configuration list for PBXNativeTarget "TaiwanArtionUITests" */;
 			buildPhases = (
+				A7C85B872CB72A0AED84C7BB /* [CP] Check Pods Manifest.lock */,
 				97D66A0E2A0C6C3800A25935 /* Sources */,
 				97D66A0F2A0C6C3800A25935 /* Frameworks */,
 				97D66A102A0C6C3800A25935 /* Resources */,
+				2D55704CF796F28DED70D11E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -249,14 +317,122 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0CF31D7D113CD34D28CC9A9A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TaiwanArtionTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D55704CF796F28DED70D11E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		432BB2DE2CA48590BED732A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TaiwanArtion-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		948F4291F9ACE7F1609FBB82 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7C85B872CB72A0AED84C7BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TaiwanArtion-TaiwanArtionUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		97D669EE2A0C6C3600A25935 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
+				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
+				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
 				97D669FA2A0C6C3600A25935 /* ViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
+				97D66A282A0C724F00A25935 /* SplashView.swift in Sources */,
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
+				97D66A262A0C723800A25935 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +596,7 @@
 		};
 		97D66A1D2A0C6C3800A25935 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB247D84AA40C78F18BC6E21 /* Pods-TaiwanArtion.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -430,7 +607,6 @@
 				INFOPLIST_FILE = TaiwanArtion/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -448,6 +624,7 @@
 		};
 		97D66A1E2A0C6C3800A25935 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C08E8E419B4D485FD3769595 /* Pods-TaiwanArtion.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -458,7 +635,6 @@
 				INFOPLIST_FILE = TaiwanArtion/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -476,6 +652,7 @@
 		};
 		97D66A202A0C6C3800A25935 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14682FC619A78F88E1CEEC95 /* Pods-TaiwanArtionTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -496,6 +673,7 @@
 		};
 		97D66A212A0C6C3800A25935 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32DB8B2332C019BA38D5F558 /* Pods-TaiwanArtionTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -516,6 +694,7 @@
 		};
 		97D66A232A0C6C3800A25935 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CDA925BDC580285C3F0BA4C /* Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -534,6 +713,7 @@
 		};
 		97D66A242A0C6C3800A25935 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C44A9F25A18373C8BF9B8EA9 /* Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
