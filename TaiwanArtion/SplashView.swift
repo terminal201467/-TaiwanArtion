@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 enum StepType: Int, CaseIterable{
     case stepOne = 0, stepTwo, stepThree, stepFour
@@ -48,7 +50,20 @@ enum StepType: Int, CaseIterable{
 
 class SplashView: UIView {
     
-    //MARK: Forground Object
+    //MARK: - Rx Settings
+    private let disposeBag = DisposeBag()
+    
+    private var step: Int = 0 {
+        didSet {
+            setForegroundStepSetting(by: .init(rawValue: step)!)
+            setBackgroundStepSetting(by: .init(rawValue: step)!)
+            skipView.currentSteps = step
+        }
+    }
+    
+    //MARK: - Forground Object
+    private let skipView = SkipView()
+    
     let stepImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -57,24 +72,24 @@ class SplashView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.tintColor = .brownTitleColor
+        label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
+        label.textColor = .brownTitleColor
         return label
     }()
     
     private let hintLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.tintColor = .grayTextColor
+        label.textColor = .grayTextColor
         return label
     }()
     
     private lazy var labelStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, hintLabel])
         stackView.axis = .vertical
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.spacing = 5
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -84,23 +99,24 @@ class SplashView: UIView {
         button.backgroundColor = .brownColor
         button.setImage(UIImage(named: "next"), for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         return button
     }()
     
     //MARK: - Background Object
-    let middleWaveImage: UIImageView = {
+    private let middleWaveImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let topWaveImage: UIImageView = {
+    private let topWaveImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let bottomWaveImage: UIImageView = {
+    private let bottomWaveImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -110,13 +126,33 @@ class SplashView: UIView {
         super.init(frame: frame)
         backgroundAutoLayout()
         foregroundAutoLayout()
+        setNextButtonBinding()
+        setForegroundStepSetting(by: .init(rawValue: step)!)
+        setBackgroundStepSetting(by: .init(rawValue: step)!)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setNextButtonBinding() {
+        nextButton.rx.tap
+            .subscribe(onNext: {
+                self.step += 1
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func foregroundAutoLayout() {
+        //SkipView
+        addSubview(skipView)
+        skipView.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalTo(20)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(30)
+        }
+        
         addSubview(stepImageView)
         stepImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -127,16 +163,16 @@ class SplashView: UIView {
         
         addSubview(labelStack)
         labelStack.snp.makeConstraints { make in
-            make.top.equalTo(stepImageView.snp.bottom).offset(10)
+            make.top.equalTo(stepImageView.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         
         addSubview(nextButton)
         nextButton.snp.makeConstraints { make in
-            make.top.equalTo(labelStack.snp.bottom)
+            make.top.equalTo(labelStack.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(70)
-            make.height.equalTo(50)
+            make.width.equalTo(150)
+            make.height.equalTo(40)
         }
     }
     
@@ -162,7 +198,7 @@ class SplashView: UIView {
         }
     }
     
-    private func setBackgroundStep(by step: StepType) {
+    private func setBackgroundStepSetting(by step: StepType) {
         switch step {
         case .stepOne:
             middleWaveImage.image = UIImage(named: "stepOneWave")
@@ -194,7 +230,7 @@ class SplashView: UIView {
         }
     }
     
-    func configureStepSetting(by step: StepType) {
+    private func setForegroundStepSetting(by step: StepType) {
         stepImageView.image = UIImage(named: step.stepImage)
         titleLabel.text = step.titleText
         hintLabel.text = step.hintText
@@ -204,22 +240,5 @@ class SplashView: UIView {
         } else {
             nextButton.imageView?.isHidden = false
         }
-    }
-    
-    func setBackgroundStepSetting(by step: StepType) {
-        switch step {
-        case .stepOne:
-            backgroundColor = .toffeeColor
-        case .stepTwo:
-            backgroundColor = .caramelColor
-        case .stepThree:
-            backgroundColor = .caramelColor
-        case .stepFour:
-            backgroundColor = .caramelColor
-        }
-    }
-    
-    func setSkipBar () {
-        
     }
 }

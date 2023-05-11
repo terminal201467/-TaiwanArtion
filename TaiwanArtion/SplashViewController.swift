@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SplashViewController: UIViewController {
     
     private let splashView = SplashView()
+    
+    //MARK: - RxSwift Binding
+    private let stepChanged = PublishSubject<Int>()
     
     //MARK: - LifeCycle
     override func loadView() {
