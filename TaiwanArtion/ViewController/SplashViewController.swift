@@ -82,14 +82,16 @@ extension SplashViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier, for: indexPath) as! HabbyCollectionViewCell
         cell.configureImageAndLabel(by: HabbyItem.allCases[indexPath.row])
-//        cell.handleSelectedItemView(by: <#T##Bool#>)
+        cell.handleSelectedItemView(by: viewModel.provideSelectedCell(indexPath: indexPath))
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier, for: indexPath) as! HabbyCollectionViewCell
         let selectedHabbyText = HabbyItem(rawValue: indexPath.item)?.titleText ?? ""
         viewModel.handleSelectedItem.accept(selectedHabbyText)
         viewModel.handleSelectedIndex.accept(indexPath.item)
+        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

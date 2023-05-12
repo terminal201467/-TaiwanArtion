@@ -74,6 +74,11 @@ class SplashViewModel {
         }
     }
     
+    //這邊可能要回傳的是，哪幾個cell是有的，如果有的話就回傳Bool
+    func provideSelectedCell(indexPath: IndexPath) -> Bool {
+        selectedIndex.contains(indexPath.item) ? true : false
+    }
+    
     //儲存使用者喜好進本地端（後面會用到）
     func saveDataToUserDefault() {
         
