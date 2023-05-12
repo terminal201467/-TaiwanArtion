@@ -9,15 +9,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxGesture
+import SnapKit
 
 enum StepType: Int, CaseIterable{
-    case stepOne = 0, stepTwo, stepThree, stepFour
+    case stepOne = 0, stepTwo, stepThree, stepFour, stepFive
     var buttonText: String {
         switch self {
         case .stepOne: return "Next"
         case .stepTwo: return "Next"
         case .stepThree: return "Next"
         case .stepFour: return "Get Started"
+        case .stepFive: return "Next"
         }
     }
     
@@ -27,6 +29,7 @@ enum StepType: Int, CaseIterable{
         case .stepTwo: return "附近展覽"
         case .stepThree: return "展覽月曆"
         case .stepFour: return "收藏展覽"
+        case .stepFive: return ""
         }
     }
     
@@ -36,6 +39,7 @@ enum StepType: Int, CaseIterable{
         case .stepTwo: return "透過附近展覽，找到離你最近的有趣展覽！"
         case .stepThree: return "將喜歡的展覽加入您的專屬月曆中！"
         case .stepFour: return "將喜歡的展覽加入您的專屬月曆中！"
+        case .stepFive: return ""
         }
     }
     
@@ -45,6 +49,7 @@ enum StepType: Int, CaseIterable{
         case .stepTwo: return "step2"
         case .stepThree: return "step3"
         case .stepFour: return "step4"
+        case .stepFive: return ""
         }
     }
 }
@@ -69,7 +74,7 @@ class SplashView: UIView {
     
     private let skipView = SkipView()
     
-    let stepImageView: UIImageView = {
+    private let stepImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -128,6 +133,41 @@ class SplashView: UIView {
         view.backgroundColor = .brownColor
         return view
     }()
+    
+    //MARK: - 興趣、喜歡相關物件
+    private let chooseHabbylabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .brownTitleColor
+        label.text = "選擇你喜歡的興趣"
+        return label
+    }()
+    
+    private let chooseHintlabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .grayTextColor
+        label.text = "請選擇1~3項你喜歡的展覽類別"
+        return label
+    }()
+    
+    private lazy var chooseHabbyStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [chooseHabbylabel, chooseHintlabel])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    let habbyCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(HabbyCollectionViewCell.self, forCellWithReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier)
+        collectionView.backgroundColor = nil
+        return collectionView
+    }()
 
     //MARK: - Background Object
     private let middleWaveImage: UIImageView = {
@@ -161,6 +201,18 @@ class SplashView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func setNextButtonTappedOrNot(by allowTap: Bool) {
+        if allowTap {
+            nextButton.backgroundColor = .brownColor
+            nextLabel.textColor = .white
+            nextButton.isUserInteractionEnabled = true
+        } else {
+            nextButton.backgroundColor = .whiteGrayColor
+            nextLabel.textColor = .middleGrayColor
+            nextButton.isUserInteractionEnabled = false
+        }
     }
     
     private func setNextButtonBinding() {
@@ -247,6 +299,22 @@ class SplashView: UIView {
         }
     }
     
+    private func setHabbyAutoLayout() {
+        addSubview(chooseHabbyStack)
+        chooseHabbyStack.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(24)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(30)
+        }
+        
+        addSubview(habbyCollectionView)
+        habbyCollectionView.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.95)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(360.0 / 844.0)
+            make.top.equalTo(chooseHabbyStack.snp.bottom).offset(27)
+        }
+    }
+    
     private func setBackgroundStepSetting(by step: StepType) {
         switch step {
         case .stepOne:
@@ -276,6 +344,14 @@ class SplashView: UIView {
             topWaveImage.isHidden = false
             bottomWaveImage.isHidden = false
             backgroundColor = .caramelColor
+        case .stepFive:
+            middleWaveImage.image = UIImage(named: "line")
+            bottomWaveImage.image = UIImage(named: "stepFiveWave1")
+            topWaveImage.image = UIImage(named: "stepFiveWave2")
+            topWaveImage.contentMode = .scaleAspectFill
+            middleWaveImage.isHidden = false
+            bottomWaveImage.isHidden = false
+            backgroundColor = .caramelColor
         }
     }
     
@@ -288,6 +364,15 @@ class SplashView: UIView {
             nextImage.isHidden = true
         } else {
             nextImage.isHidden = false
+        }
+        
+        if step == .stepFive {
+            stepImageView.isHidden = true
+            skipView.isHidden = true
+            nextButton.backgroundColor = .whiteGrayColor
+            nextLabel.textColor = .middleGrayColor
+            nextButton.isUserInteractionEnabled = false
+            setHabbyAutoLayout()
         }
     }
     
@@ -309,11 +394,6 @@ class SplashView: UIView {
     }
     
     private func removeStartView() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.startView.alpha = 0
-        }) { _ in
-            self.startView.removeFromSuperview()
-        }
-
+        self.startView.removeFromSuperview()
     }
 }
