@@ -12,7 +12,7 @@
 		42CD7883526BCC1131AC1105 /* Pods_TaiwanArtion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
-		97D669FA2A0C6C3600A25935 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* ViewController.swift */; };
+		97D669FA2A0C6C3600A25935 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* HomeViewController.swift */; };
 		97D669FF2A0C6C3700A25935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D669FE2A0C6C3700A25935 /* Assets.xcassets */; };
 		97D66A022A0C6C3700A25935 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97D66A002A0C6C3700A25935 /* LaunchScreen.storyboard */; };
 		97D66A0D2A0C6C3800A25935 /* TaiwanArtionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A0C2A0C6C3800A25935 /* TaiwanArtionTests.swift */; };
@@ -55,7 +55,7 @@
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		97D669F92A0C6C3600A25935 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		97D669F92A0C6C3600A25935 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		97D669FE2A0C6C3700A25935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97D66A012A0C6C3700A25935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97D66A032A0C6C3700A25935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 		97D66A322A0CF0E300A25935 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				97D669F92A0C6C3600A25935 /* ViewController.swift */,
+				97D669F92A0C6C3600A25935 /* HomeViewController.swift */,
 				97D66A252A0C723800A25935 /* SplashViewController.swift */,
 			);
 			path = ViewController;
@@ -465,7 +465,7 @@
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
-				97D669FA2A0C6C3600A25935 /* ViewController.swift in Sources */,
+				97D669FA2A0C6C3600A25935 /* HomeViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
 				97D66A352A0CF13700A25935 /* CountdownTimer.swift in Sources */,
 				97D66A312A0CD45F00A25935 /* SkipView.swift in Sources */,

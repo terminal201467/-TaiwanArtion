@@ -61,11 +61,17 @@ class SplashView: UIView {
     
     private let countDownTimer = CountdownTimer(timeInterval: 3)
     
+    var pushToHome: (() -> (Void))?
+    
     private var step: Int = 0 {
         didSet {
-            setForegroundStepSetting(by: .init(rawValue: step)!)
-            setBackgroundStepSetting(by: .init(rawValue: step)!)
-            skipView.currentSteps = step
+            if step < 5 {
+                setForegroundStepSetting(by: .init(rawValue: step)!)
+                setBackgroundStepSetting(by: .init(rawValue: step)!)
+                skipView.currentSteps = step
+            } else {
+                self.pushToHome?()
+            }
         }
     }
     
@@ -219,7 +225,9 @@ class SplashView: UIView {
         nextButton.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
-                self.step += 1
+                if self.step < 5 {
+                    self.step += 1
+                }
             })
             .disposed(by: disposeBag)
         
@@ -374,6 +382,7 @@ class SplashView: UIView {
             nextButton.isUserInteractionEnabled = false
             setHabbyAutoLayout()
         }
+        
     }
     
     private func setStartViewRoutine() {

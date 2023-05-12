@@ -48,8 +48,6 @@ class SplashViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    private var select: Bool = false
-    
     //MARK: - LifeCycle
     override func loadView() {
         super.loadView()
@@ -60,11 +58,19 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         setHabbyCollectionView()
         setNextButtonAllowTap()
+        setHomeViewControllerPush()
     }
     
     private func setHabbyCollectionView() {
         splashView.habbyCollectionView.delegate = self
         splashView.habbyCollectionView.dataSource = self
+    }
+    
+    private func setHomeViewControllerPush() {
+        splashView.pushToHome = {
+            let homeViewController = HomeViewController()
+            self.navigationController?.pushViewController(homeViewController, animated: true)
+        }
     }
     
     private func setNextButtonAllowTap() {
