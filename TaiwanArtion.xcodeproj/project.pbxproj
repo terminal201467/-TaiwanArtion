@@ -11,9 +11,27 @@
 		312571B3EEECB9F7C5CD3B99 /* Pods_TaiwanArtionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014A2C7A7A3F85FF4D3CEE24 /* Pods_TaiwanArtionTests.framework */; };
 		42CD7883526BCC1131AC1105 /* Pods_TaiwanArtion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
+		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
+		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
+		976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03112A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift */; };
+		976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03132A0E8B2200424ACF /* NewsTableViewCell.swift */; };
+		976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */; };
+		976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03192A0E8CAD00424ACF /* NearViewController.swift */; };
+		976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031B2A0E8CBE00424ACF /* CollectionViewController.swift */; };
+		976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */; };
+		976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */; };
+		976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03212A0E8DDF00424ACF /* HomeViewController.swift */; };
+		976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03232A147C6700424ACF /* HomeHabbyCollectionViewCell.swift */; };
+		976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03252A15054300424ACF /* MonthTableViewCell.swift */; };
+		976A03282A15055900424ACF /* HabbyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03272A15055900424ACF /* HabbyTableViewCell.swift */; };
+		976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03292A15C2D800424ACF /* HotDetailTableViewCell.swift */; };
+		976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A032B2A15CD1700424ACF /* HomeViewModel.swift */; };
+		976A032F2A15CE3500424ACF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A032E2A15CE3500424ACF /* Model.swift */; };
+		976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */; };
+		976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03322A15D9A200424ACF /* MainPhotosCollectionViewCell.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
-		97D669FA2A0C6C3600A25935 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* HomeViewController.swift */; };
+		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
 		97D669FF2A0C6C3700A25935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D669FE2A0C6C3700A25935 /* Assets.xcassets */; };
 		97D66A022A0C6C3700A25935 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97D66A002A0C6C3700A25935 /* LaunchScreen.storyboard */; };
 		97D66A0D2A0C6C3800A25935 /* TaiwanArtionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A0C2A0C6C3800A25935 /* TaiwanArtionTests.swift */; };
@@ -54,10 +72,28 @@
 		567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaiwanArtion_TaiwanArtionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CDA925BDC580285C3F0BA4C /* Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
+		976A03112A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotHxhibitionTableViewCell.swift; sourceTree = "<group>"; };
+		976A03132A0E8B2200424ACF /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExhibitionTableViewCell.swift; sourceTree = "<group>"; };
+		976A03192A0E8CAD00424ACF /* NearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearViewController.swift; sourceTree = "<group>"; };
+		976A031B2A0E8CBE00424ACF /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileViewController.swift; sourceTree = "<group>"; };
+		976A03212A0E8DDF00424ACF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		976A03232A147C6700424ACF /* HomeHabbyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHabbyCollectionViewCell.swift; sourceTree = "<group>"; };
+		976A03252A15054300424ACF /* MonthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthTableViewCell.swift; sourceTree = "<group>"; };
+		976A03272A15055900424ACF /* HabbyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabbyTableViewCell.swift; sourceTree = "<group>"; };
+		976A03292A15C2D800424ACF /* HotDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotDetailTableViewCell.swift; sourceTree = "<group>"; };
+		976A032B2A15CD1700424ACF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		976A032E2A15CE3500424ACF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotosTableViewCell.swift; sourceTree = "<group>"; };
+		976A03322A15D9A200424ACF /* MainPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		97D669F92A0C6C3600A25935 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		97D669F92A0C6C3600A25935 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		97D669FE2A0C6C3700A25935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97D66A012A0C6C3700A25935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97D66A032A0C6C3700A25935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +155,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		976A030D2A0E882F00424ACF /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				97D66A362A0DD27900A25935 /* HabbyCollectionViewCell.swift */,
+				976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */,
+				976A03232A147C6700424ACF /* HomeHabbyCollectionViewCell.swift */,
+				976A03322A15D9A200424ACF /* MainPhotosCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		976A030E2A0E886800424ACF /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				976A03132A0E8B2200424ACF /* NewsTableViewCell.swift */,
+				976A03112A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift */,
+				976A03252A15054300424ACF /* MonthTableViewCell.swift */,
+				976A03292A15C2D800424ACF /* HotDetailTableViewCell.swift */,
+				976A03272A15055900424ACF /* HabbyTableViewCell.swift */,
+				976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */,
+				976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		976A032D2A15CE2C00424ACF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				976A032E2A15CE3500424ACF /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		97D669E92A0C6C3600A25935 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +216,9 @@
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
 				976A03092A0E790B00424ACF /* UserManager.swift */,
+				976A032D2A15CE2C00424ACF /* Model */,
+				976A030E2A0E886800424ACF /* TableViewCell */,
+				976A030D2A0E882F00424ACF /* CollectionViewCell */,
 				97D66A3C2A0DE23400A25935 /* ViewModel */,
 				97D66A332A0CF11800A25935 /* View */,
 				97D66A322A0CF0E300A25935 /* ViewController */,
@@ -187,8 +259,13 @@
 		97D66A322A0CF0E300A25935 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				97D669F92A0C6C3600A25935 /* HomeViewController.swift */,
+				97D669F92A0C6C3600A25935 /* RootViewController.swift */,
+				976A03212A0E8DDF00424ACF /* HomeViewController.swift */,
 				97D66A252A0C723800A25935 /* SplashViewController.swift */,
+				976A03192A0E8CAD00424ACF /* NearViewController.swift */,
+				976A031B2A0E8CBE00424ACF /* CollectionViewController.swift */,
+				976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */,
+				976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -198,9 +275,9 @@
 			children = (
 				97D66A302A0CD45F00A25935 /* SkipView.swift */,
 				97D66A272A0C724F00A25935 /* SplashView.swift */,
-				97D66A362A0DD27900A25935 /* HabbyCollectionViewCell.swift */,
 				97D66A2E2A0C770700A25935 /* StartView.swift */,
 				97D66A342A0CF13700A25935 /* CountdownTimer.swift */,
+				976A030B2A0E87A800424ACF /* HomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				97D66A3A2A0DE20000A25935 /* SplashViewModel.swift */,
+				976A032B2A15CD1700424ACF /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -465,18 +543,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
+				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
+				976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
+				976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */,
+				976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
-				97D669FA2A0C6C3600A25935 /* HomeViewController.swift in Sources */,
+				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
+				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
+				976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */,
 				97D66A352A0CF13700A25935 /* CountdownTimer.swift in Sources */,
 				97D66A312A0CD45F00A25935 /* SkipView.swift in Sources */,
+				976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */,
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
+				976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */,
 				97D66A282A0C724F00A25935 /* SplashView.swift in Sources */,
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
+				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
+				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
+				976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */,
+				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
+				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
+				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
+				976A032F2A15CE3500424ACF /* Model.swift in Sources */,
+				976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */,
+				976A03282A15055900424ACF /* HabbyTableViewCell.swift in Sources */,
 				97D66A262A0C723800A25935 /* SplashViewController.swift in Sources */,
+				976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

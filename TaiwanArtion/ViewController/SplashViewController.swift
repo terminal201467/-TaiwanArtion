@@ -68,8 +68,8 @@ class SplashViewController: UIViewController {
     
     private func setHomeViewControllerPush() {
         splashView.pushToHome = {
-            let homeViewController = HomeViewController()
-            self.navigationController?.pushViewController(homeViewController, animated: true)
+            let rootViewController = RootViewController()
+            self.navigationController?.pushViewController(rootViewController, animated: true)
         }
     }
     

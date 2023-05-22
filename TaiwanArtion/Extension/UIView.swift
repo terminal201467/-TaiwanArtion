@@ -18,4 +18,19 @@ extension UIView {
         layer.borderColor = borderColor.cgColor
         layer.masksToBounds = true
     }
+
+    func setSpecificRoundCorners(corners: CACornerMask, radius: CGFloat) {
+        layer.cornerRadius = radius
+        layer.maskedCorners = corners
+        clipsToBounds = true
+    }
+    
+    func applyShadow(color: UIColor, opacity: Float, offset: CGSize, radius: CGFloat) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = opacity
+        layer.shadowOffset = offset
+        layer.shadowRadius = radius
+        layer.masksToBounds = false
+    }
+
 }
