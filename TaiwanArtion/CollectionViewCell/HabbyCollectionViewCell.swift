@@ -49,6 +49,7 @@ class HabbyCollectionViewCell: UICollectionViewCell {
     private func autoLayout() {
         habbyLabel.snp.makeConstraints { make in
             make.height.equalTo(20)
+            make.width.equalTo(45)
         }
         
         habbyImage.snp.makeConstraints { make in
@@ -64,7 +65,12 @@ class HabbyCollectionViewCell: UICollectionViewCell {
     
     func configureImageAndLabel(by item: HabbyItem) {
         habbyImage.image = UIImage(named: item.imageText)
-        habbyLabel.text = item.titleText
+        habbyLabel.text = item.habbyTitleText
+    }
+    
+    func configureHabby(by item: HabbyItem, isSelected: Bool) {
+        habbyLabel.text = item.habbyTitleText
+        configureItem(by: item, selected: isSelected)
     }
     
     func handleSelectedItemView(by selected: Bool) {
@@ -76,6 +82,14 @@ class HabbyCollectionViewCell: UICollectionViewCell {
             habbyStack.addBorder(borderWidth: 0, borderColor: .tintColor)
             habbyImage.tintColor = .middleGrayColor
             habbyLabel.textColor = .middleGrayColor
+        }
+    }
+    
+    private func configureItem(by item: HabbyItem, selected: Bool) {
+        if selected {
+            habbyImage.image = UIImage(named: item.homeHabbyImageText + "Selected")
+        } else {
+            habbyImage.image = UIImage(named: item.homeHabbyImageText)
         }
     }
 }

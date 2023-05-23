@@ -16,8 +16,11 @@ class MainPhotosTableViewCell: UITableViewCell {
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 16
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(MainPhotosCollectionViewCell.self, forCellWithReuseIdentifier: MainPhotosCollectionViewCell.reuseIdentifier)
+        collectionView.allowsSelection = true
+        collectionView.isScrollEnabled = true
         return collectionView
     }()
 
@@ -37,7 +40,7 @@ class MainPhotosTableViewCell: UITableViewCell {
     }
 
     private func autoLayout() {
-        addSubview(collectionView)
+        contentView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -55,6 +58,8 @@ extension MainPhotosTableViewCell: UICollectionViewDataSource, UICollectionViewD
                        date: mainPhotos[indexPath.row].date,
                        tagText: "雕塑",
                        image: mainPhotos[indexPath.row].image)
+        cell.contentView.roundCorners(cornerRadius: 12)
+        cell.contentView.applyShadow(color: .black, opacity: 0.5, offset: CGSize(width: 2, height: 2), radius: 4)
         return cell
     }
     
@@ -64,9 +69,9 @@ extension MainPhotosTableViewCell: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let frameHeight = frame.height * (231.0 / 844.0)
-        let frameWidth = frame.width * (299.0 / 390.0)
-        return CGSize(width: frameWidth, height: frameHeight)
+        let cellHeight = frame.height
+        let cellWidth = frame.width - 45 * 2
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
 }

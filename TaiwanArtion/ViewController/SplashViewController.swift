@@ -39,6 +39,36 @@ enum HabbyItem: Int, CaseIterable {
         case .history: return "歷史文物"
         }
     }
+    
+    var habbyTitleText: String {
+        switch self {
+        case .painting: return "繪畫"
+        case .sculpture: return "雕塑"
+        case .calligraphy: return "書法"
+        case .design: return "設計"
+        case .camara: return "攝影"
+        case .literature: return "文學"
+        case .media: return "影音"
+        case .installationArt: return "藝術"
+        case .compositeMedia: return "媒材"
+        case .history: return "歷史"
+        }
+    }
+    
+    var homeHabbyImageText: String {
+        switch self {
+        case .painting: return "homePainting"
+        case .sculpture: return "homeSculpture"
+        case .calligraphy: return "homeCalligraphy"
+        case .design: return "homeDesign"
+        case .camara: return "homeCamara"
+        case .literature: return "homeLiterature"
+        case .media: return "homeMedia"
+        case .installationArt: return "homeInstallationArt"
+        case .compositeMedia: return "homeCompositeMedia"
+        case .history: return "homeHistory"
+        }
+    }
 }
 class SplashViewController: UIViewController {
     

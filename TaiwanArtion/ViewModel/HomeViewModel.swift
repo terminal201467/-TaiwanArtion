@@ -25,7 +25,6 @@ enum Month: Int, CaseIterable {
         case .dec: return "12"
         }
     }
-    
     var englishText: String {
         switch self {
         case .jan: return "Jan"
@@ -64,15 +63,30 @@ class HomeViewModel {
     
     private var selectedMonth: Month = .jan
     
+    private var selectedHabby: HabbyItem? = nil
+    
     //MARK: - MonthCollectionView
-    func didSelectItemAt(indexPath: IndexPath) {
+    func didMonthSelectItemAt(indexPath: IndexPath) {
         selectedMonth = Month(rawValue: indexPath.row)!
         //打API要該月份的資料
     }
     
-    func cellForRowAt(indexPath: IndexPath) -> (selectedMonth: Month, isSelected: Bool) {
+    func monthCellForRowAt(indexPath: IndexPath) -> (selectedMonth: Month, isSelected: Bool) {
         let month = Month.allCases[indexPath.row]
         let isSelected = Month(rawValue: indexPath.row) == selectedMonth
         return (month, isSelected)
+    }
+    
+    //MARK: - HabbyCollectionView
+    func didSelectHabbyItemAt(indexPath: IndexPath) {
+        selectedHabby = HabbyItem(rawValue: indexPath.row)
+        //打API要Habby的資料
+        print("selectedHabby:\(HabbyItem(rawValue: indexPath.row)?.titleText)")
+    }
+    
+    func habbyCellForRowAt(indexPath: IndexPath) -> (selectedHabby :HabbyItem, isSelected: Bool) {
+        let habby = HabbyItem.allCases[indexPath.row]
+        let isSelected = HabbyItem(rawValue: indexPath.row) == selectedHabby
+        return (habby, isSelected)
     }
 }

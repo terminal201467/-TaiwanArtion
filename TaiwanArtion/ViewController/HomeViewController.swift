@@ -97,8 +97,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let frameHeight = view.frame.height
         switch TableCell(rawValue: indexPath.row) {
         case .month: return 50.0
-        case .habby: return 140.0 * (140.0 / frameHeight)
-        case .mainExhibitioin: return 230.0 * (230.0 / frameHeight)
+        case .habby: return 140.0
+        case .mainExhibitioin: return 230.0
         case .hotExhibition: return 566.0 * (566.0 / frameHeight)
         case .newsExhibition:return 268.0 * (268.0 / frameHeight)
         case .allExhibition:return 844.0 * (844.0 / frameHeight)

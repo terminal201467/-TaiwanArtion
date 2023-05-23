@@ -60,12 +60,12 @@ extension MonthTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthCollectionViewCell.reuseIdentifier, for: indexPath) as! MonthCollectionViewCell
-        cell.configureLabel(month: viewModel.cellForRowAt(indexPath: indexPath).selectedMonth, selected: viewModel.cellForRowAt(indexPath: indexPath).isSelected)
+        cell.configureLabel(month: viewModel.monthCellForRowAt(indexPath: indexPath).selectedMonth, selected: viewModel.monthCellForRowAt(indexPath: indexPath).isSelected)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectItemAt(indexPath: indexPath)
+        viewModel.didMonthSelectItemAt(indexPath: indexPath)
         collectionView.reloadData()
     }
     

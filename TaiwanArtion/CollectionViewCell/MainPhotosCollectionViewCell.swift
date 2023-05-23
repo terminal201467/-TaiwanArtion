@@ -22,7 +22,8 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .white
         label.backgroundColor = .tagYellowColor
-        label.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMaxYCorner], radius: 8)
+        label.textAlignment = .center
+        label.setSpecificRoundCorners(corners: [.layerMaxXMinYCorner, .layerMinXMaxYCorner], radius: 8)
         return label
     }()
     
@@ -44,6 +45,7 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
     
     private let collectButton: UIButton = {
         let button = UIButton()
+        button.setImage(UIImage(named: "collect"), for: .normal)
         return button
     }()
     
@@ -68,8 +70,8 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
     private func autoLayout() {
         addSubview(exhibitionImage)
         exhibitionImage.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(283.0 / 390.0)
-            make.height.equalToSuperview().multipliedBy(160.0 / 844.0)
+            make.width.equalToSuperview().multipliedBy(283.0 / frame.width)
+            make.height.equalToSuperview().multipliedBy(160.0 / frame.height)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(8)
         }
@@ -78,23 +80,23 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         tagLabel.snp.makeConstraints { make in
             make.leading.equalTo(exhibitionImage.snp.leading)
             make.bottom.equalTo(exhibitionImage.snp.bottom)
-            make.height.equalToSuperview().multipliedBy(24.0 / 844.0)
-            make.width.equalToSuperview().multipliedBy(40.0 / 390.0)
+            make.height.equalToSuperview().multipliedBy(24.0 / frame.height)
+            make.width.equalToSuperview().multipliedBy(40.0 / frame.width)
         }
         
         addSubview(titleInfoStack)
         titleInfoStack.snp.makeConstraints { make in
-            make.top.equalTo(exhibitionImage.snp.bottom)
+            make.top.equalTo(exhibitionImage.snp.bottom).offset(8.0)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         
         addSubview(collectButton)
         collectButton.snp.makeConstraints { make in
-            make.width.equalTo(23)
-            make.height.equalTo(23)
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(23.0 / frame.width)
+            make.height.equalToSuperview().multipliedBy(40.0 / frame.height)
+            make.trailing.equalTo(exhibitionImage.snp.trailing).offset(-10)
+            make.top.equalTo(exhibitionImage.snp.top).offset(5)
         }
     }
     
@@ -103,5 +105,9 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         dateLabel.text = date
         tagLabel.text = tagText
         exhibitionImage.image = UIImage(named: image)
+    }
+    
+    func configureCollectButton() {
+        
     }
 }

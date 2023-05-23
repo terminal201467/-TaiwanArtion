@@ -74,6 +74,7 @@ class HomeView: UIView {
         tableView.register(YearHeaderView.self, forHeaderFooterViewReuseIdentifier: YearHeaderView.reuseIdentifier)
         tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.applyShadow(color: .black, opacity: 0.3, offset: CGSize(width: 1, height: 1), radius: 4)
         return tableView
     }()
