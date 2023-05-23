@@ -8,6 +8,8 @@
 import UIKit
 
 class NewsTableViewCell: UITableViewCell {
+    
+    static let reuseIdentifier: String = "NewsTableViewCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()

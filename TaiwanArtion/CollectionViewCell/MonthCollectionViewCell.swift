@@ -26,7 +26,7 @@ class MonthCollectionViewCell: UICollectionViewCell {
     private lazy var monthStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [monthLabel, englishMonthLabel])
         stackView.axis = .vertical
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 2
         return stackView

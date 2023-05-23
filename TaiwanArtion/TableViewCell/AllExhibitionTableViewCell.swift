@@ -8,6 +8,8 @@
 import UIKit
 
 class AllExhibitionTableViewCell: UITableViewCell {
+    
+    static let reuseIdentifier: String = "AllExhibitionTableViewCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()

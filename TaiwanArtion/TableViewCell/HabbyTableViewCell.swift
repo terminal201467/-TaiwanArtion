@@ -14,7 +14,7 @@ class HabbyTableViewCell: UITableViewCell {
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: MonthCollectionViewCell.reuseIdentifier)
+        collectionView.register(HabbyCollectionViewCell.self, forCellWithReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier)
         collectionView.isScrollEnabled = false
         return collectionView
     }()

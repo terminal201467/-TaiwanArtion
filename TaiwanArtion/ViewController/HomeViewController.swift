@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
 
     private let homeView = HomeView()
     
-    private let viewModel = HomeViewModel()
+    private let viewModel = HomeViewModel.shared
     
     override func loadView() {
         super.loadView()
@@ -35,6 +35,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
+        setTableView()
+        setYearHeader(with: "2023")
     }
     
     private func setNavigationBar() {
@@ -44,6 +46,10 @@ class HomeViewController: UIViewController {
     private func setTableView() {
         homeView.tableView.delegate = self
         homeView.tableView.dataSource = self
+    }
+    
+    private func setYearHeader(with year: String) {
+        homeView.yearHeader.configure(with: year)
     }
 
 }
@@ -57,13 +63,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         switch TableCell(rawValue: indexPath.row) {
         case .month:
             let cell = tableView.dequeueReusableCell(withIdentifier: MonthTableViewCell.reuseIdentifier, for: indexPath) as! MonthTableViewCell
+            cell.selectionStyle = .none
             return cell
         case .habby:
             let cell = tableView.dequeueReusableCell(withIdentifier: HabbyTableViewCell.reuseIdentifier, for: indexPath) as! HabbyTableViewCell
             return cell
         case .mainExhibitioin:
             let cell = tableView.dequeueReusableCell(withIdentifier: MainPhotosTableViewCell.reuseIdentifier, for: indexPath) as! MainPhotosTableViewCell
-            cell.mainPhotos = viewModel.mainPhoto
+            cell.mainPhotos = self.viewModel.mainPhoto
             return cell
         case .hotExhibition:
             let cell = tableView.dequeueReusableCell(withIdentifier: HotDetailTableViewCell.reuseIdentifier, for: indexPath) as! HotDetailTableViewCell
@@ -82,10 +89,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return homeView.yearHeader
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let frameHeight = view.frame.height
         switch TableCell(rawValue: indexPath.row) {
-        case .month: return 43.0 * (43.0 / frameHeight)
+        case .month: return 50.0
         case .habby: return 140.0 * (140.0 / frameHeight)
         case .mainExhibitioin: return 230.0 * (230.0 / frameHeight)
         case .hotExhibition: return 566.0 * (566.0 / frameHeight)
