@@ -15,3 +15,13 @@ struct ExhibitionModel {
     var image: String
     
 }
+
+
+struct NewsModel {
+    
+    var title: String
+    var date: String
+    var author: String
+    var image: String
+    
+}

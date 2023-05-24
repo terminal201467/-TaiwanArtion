@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TitleHeaderView: UITableViewHeaderFooterView {
     
     static let reuseIdentifier: String = "TitleHeaderView"
+    
+    private let disposeBag = DisposeBag()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -18,9 +22,19 @@ class TitleHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
+    let checkMoreButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("查看更多", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        button.setTitleColor(.grayTextColor, for: .normal)
+        button.isHidden = true
+        return button
+    }()
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         autoLayout()
+        setCheckMoreButton()
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +47,12 @@ class TitleHeaderView: UITableViewHeaderFooterView {
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
         }
+        
+        addSubview(checkMoreButton)
+        checkMoreButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-32)
+        }
     }
     
     func configureYear(with text: String) {
@@ -41,5 +61,13 @@ class TitleHeaderView: UITableViewHeaderFooterView {
     
     func configureTitle(with text: String) {
         titleLabel.text = text
+    }
+    
+    private func setCheckMoreButton() {
+        checkMoreButton.rx.tap
+            .subscribe(onNext: {
+                print("查看更多Action")
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -49,7 +49,7 @@ enum HomeSections: Int, CaseIterable {
         switch self {
         case .year: return ""
         case .hot: return "熱門展覽"
-        case .news: return "藝文展覽"
+        case .news: return "藝文新聞"
         case .all: return "所有展覽"
         }
     }
@@ -73,11 +73,24 @@ class HomeViewModel {
         ExhibitionModel(title: "奇美博物館驚魂夜", location: "台南市", date: "2023.03.21 - 4.20", image: "noIdea")
     ]
     
-    private var selectedMonth: Month = .jan
+    var news: [NewsModel] = [
+        NewsModel(title: "德國博物館483枚古金幣遭竊 損失數百萬歐元", date: "2022.12.01", author: "吳綺莉", image: "2049"),
+        NewsModel(title: "德國博物館483枚古金幣遭竊 損失數百萬歐元", date: "2022.12.01", author: "吳綺莉", image: "2049"),
+        NewsModel(title: "德國博物館483枚古金幣遭竊 損失數百萬歐元", date: "2022.12.01", author: "吳綺莉", image: "2049")
+    ]
     
-    private var selectedHabby: HabbyItem? = nil
+    var allExhibition: [ExhibitionModel] = [
+        ExhibitionModel(title: "未來身體-超自然雕塑", location: "台南市", date: "2023.05.18 - 05.20", image: "flowerPaint"),
+        ExhibitionModel(title: "熊洞 bear hole", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint"),
+        ExhibitionModel(title: "亻─ 生而為人", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint"),
+        ExhibitionModel(title: "植物觀－2023朱銘美術館年度特展", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint"),
+        ExhibitionModel(title: "糖衣的風景」江⼝綾⾳個展", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint")
+    ]
     
     //MARK: - MonthCollectionView
+    
+    private var selectedMonth: Month = .jan
+    
     func didMonthSelectItemAt(indexPath: IndexPath) {
         selectedMonth = Month(rawValue: indexPath.row)!
         //打API要該月份的資料
@@ -90,6 +103,9 @@ class HomeViewModel {
     }
     
     //MARK: - HabbyCollectionView
+    
+    private var selectedHabby: HabbyItem? = nil
+    
     func didSelectHabbyItemAt(indexPath: IndexPath) {
         selectedHabby = HabbyItem(rawValue: indexPath.row)
         //打API要Habby的資料
@@ -103,7 +119,7 @@ class HomeViewModel {
     }
     
     //MARK: - HotTableView
-    func hotExhibitionNumberOfRowInSection(section: Int) -> Int{
+    func hotExhibitionNumberOfRowInSection(section: Int) -> Int {
         return hotExhibition.count
     }
     
@@ -113,6 +129,46 @@ class HomeViewModel {
     
     func hotExhibitionDidSelectedRowAt(indexPath: IndexPath) {
         
+    }
+    
+    //MARK: - NewsTableView
+    func newsExhibitionNumerOfRowInSection(section: Int) -> Int {
+        return news.count
+    }
+    
+    func newsExhibitionCellForRowAt(indexPath: IndexPath) -> NewsModel {
+        return news[indexPath.row]
+    }
+    
+    func newsExhibitionDidSelectedRowAt(indexPath: IndexPath) {
+        
+    }
+    
+    //MARK: - AllExhibitionTableView
+    func allExhibitionNumerOfRowInSection(section: Int) -> Int {
+        return allExhibition.count
+    }
+    
+    func allExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionModel {
+        return allExhibition[indexPath.row]
+    }
+    
+    func allExhibitionDidSelectedRowAt(indexPath: IndexPath) {
+        
+    }
+    
+    //MARK: -ItemsSelected
+    
+    var selectItem: Items = .newest
+    
+    func itemCellForRowAt(indexPath: IndexPath) -> (item: Items, isSelected: Bool) {
+        let item = Items.allCases[indexPath.row]
+        let isSelected = Items(rawValue: indexPath.row) == selectItem
+        return (item, isSelected)
+    }
+    
+    func itemDidSelectedRowAt(indexPath: IndexPath) {
+        selectItem = Items(rawValue: indexPath.row)!
     }
     
 }

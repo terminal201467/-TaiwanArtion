@@ -63,10 +63,13 @@ class HomeViewController: UIViewController {
         homeView.tableView.delegate = self
         homeView.tableView.dataSource = self
     }
-
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return HomeSections.allCases.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch HomeSections(rawValue: section) {
         case .year: return 3
@@ -99,11 +102,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             switch HotCell(rawValue: indexPath.row) {
             case .hotExhibition:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HotHxhibitionTableViewCell.reuseIdentifier, for: indexPath) as! HotHxhibitionTableViewCell
+                cell.selectionStyle = .none
                 return cell
             case .none: return UITableViewCell()
             }
-        case .news: return UITableViewCell()
-        case .all: return UITableViewCell()
+        case .news:
+            switch NewsCell(rawValue: indexPath.row) {
+            case .newsExhibition:
+                let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseIdentifier, for: indexPath) as! NewsTableViewCell
+                cell.selectionStyle = .none
+                return cell
+            case .none: return UITableViewCell()
+            }
+        case .all:
+            switch AllCell(rawValue: indexPath.row) {
+            case .allExhibition:
+                let cell = tableView.dequeueReusableCell(withIdentifier: AllExhibitionTableViewCell.reuseIdentifier, for: indexPath) as!
+                AllExhibitionTableViewCell
+                cell.selectionStyle = .none
+                cell.backgroundColor = .whiteGrayColor
+                return cell
+            case .none: return UITableViewCell()
+            }
         case .none: return UITableViewCell()
         }
     }
@@ -114,17 +134,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let yearView = TitleHeaderView()
             yearView.configureYear(with: "2023")
             return yearView
-        case .news:
-            let newsView = TitleHeaderView()
-            newsView.configureTitle(with: HomeSections.news.title)
-            return newsView
         case .hot:
             let hotView = TitleHeaderView()
             hotView.configureTitle(with: HomeSections.hot.title)
             return hotView
+        case .news:
+            let newsView = TitleHeaderView()
+            newsView.configureTitle(with: HomeSections.news.title)
+            newsView.checkMoreButton.isHidden = false
+            return newsView
         case .all:
             let allView = TitleHeaderView()
+            allView.contentView.backgroundColor = .whiteGrayColor
             allView.configureTitle(with: HomeSections.all.title)
+            allView.backgroundColor = .whiteGrayColor
             return allView
         case .none: return UIView()
         }
@@ -141,7 +164,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case .hot:
             switch HotCell(rawValue: indexPath.row) {
-            case .hotExhibition: return 566.0
+            case .hotExhibition: return 580.0
             case .none: return 0
             }
         case .news:
