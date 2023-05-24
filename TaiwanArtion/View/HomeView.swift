@@ -68,18 +68,16 @@ class HomeView: UIView {
         tableView.register(MonthTableViewCell.self, forCellReuseIdentifier: MonthTableViewCell.reuseIdentifier)
         tableView.register(HabbyTableViewCell.self, forCellReuseIdentifier: HabbyTableViewCell.reuseIdentifier)
         tableView.register(MainPhotosTableViewCell.self, forCellReuseIdentifier: MainPhotosTableViewCell.reuseIdentifier)
-        tableView.register(HotDetailTableViewCell.self, forCellReuseIdentifier: HotDetailTableViewCell.reuseIdentifier)
+        tableView.register(HotHxhibitionTableViewCell.self, forCellReuseIdentifier: HotHxhibitionTableViewCell.reuseIdentifier)
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseIdentifier)
         tableView.register(AllExhibitionTableViewCell.self, forCellReuseIdentifier: AllExhibitionTableViewCell.reuseIdentifier)
-        tableView.register(YearHeaderView.self, forHeaderFooterViewReuseIdentifier: YearHeaderView.reuseIdentifier)
+        tableView.register(TitleHeaderView.self, forHeaderFooterViewReuseIdentifier: TitleHeaderView.reuseIdentifier)
         tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.applyShadow(color: .black, opacity: 0.3, offset: CGSize(width: 1, height: 1), radius: 4)
         return tableView
     }()
-    
-    let yearHeader = YearHeaderView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

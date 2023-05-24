@@ -1,5 +1,5 @@
 //
-//  YearHeaderView.swift
+//  TitleHeaderView.swift
 //  TaiwanArtion
 //
 //  Created by Jhen Mu on 2023/5/22.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class YearHeaderView: UITableViewHeaderFooterView {
+class TitleHeaderView: UITableViewHeaderFooterView {
     
-    static let reuseIdentifier: String = "YearHeaderView"
+    static let reuseIdentifier: String = "TitleHeaderView"
 
-    private let yearLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .darkGray
@@ -28,14 +28,18 @@ class YearHeaderView: UITableViewHeaderFooterView {
     }
     
     private func autoLayout() {
-        addSubview(yearLabel)
-        yearLabel.snp.makeConstraints { make in
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
         }
     }
     
-    func configure(with text: String) {
-        yearLabel.text = "\(text)年"
+    func configureYear(with text: String) {
+        titleLabel.text = "\(text)年"
+    }
+    
+    func configureTitle(with text: String) {
+        titleLabel.text = text
     }
 }

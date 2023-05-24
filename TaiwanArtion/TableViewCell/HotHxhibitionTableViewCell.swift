@@ -9,10 +9,16 @@ import UIKit
 
 class HotHxhibitionTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier: String = "HotHxhibitionTableViewCell"
+    
+    private let viewModel = HomeViewModel.shared
+    
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(HotDetailTableViewCell.self, forCellReuseIdentifier: HotDetailTableViewCell.reuseIdentifier)
         tableView.allowsSelection = true
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
         return tableView
     }()
     
@@ -37,17 +43,17 @@ class HotHxhibitionTableViewCell: UITableViewCell {
             make.edges.equalToSuperview()
         }
     }
-
 }
 
 extension HotHxhibitionTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        viewModel.hotExhibitionNumberOfRowInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HotDetailTableViewCell.reuseIdentifier, for: indexPath) as! HotDetailTableViewCell
-        cell.configure(title: "", location: "", date: "", image: "")
+        let exhibition = viewModel.hotExhibitionCellForRowAt(indexPath: indexPath)
+        cell.configure(number: "0\(indexPath.row + 1)", title: exhibition.title, location: exhibition.location, date: exhibition.date, image: exhibition.image)
         return cell
     }
     
@@ -56,6 +62,4 @@ extension HotHxhibitionTableViewCell: UITableViewDelegate, UITableViewDataSource
         let cellHeight = CGFloat(tableView.frame.height - seperatedHeight) / 5
         return cellHeight
     }
-    
-    
 }

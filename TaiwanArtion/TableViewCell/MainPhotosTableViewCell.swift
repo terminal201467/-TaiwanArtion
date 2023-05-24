@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainPhotosTableViewCell: UITableViewCell {
     
@@ -21,8 +22,11 @@ class MainPhotosTableViewCell: UITableViewCell {
         collectionView.register(MainPhotosCollectionViewCell.self, forCellWithReuseIdentifier: MainPhotosCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    
+    private let footerView = MainDotBarFooterView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,9 +44,20 @@ class MainPhotosTableViewCell: UITableViewCell {
     }
 
     private func autoLayout() {
+        contentView.addSubview(footerView)
         contentView.addSubview(collectionView)
+        footerView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.height.equalTo(30.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.bottom.equalTo(footerView.snp.top)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
         }
     }
 }
@@ -65,13 +80,15 @@ extension MainPhotosTableViewCell: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //跳出細節頁面
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellHeight = frame.height
+        let cellHeight = frame.height - 60
         let cellWidth = frame.width - 45 * 2
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
 }

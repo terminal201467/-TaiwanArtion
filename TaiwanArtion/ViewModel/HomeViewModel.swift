@@ -43,6 +43,18 @@ enum Month: Int, CaseIterable {
     }
 }
 
+enum HomeSections: Int, CaseIterable {
+    case year = 0, hot, news, all
+    var title: String {
+        switch self {
+        case .year: return ""
+        case .hot: return "熱門展覽"
+        case .news: return "藝文展覽"
+        case .all: return "所有展覽"
+        }
+    }
+}
+
 class HomeViewModel {
     
     static let shared = HomeViewModel()
@@ -52,7 +64,7 @@ class HomeViewModel {
         ExhibitionModel(title: "熊洞 bear hole", location: "台南市", date: "2023.03.21 - 4.20", image: "bearHole"),
         ExhibitionModel(title: "亻─ 生而為人", location: "台南市", date: "2023.03.21 - 4.20", image: "bornAsHuman"),
         ExhibitionModel(title: "植物觀－2023朱銘美術館年度特展", location: "台南市", date: "2023.03.21 - 4.20", image: "jumain"),
-        ExhibitionModel(title: "糖衣的風景」江⼝綾⾳個展", location: "台南市", date: "2023.03.21 - 4.20", image: "oilPaintin")
+        ExhibitionModel(title: "糖衣的風景」江⼝綾⾳個展", location: "台南市", date: "2023.03.21 - 4.20", image: "jumain")
     ]
     
     var mainPhoto: [ExhibitionModel] = [
@@ -89,4 +101,18 @@ class HomeViewModel {
         let isSelected = HabbyItem(rawValue: indexPath.row) == selectedHabby
         return (habby, isSelected)
     }
+    
+    //MARK: - HotTableView
+    func hotExhibitionNumberOfRowInSection(section: Int) -> Int{
+        return hotExhibition.count
+    }
+    
+    func hotExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionModel {
+        return hotExhibition[indexPath.row]
+    }
+    
+    func hotExhibitionDidSelectedRowAt(indexPath: IndexPath) {
+        
+    }
+    
 }

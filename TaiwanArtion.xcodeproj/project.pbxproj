@@ -29,8 +29,9 @@
 		976A032F2A15CE3500424ACF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A032E2A15CE3500424ACF /* Model.swift */; };
 		976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */; };
 		976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03322A15D9A200424ACF /* MainPhotosCollectionViewCell.swift */; };
-		978834B52A1B892100ADBEE8 /* YearHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834B42A1B892100ADBEE8 /* YearHeaderView.swift */; };
+		978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834B42A1B892100ADBEE8 /* TitleHeaderView.swift */; };
 		978834B72A1B8DE700ADBEE8 /* TimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834B62A1B8DE700ADBEE8 /* TimeHelper.swift */; };
+		978834B92A1C967200ADBEE8 /* MainDotBarFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -92,8 +93,9 @@
 		976A032E2A15CE3500424ACF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotosTableViewCell.swift; sourceTree = "<group>"; };
 		976A03322A15D9A200424ACF /* MainPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
-		978834B42A1B892100ADBEE8 /* YearHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearHeaderView.swift; sourceTree = "<group>"; };
+		978834B42A1B892100ADBEE8 /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
 		978834B62A1B8DE700ADBEE8 /* TimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeHelper.swift; sourceTree = "<group>"; };
+		978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDotBarFooterView.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				976A03132A0E8B2200424ACF /* NewsTableViewCell.swift */,
-				978834B42A1B892100ADBEE8 /* YearHeaderView.swift */,
+				978834B42A1B892100ADBEE8 /* TitleHeaderView.swift */,
 				976A03112A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift */,
 				976A03252A15054300424ACF /* MonthTableViewCell.swift */,
 				976A03292A15C2D800424ACF /* HotDetailTableViewCell.swift */,
@@ -279,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				97D66A302A0CD45F00A25935 /* SkipView.swift */,
+				978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */,
 				97D66A272A0C724F00A25935 /* SplashView.swift */,
 				97D66A2E2A0C770700A25935 /* StartView.swift */,
 				97D66A342A0CF13700A25935 /* CountdownTimer.swift */,
@@ -552,10 +555,11 @@
 				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
-				978834B52A1B892100ADBEE8 /* YearHeaderView.swift in Sources */,
+				978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */,
 				978834B72A1B8DE700ADBEE8 /* TimeHelper.swift in Sources */,
 				976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
+				978834B92A1C967200ADBEE8 /* MainDotBarFooterView.swift in Sources */,
 				976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */,
 				976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,

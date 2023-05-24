@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainPhotosCollectionViewCell: UICollectionViewCell {
     
@@ -58,6 +59,14 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
+    private let backgroundWhiteView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.roundCorners(cornerRadius: 12)
+        view.applyShadow(color: .gray, opacity: 0.1, offset: CGSize(width: 0.5, height: 0.5), radius: 1)
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
@@ -68,15 +77,20 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
     }
     
     private func autoLayout() {
-        addSubview(exhibitionImage)
-        exhibitionImage.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(283.0 / frame.width)
-            make.height.equalToSuperview().multipliedBy(160.0 / frame.height)
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(8)
+        contentView.addSubview(backgroundWhiteView)
+        backgroundWhiteView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
-        addSubview(tagLabel)
+        contentView.addSubview(exhibitionImage)
+        exhibitionImage.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(270.0 / frame.width)
+            make.height.equalToSuperview().multipliedBy(160.0 / frame.height)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(5)
+        }
+        
+        contentView.addSubview(tagLabel)
         tagLabel.snp.makeConstraints { make in
             make.leading.equalTo(exhibitionImage.snp.leading)
             make.bottom.equalTo(exhibitionImage.snp.bottom)
@@ -84,14 +98,14 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
             make.width.equalToSuperview().multipliedBy(40.0 / frame.width)
         }
         
-        addSubview(titleInfoStack)
+        contentView.addSubview(titleInfoStack)
         titleInfoStack.snp.makeConstraints { make in
             make.top.equalTo(exhibitionImage.snp.bottom).offset(8.0)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.equalTo(exhibitionImage.snp.leading)
+            make.trailing.equalTo(exhibitionImage.snp.trailing)
         }
         
-        addSubview(collectButton)
+        contentView.addSubview(collectButton)
         collectButton.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(23.0 / frame.width)
             make.height.equalToSuperview().multipliedBy(40.0 / frame.height)
