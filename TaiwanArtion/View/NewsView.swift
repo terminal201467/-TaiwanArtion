@@ -6,16 +6,19 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 class NewsView: UIView {
 
-    let backgroundImage: UIImageView = {
+    private let backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 22)
         label.numberOfLines = 0
@@ -28,7 +31,7 @@ class NewsView: UIView {
         return button
     }()
     
-    let contentView: UIView = {
+    private let contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.setSpecificRoundCorners(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], radius: 20)
@@ -42,7 +45,73 @@ class NewsView: UIView {
         tableView.register(NewsSectionView.self, forHeaderFooterViewReuseIdentifier: NewsSectionView.reuseIdentifier)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
+        tableView.showsVerticalScrollIndicator = false
         return tableView
+    }()
+    
+    private let tabView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    let collectButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "collect"), for: .normal)
+        button.setTitleColor(.grayTextColor, for: .normal)
+        return button
+    }()
+    
+    let shareButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "share"), for: .normal)
+        button.setTitleColor(.grayTextColor, for: .normal)
+        return button
+    }()
+    
+    private let shareLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .grayTextColor
+        label.text = "分享展覽"
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let collectLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .grayTextColor
+        label.text = "收藏展覽"
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private lazy var collectStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [collectButton, collectLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0
+        return stackView
+    }()
+    
+    private lazy var shareStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [shareButton, shareLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0
+        return stackView
+    }()
+    
+    private lazy var tabStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [collectStack, shareStack])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        return stackView
     }()
     
     override init(frame: CGRect) {
@@ -91,6 +160,22 @@ class NewsView: UIView {
             make.height.equalTo(36.0)
             make.leading.equalToSuperview().offset(16.0)
             make.top.equalToSuperview().offset(60.0)
+        }
+        
+        addSubview(tabView)
+        tabView.snp.makeConstraints { make in
+            make.height.equalTo(80.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        tabView.addSubview(tabStack)
+        tabStack.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.height.equalTo(41.0)
         }
     }
     

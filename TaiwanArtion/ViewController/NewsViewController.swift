@@ -35,6 +35,10 @@ class NewsViewController: UIViewController {
     
     private let newsView = NewsView()
     
+    var collected: Bool = false
+    
+    var shareAction: (() -> Void)?
+    
     var backAction: (() -> Void)?
     
     private let disposeBag = DisposeBag()
@@ -50,6 +54,7 @@ class NewsViewController: UIViewController {
         setNavigationBar()
         setBackgroundAndTitle()
         setBackAction()
+        setTabButtons()
     }
     
     private func setNavigationBar() {
@@ -74,7 +79,20 @@ class NewsViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-
+    private func setTabButtons() {
+        newsView.collectButton.rx.tap
+            .subscribe(onNext: {
+                self.collected.toggle()
+                self.newsView.collectButton.setImage(UIImage(named: self.collected ? "love" : "collect"), for: .normal)
+            })
+            .disposed(by: disposeBag)
+        
+        newsView.shareButton.rx.tap
+            .subscribe(onNext: {
+                self.shareAction?()
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
