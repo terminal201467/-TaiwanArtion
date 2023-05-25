@@ -13,6 +13,8 @@ class NewsTableViewCell: UITableViewCell {
     
     private let viewModel = HomeViewModel.shared
     
+    var pushToViewController: ((NewsModel) -> Void)?
+    
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -68,5 +70,12 @@ extension NewsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.newsExhibitionDidSelectedRowAt(indexPath: indexPath) { news in
+            print("news:\(news)")
+            self.pushToViewController?(news)
+        }
     }
 }

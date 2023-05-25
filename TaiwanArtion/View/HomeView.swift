@@ -63,7 +63,7 @@ class HomeView: UIView {
     
     //MARK: - 基本佈局
     let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .white
         tableView.register(MonthTableViewCell.self, forCellReuseIdentifier: MonthTableViewCell.reuseIdentifier)
         tableView.register(HabbyTableViewCell.self, forCellReuseIdentifier: HabbyTableViewCell.reuseIdentifier)

@@ -57,12 +57,18 @@ class HomeViewController: UIViewController {
     
     private func setNavigationBar() {
         navigationItem.hidesBackButton = true
+//        let backButton = UIBarButtonItem(image: UIImage(named: "backArrow"), style: .done, target: self, action: #selector(backAction))
+//        navigationItem.backBarButtonItem = backButton
     }
     
     private func setTableView() {
         homeView.tableView.delegate = self
         homeView.tableView.dataSource = self
     }
+    
+//    @objc private func backAction() {
+//        navigationController?.popViewController(animated: true)
+//    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -72,10 +78,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch HomeSections(rawValue: section) {
-        case .year: return 3
-        case .hot: return 1
-        case .news: return 1
-        case .all: return 1
+        case .year: return YearCell.allCases.count
+        case .hot: return HotCell.allCases.count
+        case .news: return NewsCell.allCases.count
+        case .all: return AllCell.allCases.count
         case .none: return 0
         }
     }
@@ -111,6 +117,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             case .newsExhibition:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseIdentifier, for: indexPath) as! NewsTableViewCell
                 cell.selectionStyle = .none
+                cell.pushToViewController = { news in
+                    let viewController = NewsViewController()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+//                    viewController.backAction = {
+//                        self.navigationController?.popViewController(animated: true)
+//                    }
+                }
                 return cell
             case .none: return UITableViewCell()
             }
@@ -150,6 +163,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             allView.backgroundColor = .whiteGrayColor
             return allView
         case .none: return UIView()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch HomeSections(rawValue: section) {
+        case .year: return 50.0
+        case .news: return 50.0
+        case .hot: return 20.0
+        case .all: return 50.0
+        case .none: return 50.0
         }
     }
     

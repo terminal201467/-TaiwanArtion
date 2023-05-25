@@ -36,6 +36,11 @@
 		978834BD2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834BC2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift */; };
 		978834BF2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834BE2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift */; };
 		978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C02A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift */; };
+		978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */; };
+		978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C42A1E25F000ADBEE8 /* NewsView.swift */; };
+		978834C72A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C62A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift */; };
+		978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */; };
+		978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -104,6 +109,11 @@
 		978834BC2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExhibitionCollectionViewCell.swift; sourceTree = "<group>"; };
 		978834BE2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExhibitionSelectItemsView.swift; sourceTree = "<group>"; };
 		978834C02A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsCollectionViewCell.swift; sourceTree = "<group>"; };
+		978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		978834C42A1E25F000ADBEE8 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
+		978834C62A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailTableViewCell.swift; sourceTree = "<group>"; };
+		978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsContentTableViewCell.swift; sourceTree = "<group>"; };
+		978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSectionView.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +204,8 @@
 				976A03272A15055900424ACF /* HabbyTableViewCell.swift */,
 				976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */,
 				976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */,
+				978834C62A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift */,
+				978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -284,6 +296,7 @@
 				976A031B2A0E8CBE00424ACF /* CollectionViewController.swift */,
 				976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */,
 				976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */,
+				978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -294,10 +307,12 @@
 				978834BE2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift */,
 				97D66A302A0CD45F00A25935 /* SkipView.swift */,
 				978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */,
+				978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */,
 				97D66A272A0C724F00A25935 /* SplashView.swift */,
 				97D66A2E2A0C770700A25935 /* StartView.swift */,
 				97D66A342A0CF13700A25935 /* CountdownTimer.swift */,
 				976A030B2A0E87A800424ACF /* HomeView.swift */,
+				978834C42A1E25F000ADBEE8 /* NewsView.swift */,
 				978834B62A1B8DE700ADBEE8 /* TimeHelper.swift */,
 			);
 			path = View;
@@ -569,8 +584,12 @@
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
 				978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */,
 				978834B72A1B8DE700ADBEE8 /* TimeHelper.swift in Sources */,
+				978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */,
+				978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */,
+				978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */,
 				976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
+				978834C72A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift in Sources */,
 				978834B92A1C967200ADBEE8 /* MainDotBarFooterView.swift in Sources */,
 				976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */,
 				976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */,
@@ -595,6 +614,7 @@
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
+				978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */,
 				978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */,
 				976A032F2A15CE3500424ACF /* Model.swift in Sources */,
 				976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */,

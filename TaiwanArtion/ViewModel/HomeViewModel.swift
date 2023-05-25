@@ -80,11 +80,11 @@ class HomeViewModel {
     ]
     
     var allExhibition: [ExhibitionModel] = [
-        ExhibitionModel(title: "未來身體-超自然雕塑", location: "台南市", date: "2023.05.18 - 05.20", image: "flowerPaint"),
-        ExhibitionModel(title: "熊洞 bear hole", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint"),
-        ExhibitionModel(title: "亻─ 生而為人", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint"),
-        ExhibitionModel(title: "植物觀－2023朱銘美術館年度特展", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint"),
-        ExhibitionModel(title: "糖衣的風景」江⼝綾⾳個展", location: "台南市", date: "2023.03.21 - 4.20", image: "flowerPaint")
+        ExhibitionModel(title: "未來身體-超自然雕塑", location: "台南市", date: "2023.05.18 - 05.20", image: "selfDemo"),
+        ExhibitionModel(title: "熊洞 bear hole", location: "台南市", date: "2023.03.21 - 4.20", image: "selfDemo"),
+        ExhibitionModel(title: "亻─ 生而為人", location: "台南市", date: "2023.03.21 - 4.20", image: "selfDemo"),
+        ExhibitionModel(title: "植物觀－2023朱銘美術館年度特展", location: "台南市", date: "2023.03.21 - 4.20", image: "selfDemo"),
+        ExhibitionModel(title: "糖衣的風景」江⼝綾⾳個展", location: "台南市", date: "2023.03.21 - 4.20", image: "selfDemo")
     ]
     
     //MARK: - MonthCollectionView
@@ -140,8 +140,8 @@ class HomeViewModel {
         return news[indexPath.row]
     }
     
-    func newsExhibitionDidSelectedRowAt(indexPath: IndexPath) {
-        
+    func newsExhibitionDidSelectedRowAt(indexPath: IndexPath, completion: @escaping((NewsModel) -> Void)) {
+        completion(news[indexPath.row])
     }
     
     //MARK: - AllExhibitionTableView

@@ -7,10 +7,17 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 class MainPhotosCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "MainPhotosCollectionViewCell"
+    
+    private let disposeBag = DisposeBag()
+    
+    private var collectedOrNot: Bool = false
     
     private let exhibitionImage: UIImageView = {
         let imageView = UIImageView()
@@ -70,6 +77,7 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
+        setCollectButton()
     }
     
     required init?(coder: NSCoder) {
@@ -121,7 +129,21 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         exhibitionImage.image = UIImage(named: image)
     }
     
-    func configureCollectButton() {
+    private func setCollectButton() {
+        collectButton.rx.tap
+            .subscribe(onNext: {
+                self.collectedOrNot.toggle()
+                self.collected()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func collected() {
+        if collectedOrNot {
+            collectButton.setImage(UIImage(named: "collectSelect"), for: .normal)
+        } else {
+            collectButton.setImage(UIImage(named: "collect"), for: .normal)
+        }
         
     }
 }

@@ -70,8 +70,6 @@ extension HabbyTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (frame.width - 20 * 4) / 5
         let cellHeight = (frame.height - 20) / 2
-        print("cellWidth:\(cellWidth)")
-        print("cellHeight:\(cellHeight)")
         return CGSize(width: cellWidth, height: cellHeight)
     }
     

@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 class AllExhibitionCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "AllExhibitionCollectionViewCell"
+    
+    private var collectedOrNot: Bool = false
+    
+    private let disposeBag = DisposeBag()
     
     private let exhibitionImage: UIImageView = {
         let imageView = UIImageView()
@@ -19,6 +26,7 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
     
     private let collectButton: UIButton = {
         let button = UIButton()
+        button.setImage(UIImage(named: "collect"), for: .normal)
         return button
     }()
     
@@ -84,6 +92,7 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
+        setCollectButton()
     }
     
     required init?(coder: NSCoder) {
@@ -127,4 +136,20 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
         cityLabel.text = exhibition.location
     }
     
+    private func setCollectButton() {
+        collectButton.rx.tap
+            .subscribe(onNext: {
+                self.collectedOrNot.toggle()
+                self.collected()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func collected() {
+        if collectedOrNot {
+            collectButton.setImage(UIImage(named: "collectSelect"), for: .normal)
+        } else {
+            collectButton.setImage(UIImage(named: "collect"), for: .normal)
+        }
+    }
 }
