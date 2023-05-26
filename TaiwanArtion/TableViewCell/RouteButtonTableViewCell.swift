@@ -12,6 +12,8 @@ import SnapKit
 
 class RouteButtonTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier: String = "RouteButtonTableViewCell"
+    
     var startRoute: (() -> Void)?
     
     private let disposeBag = DisposeBag()

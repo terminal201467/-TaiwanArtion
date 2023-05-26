@@ -68,16 +68,45 @@ class ExhibitionCardViewModel {
         }
     }
     
-//    func numberOfRowInSection(chooseItem: CardInfoItem, section: Int) -> Int {
-//        switch chooseItem {
-//        case .overview: return 1
-//        case .introduce: return 1
-//        case .ticketPrice: return 7
-//        case .location:
-//            switch section ==
-//        case .evaluate: return
-//        }
-//    }
+    func numberOfRowInSection(chooseItem: CardInfoItem, section: Int) -> Int {
+        switch chooseItem {
+        case .overview:
+            switch OverViewSection(rawValue: section) {
+            case .overview: return OverViewContentCell.allCases.count
+            case .none: return 1
+            }
+        case .introduce:
+            switch IntroduceSection(rawValue: section) {
+            case .intro: return IntroduceContentCell.allCases.count
+            case .none: return 1
+            }
+        case .ticketPrice:
+            switch TicketPriceSection(rawValue: section) {
+            case .price: return TicketPriceContentCell.allCases.count
+            case .none: return 1
+            }
+        case .location:
+            switch LocationSection(rawValue: section) {
+            case .location: return LocationContentCell.allCases.count
+            case .equipment: return 1
+            case .map: return 1
+            case .route: return 1
+            case .none: return 1
+            }
+        case .evaluate:
+            return 1
+        }
+    }
+    
+    func heightForHeaderInSection(chooseItem: CardInfoItem, section: Int) -> CGFloat {
+        switch chooseItem {
+        case .overview: return OverViewSection(rawValue: section)!.height
+        case .introduce: return IntroduceSection(rawValue: section)!.height
+        case .ticketPrice: return TicketPriceSection(rawValue: section)!.height
+        case .location: return LocationSection(rawValue: section)!.height
+        case .evaluate: return EvaluationSection(rawValue: section)!.height
+        }
+    }
 
 //    func cellForRowAt(chooseItem: CardInfoItem, indexPath: IndexPath) -> ExhibitionModel {
 //

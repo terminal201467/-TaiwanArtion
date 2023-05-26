@@ -29,7 +29,7 @@ class NewsContentTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
-        addSubview(contentLabel)
+        contentView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview().offset(16)

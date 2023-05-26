@@ -59,6 +59,8 @@ class NewsDetailTableViewCell: UITableViewCell {
     
     func configure(title: String, contentText: String) {
         titleLabel.text = title
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.textColor = .grayTextColor
         contentLabel.text = contentText
         contentLabel.backgroundColor = .white
         contentLabel.textColor = .grayTextColor
@@ -67,9 +69,12 @@ class NewsDetailTableViewCell: UITableViewCell {
     
     func configureWithTag(title: String, tag: String) {
         titleLabel.text = title
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.textColor = .grayTextColor
         contentLabel.text = tag
         contentLabel.backgroundColor = .tagYellowColor
         contentLabel.textColor = .white
+        contentLabel.font = UIFont.systemFont(ofSize: 16)
         contentLabel.roundCorners(cornerRadius: 14)
     }
     

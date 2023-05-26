@@ -178,50 +178,18 @@ class ExhibitionCardViewController: UIViewController {
 
 }
 
+//MARK: - TableView settings
 extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSections(by: selectedItem)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch selectedItem {
-        case .overview:
-            switch OverViewSection(rawValue: section) {
-            case .overview: return OverViewContentCell.allCases.count
-            case .none: return 1
-            }
-        case .introduce:
-            switch IntroduceSection(rawValue: section) {
-            case .intro: return IntroduceContentCell.allCases.count
-            case .none: return 1
-            }
-        case .ticketPrice:
-            switch TicketPriceSection(rawValue: section) {
-            case .price: return TicketPriceContentCell.allCases.count
-            case .none: return 1
-            }
-        case .location:
-            switch LocationSection(rawValue: section) {
-            case .location: return LocationContentCell.allCases.count
-            case .equipment: return 1
-            case .map: return 1
-            case .equipment: return 1
-            case .route: return 1
-            case .none: return 1
-            }
-        case .evaluate:
-            return 1
-        }
+        return viewModel.numberOfRowInSection(chooseItem: selectedItem, section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch selectedItem {
-        case .overview: return OverViewSection(rawValue: section)!.height
-        case .introduce: return IntroduceSection(rawValue: section)!.height
-        case .ticketPrice: return TicketPriceSection(rawValue: section)!.height
-        case .location: return LocationSection(rawValue: section)!.height
-        case .evaluate: return EvaluationSection(rawValue: section)!.height
-        }
+        return viewModel.heightForHeaderInSection(chooseItem: selectedItem, section: section)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -260,12 +228,11 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                 let view = NewsSectionView()
                 view.configure(title: LocationSection.equipment.title)
                 return view
-            case .map: return UIView()
-            case .route: return UIView()
-            case .none: return UIView()
+            case .map: return nil
+            case .route: return nil
+            case .none: return nil
             }
-        case .evaluate:
-            return UIView()
+        case .evaluate: return nil
         }
     }
 
@@ -380,30 +347,37 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                 switch LocationContentCell(rawValue: indexPath.row) {
                 case .location:
                     let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
-                    cell.configureLocationDetail(title: LocationContentCell.location.title, contentText: viewModel.exhibitionInfo.location)
+                    cell.configureLocationDetail(title: LocationContentCell.location.title,
+                                                 contentText: viewModel.exhibitionInfo.location)
+                    cell.selectionStyle = .none
                     return cell
                 case .address:
                     let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
-                    cell.configureLocationDetail(title: LocationContentCell.address.title, contentText: viewModel.exhibitionInfo.address)
+                    cell.configureLocationDetail(title: LocationContentCell.address.title,
+                                                 contentText: viewModel.exhibitionInfo.address)
+                    cell.selectionStyle = .none
                     return cell
-                case .none: print("Cell")
+                case .none: return UITableViewCell()
                 }
             case .equipment:
-                print("需要客製化Cell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: EquipmentTableViewCell.reuseIdentifier, for: indexPath) as! EquipmentTableViewCell
+                cell.equipments = viewModel.exhibitionInfo.equipments
+                return cell
             case .map:
-                print("MapCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.reuseIdentifier, for: indexPath) as! MapTableViewCell
+                cell.configure(location: viewModel.exhibitionInfo.location,
+                               address: viewModel.exhibitionInfo.address)
+                return cell
             case .route:
-                print("RouteCell")
-            case .none:
-                print("NoneCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: RouteButtonTableViewCell.reuseIdentifier, for: indexPath) as! RouteButtonTableViewCell
+                cell.startRoute = {
+                    print("規劃路線")
+                }
+                return cell
+            case .none: return UITableViewCell()
             }
-        case .evaluate:
-            print("EvaluateSection")
+        case .evaluate: return UITableViewCell()
         }
         return UITableViewCell()
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        <#code#>
-//    }
 }

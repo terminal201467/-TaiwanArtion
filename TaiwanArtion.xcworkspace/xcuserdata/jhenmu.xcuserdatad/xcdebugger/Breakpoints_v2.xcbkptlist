@@ -20,5 +20,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6D8E3A00-8AB4-4B4D-A4E3-C965A22350B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TaiwanArtion/ViewController/ExhibitionCardViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A5165EA3-E233-4F44-B842-592D1F962334"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TaiwanArtion/ViewController/ExhibitionCardViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A5165EA3-E233-4F44-B842-592D1F962334 - c696854aec02f05c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaiwanArtion.ExhibitionCardViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "TaiwanArtion"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jhenmu/Developer/iOSRepository/TaiwanArtion/TaiwanArtion/ViewController/ExhibitionCardViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "373"
+                  endingLineNumber = "373"
+                  offsetFromSymbolStart = "9572">
+               </Location>
+               <Location
+                  uuid = "A5165EA3-E233-4F44-B842-592D1F962334 - 49ef63c9c9c86aef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in TaiwanArtion.ExhibitionCardViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "TaiwanArtion"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jhenmu/Developer/iOSRepository/TaiwanArtion/TaiwanArtion/ViewController/ExhibitionCardViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "374"
+                  endingLineNumber = "374"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
