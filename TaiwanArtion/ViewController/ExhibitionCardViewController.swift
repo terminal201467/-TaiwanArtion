@@ -378,8 +378,14 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
             switch LocationSection(rawValue: indexPath.section) {
             case .location:
                 switch LocationContentCell(rawValue: indexPath.row) {
-                case .location: print("Cell")
-                case .address: print("Cell")
+                case .location:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
+                    cell.configureLocationDetail(title: LocationContentCell.location.title, contentText: viewModel.exhibitionInfo.location)
+                    return cell
+                case .address:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
+                    cell.configureLocationDetail(title: LocationContentCell.address.title, contentText: viewModel.exhibitionInfo.address)
+                    return cell
                 case .none: print("Cell")
                 }
             case .equipment:

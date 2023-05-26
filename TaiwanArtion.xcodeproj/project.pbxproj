@@ -17,6 +17,9 @@
 		973C17752A1F3A4400581DC6 /* ExhibitionCardItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17742A1F3A4400581DC6 /* ExhibitionCardItems.swift */; };
 		973C17772A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17762A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift */; };
 		973C17792A205BE000581DC6 /* TicketPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */; };
+		973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177A2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift */; };
+		973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */; };
+		973C177F2A20B5F300581DC6 /* RouteButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -97,6 +100,9 @@
 		973C17742A1F3A4400581DC6 /* ExhibitionCardItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardItems.swift; sourceTree = "<group>"; };
 		973C17762A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewModel.swift; sourceTree = "<group>"; };
 		973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketPriceTableViewCell.swift; sourceTree = "<group>"; };
+		973C177A2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentCollectionViewCell.swift; sourceTree = "<group>"; };
+		973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
+		973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteButtonTableViewCell.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -210,6 +216,9 @@
 				978834BA2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift */,
 				978834BC2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift */,
 				978834C02A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift */,
+				973C177A2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift */,
+				973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */,
+				973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -625,9 +634,11 @@
 				976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */,
 				976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */,
 				978834BD2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift in Sources */,
+				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
 				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
 				973C17752A1F3A4400581DC6 /* ExhibitionCardItems.swift in Sources */,
+				973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */,
 				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
 				976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */,
@@ -649,6 +660,7 @@
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
 				973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
+				973C177F2A20B5F300581DC6 /* RouteButtonTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
 				978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */,
 				978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */,

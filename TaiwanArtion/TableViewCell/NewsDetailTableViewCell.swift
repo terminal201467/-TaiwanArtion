@@ -72,4 +72,14 @@ class NewsDetailTableViewCell: UITableViewCell {
         contentLabel.textColor = .white
         contentLabel.roundCorners(cornerRadius: 14)
     }
+    
+    func  configureLocationDetail(title: String, contentText: String) {
+        titleLabel.text = title
+        titleLabel.textColor = .grayTextColor
+        titleLabel.font = UIFont.systemFont(ofSize: 14)
+        contentLabel.text = contentText
+        contentLabel.backgroundColor = .white
+        contentLabel.textColor = .grayTextColor
+        contentLabel.font = UIFont.systemFont(ofSize: 14)
+    }
 }
