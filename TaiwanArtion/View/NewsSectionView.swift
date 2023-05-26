@@ -36,11 +36,13 @@ class NewsSectionView: UITableViewHeaderFooterView {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         addSubview(bar)
         bar.snp.makeConstraints { make in
             make.width.equalTo(4)
             make.height.equalTo(22)
             make.leading.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
         }
         
         addSubview(sectionTitleLabel)

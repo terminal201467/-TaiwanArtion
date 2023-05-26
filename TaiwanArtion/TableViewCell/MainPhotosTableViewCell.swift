@@ -14,6 +14,10 @@ class MainPhotosTableViewCell: UITableViewCell {
     
     var mainPhotos: [ExhibitionModel] = []
     
+    var pushToViewController: ((ExhibitionModel) -> Void)?
+    
+    private let viewModel = HomeViewModel.shared
+    
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -79,7 +83,9 @@ extension MainPhotosTableViewCell: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //跳出細節頁面
+        viewModel.mainPhotoDidSelectItemAt(indexPath: indexPath) { exhibition in
+            self.pushToViewController?(exhibition)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

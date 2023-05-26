@@ -69,6 +69,13 @@ class NewsView: UIView {
         return button
     }()
     
+    let calendarButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "calendar"), for: .normal)
+        button.setTitleColor(.grayTextColor, for: .normal)
+        return button
+    }()
+    
     private let shareLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
@@ -83,6 +90,15 @@ class NewsView: UIView {
         label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = .grayTextColor
         label.text = "收藏展覽"
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let calendarLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .grayTextColor
+        label.text = "加入日曆"
         label.textAlignment = .center
         return label
     }()
@@ -105,8 +121,19 @@ class NewsView: UIView {
         return stackView
     }()
     
+    private lazy var calendarStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [calendarButton, calendarLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0
+        return stackView
+    }()
+    
+    lazy var tabs: [UIView] = [collectStack, shareStack]
+    
     private lazy var tabStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [collectStack, shareStack])
+        let stackView = UIStackView(arrangedSubviews: tabs)
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually

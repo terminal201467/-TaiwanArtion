@@ -101,6 +101,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: MainPhotosTableViewCell.reuseIdentifier, for: indexPath) as! MainPhotosTableViewCell
                 cell.selectionStyle = .none
                 cell.mainPhotos = self.viewModel.mainPhoto
+                cell.pushToViewController = { exhibition in
+                    let viewController = ExhibitionCardViewController()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
                 return cell
             case .none: return UITableViewCell()
             }
@@ -108,6 +112,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             switch HotCell(rawValue: indexPath.row) {
             case .hotExhibition:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HotHxhibitionTableViewCell.reuseIdentifier, for: indexPath) as! HotHxhibitionTableViewCell
+                cell.pushToViewController = { exhibition in
+                    let viewController = ExhibitionCardViewController()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
                 cell.selectionStyle = .none
                 return cell
             case .none: return UITableViewCell()
@@ -134,6 +142,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 AllExhibitionTableViewCell
                 cell.selectionStyle = .none
                 cell.backgroundColor = .whiteGrayColor
+                cell.pushToViewController = { exhibition in
+                    let viewController = ExhibitionCardViewController()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
                 return cell
             case .none: return UITableViewCell()
             }

@@ -10,6 +10,13 @@
 		19703945C8A3DC8163F6B353 /* Pods_TaiwanArtion_TaiwanArtionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */; };
 		312571B3EEECB9F7C5CD3B99 /* Pods_TaiwanArtionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014A2C7A7A3F85FF4D3CEE24 /* Pods_TaiwanArtionTests.framework */; };
 		42CD7883526BCC1131AC1105 /* Pods_TaiwanArtion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */; };
+		973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176B2A1F2DB200581DC6 /* TabBarView.swift */; };
+		973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */; };
+		973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */; };
+		973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */; };
+		973C17752A1F3A4400581DC6 /* ExhibitionCardItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17742A1F3A4400581DC6 /* ExhibitionCardItems.swift */; };
+		973C17772A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17762A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift */; };
+		973C17792A205BE000581DC6 /* TicketPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -83,6 +90,13 @@
 		32DB8B2332C019BA38D5F558 /* Pods-TaiwanArtionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtionTests.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtionTests/Pods-TaiwanArtionTests.release.xcconfig"; sourceTree = "<group>"; };
 		567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaiwanArtion_TaiwanArtionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CDA925BDC580285C3F0BA4C /* Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		973C176B2A1F2DB200581DC6 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewController.swift; sourceTree = "<group>"; };
+		973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardView.swift; sourceTree = "<group>"; };
+		973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardItemCell.swift; sourceTree = "<group>"; };
+		973C17742A1F3A4400581DC6 /* ExhibitionCardItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardItems.swift; sourceTree = "<group>"; };
+		973C17762A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewModel.swift; sourceTree = "<group>"; };
+		973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketPriceTableViewCell.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -179,6 +193,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		973C17712A1F31D700581DC6 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		976A030D2A0E882F00424ACF /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +227,7 @@
 				976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */,
 				978834C62A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift */,
 				978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */,
+				973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -246,6 +268,7 @@
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
 				976A03092A0E790B00424ACF /* UserManager.swift */,
+				973C17712A1F31D700581DC6 /* Alert */,
 				976A032D2A15CE2C00424ACF /* Model */,
 				976A030E2A0E886800424ACF /* TableViewCell */,
 				976A030D2A0E882F00424ACF /* CollectionViewCell */,
@@ -297,6 +320,7 @@
 				976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */,
 				976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */,
 				978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */,
+				973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -305,6 +329,8 @@
 			isa = PBXGroup;
 			children = (
 				978834BE2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift */,
+				973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */,
+				973C17742A1F3A4400581DC6 /* ExhibitionCardItems.swift */,
 				97D66A302A0CD45F00A25935 /* SkipView.swift */,
 				978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */,
 				978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */,
@@ -313,7 +339,9 @@
 				97D66A342A0CF13700A25935 /* CountdownTimer.swift */,
 				976A030B2A0E87A800424ACF /* HomeView.swift */,
 				978834C42A1E25F000ADBEE8 /* NewsView.swift */,
+				973C176B2A1F2DB200581DC6 /* TabBarView.swift */,
 				978834B62A1B8DE700ADBEE8 /* TimeHelper.swift */,
+				973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -323,6 +351,7 @@
 			children = (
 				97D66A3A2A0DE20000A25935 /* SplashViewModel.swift */,
 				976A032B2A15CD1700424ACF /* HomeViewModel.swift */,
+				973C17762A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -578,6 +607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				973C17772A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift in Sources */,
 				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
 				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
@@ -590,17 +620,21 @@
 				976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
 				978834C72A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift in Sources */,
+				973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */,
 				978834B92A1C967200ADBEE8 /* MainDotBarFooterView.swift in Sources */,
 				976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */,
 				976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */,
 				978834BD2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
 				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
+				973C17752A1F3A4400581DC6 /* ExhibitionCardItems.swift in Sources */,
 				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
 				976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */,
 				97D66A352A0CF13700A25935 /* CountdownTimer.swift in Sources */,
+				973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */,
 				97D66A312A0CD45F00A25935 /* SkipView.swift in Sources */,
+				973C17792A205BE000581DC6 /* TicketPriceTableViewCell.swift in Sources */,
 				976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */,
 				978834BF2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift in Sources */,
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
@@ -608,10 +642,12 @@
 				976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */,
 				97D66A282A0C724F00A25935 /* SplashView.swift in Sources */,
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
+				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
 				976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */,
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
+				973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
 				978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */,

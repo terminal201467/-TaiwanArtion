@@ -60,6 +60,9 @@ class NewsDetailTableViewCell: UITableViewCell {
     func configure(title: String, contentText: String) {
         titleLabel.text = title
         contentLabel.text = contentText
+        contentLabel.backgroundColor = .white
+        contentLabel.textColor = .grayTextColor
+        contentLabel.roundCorners(cornerRadius: 0)
     }
     
     func configureWithTag(title: String, tag: String) {

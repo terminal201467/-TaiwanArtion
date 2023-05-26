@@ -13,6 +13,8 @@ class HotHxhibitionTableViewCell: UITableViewCell {
     
     private let viewModel = HomeViewModel.shared
     
+    var pushToViewController: ((ExhibitionModel) -> Void)?
+    
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(HotDetailTableViewCell.self, forCellReuseIdentifier: HotDetailTableViewCell.reuseIdentifier)
@@ -61,5 +63,11 @@ extension HotHxhibitionTableViewCell: UITableViewDelegate, UITableViewDataSource
         let seperatedHeight = 4 * CGFloat(8)
         let cellHeight = CGFloat(tableView.frame.height - seperatedHeight) / 5
         return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.hotExhibitionDidSelectedRowAt(indexPath: indexPath) { exhibition in
+            self.pushToViewController?(exhibition)
+        }
     }
 }

@@ -118,6 +118,12 @@ class HomeViewModel {
         return (habby, isSelected)
     }
     
+    //MARK: - MainPhoto
+    
+    func mainPhotoDidSelectItemAt(indexPath: IndexPath, completion: @escaping ((ExhibitionModel) ->Void)) {
+        completion(mainPhoto[indexPath.row])
+    }
+    
     //MARK: - HotTableView
     func hotExhibitionNumberOfRowInSection(section: Int) -> Int {
         return hotExhibition.count
@@ -127,8 +133,8 @@ class HomeViewModel {
         return hotExhibition[indexPath.row]
     }
     
-    func hotExhibitionDidSelectedRowAt(indexPath: IndexPath) {
-        
+    func hotExhibitionDidSelectedRowAt(indexPath: IndexPath , completion: @escaping ((ExhibitionModel) -> Void)) {
+        completion(hotExhibition[indexPath.row])
     }
     
     //MARK: - NewsTableView
@@ -153,8 +159,8 @@ class HomeViewModel {
         return allExhibition[indexPath.row]
     }
     
-    func allExhibitionDidSelectedRowAt(indexPath: IndexPath) {
-        
+    func allExhibitionDidSelectedRowAt(indexPath: IndexPath, completion: @escaping ((ExhibitionModel) -> Void)) {
+        completion(allExhibition[indexPath.row])
     }
     
     //MARK: -ItemsSelected

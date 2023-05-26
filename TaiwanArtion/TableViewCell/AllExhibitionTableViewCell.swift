@@ -13,6 +13,8 @@ class AllExhibitionTableViewCell: UITableViewCell {
     
     private let viewModel = HomeViewModel.shared
     
+    var pushToViewController: ((ExhibitionModel) -> Void)?
+    
     private let itemView = AllExhibitionSelectItemsView()
     
     private let collectionView: UICollectionView = {
@@ -74,7 +76,9 @@ extension AllExhibitionTableViewCell: UICollectionViewDelegateFlowLayout, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.allExhibitionDidSelectedRowAt(indexPath: indexPath)
+        viewModel.allExhibitionDidSelectedRowAt(indexPath: indexPath) { exhibition in
+            self.pushToViewController?(exhibition)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
