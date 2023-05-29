@@ -48,6 +48,7 @@ class ExhibitionCardView: UIView {
         tableView.register(EquipmentTableViewCell.self, forCellReuseIdentifier: EquipmentTableViewCell.reuseIdentifier)
         tableView.register(MapTableViewCell.self, forCellReuseIdentifier: MapTableViewCell.reuseIdentifier)
         tableView.register(RouteButtonTableViewCell.self, forCellReuseIdentifier: RouteButtonTableViewCell.reuseIdentifier)
+        tableView.register(AllCommentTableViewCell.self, forCellReuseIdentifier: AllCommentTableViewCell.reuseIdentifier)
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false

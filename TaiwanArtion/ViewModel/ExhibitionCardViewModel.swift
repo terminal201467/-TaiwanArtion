@@ -22,6 +22,10 @@ enum CardInfoItem: Int, CaseIterable {
 
 class ExhibitionCardViewModel {
     
+    //MARK: - Singleton
+    
+    static let shared = ExhibitionCardViewModel()
+    
     //MARK: - Items
     var title: String = "未知的展覽"
     
@@ -94,11 +98,15 @@ class ExhibitionCardViewModel {
             case .none: return 1
             }
         case .evaluate:
-            return 1
+            switch EvaluationSection(rawValue: section) {
+            case .allComment: return 1
+            case .personComment: return evaluations[section].commentContents.count
+            case .none: return 0
+            }
         }
     }
     
-    func heightForHeaderInSection(chooseItem: CardInfoItem, section: Int) -> CGFloat {
+    func heightForHeaderFooterInSection(chooseItem: CardInfoItem, section: Int) -> CGFloat? {
         switch chooseItem {
         case .overview: return OverViewSection(rawValue: section)!.height
         case .introduce: return IntroduceSection(rawValue: section)!.height
@@ -107,12 +115,75 @@ class ExhibitionCardViewModel {
         case .evaluate: return EvaluationSection(rawValue: section)!.height
         }
     }
-
-//    func cellForRowAt(chooseItem: CardInfoItem, indexPath: IndexPath) -> ExhibitionModel {
-//
-//    }
     
     func didSelectRowAt(indexPath: IndexPath) {
+        
+    }
+    
+    //MARK: - Evaluation CollectionView
+    var evaluationSelectedItem: EvaluationItems = .all
+    
+    func itemCollectionViewNumberOfRowInSection() -> Int {
+        return EvaluationItems.allCases.count
+    }
+    
+    func itemCollectionViewCellForRowAt(indexPath: IndexPath) -> (item: EvaluationItems, isSelected: Bool) {
+        let item = EvaluationItems.allCases[indexPath.row]
+        let isSelected = evaluationSelectedItem == item
+        return (EvaluationItems.allCases[indexPath.row], isSelected)
+    }
+    
+    func itemCollectionViewDidSelectedTRowAt(indexPath: IndexPath) {
+        evaluationSelectedItem = EvaluationItems(rawValue: indexPath.row)!
+    }
+    
+    //MARK: - EvaluationTableView
+    var evaluations: [EvaluationModel] = [
+        EvaluationModel(number: 4,
+                        allCommentCount: 4,
+                        allCommentStar: 4,
+                        contentRichness: 4.6,
+                        equipment: 4.6,
+                        geoLocation: 4.6,
+                        price: 4.6,
+                        service: 4.6,
+                        commentContents: [.init(userImage: "Cathy",
+                                                userName: "Cathy",
+                                                star: 4,
+                                                commentDate: "2023-06-01",
+                                                contentRichness: 4.6,
+                                                equipment: 4.6,
+                                                geoLocation: 4.6,
+                                                price: 4.6,
+                                                service: 4.7)
+                                          ,.init(userImage: "Cathy",
+                                                 userName: "Cathy",
+                                                 star: 4,
+                                                 commentDate: "2023-06-01",
+                                                 contentRichness: 4.6,
+                                                 equipment: 4.6,
+                                                 geoLocation: 4.6,
+                                                 price: 4.6,
+                                                 service: 4.7)])
+    ]
+    
+    func evaluationNumberOfRowInSection(section: Int) -> Int {
+        switch EvaluationSection(rawValue: section) {
+        case .allComment: return evaluations.count
+        case .personComment: return evaluations[section].commentContents.count
+        case .none: return 1
+        }
+    }
+    
+    func evaluationTableCellForRowAt(indexPath: IndexPath) -> EvaluationModel {
+        switch EvaluationSection(rawValue: indexPath.section) {
+        case .allComment: return evaluations[indexPath.row]
+        case .personComment: return evaluations[indexPath.row]
+        case .none: return EvaluationModel(number: 0, allCommentCount: 0, allCommentStar: 0, contentRichness: 0.0, equipment: 0.0, geoLocation: 0.0, price: 0.0, service: 0.0, commentContents: [])
+        }
+    }
+    
+    func evaluationTableDidSelectedRow() {
         
     }
     

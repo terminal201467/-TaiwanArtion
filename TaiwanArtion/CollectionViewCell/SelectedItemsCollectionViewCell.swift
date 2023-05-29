@@ -38,7 +38,7 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
     func configure(with text: String, selected: Bool) {
         if selected {
             itemLabel.text = text
-            itemLabel.backgroundColor = .brownColor
+            itemLabel.backgroundColor = .brownTitleColor
             itemLabel.textColor = .whiteGrayColor
         } else {
             itemLabel.text = text

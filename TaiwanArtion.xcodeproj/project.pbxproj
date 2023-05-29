@@ -21,6 +21,12 @@
 		973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */; };
 		973C177F2A20B5F300581DC6 /* RouteButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */; };
 		973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17802A20D66300581DC6 /* EquipmentTableViewCell.swift */; };
+		973C17832A23907100581DC6 /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17822A23907000581DC6 /* ScoreTableViewCell.swift */; };
+		973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17842A242FB200581DC6 /* AllCommentTableViewCell.swift */; };
+		973C17872A2431C400581DC6 /* StarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17862A2431C300581DC6 /* StarCollectionViewCell.swift */; };
+		973C17892A2444F300581DC6 /* LikeCommentFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17882A2444F300581DC6 /* LikeCommentFooter.swift */; };
+		973C178B2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C178A2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift */; };
+		973C178D2A24A62400581DC6 /* AllCommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C178C2A24A62400581DC6 /* AllCommentHeaderView.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -45,7 +51,7 @@
 		978834B92A1C967200ADBEE8 /* MainDotBarFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */; };
 		978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834BA2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift */; };
 		978834BD2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834BC2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift */; };
-		978834BF2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834BE2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift */; };
+		978834BF2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834BE2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift */; };
 		978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C02A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift */; };
 		978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */; };
 		978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C42A1E25F000ADBEE8 /* NewsView.swift */; };
@@ -105,6 +111,12 @@
 		973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteButtonTableViewCell.swift; sourceTree = "<group>"; };
 		973C17802A20D66300581DC6 /* EquipmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTableViewCell.swift; sourceTree = "<group>"; };
+		973C17822A23907000581DC6 /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTableViewCell.swift; sourceTree = "<group>"; };
+		973C17842A242FB200581DC6 /* AllCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCommentTableViewCell.swift; sourceTree = "<group>"; };
+		973C17862A2431C300581DC6 /* StarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarCollectionViewCell.swift; sourceTree = "<group>"; };
+		973C17882A2444F300581DC6 /* LikeCommentFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCommentFooter.swift; sourceTree = "<group>"; };
+		973C178A2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardItemCollectionView.swift; sourceTree = "<group>"; };
+		973C178C2A24A62400581DC6 /* AllCommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCommentHeaderView.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -129,7 +141,7 @@
 		978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDotBarFooterView.swift; sourceTree = "<group>"; };
 		978834BA2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		978834BC2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExhibitionCollectionViewCell.swift; sourceTree = "<group>"; };
-		978834BE2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExhibitionSelectItemsView.swift; sourceTree = "<group>"; };
+		978834BE2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionItemsView.swift; sourceTree = "<group>"; };
 		978834C02A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsCollectionViewCell.swift; sourceTree = "<group>"; };
 		978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		978834C42A1E25F000ADBEE8 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
@@ -219,6 +231,7 @@
 				978834BC2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift */,
 				978834C02A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift */,
 				973C177A2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift */,
+				973C17862A2431C300581DC6 /* StarCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -240,6 +253,9 @@
 				973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */,
 				973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */,
 				973C17802A20D66300581DC6 /* EquipmentTableViewCell.swift */,
+				973C17822A23907000581DC6 /* ScoreTableViewCell.swift */,
+				973C17842A242FB200581DC6 /* AllCommentTableViewCell.swift */,
+				973C17882A2444F300581DC6 /* LikeCommentFooter.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -340,7 +356,9 @@
 		97D66A332A0CF11800A25935 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				978834BE2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift */,
+				978834BE2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift */,
+				973C178C2A24A62400581DC6 /* AllCommentHeaderView.swift */,
+				973C178A2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift */,
 				973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */,
 				973C17742A1F3A4400581DC6 /* ExhibitionCardItems.swift */,
 				97D66A302A0CD45F00A25935 /* SkipView.swift */,
@@ -621,6 +639,7 @@
 			files = (
 				973C17772A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift in Sources */,
 				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
+				973C178B2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift in Sources */,
 				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
@@ -628,6 +647,7 @@
 				978834B72A1B8DE700ADBEE8 /* TimeHelper.swift in Sources */,
 				978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */,
 				978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */,
+				973C17832A23907100581DC6 /* ScoreTableViewCell.swift in Sources */,
 				978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */,
 				976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
@@ -637,6 +657,7 @@
 				976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */,
 				976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */,
 				978834BD2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift in Sources */,
+				973C17892A2444F300581DC6 /* LikeCommentFooter.swift in Sources */,
 				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
 				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
@@ -644,13 +665,14 @@
 				973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */,
 				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
+				973C17872A2431C400581DC6 /* StarCollectionViewCell.swift in Sources */,
 				976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */,
 				97D66A352A0CF13700A25935 /* CountdownTimer.swift in Sources */,
 				973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */,
 				97D66A312A0CD45F00A25935 /* SkipView.swift in Sources */,
 				973C17792A205BE000581DC6 /* TicketPriceTableViewCell.swift in Sources */,
 				976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */,
-				978834BF2A1DD49500ADBEE8 /* AllExhibitionSelectItemsView.swift in Sources */,
+				978834BF2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift in Sources */,
 				973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */,
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
 				978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */,
@@ -659,10 +681,12 @@
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
 				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
+				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
 				976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */,
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
 				973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */,
+				973C178D2A24A62400581DC6 /* AllCommentHeaderView.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
 				973C177F2A20B5F300581DC6 /* RouteButtonTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,

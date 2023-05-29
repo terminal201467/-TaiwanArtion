@@ -19,7 +19,7 @@ enum Items: Int, CaseIterable {
     }
 }
 
-class AllExhibitionSelectItemsView: UIView {
+class SelectCollectionItemsView: UIView {
     
     private let viewModel = HomeViewModel.shared
 
@@ -58,7 +58,7 @@ class AllExhibitionSelectItemsView: UIView {
     }
 }
 
-extension AllExhibitionSelectItemsView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension SelectCollectionItemsView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Items.allCases.count
     }

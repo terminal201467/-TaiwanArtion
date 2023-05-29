@@ -62,12 +62,7 @@ enum LocationSection: Int, CaseIterable {
 }
 
 enum EvaluationSection: Int, CaseIterable {
-    case none = 0
-    var title: String {
-        switch self {
-        case .none: return ""
-        }
-    }
+    case allComment = 0, personComment
     var height: CGFloat {
         return 50.0
     }
@@ -121,7 +116,7 @@ class ExhibitionCardViewController: UIViewController {
     
     private let exhibitionCardView = ExhibitionCardView()
     
-    private let viewModel = ExhibitionCardViewModel()
+    private let viewModel = ExhibitionCardViewModel.shared
     
     private let disposeBag = DisposeBag()
     
@@ -189,7 +184,11 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return viewModel.heightForHeaderInSection(chooseItem: selectedItem, section: section)
+        return viewModel.heightForHeaderFooterInSection(chooseItem: selectedItem, section: section)!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return viewModel.heightForHeaderFooterInSection(chooseItem: selectedItem, section: section)!
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -376,7 +375,27 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                 return cell
             case .none: return UITableViewCell()
             }
-        case .evaluate: return UITableViewCell()
+        case .evaluate:
+            switch EvaluationSection(rawValue: indexPath.section) {
+            case .allComment:
+                let cell = tableView.dequeueReusableCell(withIdentifier: AllCommentTableViewCell.reuseIdentifier, for: indexPath) as! AllCommentTableViewCell
+                cell.selectionStyle = .none
+                let evaluation = viewModel.evaluationTableCellForRowAt(indexPath: indexPath)
+                cell.commentTypeScores = [4.5, 4.5, 4.5, 4.5, 4.5,]
+                cell.configureAllComment(number: evaluation.number,
+                                         commentCount: evaluation.allCommentCount,
+                                         starScore: evaluation.allCommentStar)
+                cell.roundCorners(cornerRadius: 12.0)
+                return  cell
+            case .personComment:
+                let cell = tableView.dequeueReusableCell(withIdentifier: AllCommentTableViewCell.reuseIdentifier, for: indexPath) as! AllCommentTableViewCell
+                let evaluation = viewModel.evaluationTableCellForRowAt(indexPath: indexPath).commentContents
+                cell.configurePersonComment(name: evaluation[indexPath.row].userName,
+                                            personImageText: evaluation[indexPath.row].userImage,
+                                            starScore: evaluation[indexPath.row].star,
+                                            date: evaluation[indexPath.row].commentDate)
+            case .none: return UITableViewCell()
+            }
         }
         return UITableViewCell()
     }

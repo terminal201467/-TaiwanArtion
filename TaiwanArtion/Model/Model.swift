@@ -52,3 +52,39 @@ struct ExhibitionInfo {
     var latitude: String
     var longtitude: String
 }
+
+//所有評論
+
+//分別評論
+
+struct EvaluationModel {
+    
+    var number: Int
+    var allCommentCount: Int
+    var allCommentStar: Int
+    
+    //所有評論數據
+    var contentRichness: Double
+    var equipment: Double
+    var geoLocation: Double
+    var price: Double
+    var service: Double
+    
+    //個別使用者的評論內容
+    var commentContents: [CommentContent]
+    
+    struct CommentContent {
+        
+        var userImage: String
+        var userName: String
+        var star: Int
+        var commentDate: String
+        
+        var contentRichness: Double
+        var equipment: Double
+        var geoLocation: Double
+        var price: Double
+        var service: Double
+    }
+    
+}

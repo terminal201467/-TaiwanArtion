@@ -15,7 +15,7 @@ class AllExhibitionTableViewCell: UITableViewCell {
     
     var pushToViewController: ((ExhibitionModel) -> Void)?
     
-    private let itemView = AllExhibitionSelectItemsView()
+    private let itemView = SelectCollectionItemsView()
     
     private let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
