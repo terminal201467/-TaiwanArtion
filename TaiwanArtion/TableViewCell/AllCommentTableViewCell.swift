@@ -68,9 +68,9 @@ class AllCommentTableViewCell: UITableViewCell {
     private lazy var infoStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, starCollectionView])
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 4
+        stackView.alignment = .leading
+        stackView.distribution = .fillEqually
+        stackView.spacing = 0
         return stackView
     }()
     
@@ -79,7 +79,7 @@ class AllCommentTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 5
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -145,6 +145,8 @@ class AllCommentTableViewCell: UITableViewCell {
         personStack.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(16)
+            make.height.equalTo(50.0)
+            make.width.equalTo(150.0)
         }
         
         personImage.snp.makeConstraints { make in
@@ -152,10 +154,15 @@ class AllCommentTableViewCell: UITableViewCell {
             make.height.equalTo(40.0)
         }
         
+        starCollectionView.snp.makeConstraints { make in
+            make.height.equalTo(16.0)
+            make.width.equalTo(96.0)
+        }
+        
         containerBackgroundView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { make in
             make.trailing.equalTo(containerBackgroundView.snp.trailing).offset(-16)
-            make.centerY.equalTo(personStack.snp.centerY)
+            make.centerY.equalTo(nameLabel.snp.centerY)
         }
         
         containerBackgroundView.addSubview(commentTableView)
@@ -214,7 +221,11 @@ extension AllCommentTableViewCell: UICollectionViewDelegateFlowLayout, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 2, left: 2, bottom: 2, right: 2)
+        return .init(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 4.0
     }
 
 }

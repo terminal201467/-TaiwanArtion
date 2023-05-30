@@ -379,20 +379,20 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
             case .equipment:
                 let cell = tableView.dequeueReusableCell(withIdentifier: EquipmentTableViewCell.reuseIdentifier, for: indexPath) as! EquipmentTableViewCell
                 cell.equipments = viewModel.exhibitionInfo.equipments
-                print("equipmentsCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
+//                print("equipmentsCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
                 return cell
             case .map:
                 let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.reuseIdentifier, for: indexPath) as! MapTableViewCell
                 cell.configure(location: viewModel.exhibitionInfo.location,
                                address: viewModel.exhibitionInfo.address)
-                print("mapCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
+//                print("mapCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
                 return cell
             case .route:
                 let cell = tableView.dequeueReusableCell(withIdentifier: RouteButtonTableViewCell.reuseIdentifier, for: indexPath) as! RouteButtonTableViewCell
                 cell.startRoute = {
                     print("規劃路線")
                 }
-                print("routeCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
+//                print("routeCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
                 return cell
             case .none: return UITableViewCell()
             }

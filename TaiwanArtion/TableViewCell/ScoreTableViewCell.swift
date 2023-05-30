@@ -83,16 +83,16 @@ class ScoreTableViewCell: UITableViewCell {
         }
         
         scoreBrownBar.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.height.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(score)
+            make.centerY.equalTo(scoreGrayBar.snp.centerY)
+            make.leading.equalTo(scoreGrayBar.snp.leading)
+            make.height.equalTo(scoreGrayBar.snp.height)
+            make.width.equalTo(scoreGrayBar.snp.width).multipliedBy(score / 10)
         }
     }
     
     func configure(title: String, score: Double) {
         titleLabel.text = title
         scoreLabel.text = "\(score)"
+        self.score = score
     }
 }

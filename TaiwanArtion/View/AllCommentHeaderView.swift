@@ -63,6 +63,7 @@ class AllCommentHeaderView: UIView {
         collectionView.register(StarCollectionViewCell.self, forCellWithReuseIdentifier: StarCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = false
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .whiteGrayColor
         return collectionView
     }()
     
@@ -138,6 +139,16 @@ class AllCommentHeaderView: UIView {
             make.height.equalTo(48.0)
         }
         
+        infoStack.snp.makeConstraints { make in
+            make.width.equalTo(160.0)
+            make.height.equalTo(50.0)
+        }
+        
+        starCollectionView.snp.makeConstraints { make in
+            make.height.equalTo(16.0)
+            make.width.equalTo(96.0)
+        }
+        
         containerBrownView.addSubview(numberLabel)
         numberLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -183,13 +194,11 @@ extension AllCommentHeaderView: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = 10.0
-        let cellHeight = 10.0
-        return CGSize(width: cellWidth, height: cellHeight)
+        return CGSize(width: 16.0, height: 16.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
