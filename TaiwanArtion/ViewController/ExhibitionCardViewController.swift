@@ -56,12 +56,13 @@ enum LocationSection: Int, CaseIterable {
         case .route: return "規劃路線"
         }
     }
+    
     var height: CGFloat {
         switch self {
-        case .location: return 30.0
-        case .equipment: return 50.0
-        case .map: return 200.0
-        case .route: return 50.0
+        case .location: return 40.0
+        case .equipment: return 60.0
+        case .map: return 450.0
+        case .route: return 30.0
         }
     }
 }
@@ -193,10 +194,6 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return viewModel.heightForHeaderFooterInSection(chooseItem: selectedItem, section: section)!
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return viewModel.heightForHeaderFooterInSection(chooseItem: selectedItem, section: section)!
     }
     
@@ -382,17 +379,20 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
             case .equipment:
                 let cell = tableView.dequeueReusableCell(withIdentifier: EquipmentTableViewCell.reuseIdentifier, for: indexPath) as! EquipmentTableViewCell
                 cell.equipments = viewModel.exhibitionInfo.equipments
+                print("equipmentsCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
                 return cell
             case .map:
                 let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.reuseIdentifier, for: indexPath) as! MapTableViewCell
                 cell.configure(location: viewModel.exhibitionInfo.location,
                                address: viewModel.exhibitionInfo.address)
+                print("mapCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
                 return cell
             case .route:
                 let cell = tableView.dequeueReusableCell(withIdentifier: RouteButtonTableViewCell.reuseIdentifier, for: indexPath) as! RouteButtonTableViewCell
                 cell.startRoute = {
                     print("規劃路線")
                 }
+                print("routeCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
                 return cell
             case .none: return UITableViewCell()
             }
@@ -402,7 +402,6 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                 let cell = tableView.dequeueReusableCell(withIdentifier: AllCommentTableViewCell.reuseIdentifier, for: indexPath) as! AllCommentTableViewCell
                 cell.selectionStyle = .none
                 cell.backgroundColor = .white
-                tableView.separatorStyle = .singleLine
                 guard let evaluationModel = viewModel.evaluationTableCellForRowAt(indexPath: indexPath) else { return UITableViewCell() }
                 viewModel.evaluation.allCommentContents.map { content in
                     cell.commentTypeScores.append(contentsOf: content.commentRate.map{$0.contentRichness})
@@ -422,41 +421,7 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100 // 返回一個適當的估計行高值
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch selectedItem {
-        case .overview:
-            switch OverViewSection(rawValue: indexPath.section) {
-            case .overview: return OverViewSection.overview.height
-            case .none: return OverViewSection.overview.height
-            }
-        case .introduce:
-            switch IntroduceSection(rawValue: indexPath.section) {
-            case .intro: return IntroduceSection.intro.height
-            case .none: return IntroduceSection.intro.height
-            }
-        case .ticketPrice:
-            switch TicketPriceSection(rawValue: indexPath.section) {
-            case .price: return TicketPriceSection.price.height
-            case .none: return TicketPriceSection.price.height
-            }
-        case .location:
-            switch LocationSection(rawValue: indexPath.section) {
-            case .location: return LocationSection.location.height
-            case .equipment: return LocationSection.equipment.height
-            case .map: return LocationSection.map.height
-            case .route: return LocationSection.route.height
-            case .none: return LocationSection.location.height
-            }
-        case .evaluate:
-            switch EvaluationSection(rawValue: indexPath.section) {
-            case .allComment: return EvaluationSection.allComment.cellHeight
-            case .none: return EvaluationSection.allComment.cellHeight
-            }
-        }
-        return UITableView.automaticDimension
+        return viewModel.heightForRowInSection(chooseItem: selectedItem, indexPath: indexPath)
     }
 }

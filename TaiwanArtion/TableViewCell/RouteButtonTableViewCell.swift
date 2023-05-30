@@ -42,7 +42,7 @@ class RouteButtonTableViewCell: UITableViewCell {
         routeButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(342.0 / frame.width)
+            make.width.equalToSuperview().multipliedBy(0.9)
             make.height.equalTo(40.0)
         }
     }

@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class LikeCommentFooter: UITableViewHeaderFooterView {
+class LikeCommentFooter: UIView {
     
     var likeAction: (() -> Void)?
 
@@ -18,7 +18,7 @@ class LikeCommentFooter: UITableViewHeaderFooterView {
         button.setTitle("有幫助的評價", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.setTitleColor(.grayTextColor, for: .normal)
-        button.addTarget(LikeCommentFooter.self, action: #selector(like), for: .touchDown)
+        button.addTarget(self, action: #selector(like), for: .touchDown)
         return button
     }()
     
@@ -26,8 +26,8 @@ class LikeCommentFooter: UITableViewHeaderFooterView {
         likeAction?()
     }
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         autoLayout()
     }
     
@@ -36,7 +36,7 @@ class LikeCommentFooter: UITableViewHeaderFooterView {
     }
     
     private func autoLayout() {
-        contentView.addSubview(likeButton)
+        addSubview(likeButton)
         likeButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()

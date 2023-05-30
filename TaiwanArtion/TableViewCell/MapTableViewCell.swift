@@ -96,9 +96,12 @@ class MapTableViewCell: UITableViewCell {
     private func autoLayout() {
         contentView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(342.0 / frame.width)
-            make.height.equalToSuperview().multipliedBy(400.0 / frame.height)
-            make.edges.equalToSuperview()
+            make.width.equalTo(342.0)
+            make.height.equalTo(400.0)
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
         }
         
         containerView.addSubview(map)

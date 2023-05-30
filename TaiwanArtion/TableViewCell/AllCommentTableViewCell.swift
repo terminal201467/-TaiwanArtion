@@ -109,6 +109,7 @@ class AllCommentTableViewCell: UITableViewCell {
         setTableView()
         setCollectionView()
         autoLayout()
+        setFooterAction()
     }
     
     required init?(coder: NSCoder) {
@@ -123,6 +124,12 @@ class AllCommentTableViewCell: UITableViewCell {
     private func setCollectionView() {
         starCollectionView.dataSource = self
         starCollectionView.delegate = self
+    }
+    
+    private func setFooterAction() {
+        footer.likeAction = {
+            print("like")
+        }
     }
     
     private func autoLayout() {

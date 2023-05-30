@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum CardInfoItem: Int, CaseIterable {
     case overview = 0, introduce, ticketPrice, location, evaluate
@@ -67,7 +68,7 @@ class ExhibitionCardViewModel {
         case .overview: return 1
         case .introduce: return 1
         case .ticketPrice: return 1
-        case .location: return 2
+        case .location: return 4
         case .evaluate: return 1
         }
     }
@@ -101,6 +102,39 @@ class ExhibitionCardViewModel {
             switch EvaluationSection(rawValue: section) {
             case .allComment: return evaluation.allCommentContents.count
             case .none: return 0
+            }
+        }
+    }
+    
+    func heightForRowInSection(chooseItem: CardInfoItem, indexPath: IndexPath) -> CGFloat {
+        switch chooseItem {
+        case .overview:
+            switch OverViewSection(rawValue: indexPath.section) {
+            case .overview: return OverViewSection.overview.height
+            case .none: return OverViewSection.overview.height
+            }
+        case .introduce:
+            switch IntroduceSection(rawValue: indexPath.section) {
+            case .intro: return UITableView.automaticDimension
+            case .none: return IntroduceSection.intro.height
+            }
+        case .ticketPrice:
+            switch TicketPriceSection(rawValue: indexPath.section) {
+            case .price: return UITableView.automaticDimension
+            case .none: return TicketPriceSection.price.height
+            }
+        case .location:
+            switch LocationSection(rawValue: indexPath.section) {
+            case .location: return LocationSection.location.height
+            case .equipment: return LocationSection.equipment.height
+            case .map: return UITableView.automaticDimension
+            case .route: return UITableView.automaticDimension
+            case .none: return LocationSection.location.height
+            }
+        case .evaluate:
+            switch EvaluationSection(rawValue: indexPath.section) {
+            case .allComment: return EvaluationSection.allComment.cellHeight
+            case .none: return EvaluationSection.allComment.cellHeight
             }
         }
     }
