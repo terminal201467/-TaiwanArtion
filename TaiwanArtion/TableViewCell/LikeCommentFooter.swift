@@ -16,7 +16,8 @@ class LikeCommentFooter: UITableViewHeaderFooterView {
         let button = UIButton()
         button.setImage(UIImage(named: "like"), for: .normal)
         button.setTitle("有幫助的評價", for: .normal)
-        button.titleLabel?.textColor = .grayTextColor
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.setTitleColor(.grayTextColor, for: .normal)
         button.addTarget(LikeCommentFooter.self, action: #selector(like), for: .touchDown)
         return button
     }()

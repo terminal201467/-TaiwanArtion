@@ -13,10 +13,6 @@ class AllCommentTableViewCell: UITableViewCell {
     
     //MARK: - Intialization Consequense
     
-    enum CellType {
-        case allcomment, personComment
-    }
-    
     enum CommentType: Int, CaseIterable {
         case contentRichness = 0, equipment, geoLocation, price, serice
         var text: String {
@@ -36,12 +32,30 @@ class AllCommentTableViewCell: UITableViewCell {
     
     //MARK: - UI settings
     
+    private let containerBackgroundView = UIView()
+    
     private let personImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.roundCorners(cornerRadius: imageView.frame.size.width / 2)
         imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0, weight: .semibold)
+        return label
+    }()
+    
+    private let starCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(StarCollectionViewCell.self, forCellWithReuseIdentifier: StarCollectionViewCell.reuseIdentifier)
+        collectionView.allowsSelection = false
+        collectionView.isScrollEnabled = false
+        return collectionView
     }()
     
     private let dateLabel: UILabel = {
@@ -51,18 +65,49 @@ class AllCommentTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var infoStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, starCollectionView])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 4
+        return stackView
+    }()
+    
+    private lazy var personStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [personImage, infoStack])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 5
+        return stackView
+    }()
+    
     private let commentTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .whiteGrayColor
+        tableView.backgroundColor = .white
+        tableView.isScrollEnabled = false
         return tableView
     }()
+    
+    private lazy var contentStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [personStack, commentTableView, footer])
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 10
+        return stackView
+    }()
+    
+    private let footer = LikeCommentFooter()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setTableView()
+        setCollectionView()
         autoLayout()
     }
     
@@ -75,12 +120,58 @@ class AllCommentTableViewCell: UITableViewCell {
         commentTableView.dataSource = self
     }
     
+    private func setCollectionView() {
+        starCollectionView.dataSource = self
+        starCollectionView.delegate = self
+    }
+    
     private func autoLayout() {
-
+        contentView.addSubview(containerBackgroundView)
+        containerBackgroundView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
+        }
+        
+        containerBackgroundView.addSubview(personStack)
+        personStack.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(16)
+        }
+        
+        personImage.snp.makeConstraints { make in
+            make.width.equalTo(40.0)
+            make.height.equalTo(40.0)
+        }
+        
+        containerBackgroundView.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(containerBackgroundView.snp.trailing).offset(-16)
+            make.centerY.equalTo(personStack.snp.centerY)
+        }
+        
+        containerBackgroundView.addSubview(commentTableView)
+        commentTableView.snp.makeConstraints { make in
+            make.height.equalTo(180.0)
+            make.top.equalTo(personStack.snp.bottom)
+            make.leading.equalTo(personStack.snp.leading)
+            make.trailing.equalTo(containerBackgroundView.snp.trailing).offset(-16)
+        }
+        containerBackgroundView.addSubview(footer)
+        footer.snp.makeConstraints { make in
+            make.top.equalTo(commentTableView.snp.bottom).offset(16)
+            make.height.equalTo(34.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
     }
     
     func configurePersonComment(name: String, personImageText: String, starScore: Int, date: String) {
-
+        nameLabel.text = name
+        personImage.image = UIImage(named: personImageText)
+        averageScore = starScore
+        dateLabel.text = date
     }
     
 }
@@ -94,18 +185,29 @@ extension AllCommentTableViewCell: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.reuseIdentifier, for: indexPath) as! ScoreTableViewCell
         cell.configure(title: CommentType.allCases[indexPath.row].text,
                        score: commentTypeScores[indexPath.row])
+        cell.scoreStack.backgroundColor = .white
         cell.selectionStyle = .none
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = ExhibitionCardItemCollectionView()
-        return view
+}
+
+extension AllCommentTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        
-        return view
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StarCollectionViewCell.reuseIdentifier, for: indexPath) as! StarCollectionViewCell
+        cell.configure(isValueStar: true)
+        return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 16, height: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 2, left: 2, bottom: 2, right: 2)
+    }
+
 }

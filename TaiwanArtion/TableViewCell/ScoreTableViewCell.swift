@@ -25,14 +25,14 @@ class ScoreTableViewCell: UITableViewCell {
     private let scoreBrownBar: UIView = {
        let view = UIView()
         view.backgroundColor = .brownColor
-        view.setSpecificRoundCorners(corners: [.layerMinXMaxYCorner, .layerMinXMinYCorner], radius: 10)
+        view.setSpecificRoundCorners(corners: [.layerMinXMaxYCorner, .layerMinXMinYCorner], radius: 5)
         return view
     }()
     
     private let scoreGrayBar: UIView = {
        let view = UIView()
-        view.backgroundColor = .whiteGrayColor
-        view.roundCorners(cornerRadius: 10)
+        view.backgroundColor = .gray
+        view.roundCorners(cornerRadius: 5)
         return view
     }()
     
@@ -44,12 +44,13 @@ class ScoreTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var scoreStack: UIStackView = {
+    lazy var scoreStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, scoreGrayBar, scoreLabel])
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillProportionally
         stackView.spacing = 5
+        stackView.backgroundColor = .whiteGrayColor
         return stackView
     }()
     
@@ -70,10 +71,14 @@ class ScoreTableViewCell: UITableViewCell {
             make.edges.equalToSuperview()
         }
         
+        titleLabel.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(90.0 / frame.width)
+        }
+        
         scoreGrayBar.addSubview(scoreBrownBar)
         scoreGrayBar.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.5)
-            make.height.equalToSuperview().multipliedBy(8.0 / frame.height)
+            make.width.equalToSuperview().multipliedBy(165.0 / frame.width)
+            make.height.equalToSuperview().multipliedBy(12.0 / frame.height)
             make.centerY.equalToSuperview()
         }
         
@@ -82,7 +87,7 @@ class ScoreTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.height.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(score / frame.width)
+            make.width.equalToSuperview().multipliedBy(score)
         }
     }
     

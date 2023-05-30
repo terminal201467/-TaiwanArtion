@@ -99,8 +99,7 @@ class ExhibitionCardViewModel {
             }
         case .evaluate:
             switch EvaluationSection(rawValue: section) {
-            case .allComment: return 1
-            case .personComment: return evaluations[section].commentContents.count
+            case .allComment: return evaluation.allCommentContents.count
             case .none: return 0
             }
         }
@@ -112,7 +111,7 @@ class ExhibitionCardViewModel {
         case .introduce: return IntroduceSection(rawValue: section)!.height
         case .ticketPrice: return TicketPriceSection(rawValue: section)!.height
         case .location: return LocationSection(rawValue: section)!.height
-        case .evaluate: return EvaluationSection(rawValue: section)!.height
+        case .evaluate: return EvaluationSection(rawValue: section)!.headerHeight
         }
     }
     
@@ -138,48 +137,45 @@ class ExhibitionCardViewModel {
     }
     
     //MARK: - EvaluationTableView
-    var evaluations: [EvaluationModel] = [
+    var evaluation: EvaluationModel =
         EvaluationModel(number: 4,
                         allCommentCount: 4,
                         allCommentStar: 4,
-                        contentRichness: 4.6,
-                        equipment: 4.6,
-                        geoLocation: 4.6,
-                        price: 4.6,
-                        service: 4.6,
-                        commentContents: [.init(userImage: "Cathy",
-                                                userName: "Cathy",
-                                                star: 4,
-                                                commentDate: "2023-06-01",
-                                                contentRichness: 4.6,
-                                                equipment: 4.6,
-                                                geoLocation: 4.6,
-                                                price: 4.6,
-                                                service: 4.7)
-                                          ,.init(userImage: "Cathy",
+                        allCommentRate: [.init(contentRichness: 4.6,
+                                               equipment: 4.6,
+                                               geoLocation: 4.6,
+                                               price: 4.6,
+                                               service: 4.6)],
+                        allCommentContents: [.init(userImage: "Cathy",
+                                                   userName: "Cathy",
+                                                   star: 4,
+                                                   commentDate: "2023-06-01",
+                                                   commentRate: [.init(contentRichness: 4.6,
+                                                                       equipment: 4.6,
+                                                                       geoLocation: 4.6,
+                                                                       price: 4.6,
+                                                                       service: 4.7)])
+                                             ,.init(userImage: "Cathy",
                                                  userName: "Cathy",
                                                  star: 4,
                                                  commentDate: "2023-06-01",
-                                                 contentRichness: 4.6,
-                                                 equipment: 4.6,
-                                                 geoLocation: 4.6,
-                                                 price: 4.6,
-                                                 service: 4.7)])
-    ]
+                                                 commentRate: [.init(contentRichness: 4.6,
+                                                                     equipment: 4.6,
+                                                                     geoLocation: 4.6,
+                                                                     price: 4.6,
+                                                                     service: 4.7)])])
     
     func evaluationNumberOfRowInSection(section: Int) -> Int {
         switch EvaluationSection(rawValue: section) {
-        case .allComment: return evaluations.count
-        case .personComment: return evaluations[section].commentContents.count
+        case .allComment: return evaluation.allCommentContents.count
         case .none: return 1
         }
     }
     
-    func evaluationTableCellForRowAt(indexPath: IndexPath) -> EvaluationModel {
+    func evaluationTableCellForRowAt(indexPath: IndexPath) -> EvaluationModel.CommentContent? {
         switch EvaluationSection(rawValue: indexPath.section) {
-        case .allComment: return evaluations[indexPath.row]
-        case .personComment: return evaluations[indexPath.row]
-        case .none: return EvaluationModel(number: 0, allCommentCount: 0, allCommentStar: 0, contentRichness: 0.0, equipment: 0.0, geoLocation: 0.0, price: 0.0, service: 0.0, commentContents: [])
+        case .allComment: return evaluation.allCommentContents[indexPath.row]
+        case .none: return nil
         }
     }
     

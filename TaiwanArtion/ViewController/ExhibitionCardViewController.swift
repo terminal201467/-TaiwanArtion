@@ -57,14 +57,23 @@ enum LocationSection: Int, CaseIterable {
         }
     }
     var height: CGFloat {
-        return 50.0
+        switch self {
+        case .location: return 30.0
+        case .equipment: return 50.0
+        case .map: return 200.0
+        case .route: return 50.0
+        }
     }
 }
 
 enum EvaluationSection: Int, CaseIterable {
-    case allComment = 0, personComment
-    var height: CGFloat {
-        return 50.0
+    case allComment = 0
+    var headerHeight: CGFloat {
+        return 330.0
+    }
+    
+    var cellHeight: CGFloat {
+        return 330.0
     }
 }
 
@@ -231,7 +240,19 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
             case .route: return nil
             case .none: return nil
             }
-        case .evaluate: return nil
+        case .evaluate:
+            let view = AllCommentHeaderView()
+            view.configureAllComment(number: viewModel.evaluation.number,
+                                     commentCount: viewModel.evaluation.allCommentCount,
+                                     starScore: viewModel.evaluation.allCommentStar)
+            viewModel.evaluation.allCommentRate.map { rate in
+                view.scores.append(rate.contentRichness)
+                view.scores.append(rate.equipment)
+                view.scores.append(rate.geoLocation)
+                view.scores.append(rate.price)
+                view.scores.append(rate.service)
+            }
+            return view
         }
     }
 
@@ -248,7 +269,7 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                     cell.selectionStyle = .none
                     return cell
                 case .date:
-                   let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
                     cell.configure(title: OverViewContentCell.date.title, contentText: viewModel.exhibitionInfo.date)
                     cell.selectionStyle = .none
                     return cell
@@ -256,22 +277,22 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                     let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
                     cell.configure(title: OverViewContentCell.time.title, contentText: viewModel.exhibitionInfo.time)
                     cell.selectionStyle = .none
-                     return cell
+                    return cell
                 case .agency:
                     let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
                     cell.configure(title: OverViewContentCell.agency.title, contentText: viewModel.exhibitionInfo.agency)
                     cell.selectionStyle = .none
-                     return cell
+                    return cell
                 case .official:
                     let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
                     cell.configure(title: OverViewContentCell.official.title, contentText: viewModel.exhibitionInfo.official)
                     cell.selectionStyle = .none
-                     return cell
+                    return cell
                 case .telephone:
                     let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
                     cell.configure(title: OverViewContentCell.telephone.title, contentText: viewModel.exhibitionInfo.telephone)
                     cell.selectionStyle = .none
-                     return cell
+                    return cell
                 case .none:
                     return UITableViewCell()
                 }
@@ -286,12 +307,12 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                     cell.selectionStyle = .none
                     cell.configureContent(text: """
                     自然寫作中的一種特殊形式，是「動物小說」。人將自己放到動物的環境中，探索動物與自然的關係，進而從中獲取如何與自然共處的教訓或智慧。讀者當然知道作者不可能真正化身為動物，然而卻又被刺激出了最高度的好奇心與跨物種的同情心。 有一個相當長的時代，從美國開始而影響全世界，將「動物小說」視為小孩，至少是小男孩成長必備的讀物，強調「動物小說」所能提供的特殊情感體驗。『野性的呼喚』和『鹿苑長春』就是那個時代中出現最具有代表性的經典作品...自然寫作中的一種特殊形式，是「動物小說」。人將自己放到動物的環境中，探索動物與自然的關係，進而從中獲取如何與自然共處的教訓或智慧。讀者當然知道作者不可能真正化身為動物，然而卻又被刺激出了最高度的好奇心與跨物種的同情心。 有一個相當長的時代，從美國開始而影響全世界，將「動物小說」視為小孩，至少是小男孩成長必備的讀物，強調「動物小說」所能提供的特殊情感體驗。『野性的呼喚』和『鹿苑長春』就是那個時代中出現最具有代表性的經典作品...自然寫作中的一種特殊形式，是「動物小說」。
-
+                
                     人將自己放到動物的環境中，探索動物與自然的關係，進而從中獲取如何與自然共處的教訓或智慧。讀者當然知道作者不可能真正化身為動物，然而卻又被刺激出了最高度的好奇心與跨物種的同情心。 有一個相當長的時代，從美國開始而影響全世界，將「動物小說」視為小孩，至少是小男孩成長必備的讀物，強調「動物小說」所能提供的特殊情感體驗。『野性的呼喚』和『鹿苑長春』就是那個時代中出現最具有代表性的經典作品...自然寫作中的一種特殊形式，是「動物小說」。人將自己放到動物的環境中，探索動物與自然的關係，進而從中獲取如何與自然共處的教訓或智慧。讀者當然知道作者不可能真正化身為動物，然而卻又被刺激出了最高度的好奇心與跨物種的同情心。 有一個相當長的時代，從美國開始而影響全世界，將「動物小說」視為小孩，至少是小男孩成長必備的讀物，強調「動物小說」所能提供的特殊情感體驗。
-
+                
                     『野性的呼喚』和『鹿苑長春』就是那個時代中出現最具有代表性的經典作品...自然寫作中的一種特殊形式，是「動物小說」。人將自己放到動物的環境中，探索動物與自然的關係，進而從中獲取如何與自然共處的教訓或智慧。讀者當然知道作者不可能真正化身為動物，然而卻又被刺激出了最高度的好奇心與跨物種的同情心。 有一個相當長的時代，從美國開始而影響全世界，將「動物小說」視為小孩，至少是小男孩成長必備的讀物，強調「動物小說」所能提供的特殊情感體驗。『野性的呼喚』和『鹿苑長春』就是那個時代中出現最具有代表性的經典作品...自然寫作中的一種特殊形式，是「動物小說」。人將自己放到動物的環境中，探索動物與自然的關係，進而從中獲取如何與自然共處的教訓或智慧。讀者當然知道作者不可能真正化身為動物，然而卻又被刺激出了最高度的好奇心與跨物種的同情心。
                 """)
-                return cell
+                    return cell
                 case .none: return UITableViewCell()
                 }
             case .none: return UITableViewCell()
@@ -380,23 +401,62 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
             case .allComment:
                 let cell = tableView.dequeueReusableCell(withIdentifier: AllCommentTableViewCell.reuseIdentifier, for: indexPath) as! AllCommentTableViewCell
                 cell.selectionStyle = .none
-                let evaluation = viewModel.evaluationTableCellForRowAt(indexPath: indexPath)
-                cell.commentTypeScores = [4.5, 4.5, 4.5, 4.5, 4.5,]
-                cell.configureAllComment(number: evaluation.number,
-                                         commentCount: evaluation.allCommentCount,
-                                         starScore: evaluation.allCommentStar)
-                cell.roundCorners(cornerRadius: 12.0)
-                return  cell
-            case .personComment:
-                let cell = tableView.dequeueReusableCell(withIdentifier: AllCommentTableViewCell.reuseIdentifier, for: indexPath) as! AllCommentTableViewCell
-                let evaluation = viewModel.evaluationTableCellForRowAt(indexPath: indexPath).commentContents
-                cell.configurePersonComment(name: evaluation[indexPath.row].userName,
-                                            personImageText: evaluation[indexPath.row].userImage,
-                                            starScore: evaluation[indexPath.row].star,
-                                            date: evaluation[indexPath.row].commentDate)
+                cell.backgroundColor = .white
+                tableView.separatorStyle = .singleLine
+                guard let evaluationModel = viewModel.evaluationTableCellForRowAt(indexPath: indexPath) else { return UITableViewCell() }
+                viewModel.evaluation.allCommentContents.map { content in
+                    cell.commentTypeScores.append(contentsOf: content.commentRate.map{$0.contentRichness})
+                    cell.commentTypeScores.append(contentsOf: content.commentRate.map{$0.geoLocation})
+                    cell.commentTypeScores.append(contentsOf:content.commentRate.map{$0.equipment})
+                    cell.commentTypeScores.append(contentsOf:content.commentRate.map{$0.price})
+                    cell.commentTypeScores.append(contentsOf:content.commentRate.map{$0.service})
+                }
+                cell.configurePersonComment(name: evaluationModel.userName,
+                                            personImageText: evaluationModel.userImage,
+                                            starScore: evaluationModel.star,
+                                            date: evaluationModel.commentDate)
+                return cell
             case .none: return UITableViewCell()
             }
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100 // 返回一個適當的估計行高值
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch selectedItem {
+        case .overview:
+            switch OverViewSection(rawValue: indexPath.section) {
+            case .overview: return OverViewSection.overview.height
+            case .none: return OverViewSection.overview.height
+            }
+        case .introduce:
+            switch IntroduceSection(rawValue: indexPath.section) {
+            case .intro: return IntroduceSection.intro.height
+            case .none: return IntroduceSection.intro.height
+            }
+        case .ticketPrice:
+            switch TicketPriceSection(rawValue: indexPath.section) {
+            case .price: return TicketPriceSection.price.height
+            case .none: return TicketPriceSection.price.height
+            }
+        case .location:
+            switch LocationSection(rawValue: indexPath.section) {
+            case .location: return LocationSection.location.height
+            case .equipment: return LocationSection.equipment.height
+            case .map: return LocationSection.map.height
+            case .route: return LocationSection.route.height
+            case .none: return LocationSection.location.height
+            }
+        case .evaluate:
+            switch EvaluationSection(rawValue: indexPath.section) {
+            case .allComment: return EvaluationSection.allComment.cellHeight
+            case .none: return EvaluationSection.allComment.cellHeight
+            }
+        }
+        return UITableView.automaticDimension
     }
 }

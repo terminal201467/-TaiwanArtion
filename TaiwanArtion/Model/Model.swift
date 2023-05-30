@@ -62,29 +62,22 @@ struct EvaluationModel {
     var number: Int
     var allCommentCount: Int
     var allCommentStar: Int
+    var allCommentRate: [CommentRate]
+    var allCommentContents: [CommentContent]
     
-    //所有評論數據
+    struct CommentContent {
+        var userImage: String
+        var userName: String
+        var star: Int
+        var commentDate: String
+        var commentRate: [CommentRate]
+    }
+}
+
+struct CommentRate {
     var contentRichness: Double
     var equipment: Double
     var geoLocation: Double
     var price: Double
     var service: Double
-    
-    //個別使用者的評論內容
-    var commentContents: [CommentContent]
-    
-    struct CommentContent {
-        
-        var userImage: String
-        var userName: String
-        var star: Int
-        var commentDate: String
-        
-        var contentRichness: Double
-        var equipment: Double
-        var geoLocation: Double
-        var price: Double
-        var service: Double
-    }
-    
 }
