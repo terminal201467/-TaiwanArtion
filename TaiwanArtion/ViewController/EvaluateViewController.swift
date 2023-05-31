@@ -27,6 +27,10 @@ class EvaluateViewController: UIViewController {
         evaluateView.popViewController = {
             self.navigationController?.popViewController(animated: true)
         }
+        evaluateView.pushViewController = {
+            let viewController = EvaluateSucceedViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     private func setInfo() {

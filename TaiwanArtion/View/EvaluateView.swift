@@ -15,6 +15,8 @@ class EvaluateView: UIView {
     
     var popViewController: (() -> Void)?
     
+    var pushViewController: (()-> Void)?
+    
     //MARK: -Background
     private let rightTopImage: UIImageView = {
         let imageView = UIImageView()
@@ -201,7 +203,7 @@ class EvaluateView: UIView {
         
         evaluateButton.rx.tap
             .subscribe(onNext: {
-                self.popViewController?()
+                self.pushViewController?()
             })
             .disposed(by: disposeBag)
     }
