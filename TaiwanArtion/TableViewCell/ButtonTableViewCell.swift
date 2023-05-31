@@ -10,17 +10,16 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class RouteButtonTableViewCell: UITableViewCell {
+class ButtonTableViewCell: UITableViewCell {
     
-    static let reuseIdentifier: String = "RouteButtonTableViewCell"
+    static let reuseIdentifier: String = "ButtonTableViewCell"
     
-    var startRoute: (() -> Void)?
+    var action: (() -> Void)?
     
     private let disposeBag = DisposeBag()
     
-    private let routeButton: UIButton = {
+    private let button: UIButton = {
         let button = UIButton()
-        button.setTitle("規劃路線", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.roundCorners(cornerRadius: 20)
         button.backgroundColor = .brownColor
@@ -38,8 +37,8 @@ class RouteButtonTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
-        contentView.addSubview(routeButton)
-        routeButton.snp.makeConstraints { make in
+        contentView.addSubview(button)
+        button.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
@@ -48,10 +47,14 @@ class RouteButtonTableViewCell: UITableViewCell {
     }
     
     private func setButtonSubscription() {
-        routeButton.rx.tap
+        button.rx.tap
             .subscribe(onNext: {
-                self.startRoute?()
+                self.action?()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func setButtonName(name: String) {
+        button.setTitle(name, for: .normal)
     }
 }

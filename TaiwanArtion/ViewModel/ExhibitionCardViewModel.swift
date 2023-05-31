@@ -217,4 +217,17 @@ class ExhibitionCardViewModel {
         
     }
     
+    //MARK: -EvaluateStarLogic
+    var currentEvaluateStar: Int = -1
+    
+    func evaluateCellForRowAt(indexPath: IndexPath) -> Bool {
+        return indexPath.row <= currentEvaluateStar
+    }
+    
+    func evaluateStarDidSelectedRowAt(indexPath: IndexPath) {
+        currentEvaluateStar = indexPath.row
+    }
+    
+    //MARK: - SendEvaluate
+    
 }

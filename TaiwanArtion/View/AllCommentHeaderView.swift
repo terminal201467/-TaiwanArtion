@@ -8,22 +8,22 @@
 import UIKit
 import SnapKit
 
+enum CommentType: Int, CaseIterable {
+    case contentRichness = 0, equipment, geoLocation, price, serice
+    var text: String {
+        switch self {
+        case .contentRichness: return "內容豐富度"
+        case .equipment: return "設備"
+        case .geoLocation: return "地理設備"
+        case .price: return "價格"
+        case .serice: return "服務"
+        }
+    }
+}
+
 class AllCommentHeaderView: UIView {
     
     var scores: [Double] = []
-    
-    enum CommentType: Int, CaseIterable {
-        case contentRichness = 0, equipment, geoLocation, price, serice
-        var text: String {
-            switch self {
-            case .contentRichness: return "內容豐富度"
-            case .equipment: return "設備"
-            case .geoLocation: return "地理設備"
-            case .price: return "價格"
-            case .serice: return "服務"
-            }
-        }
-    }
     
     var averageScore: Int = 0
 
@@ -94,7 +94,7 @@ class AllCommentHeaderView: UIView {
         return tableView
     }()
     
-    private let exhibitionCardItemView = ExhibitionCardItemCollectionView()
+    let exhibitionCardItemView = ExhibitionCardItemCollectionView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

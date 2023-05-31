@@ -239,6 +239,10 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
             }
         case .evaluate:
             let view = AllCommentHeaderView()
+            view.exhibitionCardItemView.pushToViewController = {
+                let viewController = EvaluateViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
             view.configureAllComment(number: viewModel.evaluation.number,
                                      commentCount: viewModel.evaluation.allCommentCount,
                                      starScore: viewModel.evaluation.allCommentStar)
@@ -388,8 +392,9 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
 //                print("mapCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")
                 return cell
             case .route:
-                let cell = tableView.dequeueReusableCell(withIdentifier: RouteButtonTableViewCell.reuseIdentifier, for: indexPath) as! RouteButtonTableViewCell
-                cell.startRoute = {
+                let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
+                cell.setButtonName(name: "規劃路線")
+                cell.action = {
                     print("規劃路線")
                 }
 //                print("routeCell.height:\(cell.contentView.frame.height),mapCell.width:\(cell.contentView.frame.width)")

@@ -21,6 +21,8 @@ enum EvaluationItems: Int, CaseIterable {
 
 class ExhibitionCardItemCollectionView: UIView {
     
+    var pushToViewController: (() -> Void)?
+    
     static let reuseIdentifier: String = "ExhibitionCardItemCollectionView"
     
     private let viewModel = ExhibitionCardViewModel.shared
@@ -75,6 +77,9 @@ extension ExhibitionCardItemCollectionView: UICollectionViewDelegateFlowLayout, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.itemCollectionViewDidSelectedTRowAt(indexPath: indexPath)
         collectionView.reloadData()
+        if EvaluationItems(rawValue: indexPath.row) == .writeEvaluation {
+            self.pushToViewController?()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

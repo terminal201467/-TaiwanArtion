@@ -16,5 +16,5 @@ extension UIColor {
     static let whiteGrayColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
     static let middleGrayColor = UIColor(red: 176/255, green: 176/255, blue: 176/255, alpha: 1.0)
     static let tagYellowColor = UIColor(red: 1.0, green: 176/255, blue: 59/255, alpha: 1.0)
-
+    static let sliderBrownColor = UIColor(red: 216/255, green: 168/255, blue: 130/255, alpha: 1.0)
 }

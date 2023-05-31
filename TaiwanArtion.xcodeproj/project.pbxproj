@@ -19,7 +19,7 @@
 		973C17792A205BE000581DC6 /* TicketPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */; };
 		973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177A2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift */; };
 		973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */; };
-		973C177F2A20B5F300581DC6 /* RouteButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */; };
+		973C177F2A20B5F300581DC6 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C177E2A20B5F300581DC6 /* ButtonTableViewCell.swift */; };
 		973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17802A20D66300581DC6 /* EquipmentTableViewCell.swift */; };
 		973C17832A23907100581DC6 /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17822A23907000581DC6 /* ScoreTableViewCell.swift */; };
 		973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17842A242FB200581DC6 /* AllCommentTableViewCell.swift */; };
@@ -27,6 +27,9 @@
 		973C17892A2444F300581DC6 /* LikeCommentFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17882A2444F300581DC6 /* LikeCommentFooter.swift */; };
 		973C178B2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C178A2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift */; };
 		973C178D2A24A62400581DC6 /* AllCommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C178C2A24A62400581DC6 /* AllCommentHeaderView.swift */; };
+		973C178F2A25F0B000581DC6 /* EvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C178E2A25F0B000581DC6 /* EvaluateViewController.swift */; };
+		973C17912A25F0D900581DC6 /* EvaluateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17902A25F0D900581DC6 /* EvaluateView.swift */; };
+		973C17932A26D56200581DC6 /* SliderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17922A26D56200581DC6 /* SliderTableViewCell.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -109,7 +112,7 @@
 		973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketPriceTableViewCell.swift; sourceTree = "<group>"; };
 		973C177A2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
-		973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteButtonTableViewCell.swift; sourceTree = "<group>"; };
+		973C177E2A20B5F300581DC6 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		973C17802A20D66300581DC6 /* EquipmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTableViewCell.swift; sourceTree = "<group>"; };
 		973C17822A23907000581DC6 /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTableViewCell.swift; sourceTree = "<group>"; };
 		973C17842A242FB200581DC6 /* AllCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -117,6 +120,9 @@
 		973C17882A2444F300581DC6 /* LikeCommentFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCommentFooter.swift; sourceTree = "<group>"; };
 		973C178A2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardItemCollectionView.swift; sourceTree = "<group>"; };
 		973C178C2A24A62400581DC6 /* AllCommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCommentHeaderView.swift; sourceTree = "<group>"; };
+		973C178E2A25F0B000581DC6 /* EvaluateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateViewController.swift; sourceTree = "<group>"; };
+		973C17902A25F0D900581DC6 /* EvaluateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateView.swift; sourceTree = "<group>"; };
+		973C17922A26D56200581DC6 /* SliderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderTableViewCell.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -250,12 +256,13 @@
 				978834C62A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift */,
 				978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */,
 				973C177C2A20B5DD00581DC6 /* MapTableViewCell.swift */,
-				973C177E2A20B5F300581DC6 /* RouteButtonTableViewCell.swift */,
+				973C177E2A20B5F300581DC6 /* ButtonTableViewCell.swift */,
 				973C17782A205BE000581DC6 /* TicketPriceTableViewCell.swift */,
 				973C17802A20D66300581DC6 /* EquipmentTableViewCell.swift */,
 				973C17822A23907000581DC6 /* ScoreTableViewCell.swift */,
 				973C17842A242FB200581DC6 /* AllCommentTableViewCell.swift */,
 				973C17882A2444F300581DC6 /* LikeCommentFooter.swift */,
+				973C17922A26D56200581DC6 /* SliderTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -349,6 +356,7 @@
 				976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */,
 				978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */,
 				973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */,
+				973C178E2A25F0B000581DC6 /* EvaluateViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -372,6 +380,7 @@
 				973C176B2A1F2DB200581DC6 /* TabBarView.swift */,
 				978834B62A1B8DE700ADBEE8 /* TimeHelper.swift */,
 				973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */,
+				973C17902A25F0D900581DC6 /* EvaluateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -640,6 +649,8 @@
 				973C17772A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift in Sources */,
 				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
 				973C178B2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift in Sources */,
+				973C17912A25F0D900581DC6 /* EvaluateView.swift in Sources */,
+				973C17932A26D56200581DC6 /* SliderTableViewCell.swift in Sources */,
 				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
@@ -688,7 +699,7 @@
 				973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */,
 				973C178D2A24A62400581DC6 /* AllCommentHeaderView.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
-				973C177F2A20B5F300581DC6 /* RouteButtonTableViewCell.swift in Sources */,
+				973C177F2A20B5F300581DC6 /* ButtonTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
 				978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */,
 				978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */,
@@ -696,6 +707,7 @@
 				976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */,
 				976A03282A15055900424ACF /* HabbyTableViewCell.swift in Sources */,
 				97D66A262A0C723800A25935 /* SplashViewController.swift in Sources */,
+				973C178F2A25F0B000581DC6 /* EvaluateViewController.swift in Sources */,
 				976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -47,7 +47,7 @@ class ExhibitionCardView: UIView {
         tableView.register(TicketPriceTableViewCell.self, forCellReuseIdentifier: TicketPriceTableViewCell.reuseIdentifier)
         tableView.register(EquipmentTableViewCell.self, forCellReuseIdentifier: EquipmentTableViewCell.reuseIdentifier)
         tableView.register(MapTableViewCell.self, forCellReuseIdentifier: MapTableViewCell.reuseIdentifier)
-        tableView.register(RouteButtonTableViewCell.self, forCellReuseIdentifier: RouteButtonTableViewCell.reuseIdentifier)
+        tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.reuseIdentifier)
         tableView.register(AllCommentTableViewCell.self, forCellReuseIdentifier: AllCommentTableViewCell.reuseIdentifier)
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
