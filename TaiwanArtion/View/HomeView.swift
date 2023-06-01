@@ -34,13 +34,13 @@ class HomeView: UIView {
         return view
     }()
     
-    private let searchButton: UIButton = {
+    let searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "search"), for: .normal)
         return button
     }()
     
-    private let ringButton: UIButton = {
+    let bellButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "bell"), for: .normal)
         return button
@@ -53,7 +53,7 @@ class HomeView: UIView {
     }()
     
     private lazy var titleStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [searchButton, ringButton])
+        let stackView = UIStackView(arrangedSubviews: [searchButton, bellButton])
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
@@ -97,7 +97,7 @@ class HomeView: UIView {
             make.height.equalTo(36)
         }
         
-        ringButton.snp.makeConstraints { make in
+        bellButton.snp.makeConstraints { make in
             make.width.equalTo(36)
             make.height.equalTo(36)
         }

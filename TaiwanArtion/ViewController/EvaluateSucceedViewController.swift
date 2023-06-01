@@ -29,6 +29,7 @@ class EvaluateSucceedViewController: UIViewController {
     private func setTimeBackToExhibitionCardPage() {
         timer.start()
         timer.onCompleted = {
+            //跳回前兩層的ViewController(可能可以另外寫一個Extension)
             if let navigationController = self.navigationController {
                 let viewControllers = navigationController.viewControllers
                 if viewControllers.count >= 2 {

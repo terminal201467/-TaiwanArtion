@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ExhibitionModel {
+struct ExhibitionModel: Hashable {
     
     var title: String
     var location: String
@@ -53,9 +53,6 @@ struct ExhibitionInfo {
     var longtitude: String
 }
 
-//所有評論
-
-//分別評論
 
 struct EvaluationModel {
     

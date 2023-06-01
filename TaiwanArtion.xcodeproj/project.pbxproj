@@ -32,6 +32,16 @@
 		973C17932A26D56200581DC6 /* SliderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17922A26D56200581DC6 /* SliderTableViewCell.swift */; };
 		973C17952A2717EA00581DC6 /* EvaluateSucceedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17942A2717EA00581DC6 /* EvaluateSucceedView.swift */; };
 		973C17972A271B3800581DC6 /* EvaluateSucceedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17962A271B3800581DC6 /* EvaluateSucceedViewController.swift */; };
+		973C17992A2720E100581DC6 /* NotifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17982A2720E100581DC6 /* NotifyViewController.swift */; };
+		973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C179A2A2720F700581DC6 /* NotifyView.swift */; };
+		973C179D2A27265700581DC6 /* NotifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C179C2A27265700581DC6 /* NotifyViewModel.swift */; };
+		973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C179E2A272F6500581DC6 /* NotifyModel.swift */; };
+		973C17A12A273CDD00581DC6 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17A02A273CDD00581DC6 /* SearchView.swift */; };
+		973C17A32A273CF500581DC6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17A22A273CF500581DC6 /* SearchViewController.swift */; };
+		973C17A52A273D0C00581DC6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17A42A273D0C00581DC6 /* SearchViewModel.swift */; };
+		973C17A82A27451100581DC6 /* Citys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17A72A27451100581DC6 /* Citys.swift */; };
+		973C17AA2A27456F00581DC6 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17A92A27456F00581DC6 /* Area.swift */; };
+		973C17AC2A2840A700581DC6 /* NotifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17AB2A2840A700581DC6 /* NotifyTableViewCell.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -127,6 +137,16 @@
 		973C17922A26D56200581DC6 /* SliderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderTableViewCell.swift; sourceTree = "<group>"; };
 		973C17942A2717EA00581DC6 /* EvaluateSucceedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateSucceedView.swift; sourceTree = "<group>"; };
 		973C17962A271B3800581DC6 /* EvaluateSucceedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateSucceedViewController.swift; sourceTree = "<group>"; };
+		973C17982A2720E100581DC6 /* NotifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyViewController.swift; sourceTree = "<group>"; };
+		973C179A2A2720F700581DC6 /* NotifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyView.swift; sourceTree = "<group>"; };
+		973C179C2A27265700581DC6 /* NotifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyViewModel.swift; sourceTree = "<group>"; };
+		973C179E2A272F6500581DC6 /* NotifyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyModel.swift; sourceTree = "<group>"; };
+		973C17A02A273CDD00581DC6 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		973C17A22A273CF500581DC6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		973C17A42A273D0C00581DC6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		973C17A72A27451100581DC6 /* Citys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Citys.swift; sourceTree = "<group>"; };
+		973C17A92A27456F00581DC6 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
+		973C17AB2A2840A700581DC6 /* NotifyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTableViewCell.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -230,6 +250,15 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		973C17A62A2744E900581DC6 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				973C17A72A27451100581DC6 /* Citys.swift */,
+				973C17A92A27456F00581DC6 /* Area.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		976A030D2A0E882F00424ACF /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +271,8 @@
 				978834C02A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift */,
 				973C177A2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift */,
 				973C17862A2431C300581DC6 /* StarCollectionViewCell.swift */,
+				973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */,
+				973C17AB2A2840A700581DC6 /* NotifyTableViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -275,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				976A032E2A15CE3500424ACF /* Model.swift */,
+				973C179E2A272F6500581DC6 /* NotifyModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,6 +339,7 @@
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
 				976A03092A0E790B00424ACF /* UserManager.swift */,
+				973C17A62A2744E900581DC6 /* Enum */,
 				973C17712A1F31D700581DC6 /* Alert */,
 				976A032D2A15CE2C00424ACF /* Model */,
 				976A030E2A0E886800424ACF /* TableViewCell */,
@@ -362,6 +395,8 @@
 				973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */,
 				973C178E2A25F0B000581DC6 /* EvaluateViewController.swift */,
 				973C17962A271B3800581DC6 /* EvaluateSucceedViewController.swift */,
+				973C17982A2720E100581DC6 /* NotifyViewController.swift */,
+				973C17A22A273CF500581DC6 /* SearchViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -372,7 +407,6 @@
 				978834BE2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift */,
 				973C178C2A24A62400581DC6 /* AllCommentHeaderView.swift */,
 				973C178A2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift */,
-				973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */,
 				973C17742A1F3A4400581DC6 /* ExhibitionCardItems.swift */,
 				97D66A302A0CD45F00A25935 /* SkipView.swift */,
 				978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */,
@@ -387,6 +421,8 @@
 				973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */,
 				973C17902A25F0D900581DC6 /* EvaluateView.swift */,
 				973C17942A2717EA00581DC6 /* EvaluateSucceedView.swift */,
+				973C179A2A2720F700581DC6 /* NotifyView.swift */,
+				973C17A02A273CDD00581DC6 /* SearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -397,6 +433,8 @@
 				97D66A3A2A0DE20000A25935 /* SplashViewModel.swift */,
 				976A032B2A15CD1700424ACF /* HomeViewModel.swift */,
 				973C17762A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift */,
+				973C179C2A27265700581DC6 /* NotifyViewModel.swift */,
+				973C17A42A273D0C00581DC6 /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -662,6 +700,7 @@
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
 				978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */,
+				973C17A12A273CDD00581DC6 /* SearchView.swift in Sources */,
 				978834B72A1B8DE700ADBEE8 /* TimeHelper.swift in Sources */,
 				978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */,
 				978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */,
@@ -679,8 +718,10 @@
 				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
 				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
+				973C17AA2A27456F00581DC6 /* Area.swift in Sources */,
 				973C17752A1F3A4400581DC6 /* ExhibitionCardItems.swift in Sources */,
 				973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */,
+				973C179D2A27265700581DC6 /* NotifyViewModel.swift in Sources */,
 				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
 				973C17872A2431C400581DC6 /* StarCollectionViewCell.swift in Sources */,
@@ -692,15 +733,20 @@
 				976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */,
 				978834BF2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift in Sources */,
 				973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */,
+				973C17A52A273D0C00581DC6 /* SearchViewModel.swift in Sources */,
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
 				978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */,
 				976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */,
 				97D66A282A0C724F00A25935 /* SplashView.swift in Sources */,
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
 				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
+				973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
+				973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */,
 				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
+				973C17992A2720E100581DC6 /* NotifyViewController.swift in Sources */,
+				973C17AC2A2840A700581DC6 /* NotifyTableViewCell.swift in Sources */,
 				976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */,
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
 				973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */,
@@ -708,6 +754,8 @@
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
 				973C177F2A20B5F300581DC6 /* ButtonTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
+				973C17A32A273CF500581DC6 /* SearchViewController.swift in Sources */,
+				973C17A82A27451100581DC6 /* Citys.swift in Sources */,
 				973C17972A271B3800581DC6 /* EvaluateSucceedViewController.swift in Sources */,
 				978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */,
 				978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */,

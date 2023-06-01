@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 enum YearCell: Int, CaseIterable {
     case monthCell = 0, habbyCell, mainPhotoCell
@@ -44,6 +47,8 @@ class HomeViewController: UIViewController {
     
     private let viewModel = HomeViewModel.shared
     
+    private let disposeBag = DisposeBag()
+    
     override func loadView() {
         super.loadView()
         view = homeView
@@ -53,12 +58,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBar()
         setTableView()
+        setButtonSubscribe()
     }
     
     private func setNavigationBar() {
         navigationItem.hidesBackButton = true
-//        let backButton = UIBarButtonItem(image: UIImage(named: "backArrow"), style: .done, target: self, action: #selector(backAction))
-//        navigationItem.backBarButtonItem = backButton
     }
     
     private func setTableView() {
@@ -66,9 +70,20 @@ class HomeViewController: UIViewController {
         homeView.tableView.dataSource = self
     }
     
-//    @objc private func backAction() {
-//        navigationController?.popViewController(animated: true)
-//    }
+    private func setButtonSubscribe() {
+        homeView.searchButton.rx.tap
+            .subscribe(onNext: {
+                
+            })
+            .disposed(by: disposeBag)
+        
+        homeView.bellButton.rx.tap
+            .subscribe(onNext: {
+                let viewController = NotifyViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
