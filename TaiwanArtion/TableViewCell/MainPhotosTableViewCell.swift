@@ -74,7 +74,7 @@ extension MainPhotosTableViewCell: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainPhotosCollectionViewCell.reuseIdentifier, for: indexPath) as! MainPhotosCollectionViewCell
         cell.configure(title: mainPhotos[indexPath.row].title,
-                       date: mainPhotos[indexPath.row].date,
+                       date: mainPhotos[indexPath.row].dateString,
                        tagText: "雕塑",
                        image: mainPhotos[indexPath.row].image)
         cell.contentView.roundCorners(cornerRadius: 12)

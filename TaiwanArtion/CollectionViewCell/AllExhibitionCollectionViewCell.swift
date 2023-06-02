@@ -132,7 +132,7 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
     func configure(with exhibition: ExhibitionModel) {
         exhibitionImage.image = UIImage(named: exhibition.image)
         titleLabel.text = exhibition.title
-        dateLabel.text = exhibition.date
+        dateLabel.text = exhibition.dateString
         cityLabel.text = exhibition.location
     }
     

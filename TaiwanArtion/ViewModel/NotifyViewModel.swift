@@ -28,14 +28,14 @@ class NotifyViewModel {
     var currentNotifyPage: NotifyType = .exhibitionNotify
     
     private var exhibitions: [ExhibitionModel] = [
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", date: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
     ]
     
     private var readExhibitions: Set<ExhibitionModel> = Set<ExhibitionModel>()
@@ -48,7 +48,14 @@ class NotifyViewModel {
     ]
     
     private var unreadCount: Int {
-        return exhibitions.count
+        get {
+            return exhibitions.count
+        }
+    }
+    
+    func setUnReadCount() -> Int {
+        print("unreadCount:\(unreadCount)")
+        return unreadCount
     }
     
     //MARK: -CollectionVeiw methods
@@ -99,6 +106,8 @@ class NotifyViewModel {
         switch currentNotifyPage {
         case .exhibitionNotify:
             readExhibitions.insert(exhibitions[indexPath.row])
+            print("readExhibitions:\(readExhibitions)")
+            print("readExhibitions.count:\(readExhibitions.count)")
         case .systemNotify:
             print("systemNotification")
         }

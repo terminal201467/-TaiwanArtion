@@ -6,10 +6,18 @@
 //
 
 import UIKit
+import SnapKit
 
 class NotifyTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "NotifyTableViewCell"
+    
+    private let backgroundWhiteGrayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .whiteGrayColor
+        view.roundCorners(cornerRadius: 20)
+        return view
+    }()
 
     private let exhibitionImage: UIImageView = {
         let imageView = UIImageView()
@@ -98,19 +106,25 @@ class NotifyTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
-        contentView.backgroundColor = .whiteGrayColor
-        contentView.roundCorners(cornerRadius: 20)
-        contentView.addSubview(exhibitionImage)
-        contentView.addSubview(infoStack)
-        contentView.addSubview(beforeLabel)
-        contentView.addSubview(redDotImage)
+        contentView.addSubview(backgroundWhiteGrayView)
+        backgroundWhiteGrayView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(8)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-8)
+        }
+
+        backgroundWhiteGrayView.addSubview(exhibitionImage)
+        backgroundWhiteGrayView.addSubview(infoStack)
+        backgroundWhiteGrayView.addSubview(beforeLabel)
+        backgroundWhiteGrayView.addSubview(redDotImage)
         
         exhibitionImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(-16)
-            make.width.equalToSuperview().multipliedBy(125.0 / frame.width)
-            make.height.equalToSuperview().multipliedBy(80.0 / frame.height)
+            make.width.equalTo(125.0)
+            make.height.equalTo(80.0)
         }
         
         redDotImage.snp.makeConstraints { make in
@@ -118,6 +132,11 @@ class NotifyTableViewCell: UITableViewCell {
             make.centerX.equalTo(exhibitionImage.snp.leading)
             make.width.equalTo(8.0)
             make.height.equalTo(8.0)
+        }
+        
+        iconImage.snp.makeConstraints { make in
+            make.height.equalTo(12.0)
+            make.width.equalTo(12.0)
         }
         
         infoStack.snp.makeConstraints { make in
@@ -131,20 +150,22 @@ class NotifyTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalTo(titleLabel.snp.centerY)
         }
+        
         exhibitionImage.addSubview(tagLabel)
         tagLabel.snp.makeConstraints { make in
             make.leading.equalTo(exhibitionImage.snp.leading)
             make.bottom.equalTo(exhibitionImage.snp.bottom)
-            make.height.equalToSuperview().multipliedBy(24.0 / frame.height)
-            make.width.equalToSuperview().multipliedBy(40.0 / frame.width)
+            make.height.equalTo(24.0)
+            make.width.equalTo(40.0)
         }
     }
     
-    func configure(title: String, date: String, location: String, dayBefore: String, tag: String) {
+    func configure(image: String, title: String, date: String, location: String, dayBefore: Int, tag: String) {
+        exhibitionImage.image = UIImage(named: image)
         titleLabel.text = title
         dateLabel.text = date
         locationLabel.text = location
-        beforeLabel.text = dayBefore
+        beforeLabel.text = "\(dayBefore)天前"
         tagLabel.text = tag
     }
     

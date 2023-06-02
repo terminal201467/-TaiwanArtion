@@ -11,8 +11,29 @@ struct ExhibitionModel: Hashable {
     
     var title: String
     var location: String
-    var date: String
+    var dateString: String
     var image: String
+    var date: Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: dateString) ?? Date()
+    }
+    
+    var dateBefore: Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if let pastDate = dateFormatter.date(from: dateString) {
+            let calendar = Calendar.current
+            
+            let currentDate = Date()
+            let components = calendar.dateComponents([.day], from: pastDate, to: currentDate)
+            if let days = components.day {
+                return days
+            }
+        }
+        return 0
+    }
     
 }
 

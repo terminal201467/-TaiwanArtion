@@ -24,13 +24,17 @@ class NotifyViewController: UIViewController {
         setTableView()
         setCollectionView()
         setNavigationBar()
-        setSwitchButton()
+        setButton()
     }
     
-    private func setSwitchButton() {
+    private func setButton() {
         notifyView.notifyIsOn = { isOn in
             print("isOn:\(isOn)")
             self.viewModel.toggleNotification(isOn: isOn)
+        }
+        
+        notifyView.backAction = {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -52,22 +56,34 @@ class NotifyViewController: UIViewController {
 
 extension NotifyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        notifyView.setTableHasDataBy(count: viewModel.numberOfRowInSection(section: section))
-//        notifyView.setConfigureUnRead(isRead: viewModel.,
-//                                      unReadCount: viewModel.numberOfRowInSection(section: section))
         return viewModel.numberOfRowInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NotifyTableViewCell.reuseIdentifier, for: indexPath) as! NotifyTableViewCell
-//        if let cellInfo = viewModel.cellForRowAt(indexPath: indexPath) {
-//            cell.configure(title: cellInfo.title,
-//                           date: cellInfo.date,
-//                           location: cellInfo.location,
-//                           dayBefore: "\(9)",
-//                           tag: "雕塑")
-//        }
-        return cell
+        notifyView.setConfigureUnRead(isRead: viewModel.isReadCellAt(indexPath: indexPath), unReadCount: viewModel.setUnReadCount())
+        switch viewModel.currentNotifyPage {
+        case .exhibitionNotify:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NotifyTableViewCell.reuseIdentifier, for: indexPath) as! NotifyTableViewCell
+            guard let exhibitionNotifyModel = viewModel.exhibitionsCellForRowAt(indexPath: indexPath) else { return UITableViewCell() }
+            notifyView.setTableHasDataBy(count: viewModel.numberOfRowInSection(section: indexPath.section))
+            cell.configure(image: exhibitionNotifyModel.image,
+                               title: exhibitionNotifyModel.title,
+                               date: exhibitionNotifyModel.dateString,
+                               location: exhibitionNotifyModel.location,
+                               dayBefore: exhibitionNotifyModel.dateBefore,
+                               tag: "雕塑")
+            cell.selectionStyle = .none
+            return cell
+        case .systemNotify:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SystemTableViewCell.reuseIdentifier, for: indexPath) as! SystemTableViewCell
+            guard let systemModel = viewModel.systemNotificationsCellForRowAt(indexPath: indexPath) else { return UITableViewCell() }
+                cell.configure(title: systemModel.title,
+                               description: systemModel.description,
+                               dayBefore: systemModel.dateBefore)
+            notifyView.setTableHasDataBy(count: viewModel.numberOfRowInSection(section: indexPath.section))
+            cell.selectionStyle = .none
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -89,6 +105,7 @@ extension NotifyViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.notifyTypeDidItemSelectedRowAt(indexPath: indexPath)
         collectionView.reloadData()
+        self.notifyView.tableView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

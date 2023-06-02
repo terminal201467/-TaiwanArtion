@@ -120,17 +120,19 @@ class NotifyView: UIView {
     private let unReadlabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.text = "(0)未讀"
         return label
     }()
     
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
-        tableView.applyShadow(color: .black, opacity: 0.3, offset: CGSize(width: 1, height: 1), radius: 4)
-        tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+//        tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         tableView.register(NotifyTableViewCell.self, forCellReuseIdentifier: NotifyTableViewCell.reuseIdentifier)
+        tableView.register(SystemTableViewCell.self, forCellReuseIdentifier: SystemTableViewCell.reuseIdentifier)
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -223,7 +225,7 @@ class NotifyView: UIView {
         backgroundWhiteView.addSubview(redDotImage)
         redDotImage.snp.makeConstraints { make in
             make.centerY.equalTo(unReadlabel.snp.centerY)
-            make.trailing.equalTo(unReadlabel.snp.trailing).offset(-4)
+            make.trailing.equalTo(unReadlabel.snp.leading).offset(-4)
             make.height.equalTo(4)
             make.width.equalTo(4)
         }
@@ -264,7 +266,7 @@ class NotifyView: UIView {
             //未讀
             redDotImage.isHidden = false
             unReadlabel.isHidden = false
-            unReadlabel.text = "(\(unReadCount))未讀"
+            unReadlabel.text = "(\(unReadCount!))未讀"
         }
     }
     

@@ -55,7 +55,7 @@ extension HotHxhibitionTableViewCell: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HotDetailTableViewCell.reuseIdentifier, for: indexPath) as! HotDetailTableViewCell
         let exhibition = viewModel.hotExhibitionCellForRowAt(indexPath: indexPath)
-        cell.configure(number: "0\(indexPath.row + 1)", title: exhibition.title, location: exhibition.location, date: exhibition.date, image: exhibition.image)
+        cell.configure(number: "0\(indexPath.row + 1)", title: exhibition.title, location: exhibition.location, date: exhibition.dateString, image: exhibition.image)
         return cell
     }
     
