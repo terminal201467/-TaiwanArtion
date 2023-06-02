@@ -127,7 +127,6 @@ class NotifyView: UIView {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
-//        tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         tableView.register(NotifyTableViewCell.self, forCellReuseIdentifier: NotifyTableViewCell.reuseIdentifier)
         tableView.register(SystemTableViewCell.self, forCellReuseIdentifier: SystemTableViewCell.reuseIdentifier)
         tableView.allowsSelection = true

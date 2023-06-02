@@ -15,7 +15,9 @@ class NotifyTableViewCell: UITableViewCell {
     private let backgroundWhiteGrayView: UIView = {
         let view = UIView()
         view.backgroundColor = .whiteGrayColor
-        view.roundCorners(cornerRadius: 20)
+//        view.setSpecificRoundCorners(corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner], radius: 8)
+        view.roundCorners(cornerRadius: 8)
+
         return view
     }()
 
@@ -117,16 +119,16 @@ class NotifyTableViewCell: UITableViewCell {
         backgroundWhiteGrayView.addSubview(exhibitionImage)
         backgroundWhiteGrayView.addSubview(infoStack)
         backgroundWhiteGrayView.addSubview(beforeLabel)
-        backgroundWhiteGrayView.addSubview(redDotImage)
         
         exhibitionImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.width.equalTo(125.0)
             make.height.equalTo(80.0)
         }
         
+        contentView.addSubview(redDotImage)
         redDotImage.snp.makeConstraints { make in
             make.centerY.equalTo(exhibitionImage.snp.top)
             make.centerX.equalTo(exhibitionImage.snp.leading)
