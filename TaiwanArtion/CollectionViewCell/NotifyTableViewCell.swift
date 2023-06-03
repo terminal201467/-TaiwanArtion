@@ -15,7 +15,6 @@ class NotifyTableViewCell: UITableViewCell {
     private let backgroundWhiteGrayView: UIView = {
         let view = UIView()
         view.backgroundColor = .whiteGrayColor
-//        view.setSpecificRoundCorners(corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner], radius: 8)
         view.roundCorners(cornerRadius: 8)
 
         return view

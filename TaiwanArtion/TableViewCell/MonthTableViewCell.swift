@@ -25,7 +25,6 @@ class MonthTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    var month: Int = 0
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

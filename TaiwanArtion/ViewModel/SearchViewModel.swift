@@ -20,12 +20,13 @@ enum FilterType: Int, CaseIterable {
 }
 
 enum AlreadyFilter: Int, CaseIterable {
-    case result = 0, news, nearest
+    case result = 0, news, nearest, filterIcon
     var text: String {
         switch self {
         case .result: return "搜尋結果"
         case .news: return "藝文新聞"
         case .nearest: return "距離最近"
+        case .filterIcon: return "filter"
         }
     }
 }
@@ -41,27 +42,39 @@ class SearchViewModel {
     
     private var hotSearch: [ExhibitionModel] = []
     
-    var isInSearchMode: Bool = false
+    private var isSearchModeOn: Bool = false
+    
+    private var currentItem: Int = 0
+    
+    public func changedModeWith(isSearching: Bool) {
+        isSearchModeOn = isSearching
+    }
     
     //MARK: - CollectionView methods
-//    func collectionViewNumberOfRowInSection(section: Int) -> Int{
-//        
-//    }
+    func collectionViewNumberOfRowInSection(section: Int) -> Int {
+        return isSearchModeOn ? AlreadyFilter.allCases.count : FilterType.allCases.count
+    }
     
-    func collectionViewCellForRowAt(indexPath: IndexPath) {
-        
+    func collectionViewCellForRowAt(indexPath: IndexPath) -> (title: String, isSelected: Bool) {
+        if isSearchModeOn {
+            let isSelected = AlreadyFilter(rawValue: indexPath.row) == .init(rawValue: currentItem)
+            return (AlreadyFilter.allCases[indexPath.row].text, isSelected)
+        } else {
+            let isSelected = FilterType(rawValue: indexPath.row) == .init(rawValue: currentItem)
+            return (FilterType.allCases[indexPath.row].text, isSelected)
+        }
     }
     
     func collectionViewDidSelectedRowAt(indexPath: IndexPath) {
-        
+        isSearchModeOn ? AlreadyFilter.allCases[indexPath.row].text : FilterType.allCases[indexPath.row].text
     }
     
     //MARK: - TableView methods
-//    func tableViewNumberOfRowInSection(section: Int) -> Int{
-//        
-//    }
+    func tableViewNumberOfRowInSection(isSearchModeOn: Bool ,section: Int) -> Int{
+        
+    }
     
-    func tableViewCellForRowAt(indexPath: IndexPath) {
+    func tableViewCellForRowAt(isSearchModeOn: Bool ,indexPath: IndexPath) {
         
     }
     
