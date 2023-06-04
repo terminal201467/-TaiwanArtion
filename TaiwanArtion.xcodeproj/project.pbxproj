@@ -54,6 +54,9 @@
 		973C17C42A2AF74900581DC6 /* SearchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C32A2AF74800581DC6 /* SearchingCollectionViewCell.swift */; };
 		973C17C62A2B13A800581DC6 /* HotHintTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C52A2B13A800581DC6 /* HotHintTableViewCell.swift */; };
 		973C17C82A2B405D00581DC6 /* ButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C72A2B405D00581DC6 /* ButtonCollectionViewCell.swift */; };
+		973C17CA2A2C191F00581DC6 /* FilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C92A2C191F00581DC6 /* FilterCondition.swift */; };
+		973C17CC2A2C1A7700581DC6 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17CB2A2C1A7700581DC6 /* Day.swift */; };
+		973C17CE2A2C69F300581DC6 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17CD2A2C69F300581DC6 /* SearchResultTableViewCell.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -171,6 +174,9 @@
 		973C17C32A2AF74800581DC6 /* SearchingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		973C17C52A2B13A800581DC6 /* HotHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotHintTableViewCell.swift; sourceTree = "<group>"; };
 		973C17C72A2B405D00581DC6 /* ButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		973C17C92A2C191F00581DC6 /* FilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCondition.swift; sourceTree = "<group>"; };
+		973C17CB2A2C1A7700581DC6 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		973C17CD2A2C69F300581DC6 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -279,6 +285,8 @@
 			children = (
 				973C17A72A27451100581DC6 /* Citys.swift */,
 				973C17A92A27456F00581DC6 /* Area.swift */,
+				973C17C92A2C191F00581DC6 /* FilterCondition.swift */,
+				973C17CB2A2C1A7700581DC6 /* Day.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -341,6 +349,7 @@
 				973C17922A26D56200581DC6 /* SliderTableViewCell.swift */,
 				973C17B02A29623F00581DC6 /* SystemTableViewCell.swift */,
 				973C17C52A2B13A800581DC6 /* HotHintTableViewCell.swift */,
+				973C17CD2A2C69F300581DC6 /* SearchResultTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -760,6 +769,7 @@
 				978834B92A1C967200ADBEE8 /* MainDotBarFooterView.swift in Sources */,
 				976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */,
 				976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */,
+				973C17CE2A2C69F300581DC6 /* SearchResultTableViewCell.swift in Sources */,
 				978834BD2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift in Sources */,
 				973C17892A2444F300581DC6 /* LikeCommentFooter.swift in Sources */,
 				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
@@ -809,6 +819,7 @@
 				973C177F2A20B5F300581DC6 /* ButtonTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
 				973C17A32A273CF500581DC6 /* SearchViewController.swift in Sources */,
+				973C17CA2A2C191F00581DC6 /* FilterCondition.swift in Sources */,
 				973C17C42A2AF74900581DC6 /* SearchingCollectionViewCell.swift in Sources */,
 				973C17A82A27451100581DC6 /* Citys.swift in Sources */,
 				973C17972A271B3800581DC6 /* EvaluateSucceedViewController.swift in Sources */,
@@ -816,6 +827,7 @@
 				978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */,
 				976A032F2A15CE3500424ACF /* Model.swift in Sources */,
 				976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */,
+				973C17CC2A2C1A7700581DC6 /* Day.swift in Sources */,
 				976A03282A15055900424ACF /* HabbyTableViewCell.swift in Sources */,
 				973C17BC2A29936F00581DC6 /* WeekCollectionViewCell.swift in Sources */,
 				97D66A262A0C723800A25935 /* SplashViewController.swift in Sources */,

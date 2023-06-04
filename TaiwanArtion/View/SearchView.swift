@@ -82,20 +82,52 @@ class SearchView: UIView {
         return stackView
     }()
     
+    private let locationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: ""), for: .normal)
+        return button
+    }()
+    
+    private let locationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "目前所在位置"
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
+    }()
+    
+    private lazy var locationStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [locationButton, locationLabel])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(HotHintTableViewCell.self, forCellReuseIdentifier: <#T##String#>)
+        tableView.register(HotHintTableViewCell.self, forCellReuseIdentifier: HotHintTableViewCell.reuseIdentifier)
+        tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.reuseIdentifier)
+        tableView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellReuseIdentifier: <#T##String#>)
+        
         tableView.allowsSelection = false
         tableView.isScrollEnabled = true
-        tableView.setSpecificRoundCorners(corners: <#T##CACornerMask#>, radius: <#T##CGFloat#>)
         tableView.backgroundColor = .white
         return tableView
     }()
     
+    lazy var contentStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [locationStack, tableView])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 20
+        stackView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setCollectionView()
-        setTableView()
         setBackButton()
         setSearchBarBinding()
         backgroundAutoLayout()
@@ -154,11 +186,11 @@ class SearchView: UIView {
             make.height.equalToSuperview().multipliedBy(200.0)
         }
         
-        addSubview(tableView)
-        tableView.snp.makeConstraints { make in
+        addSubview(contentStack)
+        contentStack.snp.makeConstraints { make in
+            make.top.equalTo(searchItemsStack.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(searchItemsStack.snp.bottom)
             make.bottom.equalToSuperview()
         }
     }

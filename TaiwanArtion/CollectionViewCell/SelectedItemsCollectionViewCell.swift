@@ -39,7 +39,7 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
         if selected {
             itemLabel.text = text
             itemLabel.backgroundColor = .brownTitleColor
-            itemLabel.textColor = .whiteGrayColor
+            itemLabel.textColor = .white
         } else {
             itemLabel.text = text
             itemLabel.backgroundColor = .whiteGrayColor

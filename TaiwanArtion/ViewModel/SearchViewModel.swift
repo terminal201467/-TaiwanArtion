@@ -44,10 +44,14 @@ class SearchViewModel {
     
     private var isSearchModeOn: Bool = false
     
-    private var currentItem: Int = 0
+    private var currentItem: Int?
     
     public func changedModeWith(isSearching: Bool) {
         isSearchModeOn = isSearching
+    }
+    
+    public func getCurrentItem() -> Int? {
+        return currentItem
     }
     
     //MARK: - CollectionView methods
@@ -55,13 +59,21 @@ class SearchViewModel {
         return isSearchModeOn ? AlreadyFilter.allCases.count : FilterType.allCases.count
     }
     
-    func collectionViewCellForRowAt(indexPath: IndexPath) -> (title: String, isSelected: Bool) {
+    func collectionViewCellForRowAt(indexPath: IndexPath) -> (title: String, isSelected: Bool?) {
         if isSearchModeOn {
-            let isSelected = AlreadyFilter(rawValue: indexPath.row) == .init(rawValue: currentItem)
-            return (AlreadyFilter.allCases[indexPath.row].text, isSelected)
+            if currentItem == nil {
+                return (AlreadyFilter.allCases[indexPath.row].text, nil)
+            } else {
+                let isSelected = AlreadyFilter(rawValue: indexPath.row) == .init(rawValue: currentItem!)
+                return (AlreadyFilter.allCases[indexPath.row].text, isSelected)
+            }
         } else {
-            let isSelected = FilterType(rawValue: indexPath.row) == .init(rawValue: currentItem)
-            return (FilterType.allCases[indexPath.row].text, isSelected)
+            if currentItem == nil {
+                return (FilterType.allCases[indexPath.row].text, nil)
+            } else {
+                let isSelected = FilterType(rawValue: indexPath.row) == .init(rawValue: currentItem!)
+                return (FilterType.allCases[indexPath.row].text, isSelected)
+            }
         }
     }
     
@@ -70,12 +82,60 @@ class SearchViewModel {
     }
     
     //MARK: - TableView methods
-    func tableViewNumberOfRowInSection(isSearchModeOn: Bool ,section: Int) -> Int{
-        
+    func tableViewNumberOfRowInSection(section: Int) -> Int {
+        //未搜尋狀態
+        if isSearchModeOn {
+            switch AlreadyFilter(rawValue: section) {
+            case .result: return 1
+            case .news: return 1
+            case .nearest: return 1
+            case .filterIcon: return 1
+            case .none: return 1
+            }
+        } else {
+            switch FilterType(rawValue: section) {
+            case .city: return Area.allCases.count //
+            case .place: return 1 //展覽館
+            case .date: return 2 //時間、日期
+            case .price: return 1
+            case .none: return 1
+            }
+        }
     }
     
-    func tableViewCellForRowAt(isSearchModeOn: Bool ,indexPath: IndexPath) {
-        
+    func tableViewCellForRowAt(indexPath: IndexPath) -> [Any] {
+        if isSearchModeOn {
+            //這邊可能要有條件篩選之後才會有意義。
+            currentItem = 0
+            switch AlreadyFilter(rawValue: currentItem!) {
+            case .result: return filterStore
+            case .news: return filterStore
+            case .nearest: return filterStore
+            case .filterIcon: return filterStore
+            case .none: return filterStore
+            }
+        } else {
+            if let item = currentItem {
+                switch FilterType(rawValue: currentItem!) {
+                case .city:
+                    switch Area(rawValue: indexPath.section) {
+                    case .north: NorthernCity.allCases.map{$0.text}
+                    case .middle: CentralCity.allCases.map{$0.text}
+                    case .south: SouthernCity.allCases.map{$0.text}
+                    case .east: EasternCity.allCases.map{$0.text}
+                    case .island: OutlyingIslandCity.allCases.map{$0.text}
+                    case .none: print("none")
+                    }
+                case .place: return Place.allCases.map{$0.title}
+                case .date: return Date.allCases.map{$0.text}
+                case .price: return Price.allCases.map{$0.text}
+                case .none: return hotSearch.map { $0.title }
+                }
+            } else {
+                return hotSearch.map { $0.title }
+            }
+            
+        }
     }
     
     func tableViewDidSelectedRowAt(indexPath: IndexPath) {

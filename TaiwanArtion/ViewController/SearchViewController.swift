@@ -103,11 +103,47 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        viewModel.tableViewNumberOfRowInSection(section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = TitleHeaderView()
+        if isSearchModeViewOn {
+            if viewModel.getCurrentItem() == nil {
+                view.configureTitle(with: "熱門搜尋")
+                view.checkMoreButton.isHidden = true
+            } else {
+                switch FilterType(rawValue: viewModel.getCurrentItem()!) {
+                case .city:
+                    view.configureTitle(with: Area.allCases[section].text)
+                    view.checkMoreButton.isHidden = false
+                case .place:
+                    view.configureTitle(with: "展覽館")
+                    view.checkMoreButton.setTitle("全選", for: .normal)
+                case .date:
+                    view.configureTitle(with: "時間")
+                    view.checkMoreButton.setTitle("全選", for: .normal)
+                case .price:
+                    view.configureTitle(with: "票價")
+                    view.checkMoreButton.setTitle("全選", for: .normal)
+                case .none:
+                    print("")
+                }
+            }
+        } else {
+            if viewModel.getCurrentItem() == nil {
+                view.configureTitle(with: "找到\(0)筆展覽")
+            } else {
+                
+            }
+        }
+        return view
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        viewModel.tableViewCellForRowAt(indexPath: indexPath)
+        
+        
     }
     
     

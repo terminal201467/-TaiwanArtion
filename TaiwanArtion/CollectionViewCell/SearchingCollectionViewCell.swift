@@ -46,8 +46,13 @@ class SearchingCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(title: String, isSelected: Bool) {
-        titleLabel.textColor = isSelected ? .brownTitleColor : .grayTextColor
-        bar.backgroundColor = isSelected ? .brownTitleColor : nil
+    func configure(title: String, isSelected: Bool?) {
+        if isSelected == nil {
+            titleLabel.textColor = .grayTextColor
+            bar.backgroundColor = nil
+        } else {
+            titleLabel.textColor = isSelected! ? .brownTitleColor : .grayTextColor
+            bar.backgroundColor = isSelected! ? .brownTitleColor : nil
+        }
     }
 }
