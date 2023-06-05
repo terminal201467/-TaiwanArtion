@@ -141,6 +141,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //搜尋狀態
+        if isSearchModeViewOn {
+            
+            
+        } else {
+            
+            
+        }
+        
+        
+        //非搜尋狀態
+        
         viewModel.tableViewCellForRowAt(indexPath: indexPath)
         
         

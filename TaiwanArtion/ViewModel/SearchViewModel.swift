@@ -36,6 +36,8 @@ class SearchViewModel {
     
     //MARK: - data
     
+    static let shared = SearchViewModel()
+    
     private var store: [ExhibitionModel] = []
     
     private var filterStore: [ExhibitionModel] = []
@@ -105,7 +107,6 @@ class SearchViewModel {
     
     func tableViewCellForRowAt(indexPath: IndexPath) -> [Any] {
         if isSearchModeOn {
-            //這邊可能要有條件篩選之後才會有意義。
             currentItem = 0
             switch AlreadyFilter(rawValue: currentItem!) {
             case .result: return filterStore
