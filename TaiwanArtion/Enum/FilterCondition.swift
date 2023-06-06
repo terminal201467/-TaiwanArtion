@@ -20,7 +20,7 @@ enum Place: Int, CaseIterable {
     }
 }
 
-enum Date: Int, CaseIterable {
+enum DateKind: Int, CaseIterable {
     case today = 0, tomorrow, thisWeek, finished
     var text: String {
         switch self {
@@ -40,4 +40,8 @@ enum Price: Int, CaseIterable {
         case .free: return "免費展"
         }
     }
+}
+
+enum TimeSection: Int, CaseIterable {
+    case dateKind = 0, calendar
 }

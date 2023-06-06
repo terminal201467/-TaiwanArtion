@@ -12,9 +12,9 @@ class MainPhotosTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "MainPhotosTableViewCell"
     
-    var mainPhotos: [ExhibitionModel] = []
+    var mainPhotos: [ExhibitionInfo] = []
     
-    var pushToViewController: ((ExhibitionModel) -> Void)?
+    var pushToViewController: ((ExhibitionInfo) -> Void)?
     
     private let viewModel = HomeViewModel.shared
     

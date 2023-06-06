@@ -13,7 +13,7 @@ class AllExhibitionTableViewCell: UITableViewCell {
     
     private let viewModel = HomeViewModel.shared
     
-    var pushToViewController: ((ExhibitionModel) -> Void)?
+    var pushToViewController: ((ExhibitionInfo) -> Void)?
     
     private let itemView = SelectCollectionItemsView()
     

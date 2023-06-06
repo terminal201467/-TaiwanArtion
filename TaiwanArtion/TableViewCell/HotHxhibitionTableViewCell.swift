@@ -13,7 +13,7 @@ class HotHxhibitionTableViewCell: UITableViewCell {
     
     private let viewModel = HomeViewModel.shared
     
-    var pushToViewController: ((ExhibitionModel) -> Void)?
+    var pushToViewController: ((ExhibitionInfo) -> Void)?
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)

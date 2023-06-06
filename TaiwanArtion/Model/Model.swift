@@ -7,12 +7,21 @@
 
 import Foundation
 
-struct ExhibitionModel: Hashable {
+struct NewsModel {
     
     var title: String
-    var location: String
-    var dateString: String
+    var date: String
+    var author: String
     var image: String
+    
+}
+
+struct ExhibitionInfo: Hashable, Equatable {
+    
+    var title: String
+    var image: String
+    var tag: String
+    var dateString: String
     var date: Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -34,23 +43,6 @@ struct ExhibitionModel: Hashable {
         }
         return 0
     }
-    
-}
-
-
-struct NewsModel {
-    
-    var title: String
-    var date: String
-    var author: String
-    var image: String
-    
-}
-
-struct ExhibitionInfo {
-    
-    var tag: String
-    var date: String
     var time: String
     var agency: String
     var official: String
@@ -65,17 +57,21 @@ struct ExhibitionInfo {
     var free: String
     var earlyBirdPrice: String
     
+    var city: String
     var location: String
     var address: String
     
-    var equipments: [String]
+    var equipments: [String]?
     
     var latitude: String
     var longtitude: String
+    
+    //評價
+    var evaluation: EvaluationModel?
 }
 
 
-struct EvaluationModel {
+struct EvaluationModel: Hashable {
     
     var number: Int
     var allCommentCount: Int
@@ -83,7 +79,7 @@ struct EvaluationModel {
     var allCommentRate: [CommentRate]
     var allCommentContents: [CommentContent]
     
-    struct CommentContent {
+    struct CommentContent: Hashable {
         var userImage: String
         var userName: String
         var star: Int
@@ -92,7 +88,7 @@ struct EvaluationModel {
     }
 }
 
-struct CommentRate {
+struct CommentRate: Hashable {
     var contentRichness: Double
     var equipment: Double
     var geoLocation: Double

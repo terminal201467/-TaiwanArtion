@@ -75,6 +75,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
                 cell.configure(iconText: cellInfo.title)
                 return cell
             case .none: print("none")
+                return UICollectionViewCell()
             }
         } else {
             switch FilterType(rawValue: indexPath.row) {
@@ -95,15 +96,21 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
                 cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
                 return cell
             case .none: print("none")
+                return UICollectionViewCell()
             }
         }
+//        return UICollectionViewCell()
     }
     
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.tableViewNumberOfRowInSection(section: section)
+        if isSearchModeViewOn {
+            return viewModel.searchModeTableViewNumberOfRowInSection(section: section)
+        } else {
+            return viewModel.unSearchModeTableViewNumberOfRowInSection(section: section)
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -121,8 +128,16 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     view.configureTitle(with: "展覽館")
                     view.checkMoreButton.setTitle("全選", for: .normal)
                 case .date:
-                    view.configureTitle(with: "時間")
-                    view.checkMoreButton.setTitle("全選", for: .normal)
+                    switch TimeSection(rawValue: section) {
+                    case .dateKind:
+                        view.configureTitle(with: "時間")
+                        view.checkMoreButton.setTitle("全選", for: .normal)
+                    case .calendar:
+                        view.configureTitle(with: "日期")
+                        view.checkMoreButton.setTitle("全選", for: .normal)
+                    case .none:
+                        print("none")
+                    }
                 case .price:
                     view.configureTitle(with: "票價")
                     view.checkMoreButton.setTitle("全選", for: .normal)
@@ -143,21 +158,41 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //搜尋狀態
         if isSearchModeViewOn {
-            
-            
+            if let currentItem = viewModel.getCurrentItem() {
+                let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.reuseIdentifier, for: indexPath) as! SearchResultTableViewCell
+                viewModel.searchModeTableViewCellForRowAt(indexPath: indexPath).map { info in
+                    cell.configure(image: info.image,
+                                   tag: info.tag,
+                                   title: info.title,
+                                   date: info.dateString,
+                                   city: info.city,
+                                   starCount: info.evaluation?.allCommentStar ?? 1,
+                                   commentCount: info.evaluation?.allCommentCount ?? 1)
+                }
+                return cell
+            }
         } else {
-            
-            
-        }
-        
-        
         //非搜尋狀態
-        
-        viewModel.tableViewCellForRowAt(indexPath: indexPath)
-        
-        
+            let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
+            if FilterType(rawValue: viewModel.getCurrentItem()!)  == .date {
+                switch TimeSection(rawValue: indexPath.section) {
+                case .dateKind:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+                    cell.configure(itemTitle: unSearchModel)
+                    return cell
+                case .calendar:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
+                    let calendar = CalendarView()
+                    cell.contentView.addSubview(calendar)
+                    return cell
+                case .none: return UITableViewCell()
+                }
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+                cell.configure(itemTitle: unSearchModel)
+                return cell
+            }
+        }
+        return UITableViewCell()
     }
-    
-    
-    
 }

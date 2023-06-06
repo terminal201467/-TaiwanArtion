@@ -27,18 +27,17 @@ class NotifyViewModel {
     
     var currentNotifyPage: NotifyType = .exhibitionNotify
     
-    private var exhibitions: [ExhibitionModel] = [
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
-            ExhibitionModel(title: "賴威嚴油畫", location: "台南市", dateString: "2023.03.21-04.20", image: "1881"),
+    private var exhibitions: [ExhibitionInfo] = [
+        ExhibitionInfo(title: "賴威嚴油畫", image: "1881", tag: "油畫", dateString: "2023.03.21-04.20", time: "2023.03.21-04.20", agency: "", official: "", telephone: "", advanceTicketPrice: "", unanimousVotePrice: "", studentPrice: "", groupPrice: "", lovePrice: "", free: "", earlyBirdPrice: "", city: "", location: "台南市", address: "", latitude: "", longtitude: ""),
+        ExhibitionInfo(title: "賴威嚴油畫", image: "1881", tag: "油畫", dateString: "2023.03.21-04.20", time: "2023.03.21-04.20", agency: "", official: "", telephone: "", advanceTicketPrice: "", unanimousVotePrice: "", studentPrice: "", groupPrice: "", lovePrice: "", free: "", earlyBirdPrice: "", city: "", location: "台南市", address: "", latitude: "", longtitude: ""),
+        ExhibitionInfo(title: "賴威嚴油畫", image: "1881", tag: "油畫", dateString: "2023.03.21-04.20", time: "2023.03.21-04.20", agency: "", official: "", telephone: "", advanceTicketPrice: "", unanimousVotePrice: "", studentPrice: "", groupPrice: "", lovePrice: "", free: "", earlyBirdPrice: "", city: "", location: "台南市", address: "", latitude: "", longtitude: ""),
+        ExhibitionInfo(title: "賴威嚴油畫", image: "1881", tag: "油畫", dateString: "2023.03.21-04.20", time: "2023.03.21-04.20", agency: "", official: "", telephone: "", advanceTicketPrice: "", unanimousVotePrice: "", studentPrice: "", groupPrice: "", lovePrice: "", free: "", earlyBirdPrice: "", city: "", location: "台南市", address: "", latitude: "", longtitude: ""),
+        ExhibitionInfo(title: "賴威嚴油畫", image: "1881", tag: "油畫", dateString: "2023.03.21-04.20", time: "2023.03.21-04.20", agency: "", official: "", telephone: "", advanceTicketPrice: "", unanimousVotePrice: "", studentPrice: "", groupPrice: "", lovePrice: "", free: "", earlyBirdPrice: "", city: "", location: "台南市", address: "", latitude: "", longtitude: ""),
+        ExhibitionInfo(title: "賴威嚴油畫", image: "1881", tag: "油畫", dateString: "2023.03.21-04.20", time: "2023.03.21-04.20", agency: "", official: "", telephone: "", advanceTicketPrice: "", unanimousVotePrice: "", studentPrice: "", groupPrice: "", lovePrice: "", free: "", earlyBirdPrice: "", city: "", location: "台南市", address: "", latitude: "", longtitude: ""),
+        ExhibitionInfo(title: "賴威嚴油畫", image: "1881", tag: "油畫", dateString: "2023.03.21-04.20", time: "2023.03.21-04.20", agency: "", official: "", telephone: "", advanceTicketPrice: "", unanimousVotePrice: "", studentPrice: "", groupPrice: "", lovePrice: "", free: "", earlyBirdPrice: "", city: "", location: "台南市", address: "", latitude: "", longtitude: "")
     ]
     
-    private var readExhibitions: Set<ExhibitionModel> = Set<ExhibitionModel>()
+    private var readExhibitions: Set<ExhibitionInfo> = Set<ExhibitionInfo>()
     
     private var systemNotifications: [NotifyModel] = [
         NotifyModel(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03"),
@@ -94,7 +93,7 @@ class NotifyViewModel {
         }
     }
     
-    func exhibitionsCellForRowAt(indexPath: IndexPath) -> ExhibitionModel? {
+    func exhibitionsCellForRowAt(indexPath: IndexPath) -> ExhibitionInfo? {
         return exhibitions.isEmpty ? nil : exhibitions[indexPath.row]
     }
     

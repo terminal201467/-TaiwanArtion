@@ -30,24 +30,28 @@ class ExhibitionCardViewModel {
     //MARK: - Items
     var title: String = "未知的展覽"
     
-    var exhibitionInfo: ExhibitionInfo = ExhibitionInfo(tag: "雕塑",
-                                                        date: "2022.12.01(一）- 2022.12.01(一）",
-                                                        time: "9:00a.m - 10:00p.m",
-                                                        agency: "Queen女人迷俱樂部",
+    var exhibitionInfo: ExhibitionInfo = ExhibitionInfo(title: "未知的展覽",
+                                                        image: "",
+                                                        tag:"雕塑",
+                                                        dateString: "2022.12.01(一）- 2022.12.01(一)",
+                                                        time: "2022.12.01(一）- 2022.12.01(一)",
+                                                        agency: "9:00a.m - 10:00p.m",
                                                         official: "Queen女人迷俱樂部",
-                                                        telephone: "(02)-23530506",
-                                                        advanceTicketPrice: "199",
+                                                        telephone: "Queen女人迷俱樂部",
+                                                        advanceTicketPrice: "(02)-23530506",
                                                         unanimousVotePrice: "199",
                                                         studentPrice: "199",
                                                         groupPrice: "199",
                                                         lovePrice: "199",
                                                         free: "199",
                                                         earlyBirdPrice: "199",
+                                                        city: "199",
                                                         location: "桃園市中壢區春德路101號",
                                                         address: "和逸飯店 桃園館",
                                                         equipments: ["停車場", "導覽機器", "導覽人員", "WIFI", "室內導覽", "AR/VR"],
                                                         latitude: "102022220",
-                                                        longtitude: "393339393")
+                                                        longtitude: "393339393",
+                                                        evaluation: nil)
     //MARK: - ExhibitionCardItems
     var currentSelectedItem: CardInfoItem = .overview
     

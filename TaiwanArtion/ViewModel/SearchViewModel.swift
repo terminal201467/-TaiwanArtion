@@ -38,11 +38,11 @@ class SearchViewModel {
     
     static let shared = SearchViewModel()
     
-    private var store: [ExhibitionModel] = []
+    private var store: [ExhibitionInfo] = []
     
-    private var filterStore: [ExhibitionModel] = []
+    private var filterStore: [ExhibitionInfo] = []
     
-    private var hotSearch: [ExhibitionModel] = []
+    private var hotSearch: [ExhibitionInfo] = []
     
     private var isSearchModeOn: Bool = false
     
@@ -84,59 +84,59 @@ class SearchViewModel {
     }
     
     //MARK: - TableView methods
-    func tableViewNumberOfRowInSection(section: Int) -> Int {
-        //未搜尋狀態
-        if isSearchModeOn {
-            switch AlreadyFilter(rawValue: section) {
-            case .result: return 1
-            case .news: return 1
-            case .nearest: return 1
-            case .filterIcon: return 1
-            case .none: return 1
-            }
-        } else {
-            switch FilterType(rawValue: section) {
-            case .city: return Area.allCases.count //
-            case .place: return 1 //展覽館
-            case .date: return 2 //時間、日期
-            case .price: return 1
-            case .none: return 1
-            }
+    
+    func searchModeTableViewNumberOfRowInSection(section: Int) -> Int {
+        switch AlreadyFilter(rawValue: section) {
+        case .result: return 1
+        case .news: return 1
+        case .nearest: return 1
+        case .filterIcon: return 1
+        case .none: return 1
         }
     }
     
-    func tableViewCellForRowAt(indexPath: IndexPath) -> [Any] {
-        if isSearchModeOn {
-            currentItem = 0
-            switch AlreadyFilter(rawValue: currentItem!) {
-            case .result: return filterStore
-            case .news: return filterStore
-            case .nearest: return filterStore
-            case .filterIcon: return filterStore
-            case .none: return filterStore
+    func unSearchModeTableViewNumberOfRowInSection(section: Int) -> Int {
+        switch FilterType(rawValue: section) {
+        case .city: return Area.allCases.count //
+        case .place: return 1 //展覽館
+        case .date: return 2 //時間、日期
+        case .price: return 1
+        case .none: return 1
+        }
+    }
+    
+    func searchModeTableViewCellForRowAt(indexPath: IndexPath) -> [ExhibitionInfo] {
+        currentItem = 0
+        switch AlreadyFilter(rawValue: currentItem!) {
+        case .result: return filterStore
+        case .news: return filterStore
+        case .nearest: return filterStore
+        case .filterIcon: return filterStore
+        case .none: return filterStore
+        }
+    }
+    
+    func unSearchModeTableViewCellForRowAt(indexPath: IndexPath) -> [String] {
+        if let item = currentItem {
+            switch FilterType(rawValue: currentItem!) {
+            case .city:
+                switch Area(rawValue: indexPath.section) {
+                case .north: NorthernCity.allCases.map{$0.text}
+                case .middle: CentralCity.allCases.map{$0.text}
+                case .south: SouthernCity.allCases.map{$0.text}
+                case .east: EasternCity.allCases.map{$0.text}
+                case .island: OutlyingIslandCity.allCases.map{$0.text}
+                case .none: print("none")
+                }
+            case .place: return Place.allCases.map{$0.title}
+            case .date: return DateKind.allCases.map{$0.text}
+            case .price: return Price.allCases.map{$0.text}
+            case .none: return hotSearch.map { $0.title }
             }
         } else {
-            if let item = currentItem {
-                switch FilterType(rawValue: currentItem!) {
-                case .city:
-                    switch Area(rawValue: indexPath.section) {
-                    case .north: NorthernCity.allCases.map{$0.text}
-                    case .middle: CentralCity.allCases.map{$0.text}
-                    case .south: SouthernCity.allCases.map{$0.text}
-                    case .east: EasternCity.allCases.map{$0.text}
-                    case .island: OutlyingIslandCity.allCases.map{$0.text}
-                    case .none: print("none")
-                    }
-                case .place: return Place.allCases.map{$0.title}
-                case .date: return Date.allCases.map{$0.text}
-                case .price: return Price.allCases.map{$0.text}
-                case .none: return hotSearch.map { $0.title }
-                }
-            } else {
-                return hotSearch.map { $0.title }
-            }
-            
+            return hotSearch.map { $0.title }
         }
+        return hotSearch.map { $0.title }
     }
     
     func tableViewDidSelectedRowAt(indexPath: IndexPath) {

@@ -129,7 +129,7 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(with exhibition: ExhibitionModel) {
+    func configure(with exhibition: ExhibitionInfo) {
         exhibitionImage.image = UIImage(named: exhibition.image)
         titleLabel.text = exhibition.title
         dateLabel.text = exhibition.dateString

@@ -59,18 +59,18 @@ class HomeViewModel {
     
     static let shared = HomeViewModel()
     
-    var hotExhibition: [ExhibitionModel] = [
-        ExhibitionModel(title: "未來身體-超自然雕塑", location: "台南市", dateString: "2023.05.18 - 05.20", image: "futureBody"),
-        ExhibitionModel(title: "熊洞 bear hole", location: "台南市", dateString: "2023.03.21 - 4.20", image: "bearHole"),
-        ExhibitionModel(title: "亻─ 生而為人", location: "台南市", dateString: "2023.03.21 - 4.20", image: "bornAsHuman"),
-        ExhibitionModel(title: "植物觀－2023朱銘美術館年度特展", location: "台南市", dateString: "2023.03.21 - 4.20", image: "jumain"),
-        ExhibitionModel(title: "糖衣的風景」江⼝綾⾳個展", location: "台南市", dateString: "2023.03.21 - 4.20", image: "jumain")
+    var hotExhibition: [ExhibitionInfo] = [
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "futureBody", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "futureBody", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "futureBody", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "futureBody", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "futureBody", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])]))
     ]
     
-    var mainPhoto: [ExhibitionModel] = [
-        ExhibitionModel(title: "奇美博物館驚魂夜", location: "台南市", dateString: "2023.03.21 - 4.20", image: "noIdea"),
-        ExhibitionModel(title: "奇美博物館驚魂夜", location: "台南市", dateString: "2023.03.21 - 4.20", image: "noIdea"),
-        ExhibitionModel(title: "奇美博物館驚魂夜", location: "台南市", dateString: "2023.03.21 - 4.20", image: "noIdea")
+    var mainPhoto: [ExhibitionInfo] = [
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "noIdea", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "noIdea", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "noIdea", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])]))
     ]
     
     var news: [NewsModel] = [
@@ -79,12 +79,10 @@ class HomeViewModel {
         NewsModel(title: "德國博物館483枚古金幣遭竊 損失數百萬歐元", date: "2022.12.01", author: "吳綺莉", image: "2049")
     ]
     
-    var allExhibition: [ExhibitionModel] = [
-        ExhibitionModel(title: "未來身體-超自然雕塑", location: "台南市", dateString: "2023.05.18 - 05.20", image: "selfDemo"),
-        ExhibitionModel(title: "熊洞 bear hole", location: "台南市", dateString: "2023.03.21 - 4.20", image: "selfDemo"),
-        ExhibitionModel(title: "亻─ 生而為人", location: "台南市", dateString: "2023.03.21 - 4.20", image: "selfDemo"),
-        ExhibitionModel(title: "植物觀－2023朱銘美術館年度特展", location: "台南市", dateString: "2023.03.21 - 4.20", image: "selfDemo"),
-        ExhibitionModel(title: "糖衣的風景」江⼝綾⾳個展", location: "台南市", dateString: "2023.03.21 - 4.20", image: "selfDemo")
+    var allExhibition: [ExhibitionInfo] = [
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "selfDemo", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "selfDemo", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "selfDemo", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])]))
     ]
     
     //MARK: - MonthCollectionView
@@ -120,7 +118,7 @@ class HomeViewModel {
     
     //MARK: - MainPhoto
     
-    func mainPhotoDidSelectItemAt(indexPath: IndexPath, completion: @escaping ((ExhibitionModel) ->Void)) {
+    func mainPhotoDidSelectItemAt(indexPath: IndexPath, completion: @escaping ((ExhibitionInfo) ->Void)) {
         completion(mainPhoto[indexPath.row])
     }
     
@@ -129,11 +127,11 @@ class HomeViewModel {
         return hotExhibition.count
     }
     
-    func hotExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionModel {
+    func hotExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionInfo {
         return hotExhibition[indexPath.row]
     }
     
-    func hotExhibitionDidSelectedRowAt(indexPath: IndexPath , completion: @escaping ((ExhibitionModel) -> Void)) {
+    func hotExhibitionDidSelectedRowAt(indexPath: IndexPath , completion: @escaping ((ExhibitionInfo) -> Void)) {
         completion(hotExhibition[indexPath.row])
     }
     
@@ -155,11 +153,11 @@ class HomeViewModel {
         return allExhibition.count
     }
     
-    func allExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionModel {
+    func allExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionInfo {
         return allExhibition[indexPath.row]
     }
     
-    func allExhibitionDidSelectedRowAt(indexPath: IndexPath, completion: @escaping ((ExhibitionModel) -> Void)) {
+    func allExhibitionDidSelectedRowAt(indexPath: IndexPath, completion: @escaping ((ExhibitionInfo) -> Void)) {
         completion(allExhibition[indexPath.row])
     }
     
