@@ -42,15 +42,18 @@ class SearchingCollectionViewCell: UICollectionViewCell {
         bar.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
             make.width.equalTo(titleLabel.frame.width * 0.5)
-            make.centerX.equalToSuperview()
+            make.height.equalTo(2.0)
+            make.centerX.equalTo(titleLabel.snp.centerX)
         }
     }
     
     func configure(title: String, isSelected: Bool?) {
+        titleLabel.text = title
         if isSelected == nil {
             titleLabel.textColor = .grayTextColor
             bar.backgroundColor = nil
         } else {
+            print("isSelected:\(isSelected)")
             titleLabel.textColor = isSelected! ? .brownTitleColor : .grayTextColor
             bar.backgroundColor = isSelected! ? .brownTitleColor : nil
         }

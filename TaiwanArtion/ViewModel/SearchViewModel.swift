@@ -80,6 +80,7 @@ class SearchViewModel {
     }
     
     func collectionViewDidSelectedRowAt(indexPath: IndexPath) {
+        currentItem = indexPath.row
         isSearchModeOn ? AlreadyFilter.allCases[indexPath.row].text : FilterType.allCases[indexPath.row].text
     }
     

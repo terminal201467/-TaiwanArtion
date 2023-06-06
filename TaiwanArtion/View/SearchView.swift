@@ -29,15 +29,7 @@ class SearchView: UIView {
         return imageView
     }()
     
-    private lazy var searchBarStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [backButton, searchBar])
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
-        return stackView
-    }()
-    
+    //MARK: - Foreground
     private let backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "back"), for: .normal)
@@ -46,11 +38,24 @@ class SearchView: UIView {
     
     private let searchBar: UISearchBar = {
        let searchBar = UISearchBar()
-        searchBar.barTintColor = .white
+        searchBar
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.backgroundColor = nil
+        searchBar.barTintColor = nil
         searchBar.setImage(UIImage(named: "search"), for: .search, state: .normal)
         searchBar.searchTextField.placeholder = "搜尋展覽"
-        searchBar.roundCorners(cornerRadius: 20)
+        searchBar.searchTextField.textColor = .whiteGrayColor
+        searchBar.roundCorners(cornerRadius: 25)
         return searchBar
+    }()
+    
+    private lazy var searchBarStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [backButton, searchBar])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 8
+        return stackView
     }()
     
     let filterContentCollectionView: UICollectionView = {
@@ -60,6 +65,7 @@ class SearchView: UIView {
         collectionView.register(SearchingCollectionViewCell.self, forCellWithReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = nil
         return collectionView
     }()
     
@@ -73,18 +79,10 @@ class SearchView: UIView {
     }()
     
     //MARK: - Foreground
-    private lazy var searchStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [searchBarStack, filterContentCollectionView])
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
-    }()
     
     private let locationButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: ""), for: .normal)
+        button.setImage(UIImage(named: "nearSelected"), for: .normal)
         return button
     }()
     
@@ -92,6 +90,7 @@ class SearchView: UIView {
         let label = UILabel()
         label.text = "目前所在位置"
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .grayTextColor
         return label
     }()
     
@@ -113,16 +112,18 @@ class SearchView: UIView {
         tableView.allowsSelection = false
         tableView.isScrollEnabled = true
         tableView.backgroundColor = .white
+        tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         return tableView
     }()
     
-    lazy var contentStack: UIStackView = {
+    private lazy var contentStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [locationStack, tableView])
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
         stackView.spacing = 20
         stackView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        stackView.backgroundColor = .white
         return stackView
     }()
     
@@ -169,21 +170,31 @@ class SearchView: UIView {
     }
     
     private func foregroundAutoLayout() {
+        locationButton.snp.makeConstraints { make in
+            make.height.equalTo(40.0)
+            make.width.equalTo(40.0)
+        }
+        
         backButton.snp.makeConstraints { make in
             make.height.equalTo(36.0)
             make.width.equalTo(36.0)
         }
+        
         searchBar.snp.makeConstraints { make in
             make.height.equalTo(36.0)
-            make.width.equalToSuperview().multipliedBy(298.0 / frame.width)
+            make.width.equalTo(298.0)
+        }
+        
+        searchBarStack.snp.makeConstraints { make in
+            make.height.equalTo(36.0)
         }
         
         addSubview(searchItemsStack)
         searchItemsStack.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16.0)
             make.trailing.equalToSuperview().offset(-16.0)
-            make.top.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(200.0)
+            make.top.equalToSuperview().offset(66.0)
+            make.height.equalTo(150.0)
         }
         
         addSubview(contentStack)

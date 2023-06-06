@@ -23,13 +23,23 @@ class SearchViewController: UIViewController {
     //MARK: - LifeCycle
     override func loadView() {
         super.loadView()
+        view = searchView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar()
         setTableView()
         setCollectionView()
         setSearchindModeChanged()
+        searchView.backAction = {
+            self.navigationController?.popViewController(animated: true)
+        }
+        self.viewModel.changedModeWith(isSearching: isSearchModeViewOn)
+    }
+    
+    private func setNavigationBar() {
+        navigationItem.hidesBackButton = true
     }
     
     private func setTableView() {
@@ -45,6 +55,7 @@ class SearchViewController: UIViewController {
     private func setSearchindModeChanged() {
         searchView.isBeginSearchMode = { changed in
             self.viewModel.changedModeWith(isSearching: changed)
+            self.searchView.filterContentCollectionView.reloadData()
         }
     }
 }
@@ -78,28 +89,25 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
                 return UICollectionViewCell()
             }
         } else {
-            switch FilterType(rawValue: indexPath.row) {
-            case .city:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
-                cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
-                return cell
-            case .place:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
-                cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
-                return cell
-            case .date:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
-                cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
-                return cell
-            case .price:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
-                cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
-                return cell
-            case .none: print("none")
-                return UICollectionViewCell()
-            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
+            cell.configure(title: FilterType.allCases[indexPath.row].text, isSelected: cellInfo.isSelected)
+            return cell
         }
-//        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = (view.frame.width - 15 * 6) / 5
+        let cellHeight = 48.0
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 5, left: 5, bottom: 5, right: 5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.collectionViewDidSelectedRowAt(indexPath: indexPath)
+        searchView.filterContentCollectionView.reloadData()
     }
     
 }
@@ -136,13 +144,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                         view.configureTitle(with: "日期")
                         view.checkMoreButton.setTitle("全選", for: .normal)
                     case .none:
-                        print("none")
+                        return UICollectionViewCell()
                     }
                 case .price:
                     view.configureTitle(with: "票價")
                     view.checkMoreButton.setTitle("全選", for: .normal)
                 case .none:
-                    print("")
+                    return UICollectionViewCell()
                 }
             }
         } else {

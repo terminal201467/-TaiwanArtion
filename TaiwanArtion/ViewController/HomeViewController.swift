@@ -73,7 +73,8 @@ class HomeViewController: UIViewController {
     private func setButtonSubscribe() {
         homeView.searchButton.rx.tap
             .subscribe(onNext: {
-                
+                let viewController = SearchViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
             })
             .disposed(by: disposeBag)
         

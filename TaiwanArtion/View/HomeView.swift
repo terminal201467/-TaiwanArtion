@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class HomeView: UIView {
+    
+    private let disposeBag = DisposeBag()
     
     //MARK: - Background
     private let rightTopImageView: UIImageView = {
