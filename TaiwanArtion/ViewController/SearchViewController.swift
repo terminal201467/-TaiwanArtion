@@ -9,14 +9,14 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
-    private let viewModel = SearchViewModel()
+    private let viewModel = SearchViewModel.shared
     
     private let searchView = SearchView()
     
     private var isSearchModeViewOn: Bool = false {
         didSet {
             self.searchView.filterContentCollectionView.reloadData()
-            self.searchView.tableView.reloadData()
+            self.searchView.filterTableView.reloadData()
         }
     }
     
@@ -43,8 +43,8 @@ class SearchViewController: UIViewController {
     }
     
     private func setTableView() {
-        searchView.tableView.delegate = self
-        searchView.tableView.dataSource = self
+        searchView.filterTableView.delegate = self
+        searchView.filterTableView.dataSource = self
     }
     
     private func setCollectionView() {
@@ -56,6 +56,7 @@ class SearchViewController: UIViewController {
         searchView.isBeginSearchMode = { changed in
             self.viewModel.changedModeWith(isSearching: changed)
             self.searchView.filterContentCollectionView.reloadData()
+            self.searchView.filterTableView.reloadData()
         }
     }
 }
@@ -108,6 +109,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.collectionViewDidSelectedRowAt(indexPath: indexPath)
         searchView.filterContentCollectionView.reloadData()
+        searchView.filterTableView.reloadData()
     }
     
 }
@@ -134,20 +136,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     view.checkMoreButton.isHidden = false
                 case .place:
                     view.configureTitle(with: "展覽館")
+                    view.checkMoreButton.isHidden = false
                     view.checkMoreButton.setTitle("全選", for: .normal)
                 case .date:
                     switch TimeSection(rawValue: section) {
                     case .dateKind:
                         view.configureTitle(with: "時間")
+                        view.checkMoreButton.isHidden = false
                         view.checkMoreButton.setTitle("全選", for: .normal)
                     case .calendar:
                         view.configureTitle(with: "日期")
+                        view.checkMoreButton.isHidden = false
                         view.checkMoreButton.setTitle("全選", for: .normal)
                     case .none:
                         return UICollectionViewCell()
                     }
                 case .price:
                     view.configureTitle(with: "票價")
+                    view.checkMoreButton.isHidden = false
                     view.checkMoreButton.setTitle("全選", for: .normal)
                 case .none:
                     return UICollectionViewCell()
@@ -155,9 +161,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             if viewModel.getCurrentItem() == nil {
-                view.configureTitle(with: "找到\(0)筆展覽")
+                view.configureTitle(with: "熱門搜尋")
+                view.checkMoreButton.isHidden = true
             } else {
-                
+                view.configureTitle(with: "找到\(0)筆展覽")
             }
         }
         return view
@@ -182,25 +189,74 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
         //非搜尋狀態
             let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-            if FilterType(rawValue: viewModel.getCurrentItem()!)  == .date {
-                switch TimeSection(rawValue: indexPath.section) {
-                case .dateKind:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
-                    cell.configure(itemTitle: unSearchModel)
+            let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+            if let currentItem = viewModel.getCurrentItem() {
+                switch FilterType(rawValue: viewModel.getCurrentItem()!) {
+                case .city:
+                    switch Area(rawValue: indexPath.row) {
+                    case .north:
+                        cell.configure(itemTitle: unSearchModel)
+                        return cell
+                    case .middle:
+                        cell.configure(itemTitle: unSearchModel)
+                        return cell
+                    case .south:
+                        cell.configure(itemTitle: unSearchModel)
+                        return cell
+                    case .east:
+                        cell.configure(itemTitle: unSearchModel)
+                        return cell
+                    case .island:
+                        cell.configure(itemTitle: unSearchModel)
+                        return cell
+                    case .none:
+                        return UITableViewCell()
+                    }
+                case .place:
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+                    cell.configure(itemTitle: Place.allCases.map{$0.title})
                     return cell
-                case .calendar:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
-                    let calendar = CalendarView()
-                    cell.contentView.addSubview(calendar)
+                case .date:
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+                    cell.configure(itemTitle: DateKind.allCases.map{$0.text})
+                    return cell
+                case .price:
+                    cell.configure(itemTitle: Price.allCases.map{$0.text})
                     return cell
                 case .none: return UITableViewCell()
                 }
+                
+                if FilterType(rawValue: viewModel.getCurrentItem()!)  == .date {
+                    switch TimeSection(rawValue: indexPath.section) {
+                    case .dateKind:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+                        cell.configure(itemTitle: unSearchModel)
+                        return cell
+                    case .calendar:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
+                        let calendar = CalendarView()
+                        cell.contentView.addSubview(calendar)
+                        return cell
+                    case .none: return UITableViewCell()
+                    }
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+                    
+                    cell.configure(itemTitle: unSearchModel)
+                    return cell
+                }
             } else {
+                //nil
                 let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
+                print("unSearchModel：\(unSearchModel)")
                 cell.configure(itemTitle: unSearchModel)
                 return cell
             }
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }

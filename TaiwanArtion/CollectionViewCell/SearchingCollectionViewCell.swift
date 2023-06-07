@@ -14,6 +14,7 @@ class SearchingCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textAlignment = .center
         return label
     }()
     
@@ -34,16 +35,17 @@ class SearchingCollectionViewCell: UICollectionViewCell {
     private func autoLayout() {
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.greaterThanOrEqualTo((frame.width - 16 * 6) / 5)
         }
         
         contentView.addSubview(bar)
         bar.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.width.equalTo(titleLabel.frame.width * 0.5)
-            make.height.equalTo(2.0)
-            make.centerX.equalTo(titleLabel.snp.centerX)
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(2)
+            make.width.equalTo(contentView.frame.width / 4.0)
         }
     }
     
@@ -53,7 +55,6 @@ class SearchingCollectionViewCell: UICollectionViewCell {
             titleLabel.textColor = .grayTextColor
             bar.backgroundColor = nil
         } else {
-            print("isSelected:\(isSelected)")
             titleLabel.textColor = isSelected! ? .brownTitleColor : .grayTextColor
             bar.backgroundColor = isSelected! ? .brownTitleColor : nil
         }

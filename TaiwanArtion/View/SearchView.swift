@@ -38,14 +38,13 @@ class SearchView: UIView {
     
     private let searchBar: UISearchBar = {
        let searchBar = UISearchBar()
-        searchBar
         searchBar.searchTextField.backgroundColor = .white
-        searchBar.backgroundColor = nil
-        searchBar.barTintColor = nil
+        searchBar.backgroundColor = .caramelColor
+        searchBar.barTintColor = .caramelColor
         searchBar.setImage(UIImage(named: "search"), for: .search, state: .normal)
         searchBar.searchTextField.placeholder = "搜尋展覽"
         searchBar.searchTextField.textColor = .whiteGrayColor
-        searchBar.roundCorners(cornerRadius: 25)
+        searchBar.searchTextField.roundCorners(cornerRadius: 25)
         return searchBar
     }()
     
@@ -74,7 +73,7 @@ class SearchView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.spacing = 5
+        stackView.spacing = 20
         return stackView
     }()
     
@@ -82,7 +81,7 @@ class SearchView: UIView {
     
     private let locationButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "nearSelected"), for: .normal)
+        button.setImage(UIImage(named: "location"), for: .normal)
         return button
     }()
     
@@ -103,7 +102,7 @@ class SearchView: UIView {
         return stackView
     }()
     
-    let tableView: UITableView = {
+    let filterTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(HotHintTableViewCell.self, forCellReuseIdentifier: HotHintTableViewCell.reuseIdentifier)
         tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.reuseIdentifier)
@@ -112,19 +111,25 @@ class SearchView: UIView {
         tableView.allowsSelection = false
         tableView.isScrollEnabled = true
         tableView.backgroundColor = .white
-        tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        tableView.separatorStyle = .none
         return tableView
     }()
     
     private lazy var contentStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [locationStack, tableView])
+        let stackView = UIStackView(arrangedSubviews: [locationStack, filterTableView])
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 20
+        stackView.spacing = 0
         stackView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
-        stackView.backgroundColor = .white
         return stackView
+    }()
+    
+    private let backgroundWhiteView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .white
+        view.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -180,6 +185,11 @@ class SearchView: UIView {
             make.width.equalTo(36.0)
         }
         
+        locationStack.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.width.equalTo(frame.width)
+        }
+        
         searchBar.snp.makeConstraints { make in
             make.height.equalTo(36.0)
             make.width.equalTo(298.0)
@@ -197,11 +207,23 @@ class SearchView: UIView {
             make.height.equalTo(150.0)
         }
         
-        addSubview(contentStack)
-        contentStack.snp.makeConstraints { make in
+        filterTableView.snp.makeConstraints { make in
+            make.height.equalTo(400.0)
+            make.width.equalTo(frame.width)
+        }
+        
+        addSubview(backgroundWhiteView)
+        backgroundWhiteView.snp.makeConstraints { make in
             make.top.equalTo(searchItemsStack.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        backgroundWhiteView.addSubview(contentStack)
+        contentStack.snp.makeConstraints { make in
+            make.top.equalTo(searchItemsStack.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview()
         }
     }

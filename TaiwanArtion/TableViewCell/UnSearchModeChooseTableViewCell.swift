@@ -9,7 +9,7 @@ import UIKit
 
 class UnSearchModeChooseTableViewCell: UITableViewCell {
     
-    static let reuseIdentifier: String = "CityChooseTableViewCell"
+    static let reuseIdentifier: String = "UnSearchModeChooseTableViewCell"
     
     private var items: [String] = []
     
@@ -59,8 +59,12 @@ extension UnSearchModeChooseTableViewCell: UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-        let isSelected = items[indexPath.row] == items[currentSelectedCell!]
-        cell.configure(with: items[indexPath.row], selected: isSelected)
+        if currentSelectedCell != nil{
+            let isSelected = items[indexPath.row] == items[currentSelectedCell!]
+            cell.configure(with: items[indexPath.row], selected: isSelected)
+        } else {
+            cell.configure(with: items[indexPath.row], selected: false)
+        }
         return cell
     }
     
@@ -72,6 +76,17 @@ extension UnSearchModeChooseTableViewCell: UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 5, left: 5, bottom: 5, right: 5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        currentSelectedCell = indexPath.row
+        collectionView.reloadData()
+        
+        //傳到輸入框裡面
     }
     
 }

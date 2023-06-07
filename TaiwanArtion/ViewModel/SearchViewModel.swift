@@ -42,14 +42,22 @@ class SearchViewModel {
     
     private var filterStore: [ExhibitionInfo] = []
     
-    private var hotSearch: [ExhibitionInfo] = []
+    private var hotSearch: [String] = ["小王子","悲慘世界","久石讓","貓之日","蒙娜麗莎的探險之旅"]
     
     private var isSearchModeOn: Bool = false
     
-    private var currentItem: Int?
+    private var currentItem: Int? {
+        didSet {
+            print("currentItem:\(currentItem)")
+        }
+    }
     
     public func changedModeWith(isSearching: Bool) {
         isSearchModeOn = isSearching
+    }
+    
+    public func changeCurrentItem(by itemIndex: Int) {
+        currentItem = itemIndex
     }
     
     public func getCurrentItem() -> Int? {
@@ -97,12 +105,17 @@ class SearchViewModel {
     }
     
     func unSearchModeTableViewNumberOfRowInSection(section: Int) -> Int {
-        switch FilterType(rawValue: section) {
-        case .city: return Area.allCases.count //
-        case .place: return 1 //展覽館
-        case .date: return 2 //時間、日期
-        case .price: return 1
-        case .none: return 1
+        if let item = currentItem {
+            switch FilterType(rawValue: section) {
+            case .city: return Area.allCases.count //
+            case .place: return 1 //展覽館
+            case .date: return 2 //時間、日期
+            case .price: return 1
+            case .none: return 1
+            }
+        } else {
+            //hot search
+            return 1
         }
     }
     
@@ -132,12 +145,12 @@ class SearchViewModel {
             case .place: return Place.allCases.map{$0.title}
             case .date: return DateKind.allCases.map{$0.text}
             case .price: return Price.allCases.map{$0.text}
-            case .none: return hotSearch.map { $0.title }
+            case .none: return hotSearch.map {$0}
             }
         } else {
-            return hotSearch.map { $0.title }
+            return hotSearch.map {$0}
         }
-        return hotSearch.map { $0.title }
+        return hotSearch.map {$0}
     }
     
     func tableViewDidSelectedRowAt(indexPath: IndexPath) {
