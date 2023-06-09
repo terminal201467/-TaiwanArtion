@@ -11,7 +11,11 @@ class UnSearchModeChooseTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "UnSearchModeChooseTableViewCell"
     
-    private var items: [String] = []
+    private var items: [String] = [] {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     private var currentSelectedCell: Int?
     

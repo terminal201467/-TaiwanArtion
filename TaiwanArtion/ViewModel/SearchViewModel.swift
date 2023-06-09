@@ -89,10 +89,39 @@ class SearchViewModel {
     
     func collectionViewDidSelectedRowAt(indexPath: IndexPath) {
         currentItem = indexPath.row
-        isSearchModeOn ? AlreadyFilter.allCases[indexPath.row].text : FilterType.allCases[indexPath.row].text
+//        isSearchModeOn ? AlreadyFilter.allCases[indexPath.row].text : FilterType.allCases[indexPath.row].text
     }
     
     //MARK: - TableView methods
+    
+    func numberOfSection() -> Int {
+        if isSearchModeOn {
+            print("isSearchModeOn:\(isSearchModeOn)")
+            if let currentSelected = currentItem {
+                switch AlreadyFilter(rawValue: currentSelected) {
+                case .result: return 1
+                case .news: return 1
+                case .nearest: return 1
+                case .filterIcon: return 1
+                case .none: return 1
+                }
+            } else {
+                return 1
+            }
+        } else {
+            if let currentSelected = currentItem {
+                switch FilterType(rawValue: currentSelected) {
+                case .city: return Area.allCases.count
+                case .place: return 1
+                case .date: return 2
+                case .price: return 1
+                case .none: return 1
+                }
+            } else {
+                return 1
+            }
+        }
+    }
     
     func searchModeTableViewNumberOfRowInSection(section: Int) -> Int {
         switch AlreadyFilter(rawValue: section) {
@@ -131,10 +160,12 @@ class SearchViewModel {
     }
     
     func unSearchModeTableViewCellForRowAt(indexPath: IndexPath) -> [String] {
+        print("indexPath:\(indexPath)")
         if let item = currentItem {
-            switch FilterType(rawValue: currentItem!) {
+            print("item:\(item)")
+            switch FilterType(rawValue: item) {
             case .city:
-                switch Area(rawValue: indexPath.section) {
+                switch Area(rawValue: indexPath.row) {
                 case .north: NorthernCity.allCases.map{$0.text}
                 case .middle: CentralCity.allCases.map{$0.text}
                 case .south: SouthernCity.allCases.map{$0.text}
@@ -147,8 +178,6 @@ class SearchViewModel {
             case .price: return Price.allCases.map{$0.text}
             case .none: return hotSearch.map {$0}
             }
-        } else {
-            return hotSearch.map {$0}
         }
         return hotSearch.map {$0}
     }
