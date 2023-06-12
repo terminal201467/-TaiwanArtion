@@ -53,7 +53,10 @@ class SelectCollectionItemsView: UIView {
         backgroundColor = .whiteGrayColor
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(12.0)
+            make.trailing.equalToSuperview().offset(-12.0)
         }
     }
 }
@@ -82,7 +85,7 @@ extension SelectCollectionItemsView: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16)
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     
 }

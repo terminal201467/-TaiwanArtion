@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
     }
     
     private func setNavigationBar() {
-        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func setTableView() {

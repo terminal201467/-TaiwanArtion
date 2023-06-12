@@ -92,10 +92,10 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(exhibitionImage)
         exhibitionImage.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(270.0 / frame.width)
-            make.height.equalToSuperview().multipliedBy(160.0 / frame.height)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-5)
             make.top.equalToSuperview().offset(5)
+            
         }
         
         contentView.addSubview(tagLabel)

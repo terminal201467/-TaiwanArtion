@@ -144,16 +144,10 @@ class ExhibitionCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBar()
         setTableView()
         setCardItems()
         setBackAction()
         setTitleAndBackground()
-    }
-    
-    //MARK: -Methods
-    private func setNavigationBar() {
-        navigationItem.hidesBackButton = true
     }
     
     private func setTableView() {

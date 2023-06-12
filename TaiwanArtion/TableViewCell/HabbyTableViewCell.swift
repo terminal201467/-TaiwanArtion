@@ -21,6 +21,7 @@ class HabbyTableViewCell: UITableViewCell {
         collectionView.register(HabbyCollectionViewCell.self, forCellWithReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier)
         collectionView.isScrollEnabled = false
         collectionView.allowsSelection = true
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 
@@ -41,6 +42,7 @@ class HabbyTableViewCell: UITableViewCell {
     
     private func autoLayout() {
         contentView.addSubview(collectionView)
+        contentView.backgroundColor = .white
         collectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)

@@ -27,6 +27,7 @@ class MainPhotosTableViewCell: UITableViewCell {
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -50,6 +51,7 @@ class MainPhotosTableViewCell: UITableViewCell {
     private func autoLayout() {
         contentView.addSubview(footerView)
         contentView.addSubview(collectionView)
+        contentView.backgroundColor = .white
         footerView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.height.equalTo(30.0)

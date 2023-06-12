@@ -31,10 +31,7 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
     private func autoLayout() {
         contentView.addSubview(itemLabel)
         itemLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.height.equalTo(34.0)
-            
+            make.edges.equalToSuperview()
         }
     }
     

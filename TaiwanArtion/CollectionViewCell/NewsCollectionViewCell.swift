@@ -60,8 +60,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(167.0 / frame.width)
-            make.height.equalToSuperview().multipliedBy(150.0 / frame.height)
+            make.height.equalToSuperview().multipliedBy(150.0 / contentView.frame.height)
         }
         
         contentView.addSubview(labelStack)

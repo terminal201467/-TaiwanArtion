@@ -22,6 +22,7 @@ class MonthTableViewCell: UITableViewCell {
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -43,6 +44,7 @@ class MonthTableViewCell: UITableViewCell {
     
     private func autoLayout() {
         contentView.addSubview(collectionView)
+        contentView.backgroundColor = .white
         collectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)

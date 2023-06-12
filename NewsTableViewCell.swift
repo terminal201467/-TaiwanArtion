@@ -18,12 +18,13 @@ class NewsTableViewCell: UITableViewCell {
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 16
+//        flowLayout.minimumLineSpacing = 16
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -44,6 +45,7 @@ class NewsTableViewCell: UITableViewCell {
     
     private func autoLayout() {
         contentView.addSubview(collectionView)
+        contentView.backgroundColor = .white
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -63,13 +65,24 @@ extension NewsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (frame.width - 16 * 3) / 2
-        let cellHeight = frame.height - 16 * 2
+        let numberOfCellsInRow: CGFloat = 2
+        let spacingBetweenCells: CGFloat = 16
+        let totalSpacing = (numberOfCellsInRow - 1) * spacingBetweenCells
+        let cellWidth = (collectionView.frame.width - totalSpacing) / numberOfCellsInRow
+        let cellHeight = collectionView.frame.height
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16)
+        return UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 12
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 12
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
