@@ -112,7 +112,6 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
         collectButton.snp.makeConstraints { make in
             make.trailing.equalTo(exhibitionImage.snp.trailing).offset(-13)
             make.top.equalTo(exhibitionImage.snp.top).offset(13)
-            
         }
         
         iconImage.snp.makeConstraints { make in

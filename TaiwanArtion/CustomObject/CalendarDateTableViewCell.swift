@@ -19,7 +19,7 @@ class CalendarDateTableViewCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(DateCollectionViewCell.self, forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
-        collectionView.isScrollEnabled = true
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
 

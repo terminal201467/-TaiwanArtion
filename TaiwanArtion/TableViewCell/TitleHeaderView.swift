@@ -45,13 +45,13 @@ class TitleHeaderView: UITableViewHeaderFooterView {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview()
         }
         
         addSubview(checkMoreButton)
         checkMoreButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-32)
+            make.trailing.equalToSuperview()
         }
     }
     

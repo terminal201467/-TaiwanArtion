@@ -20,6 +20,7 @@ class CalendarMonthTableViewCell: UITableViewCell {
         collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: MonthCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
@@ -41,6 +42,8 @@ class CalendarMonthTableViewCell: UITableViewCell {
     private func autoLayout() {
         contentView.addSubview(monthCollectionView)
         monthCollectionView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(43.0)
             make.edges.equalToSuperview()
         }
     }

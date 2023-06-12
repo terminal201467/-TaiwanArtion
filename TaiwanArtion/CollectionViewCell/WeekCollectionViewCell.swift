@@ -15,6 +15,7 @@ class WeekCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textColor = .black
+        label.textAlignment = .center
         return label
     }()
     

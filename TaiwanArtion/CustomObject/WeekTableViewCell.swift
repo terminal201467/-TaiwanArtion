@@ -71,7 +71,7 @@ extension WeekTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (frame.width - 14 * 8) / 7
+        let cellWidth = (frame.width - 10 * 8) / 7
         let cellHeight = 18.0
         return CGSize(width: cellWidth, height: cellHeight)
     }

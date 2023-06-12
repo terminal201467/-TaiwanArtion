@@ -58,7 +58,7 @@ class AllExhibitionTableViewCell: UITableViewCell {
             make.top.equalTo(itemView.snp.bottom).offset(12.0)
             make.leading.equalToSuperview().offset(12.0)
             make.trailing.equalToSuperview().offset(-12.0)
-            make.width.equalTo(contentView.frame.width - 24.0)
+//            make.width.equalTo(contentView.frame.width - 24.0)
             make.bottom.equalToSuperview()
         }
     }

@@ -170,28 +170,50 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
         switch HomeSections(rawValue: section) {
         case .year:
             let yearView = TitleHeaderView()
+            headerView.addSubview(yearView)
+            yearView.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(16)
+                make.trailing.equalToSuperview().offset(-32)
+                make.centerY.equalToSuperview()
+            }
             yearView.configureYear(with: "2023")
-            return yearView
         case .hot:
             let hotView = TitleHeaderView()
+            headerView.addSubview(hotView)
+            hotView.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(16)
+                make.trailing.equalToSuperview().offset(-32)
+                make.centerY.equalToSuperview()
+            }
             hotView.configureTitle(with: HomeSections.hot.title)
-            return hotView
         case .news:
             let newsView = TitleHeaderView()
+            headerView.addSubview(newsView)
+            newsView.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(16)
+                make.trailing.equalToSuperview().offset(-32)
+                make.centerY.equalToSuperview()
+            }
             newsView.configureTitle(with: HomeSections.news.title)
             newsView.checkMoreButton.isHidden = false
-            return newsView
         case .all:
             let allView = TitleHeaderView()
+            headerView.addSubview(allView)
+            allView.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(16)
+                make.trailing.equalToSuperview().offset(-32)
+                make.centerY.equalToSuperview()
+            }
             allView.contentView.backgroundColor = .whiteGrayColor
             allView.configureTitle(with: HomeSections.all.title)
             allView.backgroundColor = .whiteGrayColor
-            return allView
         case .none: return UIView()
         }
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

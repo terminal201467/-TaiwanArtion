@@ -38,6 +38,7 @@ class SearchViewController: UIViewController {
         setTableView()
         setCollectionView()
         setSearchindModeChanged()
+        viewModel.restartTheCurrentItem()
         searchView.backAction = {
             self.navigationController?.popViewController(animated: true)
         }
@@ -69,6 +70,14 @@ class SearchViewController: UIViewController {
     
     private func setCurrentItemChanged() {
         self.currentSelectedItem = viewModel.getCurrentItem()
+    }
+    
+    private func setContainerView(parentView: UIView, subView: UIView) {
+        parentView.addSubview(subView)
+        subView.snp.makeConstraints { make in
+            make.height.equalTo(50.0)
+            make.edges.equalToSuperview()
+        }
     }
 }
 
@@ -139,64 +148,53 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containerView = UIView()
+        let headerView = TitleHeaderView()
+        setContainerView(parentView: containerView, subView: headerView)
         if isSearchModeViewOn {
             if viewModel.getCurrentItem() == nil {
-                let view = TitleHeaderView()
-                view.configureTitle(with: "熱門搜尋")
-                view.checkMoreButton.isHidden = true
-                return view
+                headerView.configureTitle(with: "熱門搜尋")
+                headerView.checkMoreButton.isHidden = true
             } else {
-                switch FilterType(rawValue: viewModel.getCurrentItem()!) {
-                case .city:
-                    let view = TitleHeaderView()
-                    view.configureTitle(with: Area.allCases[section].text)
-                    view.checkMoreButton.isHidden = false
-                    return view
-                case .place:
-                    let view = TitleHeaderView()
-                    view.configureTitle(with: "展覽館")
-                    view.checkMoreButton.isHidden = false
-                    view.checkMoreButton.setTitle("全選", for: .normal)
-                    return view
-                case .date:
-                    switch TimeSection(rawValue: section) {
-                    case .dateKind:
-                        let view = TitleHeaderView()
-                        view.configureTitle(with: "時間")
-                        view.checkMoreButton.isHidden = false
-                        view.checkMoreButton.setTitle("全選", for: .normal)
-                        return view
-                    case .calendar:
-                        let view = TitleHeaderView()
-                        view.configureTitle(with: "日期")
-                        view.checkMoreButton.isHidden = false
-                        view.checkMoreButton.setTitle("全選", for: .normal)
-                        return view
-                    case .none:
-                        return UICollectionViewCell()
-                    }
-                case .price:
-                    let view = TitleHeaderView()
-                    view.configureTitle(with: "票價")
-                    view.checkMoreButton.isHidden = false
-                    view.checkMoreButton.setTitle("全選", for: .normal)
-                    return view
-                case .none:
-                    return UICollectionViewCell()
-                }
+                headerView.configureTitle(with: "找到\(0)筆展覽")
             }
         } else {
             if viewModel.getCurrentItem() == nil {
-                let view = TitleHeaderView()
-                view.configureTitle(with: "熱門搜尋")
-                view.checkMoreButton.isHidden = true
-                return view
+                headerView.configureTitle(with: "熱門搜尋")
+                headerView.checkMoreButton.isHidden = true
+                return headerView
             } else {
-                let view = TitleHeaderView()
-                view.configureTitle(with: "找到\(0)筆展覽")
-                return view
+                switch FilterType(rawValue: viewModel.getCurrentItem()!) {
+                case .city:
+                    headerView.configureTitle(with: Area.allCases[section].text)
+                    headerView.checkMoreButton.isHidden = false
+                case .place:
+                    headerView.configureTitle(with: "展覽館")
+                    headerView.checkMoreButton.isHidden = false
+                    headerView.checkMoreButton.setTitle("全選", for: .normal)
+                case .date:
+                    switch TimeSection(rawValue: section) {
+                    case .dateKind:
+                        headerView.configureTitle(with: "時間")
+                        headerView.checkMoreButton.isHidden = false
+                        headerView.checkMoreButton.setTitle("全選", for: .normal)
+                    case .calendar:
+                        headerView.configureTitle(with: "日期")
+                        headerView.checkMoreButton.isHidden = true
+                        headerView.checkMoreButton.setTitle("全選", for: .normal)
+                    case .none:
+                        return UIView()
+                    }
+                case .price:
+                    headerView.configureTitle(with: "票價")
+                    headerView.checkMoreButton.isHidden = false
+                    headerView.checkMoreButton.setTitle("全選", for: .normal)
+                case .none:
+                    return UIView()
+                }
             }
         }
+        return containerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -216,68 +214,44 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         } else {
-        //非搜尋狀態
             let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
-            if let currentItem = viewModel.getCurrentItem() {
+            let calendarCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
+            let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
+            if viewModel.getCurrentItem() != nil {
                 switch FilterType(rawValue: viewModel.getCurrentItem()!) {
                 case .city:
                     switch Area(rawValue: indexPath.section) {
-                    case .north:
-                        let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-                        cell.configure(itemTitle: unSearchModel)
-                        return cell
-                    case .middle:
-                        let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-                        cell.configure(itemTitle: unSearchModel)
-                        return cell
-                    case .south:
-                        let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-                        cell.configure(itemTitle: unSearchModel)
-                        return cell
-                    case .east:
-                        let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-                        cell.configure(itemTitle: unSearchModel)
-                        return cell
-                    case .island:
-                        let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-                        cell.configure(itemTitle: unSearchModel)
-                        return cell
-                    case .none:
-                        return UITableViewCell()
-                    }
-                case .place:
-//                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
-                    cell.configure(itemTitle: Place.allCases.map{$0.title})
-                    return cell
-                case .date:
-//                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
-                    cell.configure(itemTitle: DateKind.allCases.map{$0.text})
-                    return cell
-                case .price:
-                    cell.configure(itemTitle: Price.allCases.map{$0.text})
-                    return cell
-                case .none: return UITableViewCell()
-                }
-                
-                if FilterType(rawValue: viewModel.getCurrentItem()!)  == .date {
-                    switch TimeSection(rawValue: indexPath.section) {
-                    case .dateKind:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
-                        let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-                        cell.configure(itemTitle: unSearchModel)
-                        return cell
-                    case .calendar:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
-                        let calendar = CalendarView()
-                        cell.contentView.addSubview(calendar)
-                        return cell
+                    case .north:  cell.configure(itemTitle: unSearchModel)
+                    case .middle: cell.configure(itemTitle: unSearchModel)
+                    case .south: cell.configure(itemTitle: unSearchModel)
+                    case .east: cell.configure(itemTitle: unSearchModel)
+                    case .island: cell.configure(itemTitle: unSearchModel)
                     case .none: return UITableViewCell()
                     }
-                } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
-                    let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-                    cell.configure(itemTitle: unSearchModel)
                     return cell
+                case .place: cell.configure(itemTitle: Place.allCases.map{$0.title})
+                    return cell
+                case .date:
+                    switch TimeSection(rawValue: indexPath.section) {
+                    case .dateKind: cell.configure(itemTitle: DateKind.allCases.map{$0.text})
+                        return cell
+                    case .calendar:
+                        let calendarView = CalendarView()
+                        calendarCell.contentView.addSubview(calendarView)
+                        calendarView.snp.makeConstraints { make in
+                            make.height.equalTo(600)
+                            make.leading.equalToSuperview()
+                            make.trailing.equalToSuperview()
+                            make.top.equalToSuperview()
+                            make.bottom.equalToSuperview()
+                        }
+                        return calendarCell
+                    case .none: return UITableViewCell()
+                    }
+                    return cell
+                case .price: cell.configure(itemTitle: Price.allCases.map{$0.text})
+                    return cell
+                case .none: return UITableViewCell()
                 }
             } else {
                 let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)

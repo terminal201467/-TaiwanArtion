@@ -49,7 +49,12 @@ class SearchViewModel {
     private var currentItem: Int? {
         didSet {
             print("currentItem:\(currentItem)")
+            //清空選的
         }
+    }
+    
+    public func restartTheCurrentItem() {
+        currentItem = nil
     }
     
     public func changedModeWith(isSearching: Bool) {
@@ -134,11 +139,11 @@ class SearchViewModel {
     }
     
     func unSearchModeTableViewNumberOfRowInSection(section: Int) -> Int {
-        if let item = currentItem {
-            switch FilterType(rawValue: section) {
+        if currentItem != nil {
+            switch FilterType(rawValue: currentItem!) {
             case .city: return Area.allCases.count //
             case .place: return 1 //展覽館
-            case .date: return 2 //時間、日期
+            case .date: return 1 //時間、日期
             case .price: return 1
             case .none: return 1
             }
@@ -160,18 +165,18 @@ class SearchViewModel {
     }
     
     func unSearchModeTableViewCellForRowAt(indexPath: IndexPath) -> [String] {
-        print("indexPath:\(indexPath)")
-        if let item = currentItem {
-            print("item:\(item)")
-            switch FilterType(rawValue: item) {
+        if currentItem == nil {
+            return hotSearch.map {$0}
+        } else {
+            switch FilterType(rawValue: currentItem!) {
             case .city:
                 switch Area(rawValue: indexPath.row) {
-                case .north: NorthernCity.allCases.map{$0.text}
-                case .middle: CentralCity.allCases.map{$0.text}
-                case .south: SouthernCity.allCases.map{$0.text}
-                case .east: EasternCity.allCases.map{$0.text}
-                case .island: OutlyingIslandCity.allCases.map{$0.text}
-                case .none: print("none")
+                case .north: return NorthernCity.allCases.map{$0.text}
+                case .middle: return CentralCity.allCases.map{$0.text}
+                case .south: return SouthernCity.allCases.map{$0.text}
+                case .east: return EasternCity.allCases.map{$0.text}
+                case .island: return OutlyingIslandCity.allCases.map{$0.text}
+                case .none: return hotSearch.map {$0}
                 }
             case .place: return Place.allCases.map{$0.title}
             case .date: return DateKind.allCases.map{$0.text}
@@ -179,7 +184,6 @@ class SearchViewModel {
             case .none: return hotSearch.map {$0}
             }
         }
-        return hotSearch.map {$0}
     }
     
     func tableViewDidSelectedRowAt(indexPath: IndexPath) {

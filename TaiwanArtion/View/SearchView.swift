@@ -103,7 +103,7 @@ class SearchView: UIView {
     }()
     
     let filterTableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(HotHintTableViewCell.self, forCellReuseIdentifier: HotHintTableViewCell.reuseIdentifier)
         tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.reuseIdentifier)
         tableView.register(UnSearchModeChooseTableViewCell.self, forCellReuseIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier)
@@ -112,6 +112,7 @@ class SearchView: UIView {
         tableView.isScrollEnabled = true
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -120,7 +121,7 @@ class SearchView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 0
+        stackView.spacing = 20
         stackView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         return stackView
     }()
@@ -159,7 +160,7 @@ class SearchView: UIView {
             .subscribe(onNext: { [weak self] searchText in
                 print("searchValueChanged:\(searchText)")
                 self?.searchValueChanged?(searchText)
-                self?.isBeginSearchMode?(true)
+                self?.isBeginSearchMode?(false)
             })
             .disposed(by: disposeBag)
     }

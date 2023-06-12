@@ -19,12 +19,14 @@ class CalendarView: UIView {
     var date: ((Int) -> Void)?
     
     private let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(WeekTableViewCell.self, forCellReuseIdentifier: WeekTableViewCell.reuseIdentifier)
         tableView.register(CalendarDateTableViewCell.self, forCellReuseIdentifier: CalendarDateTableViewCell.reuseIdentifier)
         tableView.register(CalendarMonthTableViewCell.self, forCellReuseIdentifier: CalendarMonthTableViewCell.reuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsSelection = false
-        tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = true
+        tableView.separatorStyle = .none
         return tableView
     }()
 
@@ -62,8 +64,11 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
         case .year:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
             let yearHeader = TitleHeaderView()
-            yearHeader.configureYear(with: "\(2023)年")
+            yearHeader.configureYear(with: "\(2023)")
             cell.contentView.addSubview(yearHeader)
+            yearHeader.snp.makeConstraints { make in
+                make.centerY.equalToSuperview()
+            }
             return cell
         case .month:
             let cell = tableView.dequeueReusableCell(withIdentifier: CalendarMonthTableViewCell.reuseIdentifier, for: indexPath) as! CalendarMonthTableViewCell
@@ -77,6 +82,10 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
         case .none:
             return UITableViewCell()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
