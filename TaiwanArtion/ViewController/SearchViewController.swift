@@ -172,41 +172,42 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         if isSearchModeViewOn {
             if currentSelectedItem == nil {
                 headerView.configureTitle(with: "熱門搜尋")
-                headerView.checkMoreButton.isHidden = true
+                headerView.button.isHidden = true
             } else {
                 headerView.configureTitle(with: "找到\(0)筆展覽")
             }
         } else {
             if currentSelectedItem == nil {
                 headerView.configureTitle(with: "熱門搜尋")
-                headerView.checkMoreButton.isHidden = true
+                headerView.button.isHidden = true
                 return headerView
             } else {
                 switch FilterType(rawValue: currentSelectedItem!) {
                 case .city:
                     headerView.configureTitle(with: Area.allCases[section].text)
-                    headerView.checkMoreButton.isHidden = false
+                    headerView.button.isHidden = false
+                    headerView.configureButton(with: "全選")
                 case .place:
                     headerView.configureTitle(with: "展覽館")
-                    headerView.checkMoreButton.isHidden = false
-                    headerView.checkMoreButton.setTitle("全選", for: .normal)
+                    headerView.button.isHidden = false
+                    headerView.button.setTitle("全選", for: .normal)
                 case .date:
                     switch TimeSection(rawValue: section) {
                     case .dateKind:
                         headerView.configureTitle(with: "時間")
-                        headerView.checkMoreButton.isHidden = false
-                        headerView.checkMoreButton.setTitle("全選", for: .normal)
+                        headerView.button.isHidden = false
+                        headerView.button.setTitle("全選", for: .normal)
                     case .calendar:
                         headerView.configureTitle(with: "日期")
-                        headerView.checkMoreButton.isHidden = true
-                        headerView.checkMoreButton.setTitle("全選", for: .normal)
+                        headerView.button.isHidden = true
+                        headerView.button.setTitle("全選", for: .normal)
                     case .none:
                         return UIView()
                     }
                 case .price:
                     headerView.configureTitle(with: "票價")
-                    headerView.checkMoreButton.isHidden = false
-                    headerView.checkMoreButton.setTitle("全選", for: .normal)
+                    headerView.button.isHidden = false
+                    headerView.button.setTitle("全選", for: .normal)
                 case .none:
                     return UIView()
                 }

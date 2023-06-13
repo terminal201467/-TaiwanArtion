@@ -20,13 +20,6 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let view: UIView = {
-       let view = UIView()
-        view.roundCorners(cornerRadius: 12)
-        return view
-    }()
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
@@ -41,7 +34,8 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
         itemLabel.snp.makeConstraints { make in
             make.width.greaterThanOrEqualTo(50)
             make.height.equalTo(34.0)
-            make.center.equalToSuperview()
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
         }
     }
     

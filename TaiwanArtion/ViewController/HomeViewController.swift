@@ -199,7 +199,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 make.centerY.equalToSuperview()
             }
             newsView.configureTitle(with: HomeSections.news.title)
-            newsView.checkMoreButton.isHidden = false
+            newsView.configureButton(with: "查看更多")
+            newsView.button.isHidden = false
         case .all:
             let allView = TitleHeaderView()
             headerView.addSubview(allView)

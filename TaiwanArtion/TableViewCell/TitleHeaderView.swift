@@ -13,6 +13,8 @@ class TitleHeaderView: UITableViewHeaderFooterView {
     
     static let reuseIdentifier: String = "TitleHeaderView"
     
+    var buttonAction: (() -> (Void))?
+    
     private let disposeBag = DisposeBag()
 
     private let titleLabel: UILabel = {
@@ -22,9 +24,8 @@ class TitleHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    let checkMoreButton: UIButton = {
+    let button: UIButton = {
         let button = UIButton()
-        button.setTitle("查看更多", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         button.setTitleColor(.grayTextColor, for: .normal)
         button.isHidden = true
@@ -48,8 +49,8 @@ class TitleHeaderView: UITableViewHeaderFooterView {
             make.leading.equalToSuperview()
         }
         
-        addSubview(checkMoreButton)
-        checkMoreButton.snp.makeConstraints { make in
+        addSubview(button)
+        button.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
         }
@@ -63,10 +64,14 @@ class TitleHeaderView: UITableViewHeaderFooterView {
         titleLabel.text = text
     }
     
+    func configureButton(with text: String) {
+        button.setTitle(text, for: .normal)
+    }
+    
     private func setCheckMoreButton() {
-        checkMoreButton.rx.tap
+        button.rx.tap
             .subscribe(onNext: {
-                print("查看更多Action")
+                self.buttonAction?()
             })
             .disposed(by: disposeBag)
     }

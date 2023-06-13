@@ -142,7 +142,7 @@ class SearchViewModel {
     func unSearchModeTableViewNumberOfRowInSection(section: Int) -> Int {
         if currentItem != nil {
             switch FilterType(rawValue: currentItem!) {
-            case .city: return Area.allCases.count //
+            case .city: return 1 //
             case .place: return 1 //展覽館
             case .date: return 1 //時間、日期
             case .price: return 1
@@ -171,7 +171,7 @@ class SearchViewModel {
         } else {
             switch FilterType(rawValue: currentItem!) {
             case .city:
-                switch Area(rawValue: indexPath.row) {
+                switch Area(rawValue: indexPath.section) {
                 case .north: return NorthernCity.allCases.map{$0.text}
                 case .middle: return CentralCity.allCases.map{$0.text}
                 case .south: return SouthernCity.allCases.map{$0.text}
