@@ -27,6 +27,7 @@ class CalendarView: UIView {
         tableView.allowsSelection = false
         tableView.isScrollEnabled = true
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
         return tableView
     }()
 

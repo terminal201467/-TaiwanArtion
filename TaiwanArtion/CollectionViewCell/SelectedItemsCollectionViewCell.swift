@@ -15,9 +15,17 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.roundCorners(cornerRadius: 12)
+        label.numberOfLines = 0
         label.textAlignment = .center
         return label
     }()
+    
+    private let view: UIView = {
+       let view = UIView()
+        view.roundCorners(cornerRadius: 12)
+        return view
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +39,9 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
     private func autoLayout() {
         contentView.addSubview(itemLabel)
         itemLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.width.greaterThanOrEqualTo(50)
+            make.height.equalTo(34.0)
+            make.center.equalToSuperview()
         }
     }
     

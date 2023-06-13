@@ -46,9 +46,12 @@ class SearchViewModel {
     
     private var isSearchModeOn: Bool = false
     
+    var getCurrentItem : ((Int?) -> (Void))?
+    
     private var currentItem: Int? {
         didSet {
             print("currentItem:\(currentItem)")
+            self.getCurrentItem?(currentItem)
             //清空選的
         }
     }
@@ -65,9 +68,6 @@ class SearchViewModel {
         currentItem = itemIndex
     }
     
-    public func getCurrentItem() -> Int? {
-        return currentItem
-    }
     
     //MARK: - CollectionView methods
     func collectionViewNumberOfRowInSection(section: Int) -> Int {
@@ -94,6 +94,7 @@ class SearchViewModel {
     
     func collectionViewDidSelectedRowAt(indexPath: IndexPath) {
         currentItem = indexPath.row
+        print("collectionViewDidSelectedRowAt:\(currentItem)")
 //        isSearchModeOn ? AlreadyFilter.allCases[indexPath.row].text : FilterType.allCases[indexPath.row].text
     }
     

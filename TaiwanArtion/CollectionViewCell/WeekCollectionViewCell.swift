@@ -31,7 +31,8 @@ class WeekCollectionViewCell: UICollectionViewCell {
     private func autoLayout() {
         contentView.addSubview(weekDayLabel)
         weekDayLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     

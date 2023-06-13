@@ -15,7 +15,7 @@ class CalendarDateTableViewCell: UITableViewCell {
     
     private let dateCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
+        flowLayout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(DateCollectionViewCell.self, forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
@@ -25,6 +25,7 @@ class CalendarDateTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        logicViewModel.generateCalendarDates()
         setCollectionView()
         autoLayout()
     }
@@ -41,7 +42,9 @@ class CalendarDateTableViewCell: UITableViewCell {
     private func autoLayout() {
         contentView.addSubview(dateCollectionView)
         dateCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.height.equalTo(400)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
     }
 }
@@ -60,14 +63,16 @@ extension CalendarDateTableViewCell: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (frame.width - 14 * 8) / 7
-        let cellHeight = 18.0
+        let cellWidth = (frame.width - 10 * 8) / 7
+        let cellHeight = 40.0
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 2, left: 2, bottom: 2, right: 2)
+        return .init(top: 10, left: 2, bottom: 10, right: 2)
     }
     
-    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 }

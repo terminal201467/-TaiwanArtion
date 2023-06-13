@@ -28,7 +28,7 @@ class WeekTableViewCell: UITableViewCell {
 
     private let aWeek: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
+        flowLayout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(WeekCollectionViewCell.self, forCellWithReuseIdentifier: WeekCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = false
@@ -54,7 +54,11 @@ class WeekTableViewCell: UITableViewCell {
     private func autoLayout() {
         contentView.addSubview(aWeek)
         aWeek.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.height.equalTo(50)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -72,11 +76,11 @@ extension WeekTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (frame.width - 10 * 8) / 7
-        let cellHeight = 18.0
+        let cellHeight = 34.0
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 5, left: 5, bottom: 5, right: 5)
+        return .init(top: 15, left: 2, bottom: 15, right: 2)
     }
 }

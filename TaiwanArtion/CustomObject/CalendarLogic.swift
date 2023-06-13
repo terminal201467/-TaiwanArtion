@@ -48,6 +48,10 @@ class CalendarLogic {
         }
     }
     
+//    func isTheDateInMonth() -> Bool {
+//        
+//    }
+    
     //MARK: -Year
 
     
@@ -61,7 +65,7 @@ class CalendarLogic {
     }
     
     func monthDidSelectedRowAt(indexPath: IndexPath) {
-        Month(rawValue: indexPath.row)
+        currentSelectedMonth = Month(rawValue: indexPath.row)!
     }
 
     //MARK: -Date
@@ -71,6 +75,8 @@ class CalendarLogic {
         dateFormatter.dateFormat = "dd"
         let dateString = dateFormatter.string(from: dates[indexPath.row])
         let isToday = dates[indexPath.row] == currentDay
+        
+        //這裡韓還需要判斷哪邊的日期是在這個月份裡面的，要讓它變成比較深的黑色，不是的就灰色
         return (dateString, isToday)
     }
     

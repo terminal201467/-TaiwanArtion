@@ -22,6 +22,8 @@ class SearchViewController: UIViewController {
     
     var currentSelectedItem: Int? {
         didSet {
+            print("currentSelectedItem:\(currentSelectedItem)")
+            self.hiddenLocation()
             self.searchView.filterTableView.reloadData()
         }
     }
@@ -43,11 +45,25 @@ class SearchViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
         self.viewModel.changedModeWith(isSearching: isSearchModeViewOn)
-        setCurrentItemChanged()
+        setCurrentItem()
     }
     
     private func setNavigationBar() {
         navigationItem.hidesBackButton = true
+    }
+    
+    private func hiddenLocation() {
+        if currentSelectedItem == nil {
+            searchView.hiddenThelocationStack(isHidden: false)
+        } else {
+            if let selectedItem = currentSelectedItem {
+                if selectedItem == 0 {
+                    searchView.hiddenThelocationStack(isHidden: false)
+                } else {
+                    searchView.hiddenThelocationStack(isHidden: true)
+                }
+            }
+        }
     }
     
     private func setTableView() {
@@ -68,8 +84,10 @@ class SearchViewController: UIViewController {
         }
     }
     
-    private func setCurrentItemChanged() {
-        self.currentSelectedItem = viewModel.getCurrentItem()
+    private func setCurrentItem() {
+        viewModel.getCurrentItem = { item in
+            self.currentSelectedItem = item
+        }
     }
     
     private func setContainerView(parentView: UIView, subView: UIView) {
@@ -152,19 +170,19 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let headerView = TitleHeaderView()
         setContainerView(parentView: containerView, subView: headerView)
         if isSearchModeViewOn {
-            if viewModel.getCurrentItem() == nil {
+            if currentSelectedItem == nil {
                 headerView.configureTitle(with: "熱門搜尋")
                 headerView.checkMoreButton.isHidden = true
             } else {
                 headerView.configureTitle(with: "找到\(0)筆展覽")
             }
         } else {
-            if viewModel.getCurrentItem() == nil {
+            if currentSelectedItem == nil {
                 headerView.configureTitle(with: "熱門搜尋")
                 headerView.checkMoreButton.isHidden = true
                 return headerView
             } else {
-                switch FilterType(rawValue: viewModel.getCurrentItem()!) {
+                switch FilterType(rawValue: currentSelectedItem!) {
                 case .city:
                     headerView.configureTitle(with: Area.allCases[section].text)
                     headerView.checkMoreButton.isHidden = false
@@ -200,7 +218,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //搜尋狀態
         if isSearchModeViewOn {
-            if let currentItem = viewModel.getCurrentItem() {
+            if let currentItem = currentSelectedItem {
                 let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.reuseIdentifier, for: indexPath) as! SearchResultTableViewCell
                 viewModel.searchModeTableViewCellForRowAt(indexPath: indexPath).map { info in
                     cell.configure(image: info.image,
@@ -217,8 +235,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
             let calendarCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
             let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
-            if viewModel.getCurrentItem() != nil {
-                switch FilterType(rawValue: viewModel.getCurrentItem()!) {
+            if currentSelectedItem != nil {
+                switch FilterType(rawValue: currentSelectedItem!) {
                 case .city:
                     switch Area(rawValue: indexPath.section) {
                     case .north:  cell.configure(itemTitle: unSearchModel)
@@ -239,10 +257,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                         let calendarView = CalendarView()
                         calendarCell.contentView.addSubview(calendarView)
                         calendarView.snp.makeConstraints { make in
-                            make.height.equalTo(600)
+                            make.height.equalTo(400)
+                            make.top.equalToSuperview()
                             make.leading.equalToSuperview()
                             make.trailing.equalToSuperview()
-                            make.top.equalToSuperview()
                             make.bottom.equalToSuperview()
                         }
                         return calendarCell

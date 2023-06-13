@@ -145,6 +145,10 @@ class SearchView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func hiddenThelocationStack(isHidden: Bool) {
+        locationStack.isHidden = isHidden
+    }
+    
     private func setBackButton() {
         backButton.rx.tap
             .subscribe(onNext: {

@@ -63,7 +63,7 @@ extension UnSearchModeChooseTableViewCell: UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-        if currentSelectedCell != nil{
+        if currentSelectedCell != nil {
             let isSelected = items[indexPath.row] == items[currentSelectedCell!]
             cell.configure(with: items[indexPath.row], selected: isSelected)
         } else {
