@@ -18,6 +18,8 @@ class SearchView: UIView {
     
     var isBeginSearchMode: ((Bool) -> Void)?
     
+    var endInputText: ((String) -> Void)?
+    
     private let disposeBag = DisposeBag()
     
     //MARK: - Background
@@ -43,8 +45,10 @@ class SearchView: UIView {
         searchBar.barTintColor = .caramelColor
         searchBar.setImage(UIImage(named: "search"), for: .search, state: .normal)
         searchBar.searchTextField.placeholder = "搜尋展覽"
-        searchBar.searchTextField.textColor = .whiteGrayColor
+        searchBar.searchTextField.textColor = .grayTextColor
         searchBar.searchTextField.roundCorners(cornerRadius: 25)
+        searchBar.searchTextField.clearButtonMode = .whileEditing
+        searchBar.searchTextField.keyboardType = .emailAddress
         return searchBar
     }()
     
@@ -62,6 +66,7 @@ class SearchView: UIView {
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(SearchingCollectionViewCell.self, forCellWithReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier)
+        collectionView.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = nil
@@ -73,7 +78,7 @@ class SearchView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.spacing = 20
+        stackView.spacing = 0
         return stackView
     }()
     
@@ -108,6 +113,7 @@ class SearchView: UIView {
         tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.reuseIdentifier)
         tableView.register(UnSearchModeChooseTableViewCell.self, forCellReuseIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
         tableView.isScrollEnabled = true
         tableView.backgroundColor = .white
@@ -158,13 +164,13 @@ class SearchView: UIView {
     }
     
     private func setSearchBarBinding() {
-        searchBar.rx.text
+        searchBar.searchTextField.delegate = self
+        searchBar.searchTextField.rx.text
             .orEmpty
             .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] searchText in
                 print("searchValueChanged:\(searchText)")
                 self?.searchValueChanged?(searchText)
-                self?.isBeginSearchMode?(false)
             })
             .disposed(by: disposeBag)
     }
@@ -231,6 +237,29 @@ class SearchView: UIView {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview()
         }
+    }
+    
+}
+
+extension SearchView: UISearchTextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.endInputText?(textField.text ?? "")
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.becomeFirstResponder()
+        self.isBeginSearchMode?(true)
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
     }
     
 }

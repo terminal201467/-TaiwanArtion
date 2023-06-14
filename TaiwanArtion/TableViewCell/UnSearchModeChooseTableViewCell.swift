@@ -17,7 +17,7 @@ class UnSearchModeChooseTableViewCell: UITableViewCell {
         }
     }
     
-    private var currentSelectedCell: Int?
+    private var currentSelectedCells: Set<Int> = []
     
     private let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -52,6 +52,14 @@ class UnSearchModeChooseTableViewCell: UITableViewCell {
         }
     }
     
+    func selectAllItem() {
+        if currentSelectedCells.isEmpty {
+//            currentSelectedCells.insert(items.map{$0.enumerated()}.)
+        } else {
+            currentSelectedCells.removeAll()
+        }
+    }
+    
     func configure(itemTitle: [String]) {
         self.items = itemTitle
     }
@@ -64,11 +72,11 @@ extension UnSearchModeChooseTableViewCell: UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-        if currentSelectedCell != nil {
-            let isSelected = items[indexPath.row] == items[currentSelectedCell!]
-            cell.configure(with: items[indexPath.row], selected: isSelected)
-        } else {
+        if currentSelectedCells.isEmpty {
             cell.configure(with: items[indexPath.row], selected: false)
+        } else {
+            let isSelected = currentSelectedCells.contains(indexPath.row)
+            cell.configure(with: items[indexPath.row], selected: isSelected)
         }
         return cell
     }
@@ -92,10 +100,18 @@ extension UnSearchModeChooseTableViewCell: UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        currentSelectedCell = indexPath.row
+        if currentSelectedCells.isEmpty {
+            self.currentSelectedCells.insert(indexPath.row)
+        } else if currentSelectedCells.contains(indexPath.row) {
+            //如果重複現在選的indexPath的話，就移除
+            self.currentSelectedCells.remove(indexPath.row)
+        } else if currentSelectedCells.contains(indexPath.row) != true {
+            //如果沒有包含現在選的indexPath的話，就加入
+            currentSelectedCells.insert(indexPath.row)
+        } else {
+            currentSelectedCells.insert(indexPath.row)
+        }
         collectionView.reloadData()
-        
-        //傳到輸入框裡面
     }
     
 }

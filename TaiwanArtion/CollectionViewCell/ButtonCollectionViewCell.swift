@@ -13,7 +13,7 @@ class ButtonCollectionViewCell: UICollectionViewCell {
     
     var action: (() -> Void)?
     
-    let button: UIButton = {
+    private let button: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(selectAction), for: .touchDown)
         return button
@@ -35,7 +35,8 @@ class ButtonCollectionViewCell: UICollectionViewCell {
     private func autoLayout() {
         contentView.addSubview(button)
         button.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     

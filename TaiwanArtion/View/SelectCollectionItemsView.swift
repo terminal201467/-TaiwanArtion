@@ -55,8 +55,8 @@ class SelectCollectionItemsView: UIView {
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.leading.equalToSuperview().offset(12.0)
-            make.trailing.equalToSuperview().offset(-12.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
     }
 }
@@ -79,13 +79,13 @@ extension SelectCollectionItemsView: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (frame.width - 10 * 3 - 16 * 2) / 4
+        let cellWidth = (frame.width - 10 * 3 - 12 * 2) / 4
         let cellHeight = 34.0
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        return UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
     }
     
 }

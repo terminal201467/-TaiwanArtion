@@ -15,6 +15,7 @@ class SearchViewController: UIViewController {
     
     private var isSearchModeViewOn: Bool = false {
         didSet {
+            self.viewModel.restartTheCurrentItem()
             self.searchView.filterContentCollectionView.reloadData()
             self.searchView.filterTableView.reloadData()
         }
@@ -25,6 +26,7 @@ class SearchViewController: UIViewController {
             print("currentSelectedItem:\(currentSelectedItem)")
             self.hiddenLocation()
             self.searchView.filterTableView.reloadData()
+            self.searchView.filterContentCollectionView.reloadData()
         }
     }
     
@@ -44,23 +46,34 @@ class SearchViewController: UIViewController {
         searchView.backAction = {
             self.navigationController?.popViewController(animated: true)
         }
-        self.viewModel.changedModeWith(isSearching: isSearchModeViewOn)
         setCurrentItem()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        isSearchModeViewOn = false
+        searchView.filterTableView.endEditing(true)
+        searchView.filterContentCollectionView.endEditing(true)
+    }
+    
+    //MARK: - Methods
     private func setNavigationBar() {
         navigationItem.hidesBackButton = true
     }
     
     private func hiddenLocation() {
-        if currentSelectedItem == nil {
-            searchView.hiddenThelocationStack(isHidden: false)
+        if isSearchModeViewOn {
+            searchView.hiddenThelocationStack(isHidden: true)
         } else {
-            if let selectedItem = currentSelectedItem {
-                if selectedItem == 0 {
-                    searchView.hiddenThelocationStack(isHidden: false)
-                } else {
-                    searchView.hiddenThelocationStack(isHidden: true)
+            if currentSelectedItem == nil {
+                searchView.hiddenThelocationStack(isHidden: false)
+            } else {
+                if let selectedItem = currentSelectedItem {
+                    if selectedItem == 0 {
+                        searchView.hiddenThelocationStack(isHidden: false)
+                    } else {
+                        searchView.hiddenThelocationStack(isHidden: true)
+                    }
                 }
             }
         }
@@ -77,8 +90,24 @@ class SearchViewController: UIViewController {
     }
     
     private func setSearchindModeChanged() {
-        searchView.isBeginSearchMode = { changed in
-            self.viewModel.changedModeWith(isSearching: changed)
+        searchView.isBeginSearchMode = { isBegan in
+            self.viewModel.changedModeWith(isSearching: isBegan)
+            self.isSearchModeViewOn = isBegan
+            self.searchView.filterContentCollectionView.reloadData()
+            self.searchView.filterTableView.reloadData()
+        }
+        
+        searchView.searchValueChanged = { changed in
+            print("changed:\(changed)")
+            self.viewModel.filterSearchTextFiled(withText: changed)
+            self.searchView.filterContentCollectionView.reloadData()
+            self.searchView.filterTableView.reloadData()
+            
+        }
+        
+        searchView.endInputText = { endText in
+            print("finalSearch:\(endText)")
+            self.viewModel.filterSearchTextFiled(withText: endText)
             self.searchView.filterContentCollectionView.reloadData()
             self.searchView.filterTableView.reloadData()
         }
@@ -98,7 +127,7 @@ class SearchViewController: UIViewController {
         }
     }
 }
-
+//MARK: - CollectionView
 extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.collectionViewNumberOfRowInSection(section: section)
@@ -106,38 +135,56 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellInfo = viewModel.collectionViewCellForRowAt(indexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
+        let buttonCell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier, for: indexPath) as! ButtonCollectionViewCell
         if isSearchModeViewOn {
             switch AlreadyFilter(rawValue: indexPath.row) {
             case .result:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
+                cell.setAutoLayoutMode(by: true)
                 cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
                 return cell
             case .news:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
+                cell.setAutoLayoutMode(by: true)
                 cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
                 return cell
             case .nearest:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
+                cell.setAutoLayoutMode(by: true)
                 cell.configure(title: cellInfo.title, isSelected: cellInfo.isSelected)
                 return cell
             case .filterIcon:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier, for: indexPath) as! ButtonCollectionViewCell
-                cell.configure(iconText: cellInfo.title)
-                return cell
+                buttonCell.configure(iconText: cellInfo.title)
+                buttonCell.action = {
+                    print("press")
+                }
+                return buttonCell
             case .none: print("none")
                 return UICollectionViewCell()
             }
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchingCollectionViewCell.reuseIdentifier, for: indexPath) as! SearchingCollectionViewCell
             cell.configure(title: FilterType.allCases[indexPath.row].text, isSelected: cellInfo.isSelected)
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (view.frame.width - 15 * 6) / 5
-        let cellHeight = 48.0
+        var cellWidth: CGFloat = 0.0
+        var cellHeight: CGFloat = 0.0
+        if isSearchModeViewOn {
+            cellWidth = (view.frame.width - 8 * 5) / 4
+            cellHeight = 48.0
+        } else {
+            cellWidth = (view.frame.width - 8 * 6) / 6
+            cellHeight = 48.0
+        }
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -145,6 +192,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("indexPath:\(indexPath)")
         viewModel.collectionViewDidSelectedRowAt(indexPath: indexPath)
         searchView.filterContentCollectionView.reloadData()
         searchView.filterTableView.reloadData()
@@ -152,6 +200,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     
 }
 
+//MARK: - TableView
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
@@ -168,6 +217,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let containerView = UIView()
         let headerView = TitleHeaderView()
+        headerView.buttonAction = {
+            self.viewModel.selectedCollectionViewAllCell(bySection: section)
+        }
         setContainerView(parentView: containerView, subView: headerView)
         if isSearchModeViewOn {
             if currentSelectedItem == nil {
@@ -187,6 +239,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     headerView.configureTitle(with: Area.allCases[section].text)
                     headerView.button.isHidden = false
                     headerView.configureButton(with: "全選")
+                    if section == 5 {
+                        headerView.isHidden = true
+                    }
                 case .place:
                     headerView.configureTitle(with: "展覽館")
                     headerView.button.isHidden = false
@@ -201,6 +256,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                         headerView.configureTitle(with: "日期")
                         headerView.button.isHidden = true
                         headerView.button.setTitle("全選", for: .normal)
+                    case .correct:
+                        headerView.isHidden = true
                     case .none:
                         return UIView()
                     }
@@ -235,6 +292,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: UnSearchModeChooseTableViewCell.reuseIdentifier, for: indexPath) as! UnSearchModeChooseTableViewCell
             let calendarCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
+            let correctButtonCell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
             let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)
             if currentSelectedItem != nil {
                 switch FilterType(rawValue: currentSelectedItem!) {
@@ -245,14 +303,19 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     case .south: cell.configure(itemTitle: unSearchModel)
                     case .east: cell.configure(itemTitle: unSearchModel)
                     case .island: cell.configure(itemTitle: unSearchModel)
-                    case .none: return UITableViewCell()
+                    case .correct:
+                        correctButtonCell.setButtonName(name: "確定")
+                        return correctButtonCell
+                    case .none: return cell
                     }
                     return cell
-                case .place: cell.configure(itemTitle: Place.allCases.map{$0.title})
+                case .place:
+                    cell.configure(itemTitle: Place.allCases.map{$0.title})
                     return cell
                 case .date:
                     switch TimeSection(rawValue: indexPath.section) {
-                    case .dateKind: cell.configure(itemTitle: DateKind.allCases.map{$0.text})
+                    case .dateKind:
+                        cell.configure(itemTitle: DateKind.allCases.map{$0.text})
                         return cell
                     case .calendar:
                         let calendarView = CalendarView()
@@ -265,12 +328,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                             make.bottom.equalToSuperview()
                         }
                         return calendarCell
-                    case .none: return UITableViewCell()
+                    case .correct:
+                        correctButtonCell.setButtonName(name: "確定")
+                        return correctButtonCell
+                    case .none: return cell
                     }
                     return cell
                 case .price: cell.configure(itemTitle: Price.allCases.map{$0.text})
                     return cell
-                case .none: return UITableViewCell()
+                case .none:
+                    correctButtonCell.setButtonName(name: "確定")
+                    return correctButtonCell
                 }
             } else {
                 let unSearchModel = viewModel.unSearchModeTableViewCellForRowAt(indexPath: indexPath)

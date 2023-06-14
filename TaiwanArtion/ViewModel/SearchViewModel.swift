@@ -38,13 +38,21 @@ class SearchViewModel {
     
     static let shared = SearchViewModel()
     
-    private var store: [ExhibitionInfo] = []
+    private var store: [ExhibitionInfo] = [
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "noIdea", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "noIdea", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])])),
+        ExhibitionInfo(title: "未來身體-超自然雕塑", image: "noIdea", tag: "雕塑", dateString: "2023.05.18 - 05.20", time: "", agency: "", official: "", telephone: "00427022969", advanceTicketPrice: "199", unanimousVotePrice: "199", studentPrice: "199", groupPrice: "199", lovePrice: "199", free: "199", earlyBirdPrice: "199", city: "台南市", location: "台南市", address: "", equipments: ["","","",""], latitude: "", longtitude: "", evaluation: .init(number: 0, allCommentCount: 0, allCommentStar: 0, allCommentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)], allCommentContents: [.init(userImage: "", userName: "", star: 0, commentDate: "", commentRate: [.init(contentRichness: 0, equipment: 0, geoLocation: 0, price: 0, service: 0)])]))
+    ]
     
     private var filterStore: [ExhibitionInfo] = []
     
     private var hotSearch: [String] = ["小王子","悲慘世界","久石讓","貓之日","蒙娜麗莎的探險之旅"]
     
-    private var isSearchModeOn: Bool = false
+    private var isSearchModeOn: Bool = false {
+        didSet {
+            restartTheCurrentItem()
+        }
+    }
     
     var getCurrentItem : ((Int?) -> (Void))?
     
@@ -56,18 +64,27 @@ class SearchViewModel {
         }
     }
     
+    //MARK: -SearchAction
+    func filterSearchTextFiled(withText searchText: String) {
+        print("input SearchFilter:\(searchText)")
+        let filterResult = store.filter{$0.title.contains(searchText)}
+        print("filterResult:\(filterResult)")
+        filterStore = filterResult
+    }
+    
+    //MARK: -CurrentItems
     public func restartTheCurrentItem() {
         currentItem = nil
     }
     
     public func changedModeWith(isSearching: Bool) {
         isSearchModeOn = isSearching
+        print("isSearchModeOn:\(isSearchModeOn)")
     }
     
     public func changeCurrentItem(by itemIndex: Int) {
         currentItem = itemIndex
     }
-    
     
     //MARK: - CollectionView methods
     func collectionViewNumberOfRowInSection(section: Int) -> Int {
@@ -95,7 +112,12 @@ class SearchViewModel {
     func collectionViewDidSelectedRowAt(indexPath: IndexPath) {
         currentItem = indexPath.row
         print("collectionViewDidSelectedRowAt:\(currentItem)")
-//        isSearchModeOn ? AlreadyFilter.allCases[indexPath.row].text : FilterType.allCases[indexPath.row].text
+    }
+    
+    //Selected CollectionView
+    func selectedCollectionViewAllCell(bySection section: Int) {
+        print("全選TableViewSection:\(section)")
+        
     }
     
     //MARK: - TableView methods
@@ -119,7 +141,7 @@ class SearchViewModel {
                 switch FilterType(rawValue: currentSelected) {
                 case .city: return Area.allCases.count
                 case .place: return 1
-                case .date: return 2
+                case .date: return 3
                 case .price: return 1
                 case .none: return 1
                 }
@@ -142,9 +164,9 @@ class SearchViewModel {
     func unSearchModeTableViewNumberOfRowInSection(section: Int) -> Int {
         if currentItem != nil {
             switch FilterType(rawValue: currentItem!) {
-            case .city: return 1 //
-            case .place: return 1 //展覽館
-            case .date: return 1 //時間、日期
+            case .city: return 1
+            case .place: return 1
+            case .date: return 1
             case .price: return 1
             case .none: return 1
             }
@@ -177,6 +199,7 @@ class SearchViewModel {
                 case .south: return SouthernCity.allCases.map{$0.text}
                 case .east: return EasternCity.allCases.map{$0.text}
                 case .island: return OutlyingIslandCity.allCases.map{$0.text}
+                case .correct: return [""]
                 case .none: return hotSearch.map {$0}
                 }
             case .place: return Place.allCases.map{$0.title}

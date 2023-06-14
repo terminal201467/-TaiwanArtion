@@ -11,6 +11,12 @@ class SearchingCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "SearchingCollectionViewCell"
     
+    private var isFilterModeOn: Bool = false {
+        didSet {
+            setFilterMode(isOn: self.isFilterModeOn)
+        }
+    }
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
@@ -25,19 +31,19 @@ class SearchingCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        autoLayout()
+        setFilterMode(isOn: self.isFilterModeOn)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func autoLayout() {
+    private func setFilterAutoLayout() {
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.width.greaterThanOrEqualTo((frame.width - 16 * 6) / 5)
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
         }
         
         contentView.addSubview(bar)
@@ -47,6 +53,35 @@ class SearchingCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(2)
             make.width.equalTo(contentView.frame.width / 4.0)
         }
+    }
+    
+    private func setAlreadyFilterAutoLayout() {
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+        }
+        
+        contentView.addSubview(bar)
+        bar.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(2)
+            make.width.equalTo(contentView.frame.width / 4.0)
+        }
+    }
+    
+    private func setFilterMode(isOn: Bool) {
+        if isOn {
+            setAlreadyFilterAutoLayout()
+        } else {
+            setFilterAutoLayout()
+        }
+    }
+    
+    func setAutoLayoutMode(by isSearchMode: Bool) {
+        self.isFilterModeOn = isSearchMode
     }
     
     func configure(title: String, isSelected: Bool?) {

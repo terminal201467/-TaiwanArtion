@@ -43,5 +43,5 @@ enum Price: Int, CaseIterable {
 }
 
 enum TimeSection: Int, CaseIterable {
-    case dateKind = 0, calendar
+    case dateKind = 0, calendar, correct
 }

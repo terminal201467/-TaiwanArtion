@@ -8,7 +8,7 @@
 import Foundation
 
 enum Area: Int, CaseIterable {
-    case north = 0, middle, south, east, island
+    case north = 0, middle, south, east, island, correct
     var text: String {
         switch self {
         case .north: return "北部"
@@ -16,6 +16,7 @@ enum Area: Int, CaseIterable {
         case .south: return "南部"
         case .east: return "東部"
         case .island: return "離島"
+        case .correct: return ""
         }
     }
 }
