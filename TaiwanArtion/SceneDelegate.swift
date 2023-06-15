@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    private let userManager = UserManager.shared
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -18,7 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.backgroundColor = .white
         window?.rootViewController = RootViewController()
-//        UINavigationController(rootViewController: SplashViewController())
+        
+//        if userManager.getIsLoggedIn() {
+//            //如果已經登入
+//            window?.rootViewController = RootViewController()
+//        } else {
+//            //如果未登入
+//            window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
+//        }
+
         window?.makeKeyAndVisible()
     }
 

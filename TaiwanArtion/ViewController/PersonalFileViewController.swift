@@ -20,7 +20,7 @@ class PersonalFileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setActions()
         // Do any additional setup after loading the view.
     }
     
@@ -33,14 +33,28 @@ class PersonalFileViewController: UIViewController {
         } else {
             //如果未註冊
             view = welcomeRegisterView
+            
         }
         //這邊要有UserDefault的設定
         
         //如果已經註冊，也已經登入
         
         //如果已經註冊過，未登入
+    }
     
+    private func setActions() {
+        welcomeRegisterView.registerAction = {
+            let viewController = RegisterViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
         
+        welcomeRegisterView.loginAction = {
+            print("登入")
+        }
+        
+        welcomeRegisterView.socialKitRegister = { socialKitKind in
+            print(socialKitKind)
+        }
     }
 
 }
