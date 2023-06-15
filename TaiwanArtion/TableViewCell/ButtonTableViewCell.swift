@@ -18,7 +18,7 @@ class ButtonTableViewCell: UITableViewCell {
     
     private let disposeBag = DisposeBag()
     
-    private let button: UIButton = {
+    let button: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.roundCorners(cornerRadius: 20)

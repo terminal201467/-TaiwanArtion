@@ -10,7 +10,7 @@ import UIKit
 class RootViewController: UITabBarController {
     
     //MARK: - ViewControllers
-    private let homeViewController = HomeViewController()
+    private let homeViewController = UINavigationController(rootViewController: HomeViewController())
     
     private let nearViewController = NearViewController()
     
@@ -18,7 +18,7 @@ class RootViewController: UITabBarController {
     
     private let calendarViewController = CalendarViewController()
     
-    private let personFileViewController = PersonalFileViewController()
+    private let personFileViewController = UINavigationController(rootViewController: PersonalFileViewController())
     
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -55,6 +55,8 @@ class RootViewController: UITabBarController {
         personFileViewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.brownTitleColor], for: .selected)
         viewControllers = [homeViewController, nearViewController, collectionViewController, calendarViewController, personFileViewController]
         view.backgroundColor = .white
+        tabBar.barTintColor = .white
+        tabBar.backgroundColor = .white
         tabBar.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 12)
     }
 }

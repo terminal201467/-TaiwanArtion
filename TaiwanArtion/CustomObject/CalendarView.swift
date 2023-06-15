@@ -14,6 +14,8 @@ class CalendarView: UIView {
         case year = 0, month, week, date
     }
     
+    private let logicViewModel = CalendarLogic.shared
+    
     var month: ((Int) -> Void)?
     
     var date: ((Int) -> Void)?
@@ -25,7 +27,7 @@ class CalendarView: UIView {
         tableView.register(CalendarMonthTableViewCell.self, forCellReuseIdentifier: CalendarMonthTableViewCell.reuseIdentifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsSelection = false
-        tableView.isScrollEnabled = true
+        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         return tableView
@@ -65,7 +67,7 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
         case .year:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
             let yearHeader = TitleHeaderView()
-            yearHeader.configureYear(with: "\(2023)")
+            yearHeader.configureYear(with: "\(logicViewModel.getCurrentYear())")
             cell.contentView.addSubview(yearHeader)
             yearHeader.snp.makeConstraints { make in
                 make.centerY.equalToSuperview()
@@ -86,7 +88,13 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        switch CalendarRow(rawValue: indexPath.row) {
+        case .year: return 50
+        case .month: return 50
+        case .week: return 50
+        case .date: return 300
+        case .none: return 0
+        }
     }
 }
 

@@ -169,7 +169,6 @@ class SearchView: UIView {
             .orEmpty
             .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] searchText in
-                print("searchValueChanged:\(searchText)")
                 self?.searchValueChanged?(searchText)
             })
             .disposed(by: disposeBag)
@@ -238,7 +237,6 @@ class SearchView: UIView {
             make.bottom.equalToSuperview()
         }
     }
-    
 }
 
 extension SearchView: UISearchTextFieldDelegate {

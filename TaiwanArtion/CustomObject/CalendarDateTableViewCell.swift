@@ -25,7 +25,6 @@ class CalendarDateTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        logicViewModel.generateCalendarDates()
         setCollectionView()
         autoLayout()
     }
@@ -57,8 +56,9 @@ extension CalendarDateTableViewCell: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as! DateCollectionViewCell
         let cellInfo = logicViewModel.dateCellForRowAt(indexPath: indexPath)
-        cell.configure(date: cellInfo.date,
-                       isToday: cellInfo.isToday)
+        cell.configure(date: cellInfo.dateString,
+                       isToday: cellInfo.isToday,
+                       isCurrentMonth: cellInfo.isCurrentMonth)
         return cell
     }
     
@@ -72,7 +72,7 @@ extension CalendarDateTableViewCell: UICollectionViewDataSource, UICollectionVie
         return .init(top: 10, left: 2, bottom: 10, right: 2)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        logicViewModel.dateDidSelectedRowAt(indexPath: indexPath)
+    }
 }

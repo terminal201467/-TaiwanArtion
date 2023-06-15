@@ -321,7 +321,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                         let calendarView = CalendarView()
                         calendarCell.contentView.addSubview(calendarView)
                         calendarView.snp.makeConstraints { make in
-                            make.height.equalTo(400)
+                            make.height.equalTo(500)
                             make.top.equalToSuperview()
                             make.leading.equalToSuperview()
                             make.trailing.equalToSuperview()

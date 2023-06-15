@@ -34,9 +34,9 @@ class DateCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(date: String, isToday: Bool) {
+    func configure(date: String, isToday: Bool, isCurrentMonth: Bool) {
         dateLabel.text = date
-//        dateLabel.textColor = isInMonth ? .black : .grayTextColor
+        dateLabel.textColor = isCurrentMonth ? .black : .grayTextColor
         dateLabel.backgroundColor = isToday ? .brownColor : .white
     }
     
