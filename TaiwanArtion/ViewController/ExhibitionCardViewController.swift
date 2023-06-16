@@ -385,7 +385,7 @@ extension ExhibitionCardViewController: UITableViewDelegate, UITableViewDataSour
                 return cell
             case .route:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
-                cell.setButtonName(name: "規劃路線")
+                cell.configure(buttonname: "規劃路線")
                 cell.action = {
                     print("規劃路線")
                 }

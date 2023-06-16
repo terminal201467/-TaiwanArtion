@@ -54,7 +54,7 @@ class ButtonTableViewCell: UITableViewCell {
             .disposed(by: disposeBag)
     }
     
-    func setButtonName(name: String) {
-        button.setTitle(name, for: .normal)
+    func configure(buttonName: String) {
+        button.setTitle(buttonName, for: .normal)
     }
 }

@@ -23,14 +23,14 @@ class RegisterView: UIView {
         return collectionView
     }()
     
-    let contentTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellReuseIdentifier: <#T##String#>)
-        return tableView
+    let containerView: UIView = {
+       let view = UIView()
+        return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        autoLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +38,22 @@ class RegisterView: UIView {
     }
     
     private func autoLayout() {
+        view.backgroundColor = .caramelColor
+        addSubview(stepCollectionView)
+        stepCollectionView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.height.equalTo(70.0)
+            make.top.equalToSuperview()
+        }
         
+        addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(stepCollectionView.snp.bottom)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
 
 }

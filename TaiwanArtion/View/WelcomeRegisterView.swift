@@ -130,14 +130,14 @@ extension WelcomeRegisterView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
         switch RegisterButtons(rawValue: indexPath.row) {
         case .signIn:
-            cell.setButtonName(name: "登入")
+            cell.configure(buttonname: "登入")
             cell.button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
             cell.selectionStyle = .none
             cell.action = {
                 self.loginAction?()
             }
         case .register:
-            cell.setButtonName(name: "註冊")
+            cell.configure(buttonname: "註冊")
             cell.button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
             cell.button.hollowBrownRoundborder()
             cell.selectionStyle = .none

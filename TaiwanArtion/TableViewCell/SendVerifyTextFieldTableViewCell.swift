@@ -11,11 +11,13 @@ import RxCocoa
 
 class SendVerifyTextFieldTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier: String = "SendVerifyTextFieldTableViewCell"
+    
     private let disposeBag = DisposeBag()
     
     var sendAction: (() -> (Void))?
     
-    var inputText: ((String) -> (Void))?
+    var inputAction: ((String) -> (Void))?
     
     private var isSend: Bool = false
     
@@ -29,10 +31,18 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
         return textField
     }()
     
-    private let sendVerifyButton: UIButton = {
+    let sendVerifyButton: UIButton = {
         let button = UIButton()
         button.roundCorners(cornerRadius: 12)
         return button
+    }()
+    
+    private let hintLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .red
+        label.isHidden = true
+        return label
     }()
     
     private lazy var inputerStack: UIStackView = {
@@ -50,6 +60,7 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
         setSubscribeButton()
         autoLayout()
         setSendButton()
+        setTime()
     }
     
     required init?(coder: NSCoder) {
@@ -63,7 +74,7 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
                 //這邊要計時60s
                 self.timer.start()
                 self.isSend = true
-                
+                //對Firebase送出簡訊申請
             })
             .disposed(by: disposeBag)
     }
@@ -89,11 +100,17 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
             make.width.equalToSuperview().multipliedBy(0.3)
             make.height.equalTo(40.0)
         }
+        
+        contentView.addSubview(hintLabel)
+        hintLabel.snp.makeConstraints { make in
+            make.top.equalTo(textField.snp.bottom)
+            make.leading.equalTo(textField.snp.leading)
+        }
     }
     
     private func setSendButton() {
         sendVerifyButton.backgroundColor = isSend ? .whiteGrayColor : .brownColor
-        sendVerifyButton.setTitleColor(isSend ? .whiteGrayColor : .brownColor, for: .normal)
+        sendVerifyButton.setTitleColor(isSend ? .grayTextColor : .brownColor, for: .normal)
         sendVerifyButton.setTitle(isSend ? "\(timer.timeRemaining)s,重新發送" : "發送驗證碼", for: .normal)
         sendVerifyButton.isEnabled = isSend ? false : true
     }
