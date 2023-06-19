@@ -12,6 +12,8 @@ import RxCocoa
 class InputTextFieldTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "InputTextFieldTableViewCell"
+    
+    var inputAction: ((String) -> (Void))?
 
     private let disposeBag = DisposeBag()
 
@@ -41,11 +43,16 @@ class InputTextFieldTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setTextField()
         autoLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setTextField() {
+        textField.delegate = self
     }
     
     private func autoLayout() {
@@ -80,4 +87,22 @@ class InputTextFieldTableViewCell: UITableViewCell {
         textField.rightView = UIImageView(image: .init(named: isPrevented ? "passwordPrevent" : ""))
         textField.placeholder = placeholdText
     }
+}
+
+extension InputTextFieldTableViewCell: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.inputAction?(textField.text!)
+        textField.becomeFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.inputAction?(textField.text!)
+        textField.resignFirstResponder()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
 }
