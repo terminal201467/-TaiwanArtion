@@ -28,7 +28,17 @@ class RegisterStepCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .brownTitleColor
+        label.textAlignment = .center
         return label
+    }()
+    
+    private lazy var stepStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [currentStepImage, stepTitleLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 10
+        return stackView
     }()
     
     override init(frame: CGRect) {
@@ -42,20 +52,14 @@ class RegisterStepCollectionViewCell: UICollectionViewCell {
     
     
     private func autoLayout() {
-        contentView.addSubview(currentStepImage)
-        currentStepImage.snp.makeConstraints { make in
+        contentView.addSubview(stepStack)
+        stepStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         currentStepImage.addSubview(stepNumberLabel)
         stepNumberLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.centerX.equalToSuperview()
-        }
-        
-        contentView.addSubview(stepTitleLabel)
-        stepTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(currentStepImage.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
     }

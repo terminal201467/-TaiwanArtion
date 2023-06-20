@@ -87,6 +87,10 @@ class InputTextFieldTableViewCell: UITableViewCell {
         textField.rightView = UIImageView(image: .init(named: isPrevented ? "passwordPrevent" : ""))
         textField.placeholder = placeholdText
     }
+    
+    func generalConfigure(placeholdText: String) {
+        textField.placeholder = placeholdText
+    }
 }
 
 extension InputTextFieldTableViewCell: UITextFieldDelegate {
@@ -99,6 +103,7 @@ extension InputTextFieldTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.inputAction?(textField.text!)
         textField.resignFirstResponder()
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

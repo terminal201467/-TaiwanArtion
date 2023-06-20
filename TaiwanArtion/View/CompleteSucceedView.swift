@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class EvaluateSucceedView: UIView {
+class CompleteSucceedView: UIView {
+    
+    var topButtonAction: (() -> Void)?
+    
+    var bottomButtonAction: (() -> Void)?
 
     //MARK: - Background
     private let pointBackground: UIImageView = {
@@ -43,7 +49,6 @@ class EvaluateSucceedView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .brownTitleColor
-        label.text = "評價成功"
         label.textAlignment = .center
         return label
     }()
@@ -52,7 +57,6 @@ class EvaluateSucceedView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .grayTextColor
-        label.text = "感謝您的分享，造福了其他早找展覽的使用者！"
         label.textAlignment = .center
         return label
     }()
@@ -66,10 +70,36 @@ class EvaluateSucceedView: UIView {
         return stackView
     }()
     
+    private let topButton: UIButton = {
+        let button = UIButton()
+        button.roundCorners(cornerRadius: 20)
+        button.backgroundColor = .brownColor
+        return button
+    }()
+    
+    private let bottomButton: UIButton = {
+        let button = UIButton()
+        button.roundCorners(cornerRadius: 20)
+        button.backgroundColor = .white
+        button.addBorder(borderWidth: 1, borderColor: .brownColor)
+        return button
+    }()
+    
+    lazy var buttonStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [topButton, bottomButton])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 16
+        stackView.isHidden = true
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundAutoLayout()
         foregroundAutoLayout()
+        setSubScriptionButton()
     }
     
     required init?(coder: NSCoder) {
@@ -111,6 +141,35 @@ class EvaluateSucceedView: UIView {
             make.top.equalTo(middleCheersImage.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
         }
+        
+        addSubview(buttonStack)
+        buttonStack.snp.makeConstraints { make in
+            make.top.equalTo(titleStack.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    private func setSubScriptionButton() {
+        topButton.rx.tap
+            .subscribe(onNext: {
+                self.topButtonAction?()
+            })
+            .disposed(by: DisposeBag())
+        bottomButton.rx.tap
+            .subscribe(onNext: {
+                self.bottomButtonAction?()
+            })
+            .disposed(by: DisposeBag())
+    }
+    
+    func configure(title: String, subTitle: String) {
+        titleLabel.text = title
+        subTitleLabel.text = subTitle
+    }
+    
+    func configureButtons(topButtonName: String, bottomButtonName: String) {
+        topButton.setTitle(topButtonName, for: .normal)
+        bottomButton.setTitle(bottomButtonName, for: .normal)
     }
     
 }

@@ -13,6 +13,12 @@ class RegisterViewController: UIViewController {
     
     private let viewModel = RegisterViewModel()
     
+    private var firstStepView: PhoneVerifyView?
+    
+    private var secondStepView: AccountPasswordView?
+    
+    private var thirdStepView: EmailVerifyView?
+    
     //MARK: -LifeCycle
     override func loadView() {
         super.loadView()
@@ -23,12 +29,12 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBar()
         setCollectionView()
-        setTableView()
+        setStepAddContainer()
     }
     
     //MARK: - Methods
     private func setNavigationBar() {
-        navigationController?.navigationItem.title = "會員註冊"
+        title = "會員註冊"
         let backButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backAction))
         navigationItem.leftBarButtonItem = backButton
     }
@@ -42,15 +48,32 @@ class RegisterViewController: UIViewController {
         registerView.stepCollectionView.delegate = self
     }
     
-    private func setTableView() {
+    private func setStepAddContainer() {
         switch viewModel.getCurrentStep() {
         case .phoneVerify:
+            firstStepView = PhoneVerifyView()
+            registerView.containerView.addSubview(firstStepView!)
+            firstStepView?.toNextStep = {
+                self.viewModel.setCurrentStep(step: .acountPassword)
+                self.firstStepView?.removeFromSuperview()
+            }
         case .acountPassword:
+            secondStepView = AccountPasswordView()
+            registerView.containerView.addSubview(secondStepView!)
+            secondStepView?.toNextStep = {
+                self.viewModel.setCurrentStep(step: .emailVerify)
+                self.secondStepView?.removeFromSuperview()
+            }
         case .emailVerify:
-        case .complete:
+            thirdStepView = EmailVerifyView()
+            registerView.containerView.addSubview(thirdStepView!)
+            thirdStepView?.toNextStep = {
+                //push 註冊成功頁面
+                self.thirdStepView?.removeFromSuperview()
+            }
+        case .complete: break
         }
     }
-
 }
 extension RegisterViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -65,12 +88,17 @@ extension RegisterViewController: UICollectionViewDelegateFlowLayout, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.width / 4
+        let cellWidth = (view.frame.width - 16 * 4) / 4
         let cellHeight = 60.0
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 12, left: 12, bottom: 12, right: 12)
+        return .init(top: 12, left: 16, bottom: 12, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectedRowAt(indexPath: indexPath)
+        collectionView.reloadData()
     }
 }

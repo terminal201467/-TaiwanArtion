@@ -17,7 +17,7 @@ class RegisterViewModel {
     
     var emailVerifyStep: EmailVerifyStep = .stepOne
     
-    func getCurrentStep() -> RegisterStep{
+    func getCurrentStep() -> RegisterStep {
         return currentStep
     }
     
@@ -35,6 +35,10 @@ class RegisterViewModel {
         return (RegisterStep.allCases[indexPath.row].title, isSelected)
     }
     
+    func didSelectedRowAt(indexPath: IndexPath) {
+        currentStep = RegisterStep(rawValue: indexPath.row)!
+    }
+    
     //MARK: -ContentTableView
     func contentNumberOfSections() -> Int {
         switch currentStep {
@@ -45,7 +49,7 @@ class RegisterViewModel {
         }
     }
     
-    func contentNumberOfRowInSection(section: Int) -> Int{
+    func contentNumberOfRowInSection(section: Int) -> Int {
         switch currentStep {
         case .phoneVerify:
             switch PhoneVerifyCell(rawValue: section) {
@@ -70,7 +74,7 @@ class RegisterViewModel {
             case .nextButton: return 1
             case .none: return 1
             }
-        case .complete: break
+        case .complete: return 1
             //沒有東西，跳出註冊成功頁
         }
     }

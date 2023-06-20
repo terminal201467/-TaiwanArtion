@@ -9,21 +9,21 @@ import UIKit
 
 class EvaluateSucceedViewController: UIViewController {
 
-    private let evaluateSucceedView = EvaluateSucceedView()
+    private let completeSucceedView = CompleteSucceedView()
     
     private let timer = CountdownTimer(timeInterval: 3)
     
     override func loadView() {
         super.loadView()
-        view = evaluateSucceedView
+        view = completeSucceedView
         view.backgroundColor = .caramelColor
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTimeBackToExhibitionCardPage()
-        // Do any additional setup after loading the view.
+        completeSucceedView.configure(title: "評價成功", subTitle: "感謝您的分享，造福了其他早找展覽的使用者！")
+        
     }
     
     private func setTimeBackToExhibitionCardPage() {

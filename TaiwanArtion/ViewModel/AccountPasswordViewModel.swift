@@ -9,13 +9,13 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum ValidationResult {
+public enum ValidationResult {
     case valid
     case empty
     case failed(message: String)
 }
 
-enum PasswordRequirement {
+public enum PasswordRequirement {
     case uppercaseLetter
     case lowercaseLetter
     case length
@@ -28,8 +28,8 @@ public protocol LoginViewModelInput: AnyObject {
 
 public protocol LoginViewModelOutput: AnyObject {
     var loginSuccess: Signal<String> { get }
-    var accountValidation: Observable<ValidationResult> { get }
-    var passwordValidSuccess: Observable<[PasswordRequirement]> { get }
+    var accountValidation: Signal<ValidationResult> { get }
+    var passwordValidSuccess: Signal<[PasswordRequirement]> { get }
 }
 
 public protocol LoginViewModelType: AnyObject {
@@ -38,18 +38,18 @@ public protocol LoginViewModelType: AnyObject {
 }
 
 class AccountPasswordViewModel: LoginViewModelInput, LoginViewModelOutput, LoginViewModelType {
-    
+
     private let disposeBag = DisposeBag()
     
-    var onLogin: PublishRelay<(String, String)>
+    var onLogin: PublishRelay<(String, String)> = PublishRelay()
+    
+//    let loginButtonEnabled: Observable<Bool>
     
     var loginSuccess: Signal<String>
     
-    let loginButtonEnabled: Observable<Bool>
-    
-    var accountValidation: Observable<ValidationResult>
-    
-    var passwordValidSuccess: Observable<[PasswordRequirement]>
+    var accountValidation: Signal<ValidationResult>
+
+    var passwordValidSuccess: Signal<[PasswordRequirement]>
     
     var inputs: LoginViewModelInput { self }
     
@@ -57,28 +57,17 @@ class AccountPasswordViewModel: LoginViewModelInput, LoginViewModelOutput, Login
     
     private var requirements: [PasswordRequirement] = []
     
-    private init() {
+    public init() {
         onLogin
             .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] account, password in
-
-            })
-            .disposed(by: disposeBag)
-        
-        accountValidation
-            .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] account in
+            .subscribe(onNext: { account, password in
                 
             })
             .disposed(by: disposeBag)
         
-        passwordValidSuccess
-            .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] password in
-                
-            })
-            .disposed(by: disposeBag)
-        
+        self.loginSuccess = Signal.just("Default Login Success Value")
+        self.accountValidation = Signal.just(.valid)
+        self.passwordValidSuccess = Signal.just([])
     }
     
     private func login(account: String, password: String, completion: @escaping (() -> Void)) {

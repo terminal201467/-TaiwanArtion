@@ -124,7 +124,7 @@ extension SendVerifyTextFieldTableViewCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        self.inputText?(textField.text ?? "")
+        self.inputAction?(textField.text ?? "")
         return true
     }
     

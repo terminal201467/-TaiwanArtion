@@ -20,6 +20,7 @@ class RegisterView: UIView {
         collectionView.register(RegisterStepCollectionViewCell.self, forCellWithReuseIdentifier: RegisterStepCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = nil
         return collectionView
     }()
     
@@ -38,13 +39,13 @@ class RegisterView: UIView {
     }
     
     private func autoLayout() {
-        view.backgroundColor = .caramelColor
+        backgroundColor = .caramelColor
         addSubview(stepCollectionView)
         stepCollectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(70.0)
-            make.top.equalToSuperview()
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
         }
         
         addSubview(containerView)

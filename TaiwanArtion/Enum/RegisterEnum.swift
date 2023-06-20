@@ -19,24 +19,3 @@ enum RegisterStep: Int, CaseIterable {
     }
 }
 
-enum EmailVerifyStep: Int, CaseIterable {
-    case stepOne = 0, stepTwo
-}
-
-enum EmailVerifyCell: Int, CaseIterable {
-    case hint = 0, email, nextButton
-    var stepOneText: String {
-        switch self {
-        case .hint: return "為了確保是你本人，我們將會寄送一封驗證信件到你的電子信箱。"
-        case .email: return "電子信箱"
-        case .nextButton: "下一步"
-        }
-    }
-    var stepTwoText: String {
-        switch self {
-        case .hint: return "已發送信箱驗證碼至eof*****@gmail.com,請輸入信箱驗證碼並送出驗證。"
-        case .email: return "信箱驗證碼"
-        case .nextButton: return "寄送信箱驗證碼"
-        }
-    }
-}

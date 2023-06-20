@@ -30,15 +30,14 @@ class AccountPasswordView: UIView {
 
     var toNextStep: (() -> Void)?
     
+    var account: String = ""
+    
+    var password: String = ""
+    
     private let disposeBag = DisposeBag()
     
     //檢查邏輯ViewModel
-    private let viewModel: LoginViewModelType!
-    
-    public init(viewModel: LoginViewModelType) {
-        self.viewModel = viewModel
-        super.init()
-    }
+    private let viewModel = AccountPasswordViewModel()
     
     private let contentTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -113,7 +112,7 @@ extension AccountPasswordView: UITableViewDelegate, UITableViewDataSource {
         case .passwordHint: return 1
         case .strengthHint: return 1
         case .nextButton: return 1
-        case .none: break
+        case .none: return 1
         }
     }
     
@@ -125,30 +124,28 @@ extension AccountPasswordView: UITableViewDelegate, UITableViewDataSource {
         switch AccountPasswordCell(rawValue: indexPath.row) {
         case .account:
             cell.inputAction = { inputText in
-                
+                self.account = inputText
             }
             cell.accountConfigure(placeholderText: "4-21碼大小寫英文數字")
-            return cell
         case .password:
             cell.inputAction = { inputText in
-                
+                self.password = inputText
             }
             cell.passwordConfigure(isLocked: false, isPrevented: true, placeholdText: "6-18位數密碼，請區分大小寫")
-            return cell
         case .passwordHint:
             let passwordHintView = PasswordHintView()
             passwordContainerCell.contentView.addSubview(passwordHintView)
-            return passwordContainerCell
-        case .strengthHint:
-            strengthCell.configure(condition: 3)
-            return strengthCell
+        case .strengthHint: strengthCell.configure(condition: 3)
         case .nextButton:
             buttonCell.action = {
-                
+                self.login(account: self.account, password: self.password)
             }
             buttonCell.configure(buttonName: "下一步")
-            return buttonCell
-        case .none: break
+        case .none: return UITableViewCell()
         }
+        return passwordContainerCell
+        return strengthCell
+        return buttonCell
+        return cell
     }
 }

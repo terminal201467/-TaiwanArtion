@@ -304,7 +304,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     case .east: cell.configure(itemTitle: unSearchModel)
                     case .island: cell.configure(itemTitle: unSearchModel)
                     case .correct:
-                        correctButtonCell.configure(buttonname: "確定")
+                        correctButtonCell.configure(buttonName: "確定")
                         return correctButtonCell
                     case .none: return cell
                     }
@@ -329,7 +329,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                         }
                         return calendarCell
                     case .correct:
-                        correctButtonCell.configure(buttonname: "確定")
+                        correctButtonCell.configure(buttonName: "確定")
                         return correctButtonCell
                     case .none: return cell
                     }
@@ -337,7 +337,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 case .price: cell.configure(itemTitle: Price.allCases.map{$0.text})
                     return cell
                 case .none:
-                    correctButtonCell.configure(buttonname: "確定")
+                    correctButtonCell.configure(buttonName: "確定")
                     return correctButtonCell
                 }
             } else {
