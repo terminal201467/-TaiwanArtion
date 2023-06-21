@@ -48,28 +48,38 @@ class RegisterViewController: UIViewController {
         registerView.stepCollectionView.delegate = self
     }
     
+    private func layoutViews(parentView: UIView, childView: UIView) {
+        parentView.addSubview(childView)
+        childView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
     private func setStepAddContainer() {
         switch viewModel.getCurrentStep() {
         case .phoneVerify:
             firstStepView = PhoneVerifyView()
-            registerView.containerView.addSubview(firstStepView!)
+            layoutViews(parentView: registerView.containerView, childView: firstStepView!)
             firstStepView?.toNextStep = {
                 self.viewModel.setCurrentStep(step: .acountPassword)
                 self.firstStepView?.removeFromSuperview()
+                self.registerView.stepCollectionView.reloadData()
             }
         case .acountPassword:
             secondStepView = AccountPasswordView()
-            registerView.containerView.addSubview(secondStepView!)
+            layoutViews(parentView: registerView.containerView, childView: secondStepView!)
             secondStepView?.toNextStep = {
                 self.viewModel.setCurrentStep(step: .emailVerify)
                 self.secondStepView?.removeFromSuperview()
+                self.registerView.stepCollectionView.reloadData()
             }
         case .emailVerify:
             thirdStepView = EmailVerifyView()
-            registerView.containerView.addSubview(thirdStepView!)
+            layoutViews(parentView: registerView.containerView, childView: thirdStepView!)
             thirdStepView?.toNextStep = {
                 //push 註冊成功頁面
                 self.thirdStepView?.removeFromSuperview()
+                self.registerView.stepCollectionView.reloadData()
             }
         case .complete: break
         }
@@ -95,10 +105,5 @@ extension RegisterViewController: UICollectionViewDelegateFlowLayout, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 12, left: 16, bottom: 12, right: 16)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectedRowAt(indexPath: indexPath)
-        collectionView.reloadData()
     }
 }

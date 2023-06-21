@@ -53,7 +53,6 @@ class RegisterViewModel {
         switch currentStep {
         case .phoneVerify:
             switch PhoneVerifyCell(rawValue: section) {
-            case .hint: return 1
             case .verify: return 1
             case .nextButton: return 1
             case .none: return 1
