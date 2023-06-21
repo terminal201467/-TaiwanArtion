@@ -27,7 +27,7 @@ enum PhoneVerifyCell: Int, CaseIterable {
     var stepOneText: String {
         switch self {
         case .verify: return "手機號碼"
-        case .nextButton: return "下一步"
+        case .nextButton: return "寄送手機驗證碼"
         }
     }
     var stepTwoText: String {
@@ -150,25 +150,60 @@ extension PhoneVerifyView: UITableViewDelegate, UITableViewDataSource {
         case .phoneNumber:
             switch PhoneVerifyCell(rawValue: indexPath.row) {
             case .verify:
-                let verifyCell = tableView.dequeueReusableCell(withIdentifier: PhoneNumberInputTableViewCell.reuseIdentifier, for: indexPath) as! PhoneNumberInputTableViewCell
-                verifyCell.configure(preTeleNumber: "+886", country: "roc")
-                verifyCell.inputAction = { text in
-                    print("text:\(text)")
-                    self.inputText = text
+                switch currentStep {
+                case .stepOne:
+                    let verifyCell = tableView.dequeueReusableCell(withIdentifier: PhoneNumberInputTableViewCell.reuseIdentifier, for: indexPath) as! PhoneNumberInputTableViewCell
+                    verifyCell.configure(preTeleNumber: "+886", country: "roc")
+                    verifyCell.inputAction = { text in
+                        self.inputText = text
+                    }
+                    return verifyCell
+                case .stepTwo:
+                    let sendVerifyCell = tableView.dequeueReusableCell(withIdentifier: SendVerifyTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! SendVerifyTextFieldTableViewCell
+                    sendVerifyCell.configure(placeHolder: "請輸入手機驗證碼")
+                    sendVerifyCell.inputAction = { text in
+                        self.inputText = text
+                    }
+                    sendVerifyCell.sendAction = {
+                        tableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                    sendVerifyCell.timeTickAction = { second in
+                        sendVerifyCell.setSendButton(timeRemaining: second)
+                        tableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                    return sendVerifyCell
                 }
-                return verifyCell
             case .nextButton:
                 let nextButtonCell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
-                nextButtonCell.configure(buttonName: inputText == "" ? PhoneVerifyCell.nextButton.stepOneText : PhoneVerifyCell.nextButton.stepTwoText)
-                print("inputText:",inputText == "")
-                setButtonSelection(button: nextButtonCell.button, isInputText: inputText == "")
-                nextButtonCell.action = {
-                    self.toNextStep?()
+                switch currentStep {
+                case .stepOne:
+                    nextButtonCell.configure(buttonName: inputText == "" ? PhoneVerifyCell.nextButton.stepOneText : PhoneVerifyCell.nextButton.stepOneText)
+                    setButtonSelection(button: nextButtonCell.button, isInputText: inputText == "")
+                    nextButtonCell.action = {
+                        self.currentStep = .stepTwo
+                        tableView.reloadData()
+                    }
+                    return nextButtonCell
+                case .stepTwo:
+                    nextButtonCell.configure(buttonName: inputText == "" ? PhoneVerifyCell.nextButton.stepOneText : PhoneVerifyCell.nextButton.stepTwoText)
+                    setButtonSelection(button: nextButtonCell.button, isInputText: inputText == "")
+                    nextButtonCell.action = {
+                        self.toNextStep?()
+                    }
+                    return nextButtonCell
                 }
-                return nextButtonCell
+
             case .none: return UITableViewCell()
             }
         case .none: return UITableViewCell()
+        }
+    }
+        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch SectionHeader(rawValue: indexPath.section) {
+        case .hintHeader: return UITableView.automaticDimension
+        case .phoneNumber: return 70
+        case .none: return 0
         }
     }
 }

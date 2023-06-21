@@ -19,6 +19,8 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
     
     var inputAction: ((String) -> (Void))?
     
+    var timeTickAction: ((TimeInterval) -> (Void))?
+    
     private var isSend: Bool = false
     
     private let timer = CountdownTimer(timeInterval: 60)
@@ -27,13 +29,20 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
         let textField = UITextField()
         textField.textColor = .grayTextColor
         textField.roundCorners(cornerRadius: 12)
+        textField.borderStyle = .roundedRect
+        textField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         textField.clearButtonMode = .whileEditing
         return textField
     }()
     
     let sendVerifyButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = .systemFont(ofSize: 14)
         button.roundCorners(cornerRadius: 12)
+        button.setTitle("發送驗證碼", for: .normal)
+        button.backgroundColor = .brownColor
+        button.setTitleColor(.white, for: .normal)
+        button.isEnabled = true
         return button
     }()
     
@@ -59,7 +68,6 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
         textField.delegate = self
         setSubscribeButton()
         autoLayout()
-        setSendButton()
         setTime()
     }
     
@@ -71,7 +79,6 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
         sendVerifyButton.rx.tap
             .subscribe(onNext: {
                 self.sendAction?()
-                //這邊要計時60s
                 self.timer.start()
                 self.isSend = true
                 //對Firebase送出簡訊申請
@@ -80,19 +87,27 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
     }
     
     private func setTime() {
-        if timer.timeRemaining == 0 {
-            self.isSend = false
+        if timer.timeRemaining == 0.0 {
+            isSend = false
+        }
+        
+        timer.onTick = { second in
+            print("second:\(second)")
+            self.timeTickAction?(second)
         }
     }
 
     private func autoLayout() {
         contentView.addSubview(inputerStack)
         inputerStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.height.equalTo(40.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
         textField.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.5)
+            make.width.equalToSuperview().multipliedBy(0.65)
             make.height.equalTo(40.0)
         }
         
@@ -108,11 +123,15 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
         }
     }
     
-    private func setSendButton() {
-        sendVerifyButton.backgroundColor = isSend ? .whiteGrayColor : .brownColor
-        sendVerifyButton.setTitleColor(isSend ? .grayTextColor : .brownColor, for: .normal)
-        sendVerifyButton.setTitle(isSend ? "\(timer.timeRemaining)s,重新發送" : "發送驗證碼", for: .normal)
-        sendVerifyButton.isEnabled = isSend ? false : true
+    func configure(placeHolder: String) {
+        textField.placeholder = placeHolder
+    }
+    
+    func setSendButton(timeRemaining: TimeInterval) {
+        sendVerifyButton.backgroundColor = .whiteGrayColor
+        sendVerifyButton.setTitle("\(timeRemaining)s,重新發送", for: .normal)
+        sendVerifyButton.setTitleColor(.grayTextColor, for: .normal)
+        sendVerifyButton.isEnabled = false
     }
 }
 

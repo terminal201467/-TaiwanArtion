@@ -63,7 +63,7 @@ class PhoneNumberInputTableViewCell: UITableViewCell {
     }()
     
     private lazy var inputStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [contactStack, textField])
+        let stackView = UIStackView(arrangedSubviews: [containerView, textField])
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
@@ -94,7 +94,6 @@ class PhoneNumberInputTableViewCell: UITableViewCell {
     
     private func autoLayout() {
         contentView.addSubview(inputStack)
-        contentView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
             make.width.equalTo(90.0)
             make.height.equalTo(40.0)
@@ -102,8 +101,13 @@ class PhoneNumberInputTableViewCell: UITableViewCell {
         
         containerView.addSubview(contactStack)
         contactStack.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.centerX.equalTo(containerView)
+            make.centerY.equalTo(containerView)
+        }
+        
+        textField.snp.makeConstraints { make in
+            make.height.equalTo(40.0)
+            make.width.equalToSuperview().multipliedBy(0.7)
         }
         
         inputStack.snp.makeConstraints { make in
@@ -111,11 +115,6 @@ class PhoneNumberInputTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-        }
-        
-        textField.snp.makeConstraints { make in
-            make.height.equalTo(40.0)
-            make.width.equalToSuperview().multipliedBy(0.7)
         }
     }
     

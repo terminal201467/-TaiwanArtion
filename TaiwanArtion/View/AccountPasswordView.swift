@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-enum AccountPasswordCell: Int, CaseIterable {
+enum AccountPasswordSection: Int, CaseIterable {
     case account = 0, password, passwordHint, strengthHint, nextButton
     var sectionHeaderText: String {
         switch self {
@@ -40,11 +40,12 @@ class AccountPasswordView: UIView {
     private let viewModel = AccountPasswordViewModel()
     
     private let contentTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.reuseIdentifier)
         tableView.register(PhoneNumberInputTableViewCell.self, forCellReuseIdentifier: PhoneNumberInputTableViewCell.reuseIdentifier)
         tableView.register(InputTextFieldTableViewCell.self, forCellReuseIdentifier: InputTextFieldTableViewCell.reuseIdentifier)
         tableView.register(SendVerifyTextFieldTableViewCell.self, forCellReuseIdentifier: SendVerifyTextFieldTableViewCell.reuseIdentifier)
+        tableView.register(StrengthTableViewCell.self, forCellReuseIdentifier: StrengthTableViewCell.reuseIdentifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.backgroundColor = .white
         tableView.allowsSelection = false
@@ -89,24 +90,48 @@ class AccountPasswordView: UIView {
             .onLogin
             .accept((account, password))
     }
+    
+    private func setButtonSelection(button: UIButton, isInputText: Bool) {
+        button.backgroundColor = isInputText ? .whiteGrayColor : .brownColor
+        button.setTitleColor(isInputText ? .grayTextColor : .white, for: .normal)
+        button.isEnabled = isInputText ? false : true
+    }
+    
 }
 
 extension AccountPasswordView: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return AccountPasswordSection.allCases.count
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = TitleHeaderView()
-        switch AccountPasswordCell(rawValue: section) {
-        case .account: view.configureTitle(with: AccountPasswordCell.account.sectionHeaderText)
-        case .password: view.configureTitle(with: AccountPasswordCell.password.sectionHeaderText)
-        case .passwordHint: break
-        case .strengthHint: break
-        case .nextButton: break
-        case .none: break
+        let containerView = UIView()
+        let titleView = TitleHeaderView()
+        containerView.addSubview(titleView)
+        titleView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview()
         }
-        return view
+        switch AccountPasswordSection(rawValue: section) {
+        case .account:
+            titleView.configureTitle(with: AccountPasswordSection.account.sectionHeaderText)
+            return containerView
+        case .password:
+            titleView.configureTitle(with: AccountPasswordSection.password.sectionHeaderText)
+            return containerView
+        case .passwordHint: return nil
+        case .strengthHint: return nil
+        case .nextButton: return nil
+        case .none: return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch AccountPasswordCell(rawValue: section) {
+        switch AccountPasswordSection(rawValue: section) {
         case .account: return 1
         case .password: return 1
         case .passwordHint: return 1
@@ -117,35 +142,60 @@ extension AccountPasswordView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
-        let passwordContainerCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
-        let buttonCell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
-        let strengthCell = tableView.dequeueReusableCell(withIdentifier: StrengthTableViewCell.reuseIdentifier, for: indexPath) as! StrengthTableViewCell
-        switch AccountPasswordCell(rawValue: indexPath.row) {
+        switch AccountPasswordSection(rawValue: indexPath.section) {
         case .account:
-            cell.inputAction = { inputText in
+            let inputCell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
+            inputCell.inputAction = { inputText in
                 self.account = inputText
+                tableView.reloadRows(at: [IndexPath(row: 0, section: 4)], with: .none)
             }
-            cell.accountConfigure(placeholderText: "4-21碼大小寫英文數字")
+            inputCell.accountConfigure(placeholderText: "4-21碼大小寫英文數字")
+            return inputCell
         case .password:
-            cell.inputAction = { inputText in
+            let inputCell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
+            inputCell.inputAction = { inputText in
                 self.password = inputText
+                tableView.reloadRows(at: [IndexPath(row: 0, section: 4)], with: .none)
             }
-            cell.passwordConfigure(isLocked: false, isPrevented: true, placeholdText: "6-18位數密碼，請區分大小寫")
+            inputCell.passwordConfigure(isLocked: false, isPrevented: true, placeholdText: "6-18位數密碼，請區分大小寫")
+            return inputCell
         case .passwordHint:
+            let passwordContainerCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
             let passwordHintView = PasswordHintView()
             passwordContainerCell.contentView.addSubview(passwordHintView)
-        case .strengthHint: strengthCell.configure(condition: 3)
+            passwordHintView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+                make.height.equalTo(50)
+            }
+            tableView.reloadRows(at: [indexPath], with: .none)
+            return passwordContainerCell
+        case .strengthHint:
+            let strengthCell = tableView.dequeueReusableCell(withIdentifier: StrengthTableViewCell.reuseIdentifier, for: indexPath) as! StrengthTableViewCell
+            strengthCell.configure(condition: 3)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            return strengthCell
         case .nextButton:
+            let buttonCell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
+            setButtonSelection(button: buttonCell.button, isInputText: account == "" || password == "")
             buttonCell.action = {
                 self.login(account: self.account, password: self.password)
+                self.toNextStep?()
             }
             buttonCell.configure(buttonName: "下一步")
+            return buttonCell
         case .none: return UITableViewCell()
         }
-        return passwordContainerCell
-        return strengthCell
-        return buttonCell
-        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch AccountPasswordSection(rawValue: indexPath.section) {
+        case .account: return UITableView.automaticDimension
+        case .password: return UITableView.automaticDimension
+        case .passwordHint: return 100
+        case .strengthHint: return 50
+        case .nextButton: return UITableView.automaticDimension
+        case .none: return 0
+        }
+        return 0
     }
 }

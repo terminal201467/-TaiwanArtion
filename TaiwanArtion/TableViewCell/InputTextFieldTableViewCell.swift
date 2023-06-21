@@ -21,6 +21,8 @@ class InputTextFieldTableViewCell: UITableViewCell {
         let textField = UITextField()
         textField.textColor = .grayTextColor
         textField.roundCorners(cornerRadius: 12)
+        textField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
+        textField.borderStyle = .roundedRect
         return textField
     }()
     

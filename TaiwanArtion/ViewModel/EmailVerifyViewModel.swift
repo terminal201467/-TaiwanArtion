@@ -15,20 +15,20 @@ enum EmailVerifyStep: Int, CaseIterable {
     case stepOne = 0, stepTwo
 }
 
-enum EmailVerifyCell: Int, CaseIterable {
+enum EmailVerifySection: Int, CaseIterable {
     case hint = 0, email, nextButton
     var stepOneText: String {
         switch self {
         case .hint: return "為了確保是你本人，我們將會寄送一封驗證信件到你的電子信箱。"
         case .email: return "電子信箱"
-        case .nextButton: return "下一步"
+        case .nextButton: return "寄送信箱認證碼"
         }
     }
     var stepTwoText: String {
         switch self {
         case .hint: return "已發送信箱驗證碼至eof*****@gmail.com,請輸入信箱驗證碼並送出驗證。"
         case .email: return "信箱驗證碼"
-        case .nextButton: return "寄送信箱驗證碼"
+        case .nextButton: return "完成"
         }
     }
 }
@@ -61,29 +61,12 @@ class EmailVerifyViewModel {
         currentStep = step
     }
     
-    func numberOfRowInSection(section: Int) -> Int{
-        switch currentStep {
-        case .stepOne: return 3
-        case .stepTwo: return 3
-        }
-    }
-    
-    func cellForRowAt(indexPath: IndexPath) -> String {
-        switch currentStep {
-        case .stepOne:
-            switch EmailVerifyCell(rawValue: indexPath.row) {
-            case .hint: return EmailVerifyCell.hint.stepOneText
-            case .email: return ""
-            case .nextButton: return EmailVerifyCell.nextButton.stepOneText
-            case .none: return ""
-            }
-        case .stepTwo:
-            switch EmailVerifyCell(rawValue: indexPath.row) {
-            case .hint: return EmailVerifyCell.hint.stepTwoText
-            case .email: return ""
-            case .nextButton: return EmailVerifyCell.nextButton.stepTwoText
-            case .none: return ""
-            }
+    func numberOfRowInSection(section: Int) -> Int {
+        switch EmailVerifySection(rawValue: section) {
+        case .hint: return 1
+        case .email: return 1
+        case .nextButton: return 1
+        case .none: return 0
         }
     }
     

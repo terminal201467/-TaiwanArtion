@@ -23,11 +23,17 @@ enum PasswordHintCell: Int, CaseIterable {
 class PasswordHintView: UIView {
     
     //檢查邏輯的ViewModel
+    private let containerView: UIView = {
+       let view = UIView()
+        return view
+    }()
     
     private let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(PasswordHintTableViewCell.self, forCellReuseIdentifier: PasswordHintTableViewCell.reuseIdentifier)
+        tableView.isScrollEnabled = false
         tableView.allowsSelection = false
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -47,7 +53,12 @@ class PasswordHintView: UIView {
     }
     
     private func autoLayout() {
-        addSubview(tableView)
+        addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -62,14 +73,26 @@ extension PasswordHintView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PasswordHintTableViewCell.reuseIdentifier, for: indexPath) as! PasswordHintTableViewCell
         switch PasswordHintCell(rawValue: indexPath.row) {
-        case .passwordHint: cell.configureHintTitle(imageName: "infomation", listText: PasswordHintCell.passwordHint.text)
-        case .uppercaseHint: cell.configureList(listText: PasswordHintCell.uppercaseHint.text, isThroughTest: false)
-        case .lowercaseHint: cell.configureList(listText: PasswordHintCell.lowercaseHint.text, isThroughTest: false)
-        case .atLeastHint: cell.configureList(listText: PasswordHintCell.atLeastHint.text, isThroughTest: false)
-        case .onlyWordsSomething: cell.configureList(listText: PasswordHintCell.onlyWordsSomething.text, isThroughTest: false)
-        case .none: break
+        case .passwordHint:
+            cell.configureHintTitle(imageName: "infomation", listText: PasswordHintCell.passwordHint.text)
+            return cell
+        case .uppercaseHint:
+            cell.configureList(listText: PasswordHintCell.uppercaseHint.text, isThroughTest: false)
+            return cell
+        case .lowercaseHint:
+            cell.configureList(listText: PasswordHintCell.lowercaseHint.text, isThroughTest: false)
+            return cell
+        case .atLeastHint:
+            cell.configureList(listText: PasswordHintCell.atLeastHint.text, isThroughTest: false)
+            return cell
+        case .onlyWordsSomething:
+            cell.configureList(listText: PasswordHintCell.onlyWordsSomething.text, isThroughTest: false)
+            return cell
+        case .none: return UITableViewCell()
         }
-        return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }

@@ -11,8 +11,6 @@ class RegisterViewModel {
     
     private var currentStep: RegisterStep = .phoneVerify
     
-    var phoneVerifyStep: PhoneVerifyStep = .stepOne
-    
     var accountPasswordStep: AccountPasswordVerifyStep = .stepOne
     
     var emailVerifyStep: EmailVerifyStep = .stepOne
@@ -23,6 +21,7 @@ class RegisterViewModel {
     
     func setCurrentStep(step: RegisterStep) {
         currentStep = step
+        print("currentStep:\(currentStep)")
     }
     
     //MARK: -StepCollectionView
@@ -40,41 +39,41 @@ class RegisterViewModel {
     }
     
     //MARK: -ContentTableView
-    func contentNumberOfSections() -> Int {
-        switch currentStep {
-        case .phoneVerify: return PhoneVerifyCell.allCases.count
-        case .acountPassword: return AccountPasswordCell.allCases.count
-        case .emailVerify: return EmailVerifyCell.allCases.count
-        case .complete: return 1
-        }
-    }
+//    func contentNumberOfSections() -> Int {
+//        switch currentStep {
+//        case .phoneVerify: return PhoneVerifyCell.allCases.count
+//        case .acountPassword: return AccountPasswordSection.allCases.count
+//        case .emailVerify: return EmailVerifySction.allCases.count
+//        case .complete: return 1
+//        }
+//    }
     
-    func contentNumberOfRowInSection(section: Int) -> Int {
-        switch currentStep {
-        case .phoneVerify:
-            switch PhoneVerifyCell(rawValue: section) {
-            case .verify: return 1
-            case .nextButton: return 1
-            case .none: return 1
-            }
-        case .acountPassword:
-            switch AccountPasswordCell(rawValue: section) {
-            case .account: return 1
-            case .password: return 1
-            case .passwordHint: return 1
-            case .strengthHint: return 1
-            case .nextButton: return 1
-            case .none: return 1
-            }
-        case .emailVerify:
-            switch EmailVerifyCell(rawValue: section) {
-            case .hint: return 1
-            case .email: return 1
-            case .nextButton: return 1
-            case .none: return 1
-            }
-        case .complete: return 1
-            //沒有東西，跳出註冊成功頁
-        }
-    }
+//    func contentNumberOfRowInSection(section: Int) -> Int {
+//        switch currentStep {
+//        case .phoneVerify:
+//            switch PhoneVerifyCell(rawValue: section) {
+//            case .verify: return 1
+//            case .nextButton: return 1
+//            case .none: return 1
+//            }
+//        case .acountPassword:
+//            switch AccountPasswordSection(rawValue: section) {
+//            case .account: return 1
+//            case .password: return 1
+//            case .passwordHint: return 1
+//            case .strengthHint: return 1
+//            case .nextButton: return 1
+//            case .none: return 1
+//            }
+//        case .emailVerify:
+//            switch EmailVerifySction(rawValue: section) {
+//            case .hint: return 1
+//            case .email: return 1
+//            case .nextButton: return 1
+//            case .none: return 1
+//            }
+//        case .complete: return 1
+//            //沒有東西，跳出註冊成功頁
+//        }
+//    }
 }

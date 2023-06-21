@@ -64,6 +64,7 @@ class RegisterViewController: UIViewController {
                 self.viewModel.setCurrentStep(step: .acountPassword)
                 self.firstStepView?.removeFromSuperview()
                 self.registerView.stepCollectionView.reloadData()
+                self.setStepAddContainer()
             }
         case .acountPassword:
             secondStepView = AccountPasswordView()
@@ -72,6 +73,7 @@ class RegisterViewController: UIViewController {
                 self.viewModel.setCurrentStep(step: .emailVerify)
                 self.secondStepView?.removeFromSuperview()
                 self.registerView.stepCollectionView.reloadData()
+                self.setStepAddContainer()
             }
         case .emailVerify:
             thirdStepView = EmailVerifyView()
