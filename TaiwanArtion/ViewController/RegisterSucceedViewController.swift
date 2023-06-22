@@ -11,6 +11,10 @@ class RegisterSucceedViewController: UIViewController {
 
     private let completeSucceedView = CompleteSucceedView()
     
+    var popViewControllerAction: (() -> Void)?
+    
+    var pushToControllerAction: (() -> Void)?
+    
     override func loadView() {
         super.loadView()
         view = completeSucceedView
@@ -28,13 +32,16 @@ class RegisterSucceedViewController: UIViewController {
     }
 
     private func setButtonAction() {
+        completeSucceedView.configureButtons(topButtonName: "開始填寫個人檔案", bottomButtonName: "略過")
         completeSucceedView.buttonStack.isHidden = false
         completeSucceedView.topButtonAction = {
-            //到填寫個人頁面ViewController
+            self.dismiss(animated: true)
+            self.pushToControllerAction?()
         }
         
         completeSucceedView.bottomButtonAction = {
-            //到會員登入頁面
+            self.dismiss(animated: true)
+            self.popViewControllerAction?()
         }
         
     }

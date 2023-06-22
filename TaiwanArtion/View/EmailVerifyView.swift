@@ -90,10 +90,6 @@ extension EmailVerifyView: UITableViewDataSource, UITableViewDelegate {
         return containerView
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cellInfo = viewModel.cellForRowAt(indexPath: indexPath)
         let buttonCell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
@@ -148,6 +144,15 @@ extension EmailVerifyView: UITableViewDataSource, UITableViewDelegate {
             }
             return buttonCell
         case .none: return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch EmailVerifySection(rawValue: indexPath.section) {
+        case .hint: return UITableView.automaticDimension
+        case .email: return 70
+        case .nextButton: return 50
+        case .none: return 0
         }
     }
 }

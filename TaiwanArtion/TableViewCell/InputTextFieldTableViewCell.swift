@@ -23,7 +23,20 @@ class InputTextFieldTableViewCell: UITableViewCell {
         textField.roundCorners(cornerRadius: 12)
         textField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         textField.borderStyle = .roundedRect
+        textField.leftViewMode = .always
+        textField.rightViewMode = .whileEditing
+        textField.clearButtonMode = .whileEditing
         return textField
+    }()
+    
+    private let leftViewContainer: UIView = {
+       let view = UIView()
+        return view
+    }()
+    
+    private let rightViewContainer: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private let hintLabel: UILabel = {
@@ -77,16 +90,45 @@ class InputTextFieldTableViewCell: UITableViewCell {
             make.leading.equalTo(textField.snp.leading)
             make.top.equalTo(textField.snp.bottom)
         }
+        
+        leftViewContainer.snp.makeConstraints { make in
+            make.width.equalTo(30.0)
+            make.height.equalTo(30.0)
+        }
+        
+        rightViewContainer.snp.makeConstraints { make in
+            make.width.equalTo(30.0)
+            make.height.equalTo(30.0)
+        }
     }
     
     func accountConfigure(placeholderText: String) {
-        textField.leftView = UIImageView(image: .init(named: "person"))
+        let personView = UIImageView(image: .init(named: "person"))
+        leftViewContainer.addSubview(personView)
+        personView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        textField.leftView = leftViewContainer
         textField.placeholder = placeholderText
     }
     
     func passwordConfigure(isLocked: Bool, isPrevented: Bool, placeholdText: String) {
-        textField.leftView = UIImageView(image: .init(named: isLocked ? "redLock" : "lock"))
-        textField.rightView = UIImageView(image: .init(named: isPrevented ? "passwordPrevent" : ""))
+        let lockView = UIImageView(image: .init(named: isLocked ? "redLock" : "lock"))
+        let preventView = UIImageView(image: .init(named: isPrevented ? "passwordPrevent" : ""))
+        leftViewContainer.addSubview(lockView)
+        lockView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        rightViewContainer.addSubview(preventView)
+        preventView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        textField.leftView = leftViewContainer
+        textField.rightView = rightViewContainer
         textField.placeholder = placeholdText
     }
     

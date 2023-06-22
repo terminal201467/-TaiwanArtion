@@ -15,6 +15,8 @@ class CompleteSucceedView: UIView {
     
     var bottomButtonAction: (() -> Void)?
 
+    private let disposeBag = DisposeBag()
+    
     //MARK: - Background
     private let pointBackground: UIImageView = {
         let imageView = UIImageView()
@@ -81,6 +83,7 @@ class CompleteSucceedView: UIView {
         let button = UIButton()
         button.roundCorners(cornerRadius: 20)
         button.backgroundColor = .white
+        button.setTitleColor(.brownTitleColor, for: .normal)
         button.addBorder(borderWidth: 1, borderColor: .brownColor)
         return button
     }()
@@ -107,7 +110,7 @@ class CompleteSucceedView: UIView {
     }
     
     private func backgroundAutoLayout() {
-        
+        backgroundColor = .caramelColor
         addSubview(topImage)
         topImage.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -142,10 +145,19 @@ class CompleteSucceedView: UIView {
             make.centerX.equalToSuperview()
         }
         
+        topButton.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
+        
+        bottomButton.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
+        
         addSubview(buttonStack)
         buttonStack.snp.makeConstraints { make in
-            make.top.equalTo(titleStack.snp.bottom)
+            make.top.equalTo(titleStack.snp.bottom).offset(40.0)
             make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.9)
         }
     }
     
@@ -154,12 +166,12 @@ class CompleteSucceedView: UIView {
             .subscribe(onNext: {
                 self.topButtonAction?()
             })
-            .disposed(by: DisposeBag())
+            .disposed(by: disposeBag)
         bottomButton.rx.tap
             .subscribe(onNext: {
                 self.bottomButtonAction?()
             })
-            .disposed(by: DisposeBag())
+            .disposed(by: disposeBag)
     }
     
     func configure(title: String, subTitle: String) {

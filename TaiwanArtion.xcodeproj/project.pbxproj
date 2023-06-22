@@ -10,6 +10,7 @@
 		19703945C8A3DC8163F6B353 /* Pods_TaiwanArtion_TaiwanArtionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */; };
 		312571B3EEECB9F7C5CD3B99 /* Pods_TaiwanArtionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014A2C7A7A3F85FF4D3CEE24 /* Pods_TaiwanArtionTests.framework */; };
 		42CD7883526BCC1131AC1105 /* Pods_TaiwanArtion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */; };
+		9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */; };
 		973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176B2A1F2DB200581DC6 /* TabBarView.swift */; };
 		973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */; };
 		973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */; };
@@ -157,6 +158,7 @@
 		32DB8B2332C019BA38D5F558 /* Pods-TaiwanArtionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtionTests.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtionTests/Pods-TaiwanArtionTests.release.xcconfig"; sourceTree = "<group>"; };
 		567A74B0FD2EDE1289E97BCF /* Pods_TaiwanArtion_TaiwanArtionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaiwanArtion_TaiwanArtionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CDA925BDC580285C3F0BA4C /* Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		973C176B2A1F2DB200581DC6 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewController.swift; sourceTree = "<group>"; };
 		973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardView.swift; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 				973C17A22A273CF500581DC6 /* SearchViewController.swift */,
 				9771A14B2A3A08BE006F4F9D /* RegisterViewController.swift */,
 				97506C382A41986400F6BB24 /* RegisterSucceedViewController.swift */,
+				9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -910,6 +913,7 @@
 				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
 				9771A15A2A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift in Sources */,
 				97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */,
+				9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */,
 				973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */,
 				9771A1462A39F081006F4F9D /* PopUpInterface.swift in Sources */,
 				9771A15E2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift in Sources */,

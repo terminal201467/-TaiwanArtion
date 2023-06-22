@@ -79,7 +79,15 @@ class RegisterViewController: UIViewController {
             thirdStepView = EmailVerifyView()
             layoutViews(parentView: registerView.containerView, childView: thirdStepView!)
             thirdStepView?.toNextStep = {
-                //push 註冊成功頁面
+                let registerSucceedViewController = RegisterSucceedViewController()
+                registerSucceedViewController.modalPresentationStyle = .overFullScreen
+                registerSucceedViewController.pushToControllerAction = {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                registerSucceedViewController.popViewControllerAction = {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                self.present(registerSucceedViewController, animated: true)
                 self.thirdStepView?.removeFromSuperview()
                 self.registerView.stepCollectionView.reloadData()
             }
