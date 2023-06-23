@@ -91,8 +91,6 @@ extension EmailVerifyView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cellInfo = viewModel.cellForRowAt(indexPath: indexPath)
-        let buttonCell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
         switch EmailVerifySection(rawValue: indexPath.section) {
         case .hint:
             let hintCell = tableView.dequeueReusableCell(withIdentifier: HintTableViewCell.reuseIdentifier, for: indexPath) as! HintTableViewCell
@@ -105,10 +103,10 @@ extension EmailVerifyView: UITableViewDataSource, UITableViewDelegate {
             switch viewModel.getCurrentStep() {
             case .stepOne:
                 let inputCell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
+                inputCell.generalConfigure(placeholdText: "請輸入電子信箱")
                 inputCell.inputAction = { inputText in
                     self.viewModel.inputText = inputText
                 }
-                inputCell.generalConfigure(placeholdText: "請輸入電子信箱")
                 return inputCell
             case .stepTwo:
                 let sendVerifyCell = tableView.dequeueReusableCell(withIdentifier: SendVerifyTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! SendVerifyTextFieldTableViewCell
@@ -116,17 +114,16 @@ extension EmailVerifyView: UITableViewDataSource, UITableViewDelegate {
                 sendVerifyCell.sendAction = {
                     
                 }
-                
                 sendVerifyCell.inputAction = { text in
                     
                 }
-                
                 sendVerifyCell.timeTickAction = { second in
                     
                 }
                 return sendVerifyCell
             }
         case .nextButton:
+            let buttonCell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
             switch viewModel.getCurrentStep() {
             case .stepOne:
                 buttonCell.action = {
