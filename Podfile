@@ -11,6 +11,14 @@ target 'TaiwanArtion' do
   pod 'RxCocoa'
   pod 'RxRelay'
   pod 'RxGesture'
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'GoogleSignIn'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  pod 'LineSDK'
 
   target 'TaiwanArtionTests' do
     inherit! :search_paths
