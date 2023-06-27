@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Items: Int, CaseIterable {
+public enum Items: Int, CaseIterable {
     case newest = 0, popular, highRank, recent
     var text: String {
         switch self {

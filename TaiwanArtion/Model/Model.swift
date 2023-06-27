@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsModel {
+public struct NewsModel {
     
     var title: String
     var date: String
@@ -16,7 +16,7 @@ struct NewsModel {
     
 }
 
-struct ExhibitionInfo: Hashable, Equatable {
+public struct ExhibitionInfo: Hashable, Equatable {
     
     var title: String
     var image: String

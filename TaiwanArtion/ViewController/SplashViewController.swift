@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-enum HabbyItem: Int, CaseIterable {
+public enum HabbyItem: Int, CaseIterable {
     case painting = 0, sculpture, calligraphy, design, camara, literature, media, installationArt, compositeMedia, history
     var imageText: String {
         switch self {

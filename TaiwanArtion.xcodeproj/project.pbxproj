@@ -12,6 +12,7 @@
 		42CD7883526BCC1131AC1105 /* Pods_TaiwanArtion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB367E68EBB1EC1988766A /* Pods_TaiwanArtion.framework */; };
 		9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */; };
 		9705E5052A45957E00FD81D1 /* GoogleService-Info .plist in Resources */ = {isa = PBXBuildFile; fileRef = 9705E5042A45957E00FD81D1 /* GoogleService-Info .plist */; };
+		9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705E5062A4AAC1300FD81D1 /* MonthAndDate.swift */; };
 		973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176B2A1F2DB200581DC6 /* TabBarView.swift */; };
 		973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */; };
 		973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */; };
@@ -59,7 +60,7 @@
 		973C17CA2A2C191F00581DC6 /* FilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C92A2C191F00581DC6 /* FilterCondition.swift */; };
 		973C17CE2A2C69F300581DC6 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17CD2A2C69F300581DC6 /* SearchResultTableViewCell.swift */; };
 		973C17D02A2EBD9F00581DC6 /* UnSearchModeChooseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17CF2A2EBD9F00581DC6 /* UnSearchModeChooseTableViewCell.swift */; };
-		97506C1B2A3AC40F00F6BB24 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1A2A3AC40F00F6BB24 /* Firebase.swift */; };
+		97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */; };
 		97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */; };
 		97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */; };
 		97506C212A3AC59F00F6BB24 /* PhoneNumberInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C202A3AC59F00F6BB24 /* PhoneNumberInputTableViewCell.swift */; };
@@ -161,6 +162,7 @@
 		6CDA925BDC580285C3F0BA4C /* Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		9705E5042A45957E00FD81D1 /* GoogleService-Info .plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info .plist"; path = "../../../../Desktop/GoogleService-Info .plist"; sourceTree = "<group>"; };
+		9705E5062A4AAC1300FD81D1 /* MonthAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthAndDate.swift; sourceTree = "<group>"; };
 		973C176B2A1F2DB200581DC6 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewController.swift; sourceTree = "<group>"; };
 		973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardView.swift; sourceTree = "<group>"; };
@@ -208,7 +210,7 @@
 		973C17C92A2C191F00581DC6 /* FilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCondition.swift; sourceTree = "<group>"; };
 		973C17CD2A2C69F300581DC6 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		973C17CF2A2EBD9F00581DC6 /* UnSearchModeChooseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnSearchModeChooseTableViewCell.swift; sourceTree = "<group>"; };
-		97506C1A2A3AC40F00F6BB24 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVerifyTextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		97506C202A3AC59F00F6BB24 /* PhoneNumberInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputTableViewCell.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				973C17A92A27456F00581DC6 /* Area.swift */,
 				973C17C92A2C191F00581DC6 /* FilterCondition.swift */,
 				97506C242A3BEA1600F6BB24 /* RegisterEnum.swift */,
+				9705E5062A4AAC1300FD81D1 /* MonthAndDate.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -435,7 +438,7 @@
 		9771A15F2A3AC2A0006F4F9D /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				97506C1A2A3AC40F00F6BB24 /* Firebase.swift */,
+				97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */,
 				97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */,
 			);
 			path = Firebase;
@@ -953,12 +956,13 @@
 				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
 				9771A15A2A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift in Sources */,
 				97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */,
+				9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */,
 				9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */,
 				973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */,
 				9771A1462A39F081006F4F9D /* PopUpInterface.swift in Sources */,
 				9771A15E2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
-				97506C1B2A3AC40F00F6BB24 /* Firebase.swift in Sources */,
+				97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */,
 				973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */,
 				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
