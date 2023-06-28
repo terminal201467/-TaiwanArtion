@@ -77,6 +77,63 @@ class FirebaseDatabase {
         }
     }
     
-    // 其他功能類似，可以依照需要自行實作
+    //首頁讀取資料的相關function
+    func readDocument(habby: String? = nil, month: String? = nil, item: String? = nil, completion: @escaping ([[String: Any]], Error?) -> Void) {
+        var query: Query = db.collection(collectionName)
+        
+        if let habby = habby {
+            query = query.whereField("habby", isEqualTo: habby)
+        }
+        
+        if let month = month {
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MMMM"
+            
+            if let date = monthFormatter.date(from: month) {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy/MM/dd"
+                let dateString = dateFormatter.string(from: date)
+                query = query.whereField("startDate", isEqualTo: dateString)
+            } else {
+                // Invalid month string
+                completion([], nil)
+                return
+            }
+        }
+        
+        if let item = item {
+            query = query.whereField("category", isEqualTo: item)
+        }
+        
+        query.getDocuments { (snapshot, error) in
+            if let error = error {
+                completion([], error)
+                return
+            }
+            
+            var documents: [[String: Any]] = []
+            
+            for document in snapshot?.documents ?? [] {
+                documents.append(document.data())
+            }
+            
+            completion(documents, nil)
+        }
+    }
+    
+    private func getMonthString(from dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MMMM"
+            let monthString = monthFormatter.string(from: date)
+            return monthString
+        }
+        
+        return nil
+    }
+
 }
 

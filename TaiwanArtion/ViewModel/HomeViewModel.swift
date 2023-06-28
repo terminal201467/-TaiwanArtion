@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxRelay
 
 enum HomeSections: Int, CaseIterable {
     case year = 0, hot, news, all
@@ -32,13 +33,14 @@ public protocol HomeViewModelInput: AnyObject {
 }
 
 public protocol HomeViewModelOutput: AnyObject {
-    var selectedMonth: PublishSubject<Month> { get }
-    var selectedHabby: PublishSubject<HabbyItem> { get }
-    var selectedMainPhoto: PublishSubject<ExhibitionInfo> { get }
-    var selectedHotExhibition: PublishSubject<ExhibitionInfo> { get }
-    var selectedNewsExhibition: PublishSubject<NewsModel> { get }
-    var selectedAllExhibition: PublishSubject<ExhibitionInfo> { get }
-    var selectedItem: PublishSubject<Items> { get }
+    var didSelectedMonthRow: PublishSubject<Month> { get }
+    var didSelectedHabbyRow: PublishSubject<HabbyItem> { get }
+    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> { get }
+    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> { get }
+    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> { get }
+    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> { get }
+    var didSelectedItemRow: PublishSubject<Items> { get }
+    
 }
 
 public protocol HomeViewModelType: AnyObject {
@@ -58,13 +60,13 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     var itemSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     
     //Output
-    var selectedMonth: PublishSubject<Month> = PublishSubject<Month>()
-    var selectedHabby: PublishSubject<HabbyItem> = PublishSubject<HabbyItem>()
-    var selectedMainPhoto: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-    var selectedHotExhibition: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-    var selectedNewsExhibition: PublishSubject<NewsModel> = PublishSubject<NewsModel>()
-    var selectedAllExhibition: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-    var selectedItem: PublishSubject<Items> = PublishSubject<Items>()
+    var didSelectedMonthRow: PublishSubject<Month> = PublishSubject<Month>()
+    var didSelectedHabbyRow: PublishSubject<HabbyItem> = PublishSubject<HabbyItem>()
+    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
+    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
+    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> = PublishSubject<NewsModel>()
+    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
+    var didSelectedItemRow: PublishSubject<Items> = PublishSubject<Items>()
     
     //Singleton
     static let shared = HomeViewModel()
@@ -76,196 +78,136 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     var outputs: HomeViewModelOutput { self }
     
-    //MARK: -
+    //MARK: - Store
     
-    var hotExhibition: [ExhibitionInfo] = []
+    private let hotExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
-    var mainPhoto: [ExhibitionInfo] = []
+    private let mainPhotoRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
-    var news: [NewsModel] = []
+    private let newsRelay = BehaviorRelay<[NewsModel]>(value: [])
     
-    var allExhibition: [ExhibitionInfo] = []
+    private let allExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
-    //MARK: - Firebase
+    var hotExhibitionObservable: Observable<[ExhibitionInfo]> {
+        return hotExhibitionRelay.asObservable()
+    }
     
-    private let firebase = FirebaseDatabase(collectionName: "exhibitions")
+    var mainPhotoObservable: Observable<[ExhibitionInfo]> {
+        return mainPhotoRelay.asObservable()
+    }
+    
+    var newsObservable: Observable<[NewsModel]> {
+        return newsRelay.asObservable()
+    }
+    
+    var allExhibitionObservable: Observable<[ExhibitionInfo]> {
+        return allExhibitionRelay.asObservable()
+    }
+    
+    //MARK: - CollectionViewSelectedRelay
+    
+    private let itemRelay = BehaviorRelay<(item: Items, isSelected: Bool)?>(value: nil)
+    
+    private let monthRelay = BehaviorRelay<(selectedMonth: Month, isSelected: Bool)?>(value: nil)
+    
+    private let habbyRelay = BehaviorRelay<(habby: HabbyItem, isSelected: Bool)?>(value: nil)
     
     //MARK: - Intialization
     public init() {
         //input
         monthSelected
             .subscribe(onNext: { indexPath in
-                self.currentMonth = Month(rawValue: indexPath.row)!
+                //UI
+                self.monthCellForRowAt(indexPath: indexPath)
+                //fetchData
+                
             })
             .disposed(by: disposeBag)
         
         habbySelected
             .subscribe(onNext: { indexPath in
-                self.currentHabby = HabbyItem(rawValue: indexPath.row)!
-            })
-            .disposed(by: disposeBag)
-        
-        mainPhotoSelected
-            .subscribe(onNext: { indexPath in
+                //UI
+                self.habbyCellForRowAt(indexPath: indexPath)
+                //fetchData
                 
-            })
-            .disposed(by: disposeBag)
-        
-        hotExhibitionSelected
-            .subscribe(onNext: { indexPath in
-                
-            })
-            .disposed(by: disposeBag)
-        
-        newsExhibitionSelected
-            .subscribe(onNext: { indexPath in
-                
-            })
-            .disposed(by: disposeBag)
-        
-        allExhibitionSelected
-            .subscribe(onNext: { indexPath in
-                 
             })
             .disposed(by: disposeBag)
         
         itemSelected
             .subscribe(onNext: { indexPath in
-                self.currentItem = Items(rawValue: indexPath.row)!
+                //UI
+                self.itemCellForRowAt(indexPath: indexPath)
+                //fetchData
+                
             })
             .disposed(by: disposeBag)
         
         //output
-        selectedMonth
-            .subscribe(onNext: { indexPath in
-                
-            })
+        monthRelay.asObservable()
+            .compactMap{ $0?.selectedMonth }
+            .bind(to: didSelectedMonthRow)
             .disposed(by: disposeBag)
         
-        selectedItem
-            .subscribe(onNext: { indexPath in
-                
-            })
-            .disposed(by: disposeBag)
-            
-        selectedHabby
-            .subscribe(onNext: { indexPath in
-                
-            })
+        itemRelay.asObservable()
+            .compactMap{ $0?.item }
+            .bind(to: didSelectedItemRow)
             .disposed(by: disposeBag)
         
-        selectedMainPhoto
-            .subscribe(onNext: { indexPath in
-                
-            })
+        habbyRelay.asObservable()
+            .compactMap{ $0?.habby }
+            .bind(to: didSelectedHabbyRow)
             .disposed(by: disposeBag)
-        
-        selectedHotExhibition
-            .subscribe(onNext: { indexPath in
-                
-            })
-            .disposed(by: disposeBag)
-        
-        selectedAllExhibition
-            .subscribe(onNext: { indexPath in
-                
-            })
-            .disposed(by: disposeBag)
-        
-        selectedNewsExhibition
-            .subscribe(onNext: { indexPath in
-                
-            })
-            .disposed(by: disposeBag)
+
     }
     
     //MARK: - MonthCollectionView
     private var currentMonth: Month = .jan
-//
-//    func didMonthSelectItemAt(indexPath: IndexPath) {
-//        selectedMonth = Month(rawValue: indexPath.row)!
-//        //打API要該月份的資料
-//    }
-//
-//    func monthCellForRowAt(indexPath: IndexPath) -> (selectedMonth: Month, isSelected: Bool) {
-//        let month = Month.allCases[indexPath.row]
-//        let isSelected = Month(rawValue: indexPath.row) == selectedMonth
-//        return (month, isSelected)
-//    }
+
+    private func monthCellForRowAt(indexPath: IndexPath) {
+        let month = Month.allCases[indexPath.row]
+        let isSelected = Month(rawValue: indexPath.row) == currentMonth
+        monthRelay.accept((month, isSelected))
+    }
     
     //MARK: - HabbyCollectionView
     
     private var currentHabby: HabbyItem? = nil
-//
-//    func didSelectHabbyItemAt(indexPath: IndexPath) {
-//        selectedHabby = HabbyItem(rawValue: indexPath.row)
-//        //打API要Habby的資料
-//        print("selectedHabby:\(HabbyItem(rawValue: indexPath.row)?.titleText)")
-//    }
-//
-//    func habbyCellForRowAt(indexPath: IndexPath) -> (selectedHabby :HabbyItem, isSelected: Bool) {
-//        let habby = HabbyItem.allCases[indexPath.row]
-//        let isSelected = HabbyItem(rawValue: indexPath.row) == selectedHabby
-//        return (habby, isSelected)
-//    }
     
-    //MARK: - MainPhoto
+    private func habbyCellForRowAt(indexPath: IndexPath) {
+        let habby = HabbyItem.allCases[indexPath.row]
+        let isSelected = HabbyItem(rawValue: indexPath.row) == currentHabby
+        habbyRelay.accept((habby, isSelected))
+    }
     
-//    func mainPhotoDidSelectItemAt(indexPath: IndexPath, completion: @escaping ((ExhibitionInfo) ->Void)) {
-//        completion(mainPhoto[indexPath.row])
-//    }
-//
-//    //MARK: - HotTableView
-//    func hotExhibitionNumberOfRowInSection(section: Int) -> Int {
-//        return hotExhibition.count
-//    }
-//
-//    func hotExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionInfo {
-//        return hotExhibition[indexPath.row]
-//    }
-//
-//    func hotExhibitionDidSelectedRowAt(indexPath: IndexPath , completion: @escaping ((ExhibitionInfo) -> Void)) {
-//        completion(hotExhibition[indexPath.row])
-//    }
+    private var currentItem: Items = .newest
+
+    private func itemCellForRowAt(indexPath: IndexPath) {
+        let item = Items.allCases[indexPath.row]
+        let isSelected = Items(rawValue: indexPath.row) == currentItem
+        itemRelay.accept((item, isSelected))
+    }
     
-    //MARK: - NewsTableView
-//    func newsExhibitionNumerOfRowInSection(section: Int) -> Int {
-//        return news.count
-//    }
-//
-//    func newsExhibitionCellForRowAt(indexPath: IndexPath) -> NewsModel {
-//        return news[indexPath.row]
-//    }
-//
-//    func newsExhibitionDidSelectedRowAt(indexPath: IndexPath, completion: @escaping((NewsModel) -> Void)) {
-//        completion(news[indexPath.row])
-//    }
-//
-//    //MARK: - AllExhibitionTableView
-//    func allExhibitionNumerOfRowInSection(section: Int) -> Int {
-//        return allExhibition.count
-//    }
-//
-//    func allExhibitionCellForRowAt(indexPath: IndexPath) -> ExhibitionInfo {
-//        return allExhibition[indexPath.row]
-//    }
-//
-//    func allExhibitionDidSelectedRowAt(indexPath: IndexPath, completion: @escaping ((ExhibitionInfo) -> Void)) {
-//        completion(allExhibition[indexPath.row])
-//    }
+    //MARK: - Firebase
     
-    //MARK: -ItemsSelected
+    private let firebase = FirebaseDatabase(collectionName: "exhibitions")
+
     
-    var currentItem: Items = .newest
-//
-//    func itemCellForRowAt(indexPath: IndexPath) -> (item: Items, isSelected: Bool) {
-//        let item = Items.allCases[indexPath.row]
-//        let isSelected = Items(rawValue: indexPath.row) == selectItem
-//        return (item, isSelected)
-//    }
-//
-//    func itemDidSelectedRowAt(indexPath: IndexPath) {
-//        selectItem = Items(rawValue: indexPath.row)!
-//    }
+    func fetchDateKind(by month: Month) {
+        firebase.readDocument(month: month.numberText) { data, error in
+            
+        }
+    }
+    
+    func fetchDateKind(by item: Items) {
+        firebase.readDocument(item: item.text) { data, error in
+            
+        }
+    }
+    
+    func fetchDataKind(by habby: HabbyItem) {
+        firebase.readDocument(habby: habby.titleText) { data, error in
+            
+        }
+    }
     
 }
