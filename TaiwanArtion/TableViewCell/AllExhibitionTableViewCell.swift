@@ -44,6 +44,11 @@ class AllExhibitionTableViewCell: UITableViewCell {
         collectionView.dataSource = self
     }
     
+    private func setCollectionViewBinding() {
+        
+        
+    }
+    
     private func autoLayout() {
         contentView.addSubview(itemView)
         itemView.snp.makeConstraints { make in

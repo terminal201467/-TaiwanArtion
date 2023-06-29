@@ -108,21 +108,27 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     private let itemRelay = BehaviorRelay<(item: Items, isSelected: Bool)?>(value: nil)
     
-    private let monthRelay = BehaviorRelay<(selectedMonth: Month, isSelected: Bool)?>(value: nil)
+//    private let monthRelay = BehaviorRelay<(selectedMonth: Month, isSelected: Bool)?>(value: nil)
     
     private let habbyRelay = BehaviorRelay<(habby: HabbyItem, isSelected: Bool)?>(value: nil)
+    
+    private let monthsSubject = BehaviorSubject<Month>(value: .jan)
+    
+    var months: Observable<Month> {
+        return monthsSubject.asObservable()
+    }
     
     //MARK: - Intialization
     public init() {
         //input
-        monthSelected
-            .subscribe(onNext: { indexPath in
-                //UI
-                self.monthCellForRowAt(indexPath: indexPath)
-                //fetchData
-                
-            })
-            .disposed(by: disposeBag)
+//        monthSelected
+//            .subscribe(onNext: { indexPath in
+//                //UI
+//                self.monthCellForRowAt(indexPath: indexPath)
+//                //清空暫存序列
+//                self.fetchDateKind(by: Month(rawValue: indexPath.row)!)
+//            })
+//            .disposed(by: disposeBag)
         
         habbySelected
             .subscribe(onNext: { indexPath in
@@ -161,13 +167,13 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     }
     
     //MARK: - MonthCollectionView
-    private var currentMonth: Month = .jan
-
-    private func monthCellForRowAt(indexPath: IndexPath) {
-        let month = Month.allCases[indexPath.row]
-        let isSelected = Month(rawValue: indexPath.row) == currentMonth
-        monthRelay.accept((month, isSelected))
-    }
+//    private var currentMonth: Month = .jan
+//
+//    private func monthCellForRowAt(indexPath: IndexPath) {
+//        let month = Month.allCases[indexPath.row]
+//        let isSelected = Month(rawValue: indexPath.row) == currentMonth
+//        monthRelay.accept((month, isSelected))
+//    }
     
     //MARK: - HabbyCollectionView
     
@@ -194,7 +200,16 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     func fetchDateKind(by month: Month) {
         firebase.readDocument(month: month.numberText) { data, error in
-            
+            print("data: \(data)")
+            if let error = error {
+                print("error: \(error)")
+                // 处理错误情况，如果适用
+            } else if let fetchedData = data as? [ExhibitionInfo] {
+//                self.hotExhibitionRelay.accept(fetchedData)
+//                self.mainPhotoRelay.accept(fetchedData)
+                
+                // 执行其他需要的操作，或者通知其他部分数据已更新
+            }
         }
     }
     

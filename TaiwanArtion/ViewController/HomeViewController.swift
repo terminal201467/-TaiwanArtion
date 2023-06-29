@@ -116,7 +116,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             case .mainPhotoCell:
                 let cell = tableView.dequeueReusableCell(withIdentifier: MainPhotosTableViewCell.reuseIdentifier, for: indexPath) as! MainPhotosTableViewCell
                 cell.selectionStyle = .none
-                cell.mainPhotos = self.viewModel.mainPhoto
+//                cell.mainPhotos = self.viewModel.mainPhoto
                 cell.pushToViewController = { exhibition in
                     let viewController = ExhibitionCardViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)

@@ -49,6 +49,11 @@ class SelectCollectionItemsView: UIView {
         collectionView.dataSource = self
     }
     
+    private func setCollectionViewBinding() {
+        
+        
+    }
+    
     private func autoLayout() {
         backgroundColor = .whiteGrayColor
         addSubview(collectionView)

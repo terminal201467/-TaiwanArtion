@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 
 class MonthTableViewCell: UITableViewCell {
@@ -13,6 +16,8 @@ class MonthTableViewCell: UITableViewCell {
     static let reuseIdentifier: String = "MonthTableViewCell"
     
     private let viewModel = HomeViewModel.shared
+    
+    private let disposeBag = DisposeBag()
     
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
@@ -26,16 +31,38 @@ class MonthTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setColletionView()
         autoLayout()
     }
     
-    private func setColletionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+    private func setCollectionViewBinding() {
+        collectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        //輸入進CollectionView
+        collectionView.rx.itemSelected
+            .bind(to: viewModel.inputs.monthSelected)
+            .disposed(by: disposeBag)
+        
+        //輸出到CollectionView
+        viewModel.didSelectedMonthRow
+            .subscribe(onNext: { month in
+                self.viewModel.fetchDateKind(by: month)
+                self.collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.months
+            .map { month in
+                return Month.allCases.map { $0 == month }
+            }
+            .bind(to: collectionView.rx.items(cellIdentifier: MonthCollectionViewCell.reuseIdentifier, cellType: MonthCollectionViewCell.self)) { row, isSelected, cell in
+                let month = Month.allCases[row]
+                cell.configureLabel(month: month, selected: isSelected)
+            }
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -54,22 +81,7 @@ class MonthTableViewCell: UITableViewCell {
     }
 }
 
-extension MonthTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Month.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthCollectionViewCell.reuseIdentifier, for: indexPath) as! MonthCollectionViewCell
-        cell.configureLabel(month: viewModel.monthCellForRowAt(indexPath: indexPath).selectedMonth, selected: viewModel.monthCellForRowAt(indexPath: indexPath).isSelected)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didMonthSelectItemAt(indexPath: indexPath)
-        collectionView.reloadData()
-    }
-    
+extension MonthTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 40, height: 43)
     }
