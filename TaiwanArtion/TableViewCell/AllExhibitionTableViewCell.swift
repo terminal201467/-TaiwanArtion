@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 class AllExhibitionTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "AllExhibitionTableViewCell"
+    
+    private let disposeBag = DisposeBag()
     
     private let viewModel = HomeViewModel.shared
     
@@ -45,8 +50,14 @@ class AllExhibitionTableViewCell: UITableViewCell {
     }
     
     private func setCollectionViewBinding() {
+        collectionView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                
+            })
+            .disposed(by: disposeBag)
         
-        
+//        viewModel.allExhibitionSelected
+//            .bind(to: <#T##IndexPath...##IndexPath#>)
     }
     
     private func autoLayout() {

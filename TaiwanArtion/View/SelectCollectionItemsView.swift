@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 public enum Items: Int, CaseIterable {
     case newest = 0, popular, highRank, recent
@@ -20,6 +23,8 @@ public enum Items: Int, CaseIterable {
 }
 
 class SelectCollectionItemsView: UIView {
+    
+    private let disposeBag = DisposeBag()
     
     private let viewModel = HomeViewModel.shared
 
@@ -38,6 +43,7 @@ class SelectCollectionItemsView: UIView {
         super.init(frame: frame)
         setCollectionView()
         autoLayout()
+        setCollectionViewBinding()
     }
     
     required init?(coder: NSCoder) {
@@ -50,8 +56,15 @@ class SelectCollectionItemsView: UIView {
     }
     
     private func setCollectionViewBinding() {
+        collectionView.rx.itemSelected
+            .bind(to: viewModel.inputs.itemSelected)
+            .disposed(by: disposeBag)
         
-        
+        viewModel.outputs.didSelectedItemRow
+            .subscribe(onNext: { [weak self] indexPath in
+            
+            })
+            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {
@@ -73,13 +86,13 @@ extension SelectCollectionItemsView: UICollectionViewDelegateFlowLayout, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-        let items = viewModel.itemCellForRowAt(indexPath: indexPath)
+//        let items = viewModel.itemCellForRowAt(indexPath: indexPath)
         cell.configure(with: items.item.text, selected: items.isSelected)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.itemDidSelectedRowAt(indexPath: indexPath)
+//        viewModel.itemDidSelectedRowAt(indexPath: indexPath)
         collectionView.reloadData()
     }
     
