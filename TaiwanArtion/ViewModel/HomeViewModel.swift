@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import RxSwift
 import RxCocoa
 import RxRelay
@@ -33,13 +34,13 @@ public protocol HomeViewModelInput: AnyObject {
 }
 
 public protocol HomeViewModelOutput: AnyObject {
-    var didSelectedMonthRow: PublishSubject<Month> { get }
-    var didSelectedHabbyRow: PublishSubject<HabbyItem> { get }
+    var didSelectedMonthRow: PublishSubject<(Month, Bool)> { get }
+    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> { get }
     var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> { get }
     var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> { get }
     var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> { get }
     var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> { get }
-    var didSelectedItemRow: PublishSubject<Items> { get }
+    var didSelectedItemRow: PublishSubject<(Items, Bool)> { get }
     
 }
 
@@ -49,7 +50,7 @@ public protocol HomeViewModelType: AnyObject {
 }
 
 class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput {
-    
+
     //Input
     var monthSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     var habbySelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
@@ -60,13 +61,13 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     var itemSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     
     //Output
-    var didSelectedMonthRow: PublishSubject<Month> = PublishSubject<Month>()
-    var didSelectedHabbyRow: PublishSubject<HabbyItem> = PublishSubject<HabbyItem>()
+    var didSelectedMonthRow: PublishSubject<(Month, Bool)> = PublishSubject<(Month, Bool)>()
+    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> = PublishSubject<(HabbyItem, Bool)>()
     var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
     var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
     var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> = PublishSubject<NewsModel>()
     var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-    var didSelectedItemRow: PublishSubject<Items> = PublishSubject<Items>()
+    var didSelectedItemRow: PublishSubject<(Items, Bool)> = PublishSubject<(Items, Bool)>()
     
     //Singleton
     static let shared = HomeViewModel()
@@ -108,7 +109,7 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     private let itemRelay = BehaviorRelay<(item: Items, isSelected: Bool)?>(value: nil)
     
-//    private let monthRelay = BehaviorRelay<(selectedMonth: Month, isSelected: Bool)?>(value: nil)
+    private let monthRelay = BehaviorRelay<(selectedMonth: Month, isSelected: Bool)?>(value: nil)
     
     private let habbyRelay = BehaviorRelay<(habby: HabbyItem, isSelected: Bool)?>(value: nil)
     
@@ -121,21 +122,16 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     //MARK: - Intialization
     public init() {
         //input
-//        monthSelected
-//            .subscribe(onNext: { indexPath in
-//                //UI
-//                self.monthCellForRowAt(indexPath: indexPath)
-//                //清空暫存序列
-//                self.fetchDateKind(by: Month(rawValue: indexPath.row)!)
-//            })
-//            .disposed(by: disposeBag)
+        monthSelected
+            .subscribe(onNext: { indexPath in
+                self.monthCellForRowAt(indexPath: indexPath)
+                self.fetchDateKind(by: Month(rawValue: indexPath.row)!)
+            })
+            .disposed(by: disposeBag)
         
         habbySelected
             .subscribe(onNext: { indexPath in
-                //UI
                 self.habbyCellForRowAt(indexPath: indexPath)
-                //fetchData
-                
             })
             .disposed(by: disposeBag)
         
@@ -150,30 +146,35 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         
         //output
         monthRelay.asObservable()
-            .compactMap{ $0?.selectedMonth }
-            .bind(to: didSelectedMonthRow)
+            .subscribe(onNext: { selectedMonth in
+                self.didSelectedMonthRow.onNext(selectedMonth!)
+            })
             .disposed(by: disposeBag)
-        
+
+
         itemRelay.asObservable()
-            .compactMap{ $0?.item }
-            .bind(to: didSelectedItemRow)
+            .subscribe(onNext: { selectedItem in
+                self.didSelectedItemRow.onNext(selectedItem!)
+            })
             .disposed(by: disposeBag)
         
         habbyRelay.asObservable()
-            .compactMap{ $0?.habby }
-            .bind(to: didSelectedHabbyRow)
+            .subscribe(onNext: { selectedHabbyItem in
+                self.didSelectedHabbyRow.onNext(selectedHabbyItem!)
+            })
             .disposed(by: disposeBag)
+            
 
     }
     
     //MARK: - MonthCollectionView
-//    private var currentMonth: Month = .jan
-//
-//    private func monthCellForRowAt(indexPath: IndexPath) {
-//        let month = Month.allCases[indexPath.row]
-//        let isSelected = Month(rawValue: indexPath.row) == currentMonth
-//        monthRelay.accept((month, isSelected))
-//    }
+    private var currentMonth: Month = .jan
+    
+    private func monthCellForRowAt(indexPath: IndexPath) {
+        let month = Month.allCases[indexPath.row]
+        let isSelected = Month(rawValue: indexPath.row) == currentMonth
+        monthRelay.accept((month, isSelected))
+    }
     
     //MARK: - HabbyCollectionView
     
@@ -207,7 +208,6 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
             } else if let fetchedData = data as? [ExhibitionInfo] {
 //                self.hotExhibitionRelay.accept(fetchedData)
 //                self.mainPhotoRelay.accept(fetchedData)
-                
                 // 执行其他需要的操作，或者通知其他部分数据已更新
             }
         }

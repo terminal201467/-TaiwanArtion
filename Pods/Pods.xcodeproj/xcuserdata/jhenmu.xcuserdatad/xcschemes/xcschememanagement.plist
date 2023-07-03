@@ -109,16 +109,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>LineSDK-LineSDKResource.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>LineSDK.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-TaiwanArtion-TaiwanArtionUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>

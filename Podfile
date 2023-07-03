@@ -18,7 +18,6 @@ target 'TaiwanArtion' do
   pod 'GoogleSignIn'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
-  pod 'LineSDK'
 
   target 'TaiwanArtionTests' do
     inherit! :search_paths

@@ -33,22 +33,19 @@ class MonthTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setColletionView()
+        setCollectionViewBinding()
         autoLayout()
     }
     
     private func setCollectionViewBinding() {
         collectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-        
-        //輸入進CollectionView
         collectionView.rx.itemSelected
             .bind(to: viewModel.inputs.monthSelected)
             .disposed(by: disposeBag)
         
         //輸出到CollectionView
-        viewModel.didSelectedMonthRow
-            .subscribe(onNext: { month in
+        viewModel.outputs.didSelectedMonthRow
+            .subscribe(onNext: { month, isSelected in
                 self.viewModel.fetchDateKind(by: month)
                 self.collectionView.reloadData()
             })

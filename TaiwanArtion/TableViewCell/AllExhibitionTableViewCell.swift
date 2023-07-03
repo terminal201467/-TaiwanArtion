@@ -36,28 +36,30 @@ class AllExhibitionTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setCollectionView()
+        setCollectionViewBinding()
         autoLayout()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func setCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-    
+
     private func setCollectionViewBinding() {
+        collectionView.rx.setDelegate(self)
         collectionView.rx.itemSelected
             .subscribe(onNext: { indexPath in
-                
+                self.viewModel.inputs.allExhibitionSelected.onNext(indexPath)
+                self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
-//        viewModel.allExhibitionSelected
-//            .bind(to: <#T##IndexPath...##IndexPath#>)
+        viewModel.allExhibitionObservable
+            .bind(to: collectionView.rx.items(cellIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier,cellType: AllExhibitionCollectionViewCell.self)) { row, index, cell in
+                self.viewModel.allExhibitionObservable.subscribe { info in
+                 
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {
@@ -74,29 +76,28 @@ class AllExhibitionTableViewCell: UITableViewCell {
             make.top.equalTo(itemView.snp.bottom).offset(12.0)
             make.leading.equalToSuperview().offset(12.0)
             make.trailing.equalToSuperview().offset(-12.0)
-//            make.width.equalTo(contentView.frame.width - 24.0)
             make.bottom.equalToSuperview()
         }
     }
 }
 
-extension AllExhibitionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.allExhibitionNumerOfRowInSection(section: section)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier, for: indexPath) as! AllExhibitionCollectionViewCell
-        cell.configure(with: viewModel.allExhibitionCellForRowAt(indexPath: indexPath))
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.allExhibitionDidSelectedRowAt(indexPath: indexPath) { exhibition in
-            self.pushToViewController?(exhibition)
-        }
-    }
+extension AllExhibitionTableViewCell: UICollectionViewDelegateFlowLayout {
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return viewModel.allExhibitionNumerOfRowInSection(section: section)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier, for: indexPath) as! AllExhibitionCollectionViewCell
+//        cell.configure(with: viewModel.allExhibitionCellForRowAt(indexPath: indexPath))
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        viewModel.allExhibitionDidSelectedRowAt(indexPath: indexPath) { exhibition in
+//            self.pushToViewController?(exhibition)
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellHeight = 230.0

@@ -6,12 +6,19 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 class HabbyTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "HabbyTableViewCell"
     
     private let viewModel = HomeViewModel.shared
+    
+    private let habbyItemsObservable = Observable.just(HabbyItem.allCases)
+    
+    private let disposeBag = DisposeBag()
     
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
@@ -27,17 +34,34 @@ class HabbyTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setColletionView()
+        setCollectionViewBinding()
         autoLayout()
-    }
-    
-    private func setColletionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setCollectionViewBinding() {
+        collectionView.rx.setDelegate(self)
+        collectionView.rx.itemSelected
+            .bind(to: viewModel.inputs.habbySelected)
+            .disposed(by: disposeBag)
+        
+        habbyItemsObservable
+            .bind(to: collectionView.rx.items(cellIdentifier: HabbyCollectionViewCell.reuseIdentifier,cellType: HabbyCollectionViewCell.self)) { row, isSelected, cell in
+                self.viewModel.outputs.didSelectedHabbyRow.subscribe { item, isSelected in
+                    cell.configureHabby(by: item, isSelected: isSelected)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.didSelectedHabbyRow
+            .subscribe { (item, isSelected) in
+                self.viewModel.fetchDataKind(by: item)
+                self.collectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {
@@ -52,23 +76,7 @@ class HabbyTableViewCell: UITableViewCell {
     }
 }
 
-extension HabbyTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return HabbyItem.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier, for: indexPath) as! HabbyCollectionViewCell
-        cell.configureHabby(by: viewModel.habbyCellForRowAt(indexPath: indexPath).selectedHabby,
-                            isSelected: viewModel.habbyCellForRowAt(indexPath: indexPath).isSelected)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectHabbyItemAt(indexPath: indexPath)
-        collectionView.reloadData()
-    }
-    
+extension HabbyTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (frame.width - 20 * 4) / 5
         let cellHeight = (frame.height - 20) / 2

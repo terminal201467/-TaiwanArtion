@@ -27,6 +27,8 @@ class SelectCollectionItemsView: UIView {
     private let disposeBag = DisposeBag()
     
     private let viewModel = HomeViewModel.shared
+    
+    private let itemsObservable = Observable.just(Items.allCases)
 
     private let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -42,8 +44,8 @@ class SelectCollectionItemsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setCollectionView()
-        autoLayout()
         setCollectionViewBinding()
+        autoLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -52,19 +54,23 @@ class SelectCollectionItemsView: UIView {
     
     private func setCollectionView() {
         collectionView.delegate = self
-        collectionView.dataSource = self
     }
     
     private func setCollectionViewBinding() {
+        collectionView.rx.setDelegate(self)
         collectionView.rx.itemSelected
             .bind(to: viewModel.inputs.itemSelected)
             .disposed(by: disposeBag)
         
-        viewModel.outputs.didSelectedItemRow
-            .subscribe(onNext: { [weak self] indexPath in
-            
-            })
+        itemsObservable
+            .bind(to: collectionView.rx.items(cellIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, cellType: SelectedItemsCollectionViewCell.self)) { row, item, cell in
+                self.viewModel.didSelectedItemRow
+                    .subscribe(onNext: { item, isSelected in
+                        cell.configure(with: item.text, selected: isSelected)
+                    }
+            )}
             .disposed(by: disposeBag)
+
     }
     
     private func autoLayout() {
@@ -79,22 +85,22 @@ class SelectCollectionItemsView: UIView {
     }
 }
 
-extension SelectCollectionItemsView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Items.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-//        let items = viewModel.itemCellForRowAt(indexPath: indexPath)
-        cell.configure(with: items.item.text, selected: items.isSelected)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension SelectCollectionItemsView: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return Items.allCases.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
+////        let items = viewModel.itemCellForRowAt(indexPath: indexPath)
+//        cell.configure(with: items.item.text, selected: items.isSelected)
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        viewModel.itemDidSelectedRowAt(indexPath: indexPath)
-        collectionView.reloadData()
-    }
+//        collectionView.reloadData()
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (frame.width - 10 * 3 - 12 * 2) / 4

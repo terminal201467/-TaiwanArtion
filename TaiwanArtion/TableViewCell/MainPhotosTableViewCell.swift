@@ -7,12 +7,19 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 class MainPhotosTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "MainPhotosTableViewCell"
     
     var mainPhotos: [ExhibitionInfo] = []
+    
+    private var photoObservable: Observable<[ExhibitionInfo]> { Observable.just(mainPhotos) }
+    
+    private let disposeBag = DisposeBag()
     
     var pushToViewController: ((ExhibitionInfo) -> Void)?
     
@@ -35,7 +42,7 @@ class MainPhotosTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setCollectionView()
+        setCollectionViewBinding()
         autoLayout()
     }
     
@@ -43,9 +50,27 @@ class MainPhotosTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+    private func setCollectionViewBinding() {
+        collectionView.rx.setDelegate(self)
+        viewModel.inputs.mainPhotoSelected
+            .subscribe { index in
+                print("index:\(index)")
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.didSelectedMainPhotoRow
+            .subscribe { info in
+                self.pushToViewController?(info)
+            }
+            .disposed(by: disposeBag)
+        
+        photoObservable
+            .bind(to: collectionView.rx.items(cellIdentifier: MainPhotosCollectionViewCell.reuseIdentifier,cellType: MainPhotosCollectionViewCell.self)) { (row, item ,cell) in
+                cell.configure(title: item.title, date: item.dateString, tagText: item.tag, image: item.image)
+                cell.contentView.roundCorners(cornerRadius: 12)
+                cell.contentView.applyShadow(color: .black, opacity: 0.5, offset: CGSize(width: 2, height: 2), radius: 4)
+            }
+            .disposed(by: disposeBag)
     }
 
     private func autoLayout() {
@@ -68,28 +93,7 @@ class MainPhotosTableViewCell: UITableViewCell {
     }
 }
 
-extension MainPhotosTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  mainPhotos.isEmpty ? 1 : mainPhotos.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainPhotosCollectionViewCell.reuseIdentifier, for: indexPath) as! MainPhotosCollectionViewCell
-        cell.configure(title: mainPhotos[indexPath.row].title,
-                       date: mainPhotos[indexPath.row].dateString,
-                       tagText: "雕塑",
-                       image: mainPhotos[indexPath.row].image)
-        cell.contentView.roundCorners(cornerRadius: 12)
-        cell.contentView.applyShadow(color: .black, opacity: 0.5, offset: CGSize(width: 2, height: 2), radius: 4)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.mainPhotoDidSelectItemAt(indexPath: indexPath) { exhibition in
-            self.pushToViewController?(exhibition)
-        }
-    }
-    
+extension MainPhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellHeight = frame.height - 60
         let cellWidth = frame.width - 45 * 2

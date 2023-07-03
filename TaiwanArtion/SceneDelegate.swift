@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.backgroundColor = .white
+        FirebaseApp.configure()
         window?.rootViewController = RootViewController()
-        
 //        if userManager.getIsLoggedIn() {
 //            //如果已經登入
 //            window?.rootViewController = RootViewController()
@@ -29,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        }
 
         window?.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

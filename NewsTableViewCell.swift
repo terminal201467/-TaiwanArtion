@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxRelay
 
 class NewsTableViewCell: UITableViewCell {
     
@@ -15,10 +18,11 @@ class NewsTableViewCell: UITableViewCell {
     
     var pushToViewController: ((NewsModel) -> Void)?
     
+    private let disposeBag = DisposeBag()
+    
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-//        flowLayout.minimumLineSpacing = 16
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
@@ -30,7 +34,7 @@ class NewsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setCollectionView()
+        setCollectionViewBinding()
         autoLayout()
     }
     
@@ -38,9 +42,26 @@ class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+    private func setCollectionViewBinding() {
+        collectionView.rx.setDelegate(self)
+        
+        collectionView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                self.viewModel.inputs.newsExhibitionSelected.onNext(indexPath)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.newsObservable
+            .bind(to: collectionView.rx.items(cellIdentifier: NewsCollectionViewCell.reuseIdentifier, cellType: NewsCollectionViewCell.self)) { (row, item, cell) in
+                cell.configure(image: item.image, title: item.title, date: item.date, author: item.author)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.didSelectedNewsExhibitionRow
+            .subscribe { news in
+                self.pushToViewController?(news)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {
@@ -52,27 +73,7 @@ class NewsTableViewCell: UITableViewCell {
     }
 }
 
-extension NewsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.newsExhibitionNumerOfRowInSection(section: section)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.reuseIdentifier, for: indexPath) as! NewsCollectionViewCell
-        let news = viewModel.newsExhibitionCellForRowAt(indexPath: indexPath)
-        cell.configure(image: news.image, title: news.title, date: news.date, author: news.author)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfCellsInRow: CGFloat = 2
-        let spacingBetweenCells: CGFloat = 16
-        let totalSpacing = (numberOfCellsInRow - 1) * spacingBetweenCells
-        let cellWidth = (collectionView.frame.width - totalSpacing) / numberOfCellsInRow
-        let cellHeight = collectionView.frame.height
-        return CGSize(width: cellWidth, height: cellHeight)
-    }
-
+extension NewsTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12)
     }
@@ -83,12 +84,5 @@ extension NewsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.newsExhibitionDidSelectedRowAt(indexPath: indexPath) { news in
-            print("news:\(news)")
-            self.pushToViewController?(news)
-        }
     }
 }
