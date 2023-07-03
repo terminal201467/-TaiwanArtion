@@ -146,21 +146,27 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         
         //output
         monthRelay.asObservable()
-            .subscribe(onNext: { selectedMonth in
-                self.didSelectedMonthRow.onNext(selectedMonth!)
+            .subscribe(onNext: { selecetedItem in
+                if let item = selecetedItem {
+                    self.didSelectedMonthRow.onNext(item)
+                }
             })
             .disposed(by: disposeBag)
 
 
         itemRelay.asObservable()
             .subscribe(onNext: { selectedItem in
-                self.didSelectedItemRow.onNext(selectedItem!)
+                if let item = selectedItem {
+                    self.didSelectedItemRow.onNext(item)
+                }
             })
             .disposed(by: disposeBag)
         
         habbyRelay.asObservable()
-            .subscribe(onNext: { selectedHabbyItem in
-                self.didSelectedHabbyRow.onNext(selectedHabbyItem!)
+            .subscribe(onNext: { selectedItem in
+                if let item = selectedItem {
+                    self.didSelectedHabbyRow.onNext(item)
+                }
             })
             .disposed(by: disposeBag)
             

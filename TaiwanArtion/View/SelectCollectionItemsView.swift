@@ -43,17 +43,12 @@ class SelectCollectionItemsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setCollectionView()
         setCollectionViewBinding()
         autoLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setCollectionView() {
-        collectionView.delegate = self
     }
     
     private func setCollectionViewBinding() {
@@ -86,21 +81,6 @@ class SelectCollectionItemsView: UIView {
 }
 
 extension SelectCollectionItemsView: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return Items.allCases.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-////        let items = viewModel.itemCellForRowAt(indexPath: indexPath)
-//        cell.configure(with: items.item.text, selected: items.isSelected)
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        viewModel.itemDidSelectedRowAt(indexPath: indexPath)
-//        collectionView.reloadData()
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (frame.width - 10 * 3 - 12 * 2) / 4
