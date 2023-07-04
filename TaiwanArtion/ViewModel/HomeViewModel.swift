@@ -34,13 +34,16 @@ public protocol HomeViewModelInput: AnyObject {
 }
 
 public protocol HomeViewModelOutput: AnyObject {
-    var didSelectedMonthRow: PublishSubject<(Month, Bool)> { get }
-    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> { get }
-    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> { get }
-    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> { get }
-    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> { get }
-    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> { get }
-    var didSelectedItemRow: PublishSubject<(Items, Bool)> { get }
+//    var didSelectedMonthRow: PublishSubject<(Month, Bool)> { get }
+//    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> { get }
+//    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> { get }
+//    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> { get }
+//    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> { get }
+//    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> { get }
+//    var didSelectedItemRow: PublishSubject<(Items, Bool)> { get }
+    var months: Observable<Month> { get }
+    var habbys: Observable<HabbyItem?> { get }
+    var items: Observable<Items> { get }
     
 }
 
@@ -61,13 +64,13 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     var itemSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     
     //Output
-    var didSelectedMonthRow: PublishSubject<(Month, Bool)> = PublishSubject<(Month, Bool)>()
-    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> = PublishSubject<(HabbyItem, Bool)>()
-    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> = PublishSubject<NewsModel>()
-    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-    var didSelectedItemRow: PublishSubject<(Items, Bool)> = PublishSubject<(Items, Bool)>()
+//    var didSelectedMonthRow: PublishSubject<(Month, Bool)> = PublishSubject<(Month, Bool)>()
+//    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> = PublishSubject<(HabbyItem, Bool)>()
+//    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
+//    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
+//    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> = PublishSubject<NewsModel>()
+//    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
+//    var didSelectedItemRow: PublishSubject<(Items, Bool)> = PublishSubject<(Items, Bool)>()
     
     //Singleton
     static let shared = HomeViewModel()
@@ -113,91 +116,43 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     private let habbyRelay = BehaviorRelay<(habby: HabbyItem, isSelected: Bool)?>(value: nil)
     
-    private let monthsSubject = BehaviorSubject<Month>(value: .jan)
+    private let currentMonthsSubject = BehaviorSubject<Month>(value: .jan)
     
-    var months: Observable<Month> {
-        return monthsSubject.asObservable()
-    }
+    private let currentHabbySubject = BehaviorSubject<HabbyItem?>(value: nil)
+    
+    private let currenItemSubject = BehaviorSubject<Items>(value: .highRank)
+    
+    var months: Observable<Month> { currentMonthsSubject.asObservable() }
+    
+    var habbys: Observable<HabbyItem?> { currentHabbySubject.asObservable() }
+    
+    var items: Observable<Items> { currenItemSubject.asObservable() }
     
     //MARK: - Intialization
     public init() {
         //input
         monthSelected
             .subscribe(onNext: { indexPath in
-                self.monthCellForRowAt(indexPath: indexPath)
+                self.currentMonthsSubject.onNext(Month(rawValue: indexPath.row)!)
                 self.fetchDateKind(by: Month(rawValue: indexPath.row)!)
             })
             .disposed(by: disposeBag)
         
         habbySelected
             .subscribe(onNext: { indexPath in
-                self.habbyCellForRowAt(indexPath: indexPath)
+                self.currentHabbySubject.onNext(HabbyItem(rawValue: indexPath.row))
             })
             .disposed(by: disposeBag)
         
         itemSelected
             .subscribe(onNext: { indexPath in
-                //UI
-                self.itemCellForRowAt(indexPath: indexPath)
+                self.currenItemSubject.onNext(Items(rawValue: indexPath.row)!)
                 //fetchData
-                
             })
             .disposed(by: disposeBag)
         
         //output
-        monthRelay.asObservable()
-            .subscribe(onNext: { selecetedItem in
-                if let item = selecetedItem {
-                    self.didSelectedMonthRow.onNext(item)
-                }
-            })
-            .disposed(by: disposeBag)
 
-
-        itemRelay.asObservable()
-            .subscribe(onNext: { selectedItem in
-                if let item = selectedItem {
-                    self.didSelectedItemRow.onNext(item)
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        habbyRelay.asObservable()
-            .subscribe(onNext: { selectedItem in
-                if let item = selectedItem {
-                    self.didSelectedHabbyRow.onNext(item)
-                }
-            })
-            .disposed(by: disposeBag)
-            
-
-    }
-    
-    //MARK: - MonthCollectionView
-    private var currentMonth: Month = .jan
-    
-    private func monthCellForRowAt(indexPath: IndexPath) {
-        let month = Month.allCases[indexPath.row]
-        let isSelected = Month(rawValue: indexPath.row) == currentMonth
-        monthRelay.accept((month, isSelected))
-    }
-    
-    //MARK: - HabbyCollectionView
-    
-    private var currentHabby: HabbyItem? = nil
-    
-    private func habbyCellForRowAt(indexPath: IndexPath) {
-        let habby = HabbyItem.allCases[indexPath.row]
-        let isSelected = HabbyItem(rawValue: indexPath.row) == currentHabby
-        habbyRelay.accept((habby, isSelected))
-    }
-    
-    private var currentItem: Items = .newest
-
-    private func itemCellForRowAt(indexPath: IndexPath) {
-        let item = Items.allCases[indexPath.row]
-        let isSelected = Items(rawValue: indexPath.row) == currentItem
-        itemRelay.accept((item, isSelected))
     }
     
     //MARK: - Firebase

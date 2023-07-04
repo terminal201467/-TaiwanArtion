@@ -48,18 +48,12 @@ class HabbyTableViewCell: UITableViewCell {
             .bind(to: viewModel.inputs.habbySelected)
             .disposed(by: disposeBag)
         
-        habbyItemsObservable
-            .bind(to: collectionView.rx.items(cellIdentifier: HabbyCollectionViewCell.reuseIdentifier,cellType: HabbyCollectionViewCell.self)) { row, isSelected, cell in
-                self.viewModel.outputs.didSelectedHabbyRow.subscribe { item, isSelected in
-                    cell.configureHabby(by: item, isSelected: isSelected)
-                }
+        viewModel.outputs.habbys
+            .map { item in
+                return HabbyItem.allCases.map{ $0 == item }
             }
-            .disposed(by: disposeBag)
-        
-        viewModel.outputs.didSelectedHabbyRow
-            .subscribe { (item, isSelected) in
-                self.viewModel.fetchDataKind(by: item)
-                self.collectionView.reloadData()
+            .bind(to: collectionView.rx.items(cellIdentifier: HabbyCollectionViewCell.reuseIdentifier, cellType: HabbyCollectionViewCell.self)) { row, isSelected, cell in
+                cell.configureHabby(by: HabbyItem.allCases[row], isSelected: isSelected)
             }
             .disposed(by: disposeBag)
     }

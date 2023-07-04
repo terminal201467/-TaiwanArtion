@@ -52,11 +52,11 @@ class HotHxhibitionTableViewCell: UITableViewCell {
             })
             .disposed(by: disposeBag)
         
-        viewModel.outputs.didSelectedHotExhibitionRow
-            .subscribe(onNext: { info in
-                self.pushToViewController?(info)
-            })
-            .disposed(by: disposeBag)
+//        viewModel.outputs.didSelectedHotExhibitionRow
+//            .subscribe(onNext: { info in
+//                self.pushToViewController?(info)
+//            })
+//            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {

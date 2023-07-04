@@ -57,11 +57,11 @@ class NewsTableViewCell: UITableViewCell {
             }
             .disposed(by: disposeBag)
         
-        viewModel.outputs.didSelectedNewsExhibitionRow
-            .subscribe { news in
-                self.pushToViewController?(news)
-            }
-            .disposed(by: disposeBag)
+//        viewModel.outputs.didSelectedNewsExhibitionRow
+//            .subscribe { news in
+//                self.pushToViewController?(news)
+//            }
+//            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {

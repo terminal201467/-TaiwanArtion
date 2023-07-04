@@ -58,11 +58,11 @@ class MainPhotosTableViewCell: UITableViewCell {
             }
             .disposed(by: disposeBag)
         
-        viewModel.outputs.didSelectedMainPhotoRow
-            .subscribe { info in
-                self.pushToViewController?(info)
-            }
-            .disposed(by: disposeBag)
+//        viewModel.outputs.didSelectedMainPhotoRow
+//            .subscribe { info in
+//                self.pushToViewController?(info)
+//            }
+//            .disposed(by: disposeBag)
         
         photoObservable
             .bind(to: collectionView.rx.items(cellIdentifier: MainPhotosCollectionViewCell.reuseIdentifier,cellType: MainPhotosCollectionViewCell.self)) { (row, item ,cell) in

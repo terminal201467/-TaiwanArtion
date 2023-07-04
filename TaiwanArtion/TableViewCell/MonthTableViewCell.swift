@@ -44,14 +44,7 @@ class MonthTableViewCell: UITableViewCell {
             .disposed(by: disposeBag)
         
         //輸出到CollectionView
-        viewModel.outputs.didSelectedMonthRow
-            .subscribe(onNext: { month, isSelected in
-                self.viewModel.fetchDateKind(by: month)
-                self.collectionView.reloadData()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.months
+        viewModel.outputs.months
             .map { month in
                 return Month.allCases.map { $0 == month }
             }

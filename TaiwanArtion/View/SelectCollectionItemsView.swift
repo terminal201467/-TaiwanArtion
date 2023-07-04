@@ -57,15 +57,14 @@ class SelectCollectionItemsView: UIView {
             .bind(to: viewModel.inputs.itemSelected)
             .disposed(by: disposeBag)
         
-        itemsObservable
-            .bind(to: collectionView.rx.items(cellIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, cellType: SelectedItemsCollectionViewCell.self)) { row, item, cell in
-                self.viewModel.didSelectedItemRow
-                    .subscribe(onNext: { item, isSelected in
-                        cell.configure(with: item.text, selected: isSelected)
-                    }
-            )}
+        viewModel.outputs.items
+            .map { item in
+                return Items.allCases.map{ $0 == item }
+            }
+            .bind(to: collectionView.rx.items(cellIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, cellType: SelectedItemsCollectionViewCell.self)) { row, isSelected, cell in
+                cell.configure(with: Items.allCases[row].text, selected: isSelected)
+            }
             .disposed(by: disposeBag)
-
     }
     
     private func autoLayout() {
