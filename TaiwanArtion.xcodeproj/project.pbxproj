@@ -118,6 +118,9 @@
 		978834C72A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C62A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift */; };
 		978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */; };
 		978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */; };
+		97BD68572A5624D300F4BCAB /* PersonalFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68562A5624D300F4BCAB /* PersonalFileView.swift */; };
+		97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */; };
+		97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -268,6 +271,9 @@
 		978834C62A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailTableViewCell.swift; sourceTree = "<group>"; };
 		978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsContentTableViewCell.swift; sourceTree = "<group>"; };
 		978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSectionView.swift; sourceTree = "<group>"; };
+		97BD68562A5624D300F4BCAB /* PersonalFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileView.swift; sourceTree = "<group>"; };
+		97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
+		97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoViewModel.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -571,6 +577,8 @@
 				97506C2A2A3C28A400F6BB24 /* AccountPasswordView.swift */,
 				97506C2C2A3C28B400F6BB24 /* EmailVerifyView.swift */,
 				97506C302A3C46F600F6BB24 /* PasswordHintView.swift */,
+				97BD68562A5624D300F4BCAB /* PersonalFileView.swift */,
+				97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -586,6 +594,7 @@
 				9771A1532A3A0970006F4F9D /* RegisterViewModel.swift */,
 				97506C342A4048CC00F6BB24 /* AccountPasswordViewModel.swift */,
 				97506C362A41432D00F6BB24 /* EmailVerifyViewModel.swift */,
+				97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -910,6 +919,8 @@
 				973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */,
 				973C17A52A273D0C00581DC6 /* SearchViewModel.swift in Sources */,
 				973C17B62A298BBB00581DC6 /* CalendarLogic.swift in Sources */,
+				97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */,
+				97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */,
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
 				978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */,
 				973C17C02A29B58B00581DC6 /* CalendarDateTableViewCell.swift in Sources */,
@@ -954,6 +965,7 @@
 				97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */,
 				978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */,
 				976A032F2A15CE3500424ACF /* Model.swift in Sources */,
+				97BD68572A5624D300F4BCAB /* PersonalFileView.swift in Sources */,
 				976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */,
 				976A03282A15055900424ACF /* HabbyTableViewCell.swift in Sources */,
 				973C17BC2A29936F00581DC6 /* WeekCollectionViewCell.swift in Sources */,
