@@ -58,17 +58,9 @@ class MainPhotosTableViewCell: UITableViewCell {
             }
             .disposed(by: disposeBag)
         
-//        viewModel.outputs.didSelectedMainPhotoRow
-//            .subscribe { info in
-//                self.pushToViewController?(info)
-//            }
-//            .disposed(by: disposeBag)
-        
-        photoObservable
-            .bind(to: collectionView.rx.items(cellIdentifier: MainPhotosCollectionViewCell.reuseIdentifier,cellType: MainPhotosCollectionViewCell.self)) { (row, item ,cell) in
+        viewModel.outputs.mainPhotos
+            .bind(to: collectionView.rx.items(cellIdentifier: MainPhotosCollectionViewCell.reuseIdentifier, cellType: MainPhotosCollectionViewCell.self)) { (row, item, cell) in
                 cell.configure(title: item.title, date: item.dateString, tagText: item.tag, image: item.image)
-                cell.contentView.roundCorners(cornerRadius: 12)
-                cell.contentView.applyShadow(color: .black, opacity: 0.5, offset: CGSize(width: 2, height: 2), radius: 4)
             }
             .disposed(by: disposeBag)
     }

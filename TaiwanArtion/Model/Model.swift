@@ -70,7 +70,6 @@ public struct ExhibitionInfo: Hashable, Equatable {
     var evaluation: EvaluationModel?
 }
 
-
 struct EvaluationModel: Hashable {
     
     var number: Int

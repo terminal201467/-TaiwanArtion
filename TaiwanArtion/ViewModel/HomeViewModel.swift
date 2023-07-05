@@ -34,26 +34,29 @@ public protocol HomeViewModelInput: AnyObject {
 }
 
 public protocol HomeViewModelOutput: AnyObject {
-//    var didSelectedMonthRow: PublishSubject<(Month, Bool)> { get }
-//    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> { get }
-//    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> { get }
-//    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> { get }
-//    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> { get }
-//    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> { get }
-//    var didSelectedItemRow: PublishSubject<(Items, Bool)> { get }
+    var newses: Observable<[NewsModel]> { get }
+    var mainPhotos: Observable<[ExhibitionInfo]> { get }
+    var hotExhibitions: Observable<[ExhibitionInfo]> { get }
+    var allExhibitions: Observable<[ExhibitionInfo]> { get }
     var months: Observable<Month> { get }
     var habbys: Observable<HabbyItem?> { get }
     var items: Observable<Items> { get }
-    
+}
+
+public protocol ViewDidLoad: AnyObject {
+    var mainPhotos: Observable<[ExhibitionInfo]> { get }
+    var hotExhibitions: Observable<[ExhibitionInfo]> { get }
+    var newses: Observable<[NewsModel]> { get }
+    var allExhibitions: Observable<[ExhibitionInfo]> { get }
 }
 
 public protocol HomeViewModelType: AnyObject {
     var inputs: HomeViewModelInput { get }
     var outputs: HomeViewModelOutput { get }
+    var viewDidLoad: ViewDidLoad { get }
 }
 
-class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput {
-
+class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput, ViewDidLoad {
     //Input
     var monthSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     var habbySelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
@@ -62,15 +65,6 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     var newsExhibitionSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     var allExhibitionSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     var itemSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
-    
-    //Output
-//    var didSelectedMonthRow: PublishSubject<(Month, Bool)> = PublishSubject<(Month, Bool)>()
-//    var didSelectedHabbyRow: PublishSubject<(HabbyItem, Bool)> = PublishSubject<(HabbyItem, Bool)>()
-//    var didSelectedMainPhotoRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-//    var didSelectedHotExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-//    var didSelectedNewsExhibitionRow: PublishSubject<NewsModel> = PublishSubject<NewsModel>()
-//    var didSelectedAllExhibitionRow: PublishSubject<ExhibitionInfo> = PublishSubject<ExhibitionInfo>()
-//    var didSelectedItemRow: PublishSubject<(Items, Bool)> = PublishSubject<(Items, Bool)>()
     
     //Singleton
     static let shared = HomeViewModel()
@@ -82,6 +76,8 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     var outputs: HomeViewModelOutput { self }
     
+    var viewDidLoad: ViewDidLoad { self }
+    
     //MARK: - Store
     
     private let hotExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
@@ -92,29 +88,23 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     private let allExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
-    var hotExhibitionObservable: Observable<[ExhibitionInfo]> {
+    var hotExhibitions: Observable<[ExhibitionInfo]> {
         return hotExhibitionRelay.asObservable()
     }
     
-    var mainPhotoObservable: Observable<[ExhibitionInfo]> {
+    var mainPhotos: Observable<[ExhibitionInfo]> {
         return mainPhotoRelay.asObservable()
     }
     
-    var newsObservable: Observable<[NewsModel]> {
+    var newses: Observable<[NewsModel]> {
         return newsRelay.asObservable()
     }
     
-    var allExhibitionObservable: Observable<[ExhibitionInfo]> {
+    var allExhibitions: Observable<[ExhibitionInfo]> {
         return allExhibitionRelay.asObservable()
     }
     
     //MARK: - CollectionViewSelectedRelay
-    
-    private let itemRelay = BehaviorRelay<(item: Items, isSelected: Bool)?>(value: nil)
-    
-    private let monthRelay = BehaviorRelay<(selectedMonth: Month, isSelected: Bool)?>(value: nil)
-    
-    private let habbyRelay = BehaviorRelay<(habby: HabbyItem, isSelected: Bool)?>(value: nil)
     
     private let currentMonthsSubject = BehaviorSubject<Month>(value: .jan)
     
@@ -141,49 +131,80 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         habbySelected
             .subscribe(onNext: { indexPath in
                 self.currentHabbySubject.onNext(HabbyItem(rawValue: indexPath.row))
+                self.fetchDataKind(by: HabbyItem(rawValue: indexPath.row)!)
             })
             .disposed(by: disposeBag)
         
         itemSelected
             .subscribe(onNext: { indexPath in
                 self.currenItemSubject.onNext(Items(rawValue: indexPath.row)!)
-                //fetchData
+                self.fetchDataKind(by: Items(rawValue: indexPath.row)!)
             })
             .disposed(by: disposeBag)
         
-        //output
-
+        fetchDataRecentExhibition(by: 5)
     }
     
     //MARK: - Firebase
     
     private let firebase = FirebaseDatabase(collectionName: "exhibitions")
 
-    
     func fetchDateKind(by month: Month) {
         firebase.readDocument(month: month.numberText) { data, error in
-            print("data: \(data)")
             if let error = error {
                 print("error: \(error)")
-                // 处理错误情况，如果适用
-            } else if let fetchedData = data as? [ExhibitionInfo] {
-//                self.hotExhibitionRelay.accept(fetchedData)
-//                self.mainPhotoRelay.accept(fetchedData)
-                // 执行其他需要的操作，或者通知其他部分数据已更新
+            } else if data != nil{
+                print("data:\(data)")
             }
         }
     }
     
-    func fetchDateKind(by item: Items) {
+    func fetchDataKind(by item: Items) {
         firebase.readDocument(item: item.text) { data, error in
-            
+            if let error = error {
+                print("error:\(error)")
+            } else if data != nil {
+                print("data:\(data)")
+            }
         }
     }
     
     func fetchDataKind(by habby: HabbyItem) {
         firebase.readDocument(habby: habby.titleText) { data, error in
-            
+            if let error = error {
+                print("error:\(error)")
+            } else if data != nil {
+                print("data:\(data)")
+//                self.allExhibitionRelay.accept(<#T##event: [ExhibitionInfo]##[ExhibitionInfo]#>)
+            }
         }
     }
     
+    func fetchDataRecentExhibition(by count: Int) {
+        firebase.getRandomDocuments(count: count) { data, error in
+            if let error = error {
+                print("error:\(error)")
+            } else if let data = data {
+                var info: [ExhibitionInfo] = []
+                data.map { detailData in
+                    guard let title = detailData["title"] as? String,
+                          let image = detailData["imageUrl"] as? String,
+                          let dateString = detailData["startDate"] as? String,
+                          let agency = detailData["subUnit"] as? [String],
+                          let official = detailData["showUnit"] as? String,
+                          let showInfo = detailData["showInfo"] as? [[String: Any]],
+                          let price = showInfo.first?["price"] as? String,
+                          let time = showInfo.first?["time"] as? String,
+                          let latitude = showInfo.first?["latitude"] as? String,
+                          let longitude = showInfo.first?["longitude"] as? String,
+                          let location = showInfo.first?["locationName"] as? String,
+                          let address = showInfo.first?["location"] as? String else { return }
+                    let exhibition = ExhibitionInfo(title: title, image: image, tag: "", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
+                    info.append(exhibition)
+                }
+                print("info:\(info)")
+                self.mainPhotoRelay.accept(info)
+            }
+        }
+    }
 }

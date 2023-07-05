@@ -67,7 +67,7 @@ class FirebaseDatabase {
     }
     
     func getRecentDocuments(count: Int, completion: @escaping ([[String: Any]]?, Error?) -> Void) {
-        db.collection(collectionName).order(by: "timestamp", descending: true).limit(to: count).getDocuments { (querySnapshot, error) in
+        db.collection(collectionName).order(by: "startDate", descending: true).limit(to: count).getDocuments { (querySnapshot, error) in
             if let error = error {
                 completion(nil, error)
             } else {

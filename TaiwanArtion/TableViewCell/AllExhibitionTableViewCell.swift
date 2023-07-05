@@ -53,13 +53,11 @@ class AllExhibitionTableViewCell: UITableViewCell {
             })
             .disposed(by: disposeBag)
         
-        viewModel.allExhibitionObservable
-            .bind(to: collectionView.rx.items(cellIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier,cellType: AllExhibitionCollectionViewCell.self)) { row, index, cell in
-                self.viewModel.allExhibitionObservable.subscribe { info in
-                 
-                }
-            }
-            .disposed(by: disposeBag)
+//        viewModel.allExhibitionObservable
+//            .bind(to: collectionView.rx.items(cellIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier,cellType: AllExhibitionCollectionViewCell.self)) { row, info, cell in
+//
+//            }
+//            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {

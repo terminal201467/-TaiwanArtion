@@ -40,7 +40,7 @@ class HotHxhibitionTableViewCell: UITableViewCell {
     }
     
     private func setTableViewBinding() {
-        viewModel.hotExhibitionObservable
+        viewModel.viewDidLoad.hotExhibitions
             .bind(to: tableView.rx.items(cellIdentifier: HotDetailTableViewCell.reuseIdentifier, cellType: HotDetailTableViewCell.self)) { (row, item, cell) in
                 cell.configure(number: "\(row + 1)", title: item.title, location: item.city, date: item.dateString, image: item.image)
             }

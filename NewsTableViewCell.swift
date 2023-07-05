@@ -51,7 +51,7 @@ class NewsTableViewCell: UITableViewCell {
             })
             .disposed(by: disposeBag)
         
-        viewModel.newsObservable
+        viewModel.viewDidLoad.newses
             .bind(to: collectionView.rx.items(cellIdentifier: NewsCollectionViewCell.reuseIdentifier, cellType: NewsCollectionViewCell.self)) { (row, item, cell) in
                 cell.configure(image: item.image, title: item.title, date: item.date, author: item.author)
             }
