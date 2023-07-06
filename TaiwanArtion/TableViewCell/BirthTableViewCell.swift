@@ -64,14 +64,14 @@ class BirthTableViewCell: UITableViewCell {
     
     private let yearContainerView: UIView = {
        let view = UIView()
-        view.addBorder(borderWidth: 1, borderColor: .gray)
+        view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         view.roundCorners(cornerRadius: 10)
         return view
     }()
     
     private let dateContainerView: UIView = {
         let view = UIView()
-         view.addBorder(borderWidth: 1, borderColor: .gray)
+        view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
          view.roundCorners(cornerRadius: 10)
          return view
     }()
@@ -133,12 +133,13 @@ class BirthTableViewCell: UITableViewCell {
         }
         
         dateContainerView.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.6)
+            make.width.equalToSuperview().multipliedBy(0.65)
             make.height.equalTo(40)
         }
         dateContainerView.addSubview(dateStack)
         dateStack.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
             make.height.equalTo(32)
         }

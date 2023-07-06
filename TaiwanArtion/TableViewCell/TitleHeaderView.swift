@@ -17,7 +17,7 @@ class TitleHeaderView: UITableViewHeaderFooterView {
     
     private let disposeBag = DisposeBag()
 
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .darkGray

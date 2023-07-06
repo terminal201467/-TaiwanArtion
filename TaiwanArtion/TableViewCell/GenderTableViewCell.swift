@@ -14,7 +14,7 @@ class GenderTableViewCell: UITableViewCell {
     private let containerView: UIView = {
         let view = UIView()
         view.roundCorners(cornerRadius: 10)
-        view.addBorder(borderWidth: 1, borderColor: .gray)
+        view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         return view
     }()
     
@@ -33,7 +33,7 @@ class GenderTableViewCell: UITableViewCell {
     private lazy var genderStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [genderLabel, chooseButton])
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fillProportionally
         stackView.spacing = 5
         return stackView
@@ -49,18 +49,28 @@ class GenderTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        chooseButton.snp.makeConstraints { make in
+            make.height.equalTo(32)
+            make.width.equalTo(32)
+        }
+        
         contentView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.height.equalTo(40)
         }
         
         containerView.addSubview(genderStack)
         genderStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(32)
         }
     }
     
     func configure(gender: String?) {
         genderLabel.text = gender == nil ? "請選擇你的性別" : gender
+        genderLabel.textColor = gender == nil ? .grayTextColor : .black
     }
 }
