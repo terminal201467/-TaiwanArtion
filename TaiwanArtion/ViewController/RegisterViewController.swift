@@ -80,9 +80,10 @@ class RegisterViewController: UIViewController {
             layoutViews(parentView: registerView.containerView, childView: thirdStepView!)
             thirdStepView?.toNextStep = {
                 let registerSucceedViewController = RegisterSucceedViewController()
+                let personInfoViewController = PersonalInfoViewController()
                 registerSucceedViewController.modalPresentationStyle = .overFullScreen
                 registerSucceedViewController.pushToControllerAction = {
-                    self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.pushViewController(personInfoViewController, animated: true)
                 }
                 registerSucceedViewController.popViewControllerAction = {
                     self.navigationController?.popViewController(animated: true)

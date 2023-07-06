@@ -9,9 +9,34 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxRelay
+import Differentiator
+
+struct SectionModel: SectionModelType {
+    typealias Item = PersonInfoCellModel
+
+    var items: [PersonInfoCellModel] = []
+
+    init(original: SectionModel, items: [PersonInfoCellModel]) {
+        self = original
+        self.items = items
+    }
+
+    init(sectionName: String, cellModels: [PersonInfoCellModel]) {
+        self.sectionName = sectionName
+        self.cellModels = cellModels
+    }
+
+    let sectionName: String
+    let cellModels: [PersonInfoCellModel]
+
+    struct PersonInfoCellModel {
+        let infoType: PersonInfo
+        let textFieldPlaceholder: String
+    }
+}
 
 enum PersonInfo: Int, CaseIterable {
-    case name = 0, gender, birth, email, phone
+    case name = 0, gender, birth, email, phone, save
     var section: String {
         switch self {
         case .name: return "姓名"
@@ -19,6 +44,7 @@ enum PersonInfo: Int, CaseIterable {
         case .birth: return "生日"
         case .email: return "電子郵件"
         case .phone: return "手機號碼"
+        case .save: return ""
         }
     }
     
@@ -29,6 +55,7 @@ enum PersonInfo: Int, CaseIterable {
         case .birth: return "選擇日期"
         case .email: return "請輸入你的電子郵件"
         case .phone: return "請輸入你的手機號碼"
+        case .save: return "儲存"
         }
     }
 }
@@ -45,17 +72,18 @@ protocol PersonInfoInput {
 protocol PersonInfoOutput {
     var saveCheck: BehaviorRelay<Bool> { get }
     var personInfo: Observable<[PersonInfo]> { get }
+    var tableItemInfo: Observable<[SectionModel]> { get }
 }
 
 protocol PersonInfoViewModelType {
     var input: PersonInfoInput { get }
-    var outout: PersonInfoOutput { get }
+    var output: PersonInfoOutput { get }
 }
-
 
 class PersonInfoViewModel: PersonInfoInput, PersonInfoOutput, PersonInfoViewModelType {
    
     private let disposeBag = DisposeBag()
+    
     //MARK: -Input
     var nameInput: BehaviorRelay<String> = BehaviorRelay(value: "")
     var genderInput: BehaviorRelay<String> = BehaviorRelay(value: "")
@@ -67,10 +95,19 @@ class PersonInfoViewModel: PersonInfoInput, PersonInfoOutput, PersonInfoViewMode
     //MARK: -Output
     var saveCheck: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var personInfo: Observable<[PersonInfo]> = Observable.just(PersonInfo.allCases)
+    var tableItemInfo: Observable<[SectionModel]> { Observable.just(tableItems) }
+    
+    private let tableItems: [SectionModel] = [
+        .init(sectionName: PersonInfo.name.section, cellModels: [.init(infoType: .name, textFieldPlaceholder: PersonInfo.name.placeHolder)]),
+        .init(sectionName: PersonInfo.gender.section, cellModels: [.init(infoType: .gender, textFieldPlaceholder: PersonInfo.gender.placeHolder)]),
+        .init(sectionName: PersonInfo.birth.section, cellModels: [.init(infoType: .birth, textFieldPlaceholder: PersonInfo.birth.placeHolder)]),
+        .init(sectionName: PersonInfo.email.section, cellModels: [.init(infoType: .email, textFieldPlaceholder: PersonInfo.email.section)]),
+        .init(sectionName: PersonInfo.phone.section, cellModels: [.init(infoType: .phone, textFieldPlaceholder: PersonInfo.phone.placeHolder)])
+    ]
     
     //MARK: -Input、Output
     var input: PersonInfoInput { self }
-    var outout: PersonInfoOutput { self }
+    var output: PersonInfoOutput { self }
     
     //MARK: -Initialization
     init() {

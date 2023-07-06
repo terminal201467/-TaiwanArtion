@@ -121,6 +121,8 @@
 		97BD68572A5624D300F4BCAB /* PersonalFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68562A5624D300F4BCAB /* PersonalFileView.swift */; };
 		97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */; };
 		97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */; };
+		97BD685D2A563AD900F4BCAB /* BirthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685C2A563AD900F4BCAB /* BirthTableViewCell.swift */; };
+		97BD685F2A563AFD00F4BCAB /* GenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -274,6 +276,8 @@
 		97BD68562A5624D300F4BCAB /* PersonalFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileView.swift; sourceTree = "<group>"; };
 		97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
 		97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoViewModel.swift; sourceTree = "<group>"; };
+		97BD685C2A563AD900F4BCAB /* BirthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthTableViewCell.swift; sourceTree = "<group>"; };
+		97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderTableViewCell.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 				973C17AB2A2840A700581DC6 /* NotifyTableViewCell.swift */,
 				97506C262A3BF94200F6BB24 /* HintTableViewCell.swift */,
 				97506C322A403E0300F6BB24 /* StrengthTableViewCell.swift */,
+				97BD685C2A563AD900F4BCAB /* BirthTableViewCell.swift */,
+				97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -863,6 +869,7 @@
 				97506C2D2A3C28B400F6BB24 /* EmailVerifyView.swift in Sources */,
 				9771A1582A3A0B87006F4F9D /* UIButton.swift in Sources */,
 				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
+				97BD685F2A563AFD00F4BCAB /* GenderTableViewCell.swift in Sources */,
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
 				973C17B12A29623F00581DC6 /* SystemTableViewCell.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
@@ -894,6 +901,7 @@
 				973C17AA2A27456F00581DC6 /* Area.swift in Sources */,
 				973C17C22A29B7BA00581DC6 /* CalendarMonthTableViewCell.swift in Sources */,
 				973C17752A1F3A4400581DC6 /* ExhibitionCardItems.swift in Sources */,
+				97BD685D2A563AD900F4BCAB /* BirthTableViewCell.swift in Sources */,
 				9771A1482A39F0D4006F4F9D /* LittleTopPopUpView.swift in Sources */,
 				9771A1542A3A0970006F4F9D /* RegisterViewModel.swift in Sources */,
 				973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */,

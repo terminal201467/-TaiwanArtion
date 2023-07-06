@@ -11,6 +11,7 @@ target 'TaiwanArtion' do
   pod 'RxCocoa'
   pod 'RxRelay'
   pod 'RxGesture'
+  pod 'RxDataSources'
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
