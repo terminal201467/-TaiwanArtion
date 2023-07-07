@@ -79,7 +79,7 @@ class BirthTableViewCell: UITableViewCell {
     private lazy var birthStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [yearContainerView, dateContainerView])
         stackView.axis = .horizontal
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.distribution = .fillProportionally
         stackView.spacing = 5
         return stackView
@@ -120,9 +120,15 @@ class BirthTableViewCell: UITableViewCell {
             make.width.equalTo(32)
         }
         
+        yearChooseButton.snp.makeConstraints { make in
+            make.height.equalTo(32)
+            make.width.equalTo(32)
+        }
+        
         yearContainerView.addSubview(yearStack)
         yearStack.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-5)
             make.centerY.equalToSuperview()
             make.height.equalTo(32)
         }

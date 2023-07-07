@@ -123,6 +123,10 @@
 		97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */; };
 		97BD685D2A563AD900F4BCAB /* BirthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685C2A563AD900F4BCAB /* BirthTableViewCell.swift */; };
 		97BD685F2A563AFD00F4BCAB /* GenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */; };
+		97BD68612A56C7BA00F4BCAB /* SettingHeadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68602A56C7BA00F4BCAB /* SettingHeadViewController.swift */; };
+		97BD68632A56C7D300F4BCAB /* SettingHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68622A56C7D300F4BCAB /* SettingHeadView.swift */; };
+		97BD68652A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */; };
+		97BD68672A579C8700F4BCAB /* SettingHeadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -278,6 +282,10 @@
 		97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoViewModel.swift; sourceTree = "<group>"; };
 		97BD685C2A563AD900F4BCAB /* BirthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthTableViewCell.swift; sourceTree = "<group>"; };
 		97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderTableViewCell.swift; sourceTree = "<group>"; };
+		97BD68602A56C7BA00F4BCAB /* SettingHeadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeadViewController.swift; sourceTree = "<group>"; };
+		97BD68622A56C7D300F4BCAB /* SettingHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeadView.swift; sourceTree = "<group>"; };
+		97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeadViewModel.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -395,6 +403,7 @@
 				973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */,
 				973C17C32A2AF74800581DC6 /* SearchingCollectionViewCell.swift */,
 				973C17C72A2B405D00581DC6 /* ButtonCollectionViewCell.swift */,
+				97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */,
 				9771A15D2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
@@ -549,6 +558,7 @@
 				9771A14B2A3A08BE006F4F9D /* RegisterViewController.swift */,
 				97506C382A41986400F6BB24 /* RegisterSucceedViewController.swift */,
 				9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */,
+				97BD68602A56C7BA00F4BCAB /* SettingHeadViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -585,6 +595,7 @@
 				97506C302A3C46F600F6BB24 /* PasswordHintView.swift */,
 				97BD68562A5624D300F4BCAB /* PersonalFileView.swift */,
 				97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */,
+				97BD68622A56C7D300F4BCAB /* SettingHeadView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -601,6 +612,7 @@
 				97506C342A4048CC00F6BB24 /* AccountPasswordViewModel.swift */,
 				97506C362A41432D00F6BB24 /* EmailVerifyViewModel.swift */,
 				97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */,
+				97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -938,7 +950,9 @@
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
 				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
 				9771A15A2A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift in Sources */,
+				97BD68672A579C8700F4BCAB /* SettingHeadViewModel.swift in Sources */,
 				97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */,
+				97BD68612A56C7BA00F4BCAB /* SettingHeadViewController.swift in Sources */,
 				9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */,
 				9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */,
 				973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */,
@@ -953,6 +967,7 @@
 				973C17AC2A2840A700581DC6 /* NotifyTableViewCell.swift in Sources */,
 				9771A1522A3A0918006F4F9D /* WelcomeRegisterView.swift in Sources */,
 				976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */,
+				97BD68632A56C7D300F4BCAB /* SettingHeadView.swift in Sources */,
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
 				973C17B82A29921600581DC6 /* DateTableViewCell.swift in Sources */,
 				973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */,
@@ -968,6 +983,7 @@
 				973C17972A271B3800581DC6 /* EvaluateSucceedViewController.swift in Sources */,
 				97506C2F2A3C422300F6BB24 /* PasswordHintTableViewCell.swift in Sources */,
 				978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */,
+				97BD68652A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift in Sources */,
 				97506C252A3BEA1600F6BB24 /* RegisterEnum.swift in Sources */,
 				97506C292A3C278D00F6BB24 /* PhoneVerifyView.swift in Sources */,
 				97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */,
