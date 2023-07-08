@@ -111,4 +111,8 @@ class PersonalFileView: UIView {
             make.bottom.equalToSuperview()
         }
     }
+    
+    func configurePersonImageButton(image: Any) {
+        personImageButton.setImage(image is String ? .init(named: image as! String) : .init(data: image as! Data), for: .normal)
+    }
 }

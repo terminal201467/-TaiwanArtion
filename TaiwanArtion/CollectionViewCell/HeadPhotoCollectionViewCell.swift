@@ -33,11 +33,15 @@ class HeadPhotoCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(imageString: String) {
+    func configure(imageString: String, isSelected: Bool) {
         headImage.image = UIImage(named: imageString)
+        headImage.alpha = isSelected ? 0.5 : 1
+        headImage.addBorder(borderWidth: isSelected ? 0 : 1, borderColor: .brownColor)
     }
     
-    func configure(imageData: Data) {
+    func configure(imageData: Data, isSelected: Bool) {
         headImage.image = UIImage(data: imageData)
+        headImage.alpha = isSelected ? 0.5 : 1
+        headImage.addBorder(borderWidth: isSelected ? 0 : 1, borderColor: .brownColor)
     }
 }

@@ -11,7 +11,7 @@ import RxCocoa
 import RxRelay
 
 enum PhotoKinds: Int, CaseIterable {
-    case photos = 0, button
+    case hint = 0, photos , button
 }
 
 class SettingHeadViewController: UIViewController {
@@ -21,6 +21,8 @@ class SettingHeadViewController: UIViewController {
     private let viewModel = SettingHeadViewModel()
     
     private let disposeBag = DisposeBag()
+    
+    var selectedHeadPhoto: ((Any) -> ())?
     
     override func loadView() {
         super.loadView()
@@ -35,8 +37,8 @@ class SettingHeadViewController: UIViewController {
     
     private func setNavigationBar() {
         title = "設定大頭貼"
-        let backButton = UIBarButtonItem(image: .init(named: "back"), style: .plain, target: self, action: #selector(back))
-        navigationItem.backBarButtonItem = backButton
+        let backButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(back))
+        navigationItem.leftBarButtonItem = backButton
     }
     
     @objc private func back() {
@@ -51,11 +53,12 @@ class SettingHeadViewController: UIViewController {
 
 extension SettingHeadViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return PhotoKinds.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch PhotoKinds(rawValue: section) {
+        case .hint: return 1
         case .photos: return viewModel.output.headImagesObservable.value.count
         case .button: return 1
         case .none: return 0
@@ -63,8 +66,62 @@ extension SettingHeadViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadPhotoCollectionViewCell.reuseIdentifier, for: indexPath) as! HeadPhotoCollectionViewCell
-//        cell.configure(imageString: <#T##String#>)
-        return cell
+        switch PhotoKinds(rawValue: indexPath.section) {
+        case .hint:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HintCollectionViewCell.reuseIdentifier, for: indexPath) as! HintCollectionViewCell
+            cell.configure(hint: "選擇你喜歡的頭像或上傳你的照片")
+            return cell
+        case .photos:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadPhotoCollectionViewCell.reuseIdentifier, for: indexPath) as! HeadPhotoCollectionViewCell
+            let headImage = viewModel.output.headImagesObservable.value[indexPath.row]
+            let isSelected = viewModel.isCurrentSelectedIndex.value
+            headImage is String ? cell.configure(imageString: headImage as! String, isSelected: isSelected) : cell.configure(imageData: headImage as! Data, isSelected: isSelected)
+            return cell
+        case .button:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier, for: indexPath) as! ButtonCollectionViewCell
+            cell.configureRoundButton(isAllowToTap: viewModel.isAllowSavePhoto.value, buttonTitle: "儲存")
+            return cell
+        case .none: return UICollectionViewCell()
+
+        }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.input.selectedHeadImageIndex.onNext(indexPath)
+        if PhotoKinds(rawValue: indexPath.section) == .photos {
+           //如果選擇
+            //點按第一個，會跳到選擇圖片的頁面
+            if indexPath.row == 0 {
+                //推到選擇大頭貼的照片頁面
+//                selectedHeadPhoto?(<#Any#>)
+            } else {
+                viewModel.input.selectedHeadImageIndex.onNext(indexPath)
+                selectedHeadPhoto?(viewModel.output.storeHead.value)
+            }
+        }
+        collectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 16, left: 16, bottom: 16, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch PhotoKinds(rawValue: indexPath.section) {
+        case .hint:
+            let cellWidth = (collectionView.frame.width - 16 * 2)
+            let cellHeight = 40.0
+            return CGSize(width: cellWidth, height: cellHeight)
+        case .photos:
+            let cellSize = (collectionView.frame.width - 22 * 3) / 4
+            return CGSize(width: cellSize, height: cellSize)
+        case .button:
+            let cellWidth = (collectionView.frame.width - 16 * 2)
+            let cellHeight = 40.0
+            return CGSize(width: cellWidth, height: cellHeight)
+        case .none: return CGSize()
+        }
+    }
+    
+    
 }

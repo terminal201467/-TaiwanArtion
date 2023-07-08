@@ -127,6 +127,7 @@
 		97BD68632A56C7D300F4BCAB /* SettingHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68622A56C7D300F4BCAB /* SettingHeadView.swift */; };
 		97BD68652A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */; };
 		97BD68672A579C8700F4BCAB /* SettingHeadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */; };
+		97BD68692A59017500F4BCAB /* HintCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -286,6 +287,7 @@
 		97BD68622A56C7D300F4BCAB /* SettingHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeadView.swift; sourceTree = "<group>"; };
 		97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeadViewModel.swift; sourceTree = "<group>"; };
+		97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintCollectionViewCell.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				973C17C72A2B405D00581DC6 /* ButtonCollectionViewCell.swift */,
 				97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */,
 				9771A15D2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift */,
+				97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
 				9771A15C2A3A9237006F4F9D /* WelcomeRegisterFooterView.swift in Sources */,
 				973C17952A2717EA00581DC6 /* CompleteSucceedView.swift in Sources */,
+				97BD68692A59017500F4BCAB /* HintCollectionViewCell.swift in Sources */,
 				973C178B2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift in Sources */,
 				973C17912A25F0D900581DC6 /* EvaluateView.swift in Sources */,
 				973C17BE2A29937B00581DC6 /* DateCollectionViewCell.swift in Sources */,

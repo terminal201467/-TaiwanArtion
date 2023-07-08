@@ -19,6 +19,8 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     private let viewModel = PersonInfoViewModel()
     
     private let disposeBag = DisposeBag()
+    
+    private let settingHeadViewController = SettingHeadViewController()
 
     //MARK: - LifeCycle
     override func loadView() {
@@ -30,6 +32,7 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         setNavigationBar()
         setTable()
+        setHeadButton()
     }
     
     private func setNavigationBar() {
@@ -43,51 +46,14 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-//    private func setTableView() {
-//        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel> { dataSource, tableView, indexPath, item in
-//            switch item.infoType {
-//            case .name:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier) as! InputTextFieldTableViewCell
-//                cell.generalConfigure(placeholdText: item.infoType.placeHolder)
-//                cell.inputAction = { self.viewModel.nameInput.accept($0) }
-//                return cell
-//            case .gender:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: GenderTableViewCell.reuseIdentifier) as! GenderTableViewCell
-//                cell.configure(gender: nil)
-//                return cell
-//            case .birth:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: BirthTableViewCell.reuseIdentifier) as! BirthTableViewCell
-//                cell.configure(year: nil, date: nil)
-//                return cell
-//            case .email:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier) as! InputTextFieldTableViewCell
-//                cell.generalConfigure(placeholdText: item.infoType.placeHolder)
-//                cell.inputAction = { self.viewModel.emailInput.accept($0) }
-//                return cell
-//            case .phone:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier) as! InputTextFieldTableViewCell
-//                cell.generalConfigure(placeholdText: item.infoType.placeHolder)
-//                cell.inputAction = { self.viewModel.phoneInput.accept($0) }
-//                return cell
-//            case .save:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier) as! ButtonTableViewCell
-//                self.viewModel.saveCheck.subscribe { isAllowSaved in
-//                    cell.button.isEnabled = isAllowSaved ? true : false
-//                    cell.button.backgroundColor = isAllowSaved ? .brownColor : .whiteGrayColor
-//                }
-//                cell.action = { self.viewModel.saveAction.onNext(()) }
-//                return cell
-//            }
-//        }
-//
-//        dataSource.titleForHeaderInSection = { ds, index in
-//            return ds.sectionModels[index].sectionName
-//         }
-//
-//        viewModel.output.tableItemInfo
-//            .bind(to: personInfoView.tableView.rx.items(dataSource: dataSource))
-//            .disposed(by: disposeBag)
-//    }
+    private func setHeadButton() {
+        settingHeadViewController.selectedHeadPhoto = { photo in
+            self.personFileView.configurePersonImageButton(image: photo)
+        }
+        personFileView.changePhoto = {
+            self.navigationController?.pushViewController(self.settingHeadViewController, animated: true)
+        }
+    }
     
     private func setTable() {
         personFileView.tableContainerView.addSubview(personInfoView)
