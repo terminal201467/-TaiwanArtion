@@ -57,6 +57,11 @@ class HeadPhotoCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func configure(imageString: String) {
+        headImage.image = UIImage(named: imageString)
+        headImage.alpha = 1
+    }
+    
     func configure(imageData: Data, isSelected: Bool?) {
         if isSelected == nil {
             headImage.image = UIImage(data: imageData)

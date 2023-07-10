@@ -15,6 +15,7 @@ protocol SettingHeadViewModelInput {
     var selectedHeadImageIndex: PublishSubject<IndexPath> { get }
     var selectedNewPhoto: PublishSubject<Data> { get }
     var savePhoto: PublishSubject<Void> { get }
+    var resetHead: PublishSubject<Void> { get }
     //輸入暫存的圖片檔案Data
 }
 
@@ -41,6 +42,7 @@ class SettingHeadViewModel: SettingHeadViewModelInput, SettingHeadViewModelOutpu
     var selectedHeadImageIndex: PublishSubject<IndexPath> = PublishSubject()
     var savePhoto: PublishSubject<Void> = PublishSubject()
     var selectedNewPhoto: PublishSubject<Data> = PublishSubject()
+    var resetHead: PublishSubject<Void> = PublishSubject()
     
     //Output
     var storeHead: BehaviorRelay<Any?> = BehaviorRelay(value: nil)
@@ -70,6 +72,7 @@ class SettingHeadViewModel: SettingHeadViewModelInput, SettingHeadViewModelOutpu
             .subscribe(onNext: { indexPath in
                 self.storeHead.accept(self.headImagesObservable.value[indexPath.row])
                 self.currentPhotoIndexPath = indexPath
+                self.isAllowSelected()
             })
             .disposed(by: disposeBag)
         
@@ -85,11 +88,22 @@ class SettingHeadViewModel: SettingHeadViewModelInput, SettingHeadViewModelOutpu
             //存進去Firebase
         })
         .disposed(by: disposeBag)
+        
+        resetHead
+            .subscribe(onNext: {
+                self.resetSelected()
+            })
+            .disposed(by: disposeBag)
+        
         self.isAllowSelected()
     }
     
     private func isAllowSelected() {
-        isAllowSavePhoto.accept(headImagesObservable.value.isEmpty ? true : false)
+        isAllowSavePhoto.accept(currentPhotoIndexPath == nil ? false: true)
+    }
+    
+    private func resetSelected() {
+        storeHead.accept(nil)
     }
     
     private func cellForRowAt(indexPath: IndexPath) {

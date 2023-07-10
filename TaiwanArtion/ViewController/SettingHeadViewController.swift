@@ -42,6 +42,10 @@ class SettingHeadViewController: UIViewController {
     }
     
     @objc private func back() {
+        if viewModel.output.storeHead.value != nil {
+            viewModel.input.resetHead.onNext(())
+            selectedHeadPhoto?("defaultPeronImage")
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -76,15 +80,23 @@ extension SettingHeadViewController: UICollectionViewDelegateFlowLayout, UIColle
             let acceptIndex = viewModel.input.inputCellForRowAt.accept(indexPath)
             let headImage = viewModel.output.outputCellContentForRowAt.value
             let isSelected = viewModel.output.outputCellSelectedForRowAt.value
-            print("isSelected:\(isSelected)")
-            headImage is String ? cell.configure(imageString: headImage as! String, isSelected: isSelected) : cell.configure(imageData: headImage as! Data, isSelected: isSelected)
+            if indexPath.row == 0 {
+                cell.configure(imageString: headImage as! String)
+            } else {
+                headImage is String ? cell.configure(imageString: headImage as! String, isSelected: isSelected) : cell.configure(imageData: headImage as! Data, isSelected: isSelected)
+            }
             return cell
         case .button:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier, for: indexPath) as! ButtonCollectionViewCell
-            cell.configureRoundButton(isAllowToTap: viewModel.isAllowSavePhoto.value, buttonTitle: "儲存")
+            viewModel.output.isAllowSavePhoto.subscribe { allowed in
+                cell.configureRoundButton(isAllowToTap: allowed, buttonTitle: "儲存")
+            }
+            cell.action = {
+                self.viewModel.input.savePhoto.onNext(())
+                self.navigationController?.popViewController(animated: true)
+            }
             return cell
         case .none: return UICollectionViewCell()
-
         }
     }
     
