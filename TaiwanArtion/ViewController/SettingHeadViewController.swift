@@ -73,8 +73,10 @@ extension SettingHeadViewController: UICollectionViewDelegateFlowLayout, UIColle
             return cell
         case .photos:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadPhotoCollectionViewCell.reuseIdentifier, for: indexPath) as! HeadPhotoCollectionViewCell
-            let headImage = viewModel.output.headImagesObservable.value[indexPath.row]
-            let isSelected = viewModel.isCurrentSelectedIndex.value
+            let acceptIndex = viewModel.input.inputCellForRowAt.accept(indexPath)
+            let headImage = viewModel.output.outputCellContentForRowAt.value
+            let isSelected = viewModel.output.outputCellSelectedForRowAt.value
+            print("isSelected:\(isSelected)")
             headImage is String ? cell.configure(imageString: headImage as! String, isSelected: isSelected) : cell.configure(imageData: headImage as! Data, isSelected: isSelected)
             return cell
         case .button:

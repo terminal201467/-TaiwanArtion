@@ -14,7 +14,14 @@ class HeadPhotoCollectionViewCell: UICollectionViewCell {
     private let headImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.roundCorners(cornerRadius: 10)
         return imageView
+    }()
+    
+    let imageMaskView: UIView = {
+       let view = UIView()
+        view.roundCorners(cornerRadius: 10)
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -31,17 +38,34 @@ class HeadPhotoCollectionViewCell: UICollectionViewCell {
         headImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        contentView.addSubview(imageMaskView)
+        imageMaskView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
-    func configure(imageString: String, isSelected: Bool) {
-        headImage.image = UIImage(named: imageString)
-        headImage.alpha = isSelected ? 0.5 : 1
-        headImage.addBorder(borderWidth: isSelected ? 0 : 1, borderColor: .brownColor)
+    func configure(imageString: String, isSelected: Bool?) {
+        if isSelected == nil {
+            headImage.image = UIImage(named: imageString)
+            headImage.alpha = 1
+            imageMaskView.addBorder(borderWidth: 0, borderColor: .brownColor)
+        } else {
+            headImage.image = UIImage(named: imageString)
+            headImage.alpha = isSelected! ? 0.5 : 1
+            imageMaskView.addBorder(borderWidth: isSelected! ? 2 : 0, borderColor: .brownColor)
+        }
     }
     
-    func configure(imageData: Data, isSelected: Bool) {
-        headImage.image = UIImage(data: imageData)
-        headImage.alpha = isSelected ? 0.5 : 1
-        headImage.addBorder(borderWidth: isSelected ? 0 : 1, borderColor: .brownColor)
+    func configure(imageData: Data, isSelected: Bool?) {
+        if isSelected == nil {
+            headImage.image = UIImage(data: imageData)
+            headImage.alpha = 1
+            imageMaskView.addBorder(borderWidth: 0, borderColor: .brownColor)
+        } else {
+            headImage.image = UIImage(data: imageData)
+            headImage.alpha = isSelected! ? 0.5 : 1
+            imageMaskView.addBorder(borderWidth: isSelected! ? 2 : 0, borderColor: .brownColor)
+        }
     }
 }

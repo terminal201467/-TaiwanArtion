@@ -11,6 +11,7 @@ import RxCocoa
 import RxRelay
 
 protocol SettingHeadViewModelInput {
+    var inputCellForRowAt: BehaviorRelay<IndexPath> { get }
     var selectedHeadImageIndex: PublishSubject<IndexPath> { get }
     var selectedNewPhoto: PublishSubject<Data> { get }
     var savePhoto: PublishSubject<Void> { get }
@@ -18,6 +19,8 @@ protocol SettingHeadViewModelInput {
 }
 
 protocol SettingHeadViewModelOutput {
+    var outputCellContentForRowAt: BehaviorRelay<Any> { get }
+    var outputCellSelectedForRowAt: BehaviorRelay<Bool?> { get }
     var headImagesObservable: BehaviorRelay<[Any]> { get }
     var isAllowSavePhoto: BehaviorRelay<Bool> { get }
     var storeHead: BehaviorRelay<Any?> { get }
@@ -30,10 +33,11 @@ protocol SettingHeadViewModelType {
 }
 
 class SettingHeadViewModel: SettingHeadViewModelInput, SettingHeadViewModelOutput, SettingHeadViewModelType {
-    
+
     private let disposeBag = DisposeBag()
     
     //Input
+    var inputCellForRowAt: BehaviorRelay<IndexPath> = BehaviorRelay(value: [0, 0])
     var selectedHeadImageIndex: PublishSubject<IndexPath> = PublishSubject()
     var savePhoto: PublishSubject<Void> = PublishSubject()
     var selectedNewPhoto: PublishSubject<Data> = PublishSubject()
@@ -43,10 +47,12 @@ class SettingHeadViewModel: SettingHeadViewModelInput, SettingHeadViewModelOutpu
     var isAllowSavePhoto: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var headImagesObservable: BehaviorRelay<[Any]> { BehaviorRelay(value: defaultPhotos) }
     var isCurrentSelectedIndex: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var outputCellContentForRowAt: BehaviorRelay<Any> = BehaviorRelay(value: "")
+    var outputCellSelectedForRowAt: BehaviorRelay<Bool?> = BehaviorRelay(value: nil)
     
-    private var currentPhotoIndexPath: IndexPath? = nil
+    private var currentPhotoIndexPath: IndexPath?
     
-    private let defaultPhotos: [Any] = ["takePhoto", "bigHead01", "bigHead02", "bigHead03", "bigHead04", "bigHead05", "bigHead06", "bigHead07", "bigHead08", "bigHead09"]
+    private var defaultPhotos: [String] = ["takePhoto", "bigHead01", "bigHead02", "bigHead03", "bigHead04", "bigHead05", "bigHead06", "bigHead07", "bigHead08", "bigHead09"]
     
     //MARK: - input、output
     var input: SettingHeadViewModelInput { self }
@@ -54,10 +60,16 @@ class SettingHeadViewModel: SettingHeadViewModelInput, SettingHeadViewModelOutpu
     
     init() {
         //input
+        inputCellForRowAt
+            .subscribe { indexPath in
+                self.cellForRowAt(indexPath: indexPath)
+            }
+            .disposed(by: disposeBag)
+        
         selectedHeadImageIndex
             .subscribe(onNext: { indexPath in
                 self.storeHead.accept(self.headImagesObservable.value[indexPath.row])
-                self.isCurrentSelectedIndex.accept(self.currentPhotoIndexPath == indexPath)
+                self.currentPhotoIndexPath = indexPath
             })
             .disposed(by: disposeBag)
         
@@ -78,5 +90,17 @@ class SettingHeadViewModel: SettingHeadViewModelInput, SettingHeadViewModelOutpu
     
     private func isAllowSelected() {
         isAllowSavePhoto.accept(headImagesObservable.value.isEmpty ? true : false)
+    }
+    
+    private func cellForRowAt(indexPath: IndexPath) {
+        let cellContent = defaultPhotos[indexPath.row]
+        var isSelected: Bool?
+        if currentPhotoIndexPath == nil {
+            isSelected = nil
+        } else {
+            isSelected = defaultPhotos[indexPath.row] == defaultPhotos[currentPhotoIndexPath!.row]
+        }
+        outputCellContentForRowAt.accept(cellContent)
+        outputCellSelectedForRowAt.accept(isSelected)
     }
 }
