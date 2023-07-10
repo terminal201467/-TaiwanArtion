@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class GenderTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "GenderTableViewCell"
+    
+    var action: (() -> Void)?
+    
+    private let disposeBag = DisposeBag()
 
-    private let containerView: UIView = {
+    let containerView: UIView = {
         let view = UIView()
         view.roundCorners(cornerRadius: 10)
         view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
@@ -42,10 +48,19 @@ class GenderTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         autoLayout()
+        setButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setButton() {
+        chooseButton.rx.tap
+            .subscribe(onNext: {
+                self.action?()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {
@@ -70,7 +85,7 @@ class GenderTableViewCell: UITableViewCell {
     }
     
     func configure(gender: String?) {
-        genderLabel.text = gender == nil ? "請選擇你的性別" : gender
+        genderLabel.text = gender == nil ? "請選擇你的性別" : gender!
         genderLabel.textColor = gender == nil ? .grayTextColor : .black
     }
 }

@@ -128,6 +128,10 @@
 		97BD68652A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */; };
 		97BD68672A579C8700F4BCAB /* SettingHeadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */; };
 		97BD68692A59017500F4BCAB /* HintCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */; };
+		97BD686B2A5BBCFE00F4BCAB /* YearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD686A2A5BBCFE00F4BCAB /* YearView.swift */; };
+		97BD686D2A5BBD0F00F4BCAB /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD686C2A5BBD0F00F4BCAB /* GenderView.swift */; };
+		97BD686F2A5BC02500F4BCAB /* YearCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */; };
+		97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68712A5BE3A700F4BCAB /* DateInterface.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -288,6 +292,10 @@
 		97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeadViewModel.swift; sourceTree = "<group>"; };
 		97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintCollectionViewCell.swift; sourceTree = "<group>"; };
+		97BD686A2A5BBCFE00F4BCAB /* YearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearView.swift; sourceTree = "<group>"; };
+		97BD686C2A5BBD0F00F4BCAB /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
+		97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCellTableViewCell.swift; sourceTree = "<group>"; };
+		97BD68712A5BE3A700F4BCAB /* DateInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInterface.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -446,6 +454,7 @@
 				97506C322A403E0300F6BB24 /* StrengthTableViewCell.swift */,
 				97BD685C2A563AD900F4BCAB /* BirthTableViewCell.swift */,
 				97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */,
+				97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -466,6 +475,14 @@
 				97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		97BD68702A5BE38100F4BCAB /* DateInterface */ = {
+			isa = PBXGroup;
+			children = (
+				97BD68712A5BE3A700F4BCAB /* DateInterface.swift */,
+			);
+			path = DateInterface;
 			sourceTree = "<group>";
 		};
 		97D669E92A0C6C3600A25935 = {
@@ -497,6 +514,7 @@
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
 				976A03092A0E790B00424ACF /* UserManager.swift */,
+				97BD68702A5BE38100F4BCAB /* DateInterface */,
 				9771A15F2A3AC2A0006F4F9D /* Firebase */,
 				973C17B22A2989FF00581DC6 /* CustomObject */,
 				973C17A62A2744E900581DC6 /* Enum */,
@@ -599,6 +617,8 @@
 				97BD68562A5624D300F4BCAB /* PersonalFileView.swift */,
 				97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */,
 				97BD68622A56C7D300F4BCAB /* SettingHeadView.swift */,
+				97BD686A2A5BBCFE00F4BCAB /* YearView.swift */,
+				97BD686C2A5BBD0F00F4BCAB /* GenderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -879,6 +899,7 @@
 				973C17952A2717EA00581DC6 /* CompleteSucceedView.swift in Sources */,
 				97BD68692A59017500F4BCAB /* HintCollectionViewCell.swift in Sources */,
 				973C178B2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift in Sources */,
+				97BD686B2A5BBCFE00F4BCAB /* YearView.swift in Sources */,
 				973C17912A25F0D900581DC6 /* EvaluateView.swift in Sources */,
 				973C17BE2A29937B00581DC6 /* DateCollectionViewCell.swift in Sources */,
 				973C17932A26D56200581DC6 /* SliderTableViewCell.swift in Sources */,
@@ -893,6 +914,7 @@
 				973C17A12A273CDD00581DC6 /* SearchView.swift in Sources */,
 				978834B72A1B8DE700ADBEE8 /* TimeHelper.swift in Sources */,
 				978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */,
+				97BD686F2A5BC02500F4BCAB /* YearCellTableViewCell.swift in Sources */,
 				978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */,
 				97506C392A41986400F6BB24 /* RegisterSucceedViewController.swift in Sources */,
 				973C17832A23907100581DC6 /* ScoreTableViewCell.swift in Sources */,
@@ -963,6 +985,7 @@
 				9771A1462A39F081006F4F9D /* PopUpInterface.swift in Sources */,
 				9771A15E2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
+				97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */,
 				97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */,
 				973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */,
 				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
@@ -978,6 +1001,7 @@
 				973C178D2A24A62400581DC6 /* AllCommentHeaderView.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
 				973C177F2A20B5F300581DC6 /* ButtonTableViewCell.swift in Sources */,
+				97BD686D2A5BBD0F00F4BCAB /* GenderView.swift in Sources */,
 				97506C232A3AC5F600F6BB24 /* InputTextFieldTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
 				973C17A32A273CF500581DC6 /* SearchViewController.swift in Sources */,

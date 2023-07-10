@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class BirthTableViewCell: UITableViewCell {
     
@@ -62,7 +63,7 @@ class BirthTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private let yearContainerView: UIView = {
+    let yearContainerView: UIView = {
        let view = UIView()
         view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         view.roundCorners(cornerRadius: 10)
