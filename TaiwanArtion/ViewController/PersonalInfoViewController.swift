@@ -115,50 +115,22 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
             cell.inputAction = { self.viewModel.nameInput.accept($0) }
             return cell
         case .gender:
-            let genderView: GenderView = {
-                let view = GenderView()
-                view.roundCorners(cornerRadius: 12)
-                view.addBorder(borderWidth: 2, borderColor: .whiteGrayColor)
-                view.isHidden = true
-                return view
-            }()
             let cell = tableView.dequeueReusableCell(withIdentifier: GenderTableViewCell.reuseIdentifier) as! GenderTableViewCell
             cell.configure(gender: nil)
-            genderView.selectedGender = { cell.configure(gender: $0) }
-            cell.containerView.addSubview(genderView)
-            genderView.snp.makeConstraints { make in
-                make.leading.equalTo(cell.containerView.snp.leading)
-                make.trailing.equalTo(cell.containerView.snp.trailing)
-                make.top.equalTo(cell.containerView.snp.bottom)
-                make.height.equalToSuperview().multipliedBy(2.0)
-            }
+            personInfoView.genderView.selectedGender = { cell.configure(gender: $0) }
             cell.action = {
-                genderView.isHidden.toggle()
+                
             }
             return cell
         case .birth:
             let cell = tableView.dequeueReusableCell(withIdentifier: BirthTableViewCell.reuseIdentifier) as! BirthTableViewCell
-            let yearView: YearView = {
-               let view = YearView()
-                view.roundCorners(cornerRadius: 12)
-                view.addBorder(borderWidth: 2, borderColor: .whiteGrayColor)
-                view.isHidden = true
-                return view
-            }()
-            yearView.selectedYear = { cell.configure(year: $0, date: nil) }
+            personInfoView.yearView.selectedYear = { cell.configure(year: $0, date: nil) }
             cell.configure(year: nil, date: nil)
-            cell.yearContainerView.addSubview(yearView)
-            yearView.snp.makeConstraints { make in
-                make.leading.equalTo(cell.yearContainerView.snp.leading)
-                make.top.equalTo(cell.yearContainerView.snp.bottom)
-                make.trailing.equalTo(cell.yearContainerView.snp.trailing)
-                make.height.equalToSuperview().multipliedBy(5.0)
-            }
             cell.chooseDateAction = {
                 //彈出遮罩、月曆
             }
             cell.chooseYearAction = {
-                yearView.isHidden.toggle()
+ 
             }
             return cell
         case .email:
@@ -182,6 +154,35 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
             cell.action = { self.viewModel.saveAction.onNext(()) }
             return cell
         case .none: return UITableViewCell()
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if PersonInfo(rawValue: indexPath.section) == .gender {
+            guard let genderCell = cell as? GenderTableViewCell else { return }
+            personInfoView.genderView.snp.makeConstraints { make in
+                make.top.equalTo(genderCell.containerView.snp.bottom)
+                make.leading.equalTo(genderCell.containerView.snp.leading)
+                make.trailing.equalTo(genderCell.containerView.snp.trailing)
+                make.height.equalTo(genderCell.containerView.snp.height).multipliedBy(2.0)
+            }
+            genderCell.action = {
+                self.personInfoView.genderView.isHidden.toggle()
+            }
+        }
+        
+        if PersonInfo(rawValue: indexPath.section) == .birth {
+            guard let birthCell = cell as? BirthTableViewCell else { return }
+            personInfoView.yearView.snp.makeConstraints { make in
+                make.top.equalTo(birthCell.yearContainerView.snp.bottom)
+                make.leading.equalTo(birthCell.yearContainerView.snp.leading)
+                make.trailing.equalTo(birthCell.yearContainerView.snp.trailing)
+                make.height.equalTo(birthCell.yearContainerView.snp.height).multipliedBy(5.0)
+            }
+            birthCell.chooseYearAction = {
+                self.personInfoView.yearView.isHidden.toggle()
+            }
         }
     }
 }

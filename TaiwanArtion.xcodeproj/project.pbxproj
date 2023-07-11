@@ -60,6 +60,8 @@
 		973C17CA2A2C191F00581DC6 /* FilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C92A2C191F00581DC6 /* FilterCondition.swift */; };
 		973C17CE2A2C69F300581DC6 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17CD2A2C69F300581DC6 /* SearchResultTableViewCell.swift */; };
 		973C17D02A2EBD9F00581DC6 /* UnSearchModeChooseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17CF2A2EBD9F00581DC6 /* UnSearchModeChooseTableViewCell.swift */; };
+		973C836C2A5D308F00490D25 /* DropMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C836B2A5D308F00490D25 /* DropMenu.swift */; };
+		973C836E2A5D3FEA00490D25 /* GenderInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C836D2A5D3FEA00490D25 /* GenderInfoCell.swift */; };
 		97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */; };
 		97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */; };
 		97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */; };
@@ -95,7 +97,6 @@
 		976A032F2A15CE3500424ACF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A032E2A15CE3500424ACF /* Model.swift */; };
 		976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */; };
 		976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03322A15D9A200424ACF /* MainPhotosCollectionViewCell.swift */; };
-		9771A1462A39F081006F4F9D /* PopUpInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771A1452A39F081006F4F9D /* PopUpInterface.swift */; };
 		9771A1482A39F0D4006F4F9D /* LittleTopPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771A1472A39F0D4006F4F9D /* LittleTopPopUpView.swift */; };
 		9771A14A2A39F0F1006F4F9D /* BottomUpPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771A1492A39F0F1006F4F9D /* BottomUpPopUpView.swift */; };
 		9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771A14B2A3A08BE006F4F9D /* RegisterViewController.swift */; };
@@ -224,6 +225,8 @@
 		973C17C92A2C191F00581DC6 /* FilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCondition.swift; sourceTree = "<group>"; };
 		973C17CD2A2C69F300581DC6 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		973C17CF2A2EBD9F00581DC6 /* UnSearchModeChooseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnSearchModeChooseTableViewCell.swift; sourceTree = "<group>"; };
+		973C836B2A5D308F00490D25 /* DropMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropMenu.swift; sourceTree = "<group>"; };
+		973C836D2A5D3FEA00490D25 /* GenderInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderInfoCell.swift; sourceTree = "<group>"; };
 		97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVerifyTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -259,7 +262,6 @@
 		976A032E2A15CE3500424ACF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		976A03302A15D86800424ACF /* MainPhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotosTableViewCell.swift; sourceTree = "<group>"; };
 		976A03322A15D9A200424ACF /* MainPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
-		9771A1452A39F081006F4F9D /* PopUpInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpInterface.swift; sourceTree = "<group>"; };
 		9771A1472A39F0D4006F4F9D /* LittleTopPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleTopPopUpView.swift; sourceTree = "<group>"; };
 		9771A1492A39F0F1006F4F9D /* BottomUpPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomUpPopUpView.swift; sourceTree = "<group>"; };
 		9771A14B2A3A08BE006F4F9D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -364,8 +366,8 @@
 		973C17712A1F31D700581DC6 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				9771A1452A39F081006F4F9D /* PopUpInterface.swift */,
 				9771A1472A39F0D4006F4F9D /* LittleTopPopUpView.swift */,
+				973C836B2A5D308F00490D25 /* DropMenu.swift */,
 				9771A1492A39F0F1006F4F9D /* BottomUpPopUpView.swift */,
 			);
 			path = Alert;
@@ -454,6 +456,7 @@
 				97506C322A403E0300F6BB24 /* StrengthTableViewCell.swift */,
 				97BD685C2A563AD900F4BCAB /* BirthTableViewCell.swift */,
 				97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */,
+				973C836D2A5D3FEA00490D25 /* GenderInfoCell.swift */,
 				97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */,
 			);
 			path = TableViewCell;
@@ -931,6 +934,7 @@
 				973C17892A2444F300581DC6 /* LikeCommentFooter.swift in Sources */,
 				97506C332A403E0300F6BB24 /* StrengthTableViewCell.swift in Sources */,
 				9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */,
+				973C836C2A5D308F00490D25 /* DropMenu.swift in Sources */,
 				97506C312A3C46F600F6BB24 /* PasswordHintView.swift in Sources */,
 				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
 				97506C2B2A3C28A400F6BB24 /* AccountPasswordView.swift in Sources */,
@@ -982,12 +986,12 @@
 				9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */,
 				9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */,
 				973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */,
-				9771A1462A39F081006F4F9D /* PopUpInterface.swift in Sources */,
 				9771A15E2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
 				97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */,
 				97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */,
 				973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */,
+				973C836E2A5D3FEA00490D25 /* GenderInfoCell.swift in Sources */,
 				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
 				973C17992A2720E100581DC6 /* NotifyViewController.swift in Sources */,

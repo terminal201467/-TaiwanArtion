@@ -17,7 +17,7 @@ class GenderView: UIView {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(GenderInfoCell.self, forCellReuseIdentifier: GenderInfoCell.reuseIdentifier)
         tableView.allowsSelection = true
         tableView.backgroundColor = .white
         return tableView
@@ -52,10 +52,9 @@ extension GenderView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: GenderInfoCell.reuseIdentifier, for: indexPath) as! GenderInfoCell
         let isSelected = genders[indexPath.row] == currentSelectedGender
-        cell.textLabel?.text = genders[indexPath.row]
-        cell.textLabel?.textColor = isSelected ? .brownColor : .black
+        cell.configure(info: genders[indexPath.row], isSelected: isSelected)
         return cell
     }
     

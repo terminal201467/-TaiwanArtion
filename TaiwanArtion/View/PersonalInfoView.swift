@@ -26,6 +26,29 @@ class PersonalInfoView: UIView {
         return tableView
     }()
     
+    let dropDownContainerView: UIView = {
+        let view = UIView()
+        view.roundCorners(cornerRadius: 12)
+        view.addBorder(borderWidth: 2, borderColor: .whiteGrayColor)
+        return view
+    }()
+    
+    let genderView: GenderView = {
+        let view = GenderView()
+        view.roundCorners(cornerRadius: 12)
+        view.addBorder(borderWidth: 2, borderColor: .whiteGrayColor)
+        view.isHidden = true
+        return view
+    }()
+    
+    let yearView: YearView = {
+        let view = YearView()
+        view.roundCorners(cornerRadius: 12)
+        view.addBorder(borderWidth: 2, borderColor: .whiteGrayColor)
+        view.isHidden = true
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
@@ -40,5 +63,8 @@ class PersonalInfoView: UIView {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        addSubview(genderView)
+        addSubview(yearView)
     }
 }
