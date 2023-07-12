@@ -20,6 +20,10 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     private let disposeBag = DisposeBag()
     
+    private let popUpInterface = PopUpInterface()
+    
+    private let calendarView = CalendarPopUpView()
+    
     private let settingHeadViewController = SettingHeadViewController()
 
     //MARK: - LifeCycle
@@ -118,19 +122,13 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: GenderTableViewCell.reuseIdentifier) as! GenderTableViewCell
             cell.configure(gender: nil)
             personInfoView.genderView.selectedGender = { cell.configure(gender: $0) }
-            cell.action = {
-                
-            }
             return cell
         case .birth:
             let cell = tableView.dequeueReusableCell(withIdentifier: BirthTableViewCell.reuseIdentifier) as! BirthTableViewCell
             personInfoView.yearView.selectedYear = { cell.configure(year: $0, date: nil) }
             cell.configure(year: nil, date: nil)
             cell.chooseDateAction = {
-                //彈出遮罩、月曆
-            }
-            cell.chooseYearAction = {
- 
+                self.popUpInterface.popUp(in: self.personInfoView, popUpView: self.calendarView)
             }
             return cell
         case .email:
