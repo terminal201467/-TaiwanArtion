@@ -12,7 +12,7 @@ class CalendarPopUpView: UIView {
     
     private let backgroundView: UIView = {
        let view = UIView()
-        view.alpha = 0.5
+        view.alpha = 0.3
         view.backgroundColor = .black
         return view
     }()
@@ -23,6 +23,8 @@ class CalendarPopUpView: UIView {
         view.roundCorners(cornerRadius: 12)
         return view
     }()
+    
+    private let calendar = CustomCalendar()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +47,11 @@ class CalendarPopUpView: UIView {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        
+        calendarContainerView.addSubview(calendar)
+        calendar.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }

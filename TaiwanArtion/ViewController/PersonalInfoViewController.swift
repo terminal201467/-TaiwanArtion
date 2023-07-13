@@ -20,11 +20,17 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     private let disposeBag = DisposeBag()
     
-    private let popUpInterface = PopUpInterface()
-    
     private let calendarView = CalendarPopUpView()
     
     private let settingHeadViewController = SettingHeadViewController()
+    
+    private let popUpViewController: PopUpViewController = {
+        let calendarPopUpView = CalendarPopUpView()
+        let popUpViewController = PopUpViewController(popUpView: calendarPopUpView)
+        popUpViewController.modalPresentationStyle = .overFullScreen
+        popUpViewController.modalTransitionStyle = .coverVertical
+        return popUpViewController
+    }()
 
     //MARK: - LifeCycle
     override func loadView() {
@@ -128,7 +134,7 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
             personInfoView.yearView.selectedYear = { cell.configure(year: $0, date: nil) }
             cell.configure(year: nil, date: nil)
             cell.chooseDateAction = {
-                self.popUpInterface.popUp(in: self.personInfoView, popUpView: self.calendarView)
+                self.present(self.popUpViewController, animated: true)
             }
             return cell
         case .email:
