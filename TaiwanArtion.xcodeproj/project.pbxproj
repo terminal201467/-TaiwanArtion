@@ -66,6 +66,10 @@
 		973C83762A5F735100490D25 /* TitleMonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C83752A5F735100490D25 /* TitleMonthCollectionViewCell.swift */; };
 		973C83782A5F796300490D25 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C83772A5F796300490D25 /* CustomCalendar.swift */; };
 		973C837A2A5F80D000490D25 /* CustomCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C83792A5F80D000490D25 /* CustomCalendarViewModel.swift */; };
+		973C837C2A5FBA6C00490D25 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C837B2A5FBA6C00490D25 /* LoginViewController.swift */; };
+		973C837E2A5FBA7B00490D25 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C837D2A5FBA7B00490D25 /* LoginView.swift */; };
+		973C83802A5FCBCB00490D25 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */; };
+		973C83822A5FDFBC00490D25 /* NotMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */; };
 		97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */; };
 		97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */; };
 		97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */; };
@@ -235,6 +239,10 @@
 		973C83752A5F735100490D25 /* TitleMonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMonthCollectionViewCell.swift; sourceTree = "<group>"; };
 		973C83772A5F796300490D25 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		973C83792A5F80D000490D25 /* CustomCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarViewModel.swift; sourceTree = "<group>"; };
+		973C837B2A5FBA6C00490D25 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		973C837D2A5FBA7B00490D25 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotMemberTableViewCell.swift; sourceTree = "<group>"; };
 		97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVerifyTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -470,6 +478,7 @@
 				97BD685E2A563AFD00F4BCAB /* GenderTableViewCell.swift */,
 				973C836D2A5D3FEA00490D25 /* GenderInfoCell.swift */,
 				97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */,
+				973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -595,6 +604,7 @@
 				97506C382A41986400F6BB24 /* RegisterSucceedViewController.swift */,
 				9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */,
 				97BD68602A56C7BA00F4BCAB /* SettingHeadViewController.swift */,
+				973C837B2A5FBA6C00490D25 /* LoginViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -634,6 +644,7 @@
 				97BD68622A56C7D300F4BCAB /* SettingHeadView.swift */,
 				97BD686A2A5BBCFE00F4BCAB /* YearView.swift */,
 				97BD686C2A5BBD0F00F4BCAB /* GenderView.swift */,
+				973C837D2A5FBA7B00490D25 /* LoginView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -651,6 +662,7 @@
 				97506C362A41432D00F6BB24 /* EmailVerifyViewModel.swift */,
 				97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */,
 				97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */,
+				973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -965,6 +977,7 @@
 				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
 				973C17872A2431C400581DC6 /* StarCollectionViewCell.swift in Sources */,
+				973C837C2A5FBA6C00490D25 /* LoginViewController.swift in Sources */,
 				976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */,
 				973C83782A5F796300490D25 /* CustomCalendar.swift in Sources */,
 				97D66A352A0CF13700A25935 /* CountdownTimer.swift in Sources */,
@@ -980,10 +993,12 @@
 				97506C212A3AC59F00F6BB24 /* PhoneNumberInputTableViewCell.swift in Sources */,
 				97506C372A41432D00F6BB24 /* EmailVerifyViewModel.swift in Sources */,
 				978834BF2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift in Sources */,
+				973C83802A5FCBCB00490D25 /* LoginViewModel.swift in Sources */,
 				973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */,
 				973C17A52A273D0C00581DC6 /* SearchViewModel.swift in Sources */,
 				973C17B62A298BBB00581DC6 /* CalendarLogic.swift in Sources */,
 				97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */,
+				973C837E2A5FBA7B00490D25 /* LoginView.swift in Sources */,
 				97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */,
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
 				978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */,
@@ -1001,6 +1016,7 @@
 				9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */,
 				973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */,
 				9771A15E2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift in Sources */,
+				973C83822A5FDFBC00490D25 /* NotMemberTableViewCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
 				97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */,
 				97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */,

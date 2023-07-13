@@ -49,7 +49,8 @@ class PersonalFileViewController: UIViewController {
         }
         
         welcomeRegisterView.loginAction = {
-            print("登入")
+            let viewController = LoginViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
         
         welcomeRegisterView.socialKitRegister = { socialKitKind in
