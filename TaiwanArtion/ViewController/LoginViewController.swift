@@ -84,6 +84,14 @@ extension LoginViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if LoginSection(rawValue: section) == .password {
+            let passwordHintFooter = PasswordHintFooterView()
+            passwordHintFooter.forgetAction = {
+                
+            }
+            return passwordHintFooter
+        }
+        
         if LoginSection(rawValue: section) == .notMember {
             let welcomeRegisterFooterView = WelcomeRegisterFooterView()
             return welcomeRegisterFooterView

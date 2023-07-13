@@ -13,7 +13,7 @@
 		9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */; };
 		9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705E5062A4AAC1300FD81D1 /* MonthAndDate.swift */; };
 		9705E50D2A52E3CA00FD81D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */; };
-		973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176B2A1F2DB200581DC6 /* TabBarView.swift */; };
+		973C176C2A1F2DB200581DC6 /* PasswordHintFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176B2A1F2DB200581DC6 /* PasswordHintFooterView.swift */; };
 		973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */; };
 		973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */; };
 		973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */; };
@@ -186,7 +186,7 @@
 		9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		9705E5062A4AAC1300FD81D1 /* MonthAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthAndDate.swift; sourceTree = "<group>"; };
 		9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		973C176B2A1F2DB200581DC6 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		973C176B2A1F2DB200581DC6 /* PasswordHintFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordHintFooterView.swift; sourceTree = "<group>"; };
 		973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewController.swift; sourceTree = "<group>"; };
 		973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardView.swift; sourceTree = "<group>"; };
 		973C17722A1F385300581DC6 /* ExhibitionCardItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardItemCell.swift; sourceTree = "<group>"; };
@@ -624,7 +624,7 @@
 				97D66A342A0CF13700A25935 /* CountdownTimer.swift */,
 				976A030B2A0E87A800424ACF /* HomeView.swift */,
 				978834C42A1E25F000ADBEE8 /* NewsView.swift */,
-				973C176B2A1F2DB200581DC6 /* TabBarView.swift */,
+				973C176B2A1F2DB200581DC6 /* PasswordHintFooterView.swift */,
 				978834B62A1B8DE700ADBEE8 /* TimeHelper.swift */,
 				973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */,
 				973C17902A25F0D900581DC6 /* EvaluateView.swift */,
@@ -1032,7 +1032,7 @@
 				97BD68632A56C7D300F4BCAB /* SettingHeadView.swift in Sources */,
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
 				973C17B82A29921600581DC6 /* DateTableViewCell.swift in Sources */,
-				973C176C2A1F2DB200581DC6 /* TabBarView.swift in Sources */,
+				973C176C2A1F2DB200581DC6 /* PasswordHintFooterView.swift in Sources */,
 				973C83762A5F735100490D25 /* TitleMonthCollectionViewCell.swift in Sources */,
 				973C178D2A24A62400581DC6 /* AllCommentHeaderView.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,

@@ -14,6 +14,8 @@ class InputTextFieldTableViewCell: UITableViewCell {
     static let reuseIdentifier: String = "InputTextFieldTableViewCell"
     
     var inputAction: ((String) -> (Void))?
+    
+    var forgetPassword: (() -> Void)?
 
     private let disposeBag = DisposeBag()
 
@@ -47,14 +49,6 @@ class InputTextFieldTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let fogetHintButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("忘記密碼", for: .normal)
-        button.setTitleColor(.brownTitleColor, for: .normal)
-        button.isHidden = true
-        return button
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setTextField()
@@ -76,12 +70,6 @@ class InputTextFieldTableViewCell: UITableViewCell {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
-        }
-        
-        contentView.addSubview(fogetHintButton)
-        fogetHintButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.top.equalTo(textField.snp.bottom)
         }
         
         contentView.addSubview(hintLabel)
