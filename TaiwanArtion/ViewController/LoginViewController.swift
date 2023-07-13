@@ -87,7 +87,8 @@ extension LoginViewController : UITableViewDelegate, UITableViewDataSource {
         if LoginSection(rawValue: section) == .password {
             let passwordHintFooter = PasswordHintFooterView()
             passwordHintFooter.forgetAction = {
-                
+                let resetPasswordViewController = ResetPasswordViewController()
+                self.navigationController?.pushViewController(resetPasswordViewController, animated: true)
             }
             return passwordHintFooter
         }

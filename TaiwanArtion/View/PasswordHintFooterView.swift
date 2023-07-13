@@ -22,7 +22,7 @@ class PasswordHintFooterView: UIView {
         return label
     }()
     
-    private let forgetpasswordButton: UIButton = {
+    let forgetpasswordButton: UIButton = {
         let button = UIButton()
         button.setTitle("忘記密碼？", for: .normal)
         button.setTitleColor(.brownTitleColor, for: .normal)
