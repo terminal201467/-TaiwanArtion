@@ -147,7 +147,7 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
             return .init(width: cellWidth, height: cellHeight)
         case .button:
             let cellHeight = (frame.height - 16 * 2) / 8
-            let cellWidth = frame.width
+            let cellWidth = frame.width - 16 * 2
             return .init(width: cellWidth, height: cellHeight)
         case .none: return .zero
         }
