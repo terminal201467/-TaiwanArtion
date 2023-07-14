@@ -13,9 +13,6 @@ protocol CalendarOutput{
     //所有當月日期
     var isAllowToTap: BehaviorRelay<Bool> { get }
     var outputMonth: BehaviorRelay<String> { get }
-    var outputDate: BehaviorRelay<String> { get }
-    var outputIsSelectedDate: BehaviorRelay<Bool> { get }
-    var outputIsCurrentMonth: BehaviorRelay<Bool> { get }
     var sendOutSelecteMonthAndDate: BehaviorRelay<(String, String)> { get }
 }
 
@@ -26,7 +23,6 @@ protocol CalendarInput {
     var inputDate: BehaviorRelay<String> { get }
     var correctTime: PublishRelay<Void> { get }
     var storeTime: BehaviorRelay<String> { get }
-    var dateCellForRowAt: BehaviorRelay<IndexPath> { get }
     var currentMonthDate: BehaviorRelay<String> { get }
     var nextMonth: BehaviorRelay<Void> { get }
     var preMonth: BehaviorRelay<Void> { get }
@@ -47,7 +43,6 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
     var inputDate: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     var correctTime: RxRelay.PublishRelay<Void> = PublishRelay()
     var storeTime: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
-    var dateCellForRowAt: RxRelay.BehaviorRelay<IndexPath> = BehaviorRelay(value: [0,0])
     var nextMonth: RxRelay.BehaviorRelay<Void> = BehaviorRelay(value: ())
     var preMonth: RxRelay.BehaviorRelay<Void> = BehaviorRelay(value: ())
     
@@ -55,9 +50,6 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
     var currentMonthDate: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     var isAllowToTap: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var outputMonth: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
-    var outputDate: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
-    var outputIsSelectedDate: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var outputIsCurrentMonth: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var sendOutSelecteMonthAndDate: RxRelay.BehaviorRelay<(String, String)> = BehaviorRelay(value: ("",""))
     
     //MARK: - input/output
@@ -94,19 +86,11 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
         
         inputMonth.subscribe(onNext: { month in
             self.selectedMonth = month
+            self.outputMonth.accept(month)
         }).disposed(by: disposeBag)
         
         inputDate.subscribe(onNext: { date in
             self.selectedDate = date
-        }).disposed(by: disposeBag)
-        
-        dateCellForRowAt.subscribe(onNext: { indexPath in
-            let dateString = self.dateCellForRowAt(indexPath: indexPath).dateString
-            let isToday = self.dateCellForRowAt(indexPath: indexPath).isToday
-            let isCurrentMonth = self.dateCellForRowAt(indexPath: indexPath).isCurrentMonth
-            self.outputIsSelectedDate.accept(isToday)
-            self.outputDate.accept(dateString)
-            self.outputIsCurrentMonth.accept(isCurrentMonth)
         }).disposed(by: disposeBag)
         
         correctTime.subscribe(onNext: {
@@ -124,7 +108,7 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
         }
     }
     
-    private func dateCellForRowAt(indexPath: IndexPath) -> (dateString: String, date: Date, isToday: Bool, isCurrentMonth: Bool) {
+    func dateCellForRowAt(indexPath: IndexPath) -> (dateString: String, date: Date, isToday: Bool, isCurrentMonth: Bool) {
         let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
         let isCurrentMonth = calendar.isDate(date, equalTo: currentDay, toGranularity: .month)
         let isToday = calendar.isDateInToday(date)
@@ -132,5 +116,10 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
         dateFormatter.dateFormat = "dd"
         let dateString = dateFormatter.string(from: date)
         return (dateString, date, isToday, isCurrentMonth)
+    }
+    
+    func didSelectedRowAt(indexPath: IndexPath) -> Date {
+        let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
+        return date
     }
 }

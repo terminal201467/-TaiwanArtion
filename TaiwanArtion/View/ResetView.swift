@@ -49,7 +49,6 @@ class ResetView: UIView {
             make.edges.equalToSuperview()
         }
     }
-    
 }
 
 extension ResetView: UITableViewDelegate, UITableViewDataSource {

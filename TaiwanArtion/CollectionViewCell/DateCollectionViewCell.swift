@@ -17,6 +17,11 @@ class DateCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let backgroundImageView: UIImageView = {
+        let view = UIImageView(image: .init(named: ""))
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
@@ -27,17 +32,26 @@ class DateCollectionViewCell: UICollectionViewCell {
     }
     
     private func autoLayout() {
+        contentView.addSubview(backgroundImageView)
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
+
     }
     
     func configure(date: String, isToday: Bool, isCurrentMonth: Bool) {
         dateLabel.text = date
-        dateLabel.textColor = isCurrentMonth ? .black : .grayTextColor
-        dateLabel.backgroundColor = isToday ? .brownColor : .white
+        if isCurrentMonth {
+            dateLabel.textColor = isToday ? .white : .black
+        } else {
+            dateLabel.textColor = .grayTextColor
+        }
+        backgroundImageView.isHidden = isToday ? false : true
     }
-    
 }

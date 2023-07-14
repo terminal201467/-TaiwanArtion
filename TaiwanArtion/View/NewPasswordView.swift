@@ -26,6 +26,7 @@ class NewPasswordView: UIView {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
+        tableView.allowsSelection = false
         tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         return tableView
     }()
@@ -122,6 +123,7 @@ extension NewPasswordView: UITableViewDelegate, UITableViewDataSource {
         case .inputNew:
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
             cell.passwordConfigure(isLocked: false, isPrevented: true, placeholdText: "6-18位數密碼,請區分大小寫")
+            cell.selectionStyle = .none
             cell.inputAction = { text in
                 self.newPasswordText = text
             }
@@ -129,6 +131,7 @@ extension NewPasswordView: UITableViewDelegate, UITableViewDataSource {
         case .checkAgain:
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
             cell.passwordConfigure(isLocked: false, isPrevented: true, placeholdText: "6-18位數密碼,請區分大小寫")
+            cell.selectionStyle = .none
             cell.inputAction = { text in
                 self.checkAgainText = text
             }
@@ -138,6 +141,7 @@ extension NewPasswordView: UITableViewDelegate, UITableViewDataSource {
             cell.button.setTitleColor(checkText() ? .white : .grayTextColor, for: .normal)
             cell.button.backgroundColor = checkText() ? .brownColor : .whiteGrayColor
             cell.configure(buttonName: "下一步")
+            cell.selectionStyle = .none
             cell.action = {
                 self.nextAction?()
             }

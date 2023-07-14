@@ -84,7 +84,7 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
         switch CustomCalendarItems(rawValue: section) {
         case .title: return 1
         case .week: return Week.allCases.count
-        case .date: return 35
+        case .date: return 42
         case .button: return 1
         case .none: return 1
         }
@@ -97,9 +97,11 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
             cell.configure(currenMonth: currentMonth.numberText + currentMonth.englishText)
             cell.nextMonthAction = {
                 self.viewModel.input.nextMonth.accept(())
+                collectionView.reloadData()
             }
             cell.preMonthAction = {
                 self.viewModel.input.preMonth.accept(())
+                collectionView.reloadData()
             }
             return cell
         case .week:
@@ -108,7 +110,9 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
             return  cell
         case .date:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as! DateCollectionViewCell
-            cell.configure(date: viewModel.output.outputDate.value, isToday: viewModel.output.outputIsSelectedDate.value, isCurrentMonth: viewModel.output.outputIsCurrentMonth.value)
+            cell.configure(date: viewModel.dateCellForRowAt(indexPath: indexPath).dateString,
+                           isToday: viewModel.dateCellForRowAt(indexPath: indexPath).isToday,
+                           isCurrentMonth: viewModel.dateCellForRowAt(indexPath: indexPath).isCurrentMonth)
             return cell
         case .button:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier, for: indexPath) as! ButtonCollectionViewCell
@@ -123,10 +127,10 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         switch CustomCalendarItems(rawValue: section) {
-        case .title: return .init(top: 16, left: 16, bottom: 16, right: 16)
+        case .title: return .init(top: 16, left: 16, bottom: 8, right: 16)
         case .week: return .init(top: 0, left: 5, bottom: 0, right: 5)
         case .date: return .init(top: 0, left: 5, bottom: 0, right: 5)
-        case .button: return .init(top: 16, left: 16, bottom: 16, right: 16)
+        case .button: return .init(top: 8, left: 16, bottom: 16, right: 16)
         case .none: return .zero
         }
     }
@@ -134,22 +138,27 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch CustomCalendarItems(rawValue: indexPath.section) {
         case .title:
-            let cellHeight = (frame.height - 16 * 2) / 8
+            let cellHeight = (frame.height - 16 * 2 ) / 10
             let cellWidth = frame.width
             return .init(width: cellWidth, height: cellHeight)
         case .week:
             let cellWidth = (frame.width - 16 * 2) / 8
-            let cellHeight = (frame.height - 16 * 2 ) / 8
+            let cellHeight = (frame.height - 16 * 2 ) / 10
             return .init(width: cellWidth, height: cellHeight)
         case .date:
             let cellWidth = (frame.width - 16 * 2) / 8
-            let cellHeight = (frame.height - 16 * 2 ) / 8
+            let cellHeight = (frame.height - 16 * 2 ) / 10
             return .init(width: cellWidth, height: cellHeight)
         case .button:
-            let cellHeight = (frame.height - 16 * 2) / 8
+            let cellHeight = (frame.height - 16 * 2) / 10
             let cellWidth = frame.width - 16 * 2
             return .init(width: cellWidth, height: cellHeight)
         case .none: return .zero
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectedRowAt(indexPath: indexPath)
+        print("date:\(viewModel.didSelectedRowAt(indexPath: indexPath))")
     }
 }
