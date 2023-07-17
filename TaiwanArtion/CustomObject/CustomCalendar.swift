@@ -33,9 +33,7 @@ class CustomCalendar: UIView {
     
     private let disposeBag = DisposeBag()
     
-    var outputMonth: ((String) -> Void)?
-    
-    var outputDate: ((String) -> Void)?
+    var outputMonthAndDate: ((_ month: String, _ date: String) -> Void)?
     
     var dismissCalendar: (() -> Void)?
     
@@ -163,8 +161,7 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectedRowAt(indexPath: indexPath)
-        outputDate?(viewModel.output.sendOutSelecteMonthAndDate.value.date)
-        outputMonth?(viewModel.output.sendOutSelecteMonthAndDate.value.month)
+        outputMonthAndDate?(viewModel.output.sendOutSelecteMonthAndDate.value.month, viewModel.output.sendOutSelecteMonthAndDate.value.date)
         collectionView.reloadData()
     }
 }

@@ -131,6 +131,7 @@ class PersonInfoViewModel: PersonInfoInput, PersonInfoOutput, PersonInfoViewMode
         
         birthMonthInput.subscribe(onNext: { monthText in
             print("monthText:\(monthText)")
+            self.monthOutput.accept(monthText)
         }).disposed(by: disposeBag)
         
         birthDateInput.subscribe(onNext: { dateText in

@@ -18,25 +18,24 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     private let viewModel = PersonInfoViewModel()
     
+    private var year: String? = nil
+    
+    private var month: String? = nil
+    
+    private var date: String? = nil
+    
     private let disposeBag = DisposeBag()
     
-    private let calendarView = CalendarPopUpView()
+    private let calendarPopUpView = CalendarPopUpView()
     
     private let settingHeadViewController = SettingHeadViewController()
     
     private lazy var popUpViewController: PopUpViewController = {
-        let calendarPopUpView = CalendarPopUpView()
         let popUpViewController = PopUpViewController(popUpView: calendarPopUpView)
         popUpViewController.modalPresentationStyle = .overFullScreen
         popUpViewController.modalTransitionStyle = .coverVertical
         calendarPopUpView.dismissFromController = {
             popUpViewController.dismiss(animated: true)
-        }
-        calendarPopUpView.receiveDate = { date in
-            self.viewModel.input.birthDateInput.accept(date)
-        }
-        calendarPopUpView.receiveMonth = { month in
-            self.viewModel.input.birthMonthInput.accept(month)
         }
         return popUpViewController
     }()
@@ -136,18 +135,23 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
         case .gender:
             let cell = tableView.dequeueReusableCell(withIdentifier: GenderTableViewCell.reuseIdentifier) as! GenderTableViewCell
             cell.configure(gender: nil)
-            personInfoView.genderView.selectedGender = { cell.configure(gender: $0) }
+            personInfoView.genderView.selectedGender = {
+                cell.configure(gender: $0)
+                self.personInfoView.genderView.isHidden.toggle()
+            }
             return cell
         case .birth:
             let cell = tableView.dequeueReusableCell(withIdentifier: BirthTableViewCell.reuseIdentifier) as! BirthTableViewCell
             personInfoView.yearView.selectedYear = {
-                cell.configure(year: $0, month: "", date: "")
+                cell.configureYearLabel(year: $0)
+                self.personInfoView.yearView.isHidden.toggle()
             }
-            print("viewModel.output.monthOutput.value:\(viewModel.output.monthOutput.value)")
-            print("viewModel.output.monthOutput.value:\(viewModel.output.dateOutput.value)")
-            cell.configure(year: nil,
-                           month: viewModel.output.monthOutput.value,
-                           date: viewModel.output.dateOutput.value)
+            
+            calendarPopUpView.receiveMonthAndDate = { month, date in
+                cell.configureDateLabel(month: month, date: date)
+            }
+            cell.configureYearLabel(year: nil)
+            cell.configureDateLabel(month: nil, date: nil)
             cell.chooseDateAction = {
                 self.present(self.popUpViewController, animated: true)
             }
@@ -155,12 +159,12 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
         case .email:
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier) as! InputTextFieldTableViewCell
             cell.generalConfigure(placeholdText: PersonInfo.email.placeHolder)
-            cell.inputAction = { self.viewModel.emailInput.accept($0) }
+            cell.inputAction = { self.viewModel.input.emailInput.accept($0) }
             return cell
         case .phone:
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier) as! InputTextFieldTableViewCell
             cell.generalConfigure(placeholdText: PersonInfo.phone.placeHolder)
-            cell.inputAction = { self.viewModel.phoneInput.accept($0) }
+            cell.inputAction = { self.viewModel.input.phoneInput.accept($0) }
             return cell
         case .save:
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier) as! ButtonTableViewCell
@@ -170,7 +174,9 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
                 cell.button.setTitleColor(isAllowSaved ? .white : .grayTextColor, for: .normal)
                 cell.configure(buttonName: PersonInfo.save.placeHolder)
             }
-            cell.action = { self.viewModel.saveAction.onNext(()) }
+            cell.action = {
+                self.viewModel.input.saveAction.onNext(())
+            }
             return cell
         case .none: return UITableViewCell()
         }

@@ -12,9 +12,7 @@ class CalendarPopUpView: UIView {
     
     var dismissFromController: (() -> Void)?
     
-    var receiveDate: ((String) -> Void)?
-    
-    var receiveMonth: ((String) -> Void)?
+    var receiveMonthAndDate: ((_ month: String, _ date: String) -> Void)?
     
     private let backgroundView: UIView = {
        let view = UIView()
@@ -52,12 +50,8 @@ class CalendarPopUpView: UIView {
         calendar.dismissCalendar = {
             self.dismissFromController?()
         }
-        calendar.outputMonth = { month in
-            self.receiveMonth?(month)
-        }
-        
-        calendar.outputDate = { date in
-            self.receiveDate?(date)
+        calendar.outputMonthAndDate = { month, date in
+            self.receiveMonthAndDate?(month, date)
         }
     }
     
