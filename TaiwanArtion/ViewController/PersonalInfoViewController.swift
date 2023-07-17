@@ -24,11 +24,20 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     private let settingHeadViewController = SettingHeadViewController()
     
-    private let popUpViewController: PopUpViewController = {
+    private lazy var popUpViewController: PopUpViewController = {
         let calendarPopUpView = CalendarPopUpView()
         let popUpViewController = PopUpViewController(popUpView: calendarPopUpView)
         popUpViewController.modalPresentationStyle = .overFullScreen
         popUpViewController.modalTransitionStyle = .coverVertical
+        calendarPopUpView.dismissFromController = {
+            popUpViewController.dismiss(animated: true)
+        }
+        calendarPopUpView.receiveDate = { date in
+            self.viewModel.input.birthDateInput.accept(date)
+        }
+        calendarPopUpView.receiveMonth = { month in
+            self.viewModel.input.birthMonthInput.accept(month)
+        }
         return popUpViewController
     }()
 
@@ -131,8 +140,14 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
             return cell
         case .birth:
             let cell = tableView.dequeueReusableCell(withIdentifier: BirthTableViewCell.reuseIdentifier) as! BirthTableViewCell
-            personInfoView.yearView.selectedYear = { cell.configure(year: $0, date: nil) }
-            cell.configure(year: nil, date: nil)
+            personInfoView.yearView.selectedYear = {
+                cell.configure(year: $0, month: "", date: "")
+            }
+            print("viewModel.output.monthOutput.value:\(viewModel.output.monthOutput.value)")
+            print("viewModel.output.monthOutput.value:\(viewModel.output.dateOutput.value)")
+            cell.configure(year: nil,
+                           month: viewModel.output.monthOutput.value,
+                           date: viewModel.output.dateOutput.value)
             cell.chooseDateAction = {
                 self.present(self.popUpViewController, animated: true)
             }

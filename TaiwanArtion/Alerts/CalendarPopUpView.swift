@@ -10,6 +10,12 @@ import SnapKit
 
 class CalendarPopUpView: UIView {
     
+    var dismissFromController: (() -> Void)?
+    
+    var receiveDate: ((String) -> Void)?
+    
+    var receiveMonth: ((String) -> Void)?
+    
     private let backgroundView: UIView = {
        let view = UIView()
         view.alpha = 0.3
@@ -29,10 +35,30 @@ class CalendarPopUpView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissPresentedViewController))
+        backgroundView.addGestureRecognizer(tapGesture)
+        setDateFromCalendar()
+    }
+    
+    @objc private func dismissPresentedViewController() {
+        dismissFromController?()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setDateFromCalendar() {
+        calendar.dismissCalendar = {
+            self.dismissFromController?()
+        }
+        calendar.outputMonth = { month in
+            self.receiveMonth?(month)
+        }
+        
+        calendar.outputDate = { date in
+            self.receiveDate?(date)
+        }
     }
     
     private func autoLayout() {

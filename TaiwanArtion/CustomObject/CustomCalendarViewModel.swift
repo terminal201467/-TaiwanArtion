@@ -13,14 +13,12 @@ protocol CalendarOutput{
     //所有當月日期
     var isAllowToTap: BehaviorRelay<Bool> { get }
     var outputMonth: BehaviorRelay<String> { get }
-    var sendOutSelecteMonthAndDate: BehaviorRelay<(String, String)> { get }
+    var sendOutSelecteMonthAndDate: BehaviorRelay<(month: String, date: String)> { get }
 }
 
 protocol CalendarInput {
     //輸入年、月
-    var inputYear: BehaviorRelay<String> { get }
-    var inputMonth: BehaviorRelay<String> { get }
-    var inputDate: BehaviorRelay<String> { get }
+    var inputYear: BehaviorRelay<Int> { get }
     var correctTime: PublishRelay<Void> { get }
     var storeTime: BehaviorRelay<String> { get }
     var currentMonthDate: BehaviorRelay<String> { get }
@@ -38,19 +36,18 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
     private let disposeBag = DisposeBag()
     
     //MARK: -Input
-    var inputYear: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
-    var inputMonth: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
-    var inputDate: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     var correctTime: RxRelay.PublishRelay<Void> = PublishRelay()
     var storeTime: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     var nextMonth: RxRelay.BehaviorRelay<Void> = BehaviorRelay(value: ())
     var preMonth: RxRelay.BehaviorRelay<Void> = BehaviorRelay(value: ())
+    var inputYear: RxRelay.BehaviorRelay<Int> = BehaviorRelay(value: 0)
     
     //MARK: -Output
     var currentMonthDate: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     var isAllowToTap: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var outputMonth: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
-    var sendOutSelecteMonthAndDate: RxRelay.BehaviorRelay<(String, String)> = BehaviorRelay(value: ("",""))
+    var sendOutSelecteMonthAndDate: RxRelay.BehaviorRelay<(month: String, date: String)> = BehaviorRelay(value: ("",""))
+    var reloadCalendar: RxRelay.PublishRelay<Void> = PublishRelay()
     
     //MARK: - input/output
     var input: CalendarInput { self }
@@ -81,45 +78,89 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
     
     init() {
         inputYear.subscribe(onNext: { year in
-            self.selectedYear = year
-        }).disposed(by: disposeBag)
-        
-        inputMonth.subscribe(onNext: { month in
-            self.selectedMonth = month
-            self.outputMonth.accept(month)
-        }).disposed(by: disposeBag)
-        
-        inputDate.subscribe(onNext: { date in
-            self.selectedDate = date
+            self.currentYear = year
         }).disposed(by: disposeBag)
         
         correctTime.subscribe(onNext: {
+            print("selectedMonth:\(self.selectedMonth)")
+            print("selectedDate:\(self.selectedDate)")
             self.sendOutSelecteMonthAndDate.accept((self.selectedMonth, self.selectedDate))
         }).disposed(by: disposeBag)
         
-        checkTime()
+        nextMonth.subscribe(onNext: {
+            self.setNextMonth()
+            self.reloadCalendar.accept(())
+        })
+        .disposed(by: disposeBag)
+        
+        preMonth.subscribe(onNext: {
+            self.setPreMonth()
+            self.reloadCalendar.accept(())
+        })
+        .disposed(by: disposeBag)
+        setIsAllowToTap()
     }
     
-    private func checkTime() {
-        if selectedYear != "" && selectedMonth != "" && selectedDate != "" {
-            isAllowToTap.accept(true)
+    private func setNextMonth() {
+        if currentMonth > 12 {
+            currentYear += 1
         } else {
-            isAllowToTap.accept(false)
+            currentMonth += 1
         }
     }
     
-    func dateCellForRowAt(indexPath: IndexPath) -> (dateString: String, date: Date, isToday: Bool, isCurrentMonth: Bool) {
+    private func setPreMonth() {
+        if currentMonth == 0 {
+            currentYear -= 1
+        } else {
+            currentMonth -= 1
+        }
+    }
+    
+    private func setIsAllowToTap() {
+        isAllowToTap.accept(sendOutSelecteMonthAndDate.value.date != "" ? true : false)
+    }
+    
+    private var currentSelectedDate: Date?
+    
+    func dateCellForRowAt(indexPath: IndexPath) -> (dateString: String, date: Date?, isDateSelected: Bool, isCurrentMonth: Bool) {
         let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
         let isCurrentMonth = calendar.isDate(date, equalTo: currentDay, toGranularity: .month)
-        let isToday = calendar.isDateInToday(date)
+        var isDateSelected: Bool = false
+        if currentSelectedDate == nil {
+            let isToday = calendar.isDateInToday(date)
+            isDateSelected = isToday
+        } else {
+            isDateSelected = date == currentSelectedDate
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         let dateString = dateFormatter.string(from: date)
-        return (dateString, date, isToday, isCurrentMonth)
+        return (dateString, date, isDateSelected, isCurrentMonth)
     }
     
-    func didSelectedRowAt(indexPath: IndexPath) -> Date {
+    func didSelectedRowAt(indexPath: IndexPath) {
         let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
-        return date
+        let monthString = setMonth(inputDate: date)
+        let dateString = setDate(inputDate: date)
+        currentSelectedDate = date
+        sendOutSelecteMonthAndDate.accept((monthString, dateString))
+        setIsAllowToTap()
+    }
+    
+    private func setDate(inputDate: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        let dateString = dateFormatter.string(from: inputDate)
+        selectedDate = dateString
+        return dateString
+    }
+    
+    private func setMonth(inputDate: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+        let monthString = dateFormatter.string(from: inputDate)
+        selectedMonth = monthString
+        return monthString
     }
 }

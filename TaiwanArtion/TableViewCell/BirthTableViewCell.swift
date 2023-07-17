@@ -153,10 +153,12 @@ class BirthTableViewCell: UITableViewCell {
         
     }
     
-    func configure(year: String?, date: String?) {
+    func configure(year: String?, month: String, date: String) {
         yearLabel.textColor = year == nil ? .grayTextColor : .black
-        dateLabel.textColor = date == nil ? .grayTextColor : .black
         yearLabel.text = year == nil ? "西元" : year!
-        dateLabel.text = date == nil ? "選擇日期" : date!
+        dateLabel.textColor = month == "" || date == "" ? .grayTextColor : .black
+        print("month:\(month)")
+        print("date:\(date)")
+        dateLabel.text = month == "" || date == "" ? "選擇日期" : "\(month)月\(date)日"
     }
 }

@@ -18,7 +18,8 @@ class DateCollectionViewCell: UICollectionViewCell {
     }()
     
     private let backgroundImageView: UIImageView = {
-        let view = UIImageView(image: .init(named: ""))
+        let view = UIImageView(image: .init(named: "calendarDateSelected"))
+        view.contentMode = .scaleAspectFit
         return view
     }()
     

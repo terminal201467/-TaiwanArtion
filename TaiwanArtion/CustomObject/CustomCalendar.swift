@@ -33,7 +33,11 @@ class CustomCalendar: UIView {
     
     private let disposeBag = DisposeBag()
     
-    var outputSelectedDate: ((String) -> Void)?
+    var outputMonth: ((String) -> Void)?
+    
+    var outputDate: ((String) -> Void)?
+    
+    var dismissCalendar: (() -> Void)?
     
     var currentMonth: Month = .jan
     
@@ -111,14 +115,14 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
         case .date:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as! DateCollectionViewCell
             cell.configure(date: viewModel.dateCellForRowAt(indexPath: indexPath).dateString,
-                           isToday: viewModel.dateCellForRowAt(indexPath: indexPath).isToday,
+                           isToday: viewModel.dateCellForRowAt(indexPath: indexPath).isDateSelected,
                            isCurrentMonth: viewModel.dateCellForRowAt(indexPath: indexPath).isCurrentMonth)
             return cell
         case .button:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier, for: indexPath) as! ButtonCollectionViewCell
             cell.configureRoundButton(isAllowToTap: viewModel.output.isAllowToTap.value, buttonTitle: "確定")
             cell.action = {
-                self.viewModel.input.correctTime.accept(())
+                self.dismissCalendar?()
             }
             return cell
         case .none: return UICollectionViewCell()
@@ -159,6 +163,8 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectedRowAt(indexPath: indexPath)
-        print("date:\(viewModel.didSelectedRowAt(indexPath: indexPath))")
+        outputDate?(viewModel.output.sendOutSelecteMonthAndDate.value.date)
+        outputMonth?(viewModel.output.sendOutSelecteMonthAndDate.value.month)
+        collectionView.reloadData()
     }
 }

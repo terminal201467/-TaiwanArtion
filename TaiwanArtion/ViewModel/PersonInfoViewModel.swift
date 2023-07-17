@@ -63,7 +63,9 @@ enum PersonInfo: Int, CaseIterable {
 protocol PersonInfoInput {
     var nameInput: BehaviorRelay<String> { get }
     var genderInput: BehaviorRelay<String> { get }
-    var birthInput: BehaviorRelay<String> { get }
+    var birthMonthInput: BehaviorRelay<String> { get }
+    var birthDateInput: BehaviorRelay<String> { get }
+    var birthYearIntput: BehaviorRelay<String> { get }
     var emailInput: BehaviorRelay<String> { get }
     var phoneInput: BehaviorRelay<String> { get }
     var saveAction: PublishSubject<Void> { get }
@@ -73,6 +75,8 @@ protocol PersonInfoOutput {
     var saveCheck: BehaviorRelay<Bool> { get }
     var personInfo: Observable<[PersonInfo]> { get }
     var tableItemInfo: Observable<[SectionModel]> { get }
+    var dateOutput: BehaviorRelay<String> { get }
+    var monthOutput: BehaviorRelay<String> { get }
 }
 
 protocol PersonInfoViewModelType {
@@ -87,7 +91,9 @@ class PersonInfoViewModel: PersonInfoInput, PersonInfoOutput, PersonInfoViewMode
     //MARK: -Input
     var nameInput: BehaviorRelay<String> = BehaviorRelay(value: "")
     var genderInput: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var birthInput: BehaviorRelay<String> = BehaviorRelay(value: "")
+    var birthMonthInput: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    var birthDateInput: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    var birthYearIntput: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     var emailInput: BehaviorRelay<String> = BehaviorRelay(value: "")
     var phoneInput: BehaviorRelay<String> = BehaviorRelay(value: "")
     var saveAction: PublishSubject<Void> = PublishSubject<Void>()
@@ -96,6 +102,8 @@ class PersonInfoViewModel: PersonInfoInput, PersonInfoOutput, PersonInfoViewMode
     var saveCheck: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var personInfo: Observable<[PersonInfo]> = Observable.just(PersonInfo.allCases)
     var tableItemInfo: Observable<[SectionModel]> { Observable.just(tableItems) }
+    var dateOutput: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    var monthOutput: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
     private let tableItems: [SectionModel] = [
         .init(sectionName: PersonInfo.name.section, cellModels: [.init(infoType: .name, textFieldPlaceholder: PersonInfo.name.placeHolder)]),
@@ -121,10 +129,18 @@ class PersonInfoViewModel: PersonInfoInput, PersonInfoOutput, PersonInfoViewMode
         }
         .disposed(by: disposeBag)
         
-        birthInput.subscribe { text in
-            print("birthInput:\(text)")
-        }
-        .disposed(by: disposeBag)
+        birthMonthInput.subscribe(onNext: { monthText in
+            print("monthText:\(monthText)")
+        }).disposed(by: disposeBag)
+        
+        birthDateInput.subscribe(onNext: { dateText in
+            print("dateText:\(dateText)")
+            self.dateOutput.accept(dateText)
+        }).disposed(by: disposeBag)
+        
+        birthYearIntput.subscribe(onNext: { yearText in
+            
+        }).disposed(by: disposeBag)
         
         emailInput.subscribe { text in
             print("emailInput:\(text)")
@@ -141,9 +157,9 @@ class PersonInfoViewModel: PersonInfoInput, PersonInfoOutput, PersonInfoViewMode
     }
     
     private func checkInput() {
-        Observable.combineLatest(nameInput, genderInput, birthInput, emailInput, phoneInput)
-            .map { name, gender, birth, email, phone in
-                return !name.isEmpty && !gender.isEmpty && !birth.isEmpty && !email.isEmpty && !phone.isEmpty
+        Observable.combineLatest(nameInput, genderInput, birthDateInput, birthMonthInput, birthYearIntput, emailInput, phoneInput)
+            .map { name, gender, birthDate, birthMonth, birthYear, email, phone in
+                return !name.isEmpty && !gender.isEmpty && !email.isEmpty && !phone.isEmpty && !birthMonth.isEmpty && !birthDate.isEmpty && !birthYear.isEmpty
             }
             .bind(to: saveCheck)
             .disposed(by: disposeBag)
