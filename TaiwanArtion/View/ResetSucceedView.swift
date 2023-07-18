@@ -32,12 +32,16 @@ class ResetSucceedView: UIView {
     
     private let topDescriptionLabel: UILabel = {
         let label = UILabel()
+        label.text = "您已成功使用手機重設密碼"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
     
     private let bottomDescriptionLabel: UILabel = {
         let label = UILabel()
+        label.text = "您將在3秒內回到登入頁面"
+        label.textColor = .brownTitleColor
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
@@ -73,7 +77,7 @@ class ResetSucceedView: UIView {
         
         addSubview(descriptionStack)
         descriptionStack.snp.makeConstraints { make in
-            make.top.equalTo(resetSucceedImage).offset(40)
+            make.top.equalTo(resetSucceedImage.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
         }
     }

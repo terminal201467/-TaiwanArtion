@@ -11,7 +11,7 @@ class ResetSucceedViewController: UIViewController {
 
     private let resetSucceedView = ResetSucceedView()
     
-    private let countDownTimer = CountdownTimer(timeInterval: 5)
+    private let countDownTimer = CountdownTimer(timeInterval: 3)
     
     //MARK: -LifeCycle
     override func loadView() {
