@@ -62,6 +62,7 @@ class ResetSucceedView: UIView {
     }
     
     private func foregroundAutoLayout()  {
+        backgroundColor = .caramelColor
         addSubview(resetSucceedImage)
         resetSucceedImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

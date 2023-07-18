@@ -7,23 +7,84 @@
 
 import UIKit
 
+enum AlreadyLoginCell: Int, CaseIterable {
+    case editPersonInfo = 0, habbySetting, accountSetting, appEvaluation
+    var title: String {
+        switch self {
+        case .editPersonInfo: return "編輯個人檔案"
+        case .habbySetting: return "興趣設定"
+        case .accountSetting: return "帳號設定"
+        case .appEvaluation: return "APP評分"
+        }
+    }
+    
+    var logo: String {
+        switch self {
+        case .editPersonInfo: return "editPerson"
+        case .habbySetting: return "habbySetting"
+        case .accountSetting: return "accountSetting"
+        case .appEvaluation: return "appEvaluation"
+        }
+    }
+}
+
 class AlreadyLoginViewController: UIViewController {
+    
+    private let alreadyLoginView = AlreadyLoginView()
+    
+    override func loadView() {
+        super.loadView()
+        view = alreadyLoginView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setTable()
+        setNavigationBar()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setNavigationBar() {
+        title = "個人檔案"
     }
-    */
+    
+    private func setTable() {
+        alreadyLoginView.tableView.delegate = self
+        alreadyLoginView.tableView.dataSource = self
+    }
+}
 
+extension AlreadyLoginViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        AlreadyLoginCell.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
+        cell.selectionStyle = .none
+        cell.contentView.backgroundColor = .white
+        cell.imageView?.image = .init(named: AlreadyLoginCell.allCases[indexPath.row].logo)
+        cell.textLabel?.text = AlreadyLoginCell.allCases[indexPath.row].title
+        cell.accessoryView = UIImageView.init(image: .init(named: "rightArrow"))
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch AlreadyLoginCell(rawValue: indexPath.row) {
+        case .editPersonInfo:
+            let viewController = PersonalInfoViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        case .habbySetting:
+            //推向HabbyController
+            print("habbySetting")
+        case .accountSetting:
+            //推向
+//            print("accountSetting")
+            let viewController = AccountSettingViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        case .appEvaluation:
+            //評價
+            print("appEvaluation")
+        case .none: print("none")
+        }
+    }
 }

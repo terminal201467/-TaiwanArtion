@@ -165,6 +165,8 @@
 		97FD070D2A658BDF00A64808 /* AlreadyLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD070C2A658BDF00A64808 /* AlreadyLoginView.swift */; };
 		97FD070F2A658DB200A64808 /* ResetSucceedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */; };
 		97FD07112A658DCA00A64808 /* ResetSucceedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07102A658DCA00A64808 /* ResetSucceedView.swift */; };
+		97FD07132A665A5D00A64808 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */; };
+		97FD07152A665A6F00A64808 /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07142A665A6F00A64808 /* AccountSettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -349,6 +351,8 @@
 		97FD070C2A658BDF00A64808 /* AlreadyLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlreadyLoginView.swift; sourceTree = "<group>"; };
 		97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetSucceedViewController.swift; sourceTree = "<group>"; };
 		97FD07102A658DCA00A64808 /* ResetSucceedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetSucceedView.swift; sourceTree = "<group>"; };
+		97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
+		97FD07142A665A6F00A64808 /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
 		C08E8E419B4D485FD3769595 /* Pods-TaiwanArtion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.release.xcconfig"; sourceTree = "<group>"; };
 		C44A9F25A18373C8BF9B8EA9 /* Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CB247D84AA40C78F18BC6E21 /* Pods-TaiwanArtion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.debug.xcconfig"; sourceTree = "<group>"; };
@@ -623,6 +627,7 @@
 				97FD07022A600FB000A64808 /* ResetPasswordViewController.swift */,
 				97FD070A2A658BBD00A64808 /* AlreadyLoginViewController.swift */,
 				97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */,
+				97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 				97FD07082A601F9C00A64808 /* NewPasswordView.swift */,
 				97FD070C2A658BDF00A64808 /* AlreadyLoginView.swift */,
 				97FD07102A658DCA00A64808 /* ResetSucceedView.swift */,
+				97FD07142A665A6F00A64808 /* AccountSettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -981,6 +987,7 @@
 				973C17CE2A2C69F300581DC6 /* SearchResultTableViewCell.swift in Sources */,
 				978834BD2A1DB10F00ADBEE8 /* AllExhibitionCollectionViewCell.swift in Sources */,
 				973C17892A2444F300581DC6 /* LikeCommentFooter.swift in Sources */,
+				97FD07152A665A6F00A64808 /* AccountSettingView.swift in Sources */,
 				97506C332A403E0300F6BB24 /* StrengthTableViewCell.swift in Sources */,
 				9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */,
 				97506C312A3C46F600F6BB24 /* PasswordHintView.swift in Sources */,
@@ -1089,6 +1096,7 @@
 				973C178F2A25F0B000581DC6 /* EvaluateViewController.swift in Sources */,
 				97FD070F2A658DB200A64808 /* ResetSucceedViewController.swift in Sources */,
 				976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */,
+				97FD07132A665A5D00A64808 /* AccountSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
