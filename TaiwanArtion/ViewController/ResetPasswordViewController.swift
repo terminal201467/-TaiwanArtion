@@ -60,7 +60,8 @@ class ResetPasswordViewController: UIViewController {
                 make.edges.equalToSuperview()
             }
             newsPasswordView.nextAction = {
-                //推到重設密碼成功頁面
+                let viewController = ResetSucceedViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
     }

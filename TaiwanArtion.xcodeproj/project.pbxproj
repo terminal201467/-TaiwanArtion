@@ -161,6 +161,10 @@
 		97FD07052A600FC400A64808 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07042A600FC400A64808 /* ResetPasswordView.swift */; };
 		97FD07072A601F5500A64808 /* ResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07062A601F5500A64808 /* ResetView.swift */; };
 		97FD07092A601F9C00A64808 /* NewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07082A601F9C00A64808 /* NewPasswordView.swift */; };
+		97FD070B2A658BBD00A64808 /* AlreadyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD070A2A658BBD00A64808 /* AlreadyLoginViewController.swift */; };
+		97FD070D2A658BDF00A64808 /* AlreadyLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD070C2A658BDF00A64808 /* AlreadyLoginView.swift */; };
+		97FD070F2A658DB200A64808 /* ResetSucceedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */; };
+		97FD07112A658DCA00A64808 /* ResetSucceedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07102A658DCA00A64808 /* ResetSucceedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -341,6 +345,10 @@
 		97FD07042A600FC400A64808 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		97FD07062A601F5500A64808 /* ResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetView.swift; sourceTree = "<group>"; };
 		97FD07082A601F9C00A64808 /* NewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordView.swift; sourceTree = "<group>"; };
+		97FD070A2A658BBD00A64808 /* AlreadyLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlreadyLoginViewController.swift; sourceTree = "<group>"; };
+		97FD070C2A658BDF00A64808 /* AlreadyLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlreadyLoginView.swift; sourceTree = "<group>"; };
+		97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetSucceedViewController.swift; sourceTree = "<group>"; };
+		97FD07102A658DCA00A64808 /* ResetSucceedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetSucceedView.swift; sourceTree = "<group>"; };
 		C08E8E419B4D485FD3769595 /* Pods-TaiwanArtion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.release.xcconfig"; sourceTree = "<group>"; };
 		C44A9F25A18373C8BF9B8EA9 /* Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CB247D84AA40C78F18BC6E21 /* Pods-TaiwanArtion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.debug.xcconfig"; sourceTree = "<group>"; };
@@ -613,6 +621,8 @@
 				97BD68602A56C7BA00F4BCAB /* SettingHeadViewController.swift */,
 				973C837B2A5FBA6C00490D25 /* LoginViewController.swift */,
 				97FD07022A600FB000A64808 /* ResetPasswordViewController.swift */,
+				97FD070A2A658BBD00A64808 /* AlreadyLoginViewController.swift */,
+				97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -654,6 +664,8 @@
 				97FD07042A600FC400A64808 /* ResetPasswordView.swift */,
 				97FD07062A601F5500A64808 /* ResetView.swift */,
 				97FD07082A601F9C00A64808 /* NewPasswordView.swift */,
+				97FD070C2A658BDF00A64808 /* AlreadyLoginView.swift */,
+				97FD07102A658DCA00A64808 /* ResetSucceedView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -946,9 +958,11 @@
 				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
 				97BD685F2A563AFD00F4BCAB /* GenderTableViewCell.swift in Sources */,
 				97D66A2F2A0C770700A25935 /* StartView.swift in Sources */,
+				97FD070B2A658BBD00A64808 /* AlreadyLoginViewController.swift in Sources */,
 				973C17B12A29623F00581DC6 /* SystemTableViewCell.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
 				978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */,
+				97FD07112A658DCA00A64808 /* ResetSucceedView.swift in Sources */,
 				973C17A12A273CDD00581DC6 /* SearchView.swift in Sources */,
 				978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */,
 				97BD686F2A5BC02500F4BCAB /* YearCellTableViewCell.swift in Sources */,
@@ -957,6 +971,7 @@
 				973C17832A23907100581DC6 /* ScoreTableViewCell.swift in Sources */,
 				978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */,
 				976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */,
+				97FD070D2A658BDF00A64808 /* AlreadyLoginView.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
 				978834C72A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift in Sources */,
 				973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */,
@@ -1072,6 +1087,7 @@
 				9771A14A2A39F0F1006F4F9D /* BottomUpPopUpView.swift in Sources */,
 				97D66A262A0C723800A25935 /* SplashViewController.swift in Sources */,
 				973C178F2A25F0B000581DC6 /* EvaluateViewController.swift in Sources */,
+				97FD070F2A658DB200A64808 /* ResetSucceedViewController.swift in Sources */,
 				976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
