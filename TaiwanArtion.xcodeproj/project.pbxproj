@@ -167,6 +167,9 @@
 		97FD07112A658DCA00A64808 /* ResetSucceedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07102A658DCA00A64808 /* ResetSucceedView.swift */; };
 		97FD07132A665A5D00A64808 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */; };
 		97FD07152A665A6F00A64808 /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07142A665A6F00A64808 /* AccountSettingView.swift */; };
+		97FD07172A666CF000A64808 /* ChooseHabbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07162A666CF000A64808 /* ChooseHabbyViewController.swift */; };
+		97FD07192A666D0200A64808 /* ChooseHabbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07182A666D0200A64808 /* ChooseHabbyView.swift */; };
+		97FD071B2A66798700A64808 /* ChooseHabbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD071A2A66798600A64808 /* ChooseHabbyViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -353,6 +356,9 @@
 		97FD07102A658DCA00A64808 /* ResetSucceedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetSucceedView.swift; sourceTree = "<group>"; };
 		97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		97FD07142A665A6F00A64808 /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
+		97FD07162A666CF000A64808 /* ChooseHabbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseHabbyViewController.swift; sourceTree = "<group>"; };
+		97FD07182A666D0200A64808 /* ChooseHabbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseHabbyView.swift; sourceTree = "<group>"; };
+		97FD071A2A66798600A64808 /* ChooseHabbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseHabbyViewModel.swift; sourceTree = "<group>"; };
 		C08E8E419B4D485FD3769595 /* Pods-TaiwanArtion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.release.xcconfig"; sourceTree = "<group>"; };
 		C44A9F25A18373C8BF9B8EA9 /* Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion-TaiwanArtionUITests/Pods-TaiwanArtion-TaiwanArtionUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CB247D84AA40C78F18BC6E21 /* Pods-TaiwanArtion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaiwanArtion.debug.xcconfig"; path = "Target Support Files/Pods-TaiwanArtion/Pods-TaiwanArtion.debug.xcconfig"; sourceTree = "<group>"; };
@@ -628,6 +634,7 @@
 				97FD070A2A658BBD00A64808 /* AlreadyLoginViewController.swift */,
 				97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */,
 				97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */,
+				97FD07162A666CF000A64808 /* ChooseHabbyViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -672,6 +679,7 @@
 				97FD070C2A658BDF00A64808 /* AlreadyLoginView.swift */,
 				97FD07102A658DCA00A64808 /* ResetSucceedView.swift */,
 				97FD07142A665A6F00A64808 /* AccountSettingView.swift */,
+				97FD07182A666D0200A64808 /* ChooseHabbyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -690,6 +698,7 @@
 				97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */,
 				97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */,
 				973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */,
+				97FD071A2A66798600A64808 /* ChooseHabbyViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -970,7 +979,9 @@
 				978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */,
 				97FD07112A658DCA00A64808 /* ResetSucceedView.swift in Sources */,
 				973C17A12A273CDD00581DC6 /* SearchView.swift in Sources */,
+				97FD07172A666CF000A64808 /* ChooseHabbyViewController.swift in Sources */,
 				978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */,
+				97FD07192A666D0200A64808 /* ChooseHabbyView.swift in Sources */,
 				97BD686F2A5BC02500F4BCAB /* YearCellTableViewCell.swift in Sources */,
 				978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */,
 				97506C392A41986400F6BB24 /* RegisterSucceedViewController.swift in Sources */,
@@ -1040,6 +1051,7 @@
 				976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */,
 				97D66A282A0C724F00A25935 /* SplashView.swift in Sources */,
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
+				97FD071B2A66798700A64808 /* ChooseHabbyViewModel.swift in Sources */,
 				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
 				9771A15A2A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift in Sources */,
 				97BD68672A579C8700F4BCAB /* SettingHeadViewModel.swift in Sources */,

@@ -57,7 +57,7 @@ class HabbyCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(30)
         }
         
-        addSubview(habbyStack)
+        contentView.addSubview(habbyStack)
         habbyStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
