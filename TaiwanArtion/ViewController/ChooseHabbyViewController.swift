@@ -69,19 +69,14 @@ extension ChooseHabbyViewController: UICollectionViewDelegateFlowLayout, UIColle
             return cell
         case .habbys:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier, for: indexPath) as! HabbyCollectionViewCell
-            cell.configureImageAndLabel(by: HabbyItem(rawValue: indexPath.row)!)
-            viewModel.output.outputCellForRowAt.bind(onNext: { habby, isSelected in
-                print("habby:\(habby)")
-                print("isSelected:\(isSelected)")
-            })
+            let cellInfo = viewModel.cellForRowAt(indexPath: indexPath)
+            cell.configureHabby(by: cellInfo.habby, isSelected: cellInfo.isSelected)
             return cell
         case .button:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier, for: indexPath) as! ButtonCollectionViewCell
-            viewModel.output.outputIsAllowToTap.bind { isAllowed in
-                cell.configureRoundButton(isAllowToTap: isAllowed, buttonTitle: "儲存")
-            }
+            cell.configureRoundButton(isAllowToTap: viewModel.setIsAllowToTap(), buttonTitle: "儲存")
             cell.action = {
-                self.viewModel.input.tapAction.onNext(())
+                
             }
             return cell
         case .none: return UICollectionViewCell()
@@ -89,7 +84,7 @@ extension ChooseHabbyViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.input.didSelectedRowAt.accept(indexPath)
+        viewModel.didSelectedRowAt(indexPath: indexPath)
         collectionView.reloadData()
     }
     

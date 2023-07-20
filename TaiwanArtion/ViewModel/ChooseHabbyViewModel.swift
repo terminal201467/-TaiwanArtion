@@ -9,90 +9,36 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol ChooseHabbyInput {
-    var inputCellForRowAt: BehaviorRelay<IndexPath> { get }
-    var didSelectedRowAt: BehaviorRelay<IndexPath> { get }
-    var tapAction: PublishSubject<Void> { get }
-}
 
-protocol ChooseHabbyOutput {
-    var outputCellForRowAt: BehaviorRelay<(HabbyItem?, Bool)> { get }
-    var outputIsAllowToTap: BehaviorRelay<Bool> { get }
-}
+class ChooseHabbyViewModel {
+    
+    //所有的嗜好
+    private var habbys = HabbyItem.allCases
+    
+    //所有的儲存嗜好
+    private var storeHabbys: Set<HabbyItem> = []
 
-protocol ChooseHabbyViewModelType {
-    var input: ChooseHabbyInput { get }
-    var output: ChooseHabbyOutput { get }
-}
-
-class ChooseHabbyViewModel: ChooseHabbyInput, ChooseHabbyOutput, ChooseHabbyViewModelType {
-    
-    private let disposeBag = DisposeBag()
-    
-    //MARK: - input
-    var inputCellForRowAt: RxRelay.BehaviorRelay<IndexPath> = BehaviorRelay(value: [0, 0])
-    var didSelectedRowAt: RxRelay.BehaviorRelay<IndexPath> = BehaviorRelay(value: [0, 0])
-    var tapAction: RxSwift.PublishSubject<Void> = PublishSubject()
-    
-    //MARK: - output
-    var outputCellForRowAt: BehaviorRelay<(HabbyItem?, Bool)> = BehaviorRelay(value: (nil, false))
-    var outputIsAllowToTap: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
-    private var storeHabby: Set<HabbyItem> = []
-    
-    private var storeHabbyObservable: Observable<Set<HabbyItem>> {
-        return Observable.just(storeHabby)
-    }
-    
-    //MARK: -input/output
-    var input: ChooseHabbyInput { self }
-    var output: ChooseHabbyOutput { self }
-    
-    init() {
-        inputCellForRowAt
-            .subscribe(onNext: { indexPath in
-                let habby = self.cellForRowAt(indexPath: indexPath).habby
-                let isSelected = self.cellForRowAt(indexPath: indexPath).isSelected
-                print("habby:\(habby)")
-                print("isSelected:\(isSelected)")
-                self.outputCellForRowAt.accept((habby, isSelected))
-        })
-        .disposed(by: disposeBag)
-            
-        didSelectedRowAt
-            .subscribe(onNext: { indexPath in
-                self.didSelectedRowAt(indexPath: indexPath)
-        })
-        .disposed(by: disposeBag)
-        
-        tapAction
-            .subscribe(onNext: {
-                self.uploadHabbyDataToFireBase()
-        })
-        .disposed(by: disposeBag)
-        
-    }
-
-    private func didSelectedRowAt(indexPath: IndexPath) {
-        if storeHabby.isEmpty {
-            storeHabby.insert(HabbyItem(rawValue: indexPath.row)!)
-        } else if storeHabby.contains(HabbyItem(rawValue: indexPath.row)!){
-            storeHabby.remove(HabbyItem(rawValue: indexPath.row)!)
-        } else if storeHabby.count > 1{
-            outputIsAllowToTap.accept(true)
+    //新增、移除儲存的嗜好
+    func didSelectedRowAt(indexPath: IndexPath) {
+        if storeHabbys.contains(HabbyItem(rawValue: indexPath.row)!) {
+            storeHabbys.remove(HabbyItem(rawValue: indexPath.row)!)
+        } else {
+            storeHabbys.insert(HabbyItem(rawValue: indexPath.row)!)
         }
     }
-    
-    private func cellForRowAt(indexPath: IndexPath) -> (habby: HabbyItem?, isSelected: Bool) {
-        let selectedHabby = HabbyItem(rawValue: indexPath.row)
-        let isSelected = storeHabby.contains(selectedHabby!)
-        print("selectedHabby:\(selectedHabby)")
-        return (selectedHabby, isSelected)
+
+    func cellForRowAt(indexPath: IndexPath) -> (habby: HabbyItem, isSelected: Bool) {
+        let habby = habbys[indexPath.row]
+        let isSelected = storeHabbys.contains(habbys[indexPath.row])
+        return (habby, isSelected)
     }
     
     private func uploadHabbyDataToFireBase() {
         print("uploadHabby")
-        
+    }
+    
+    func setIsAllowToTap() -> Bool {
+        storeHabbys.count >= 1 ? true : false
     }
     
     private func saveToLocal() {

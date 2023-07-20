@@ -71,6 +71,7 @@ class HabbyCollectionViewCell: UICollectionViewCell {
     func configureHabby(by item: HabbyItem, isSelected: Bool) {
         habbyLabel.text = item.habbyTitleText
         configureItem(by: item, selected: isSelected)
+        handleSelectedItemView(by: isSelected)
     }
     
     func handleSelectedItemView(by selected: Bool) {
