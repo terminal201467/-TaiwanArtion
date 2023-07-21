@@ -40,7 +40,7 @@ class HotHxhibitionTableViewCell: UITableViewCell {
     }
     
     private func setTableViewBinding() {
-        viewModel.viewDidLoad.hotExhibitions
+        viewModel.outputs.hotExhibitionRelay.asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: HotDetailTableViewCell.reuseIdentifier, cellType: HotDetailTableViewCell.self)) { (row, item, cell) in
                 cell.configure(number: "\(row + 1)", title: item.title, location: item.city, date: item.dateString, image: item.image)
             }
@@ -52,11 +52,6 @@ class HotHxhibitionTableViewCell: UITableViewCell {
             })
             .disposed(by: disposeBag)
         
-//        viewModel.outputs.didSelectedHotExhibitionRow
-//            .subscribe(onNext: { info in
-//                self.pushToViewController?(info)
-//            })
-//            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {

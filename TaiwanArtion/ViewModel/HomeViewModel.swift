@@ -34,29 +34,22 @@ public protocol HomeViewModelInput: AnyObject {
 }
 
 public protocol HomeViewModelOutput: AnyObject {
-    var newses: Observable<[NewsModel]> { get }
-    var mainPhotos: Observable<[ExhibitionInfo]> { get }
-    var hotExhibitions: Observable<[ExhibitionInfo]> { get }
-    var allExhibitions: Observable<[ExhibitionInfo]> { get }
     var months: Observable<Month> { get }
     var habbys: Observable<HabbyItem?> { get }
     var items: Observable<Items> { get }
-}
-
-public protocol ViewDidLoad: AnyObject {
-    var mainPhotos: Observable<[ExhibitionInfo]> { get }
-    var hotExhibitions: Observable<[ExhibitionInfo]> { get }
-    var newses: Observable<[NewsModel]> { get }
-    var allExhibitions: Observable<[ExhibitionInfo]> { get }
+    var hotExhibitionRelay: BehaviorRelay<[ExhibitionInfo]> { get }
+    var mainPhotoRelay: BehaviorRelay<[ExhibitionInfo]> { get }
+    var newsRelay: BehaviorRelay<[NewsModel]> { get }
+    var allExhibitionRelay: BehaviorRelay<[ExhibitionInfo]> { get }
 }
 
 public protocol HomeViewModelType: AnyObject {
     var inputs: HomeViewModelInput { get }
     var outputs: HomeViewModelOutput { get }
-    var viewDidLoad: ViewDidLoad { get }
 }
 
-class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput, ViewDidLoad {
+class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput {
+    
     //Input
     var monthSelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
     var habbySelected: PublishSubject<IndexPath> = PublishSubject<IndexPath>()
@@ -76,33 +69,15 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput,
     
     var outputs: HomeViewModelOutput { self }
     
-    var viewDidLoad: ViewDidLoad { self }
-    
     //MARK: - Store
     
-    private let hotExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
+    let hotExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
-    private let mainPhotoRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
+    let mainPhotoRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
-    private let newsRelay = BehaviorRelay<[NewsModel]>(value: [])
+    let newsRelay = BehaviorRelay<[NewsModel]>(value: [])
     
-    private let allExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
-    
-    var hotExhibitions: Observable<[ExhibitionInfo]> {
-        return hotExhibitionRelay.asObservable()
-    }
-    
-    var mainPhotos: Observable<[ExhibitionInfo]> {
-        return mainPhotoRelay.asObservable()
-    }
-    
-    var newses: Observable<[NewsModel]> {
-        return newsRelay.asObservable()
-    }
-    
-    var allExhibitions: Observable<[ExhibitionInfo]> {
-        return allExhibitionRelay.asObservable()
-    }
+    let allExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
     //MARK: - CollectionViewSelectedRelay
     
@@ -143,6 +118,7 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput,
             .disposed(by: disposeBag)
         
         fetchDataRecentExhibition(by: 5)
+        fetchDataHotExhibition(by: 5)
     }
     
     //MARK: - Firebase
@@ -181,6 +157,8 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput,
         }
     }
     
+    //MARK: - Firebase fetch Method
+    
     func fetchDataRecentExhibition(by count: Int) {
         firebase.getRandomDocuments(count: count) { data, error in
             if let error = error {
@@ -210,8 +188,41 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput,
         }
     }
     
-    func fetchDataHotExhibition() {
-        firebase.getHotDocument(count: 5) { data, error in
+    func fetchDataHotExhibition(by count: Int) {
+        firebase.getHotDocument(count: count) { data, error in
+            if let error = error {
+                print("error:\(error)")
+            } else if let data = data {
+                var info: [ExhibitionInfo] = []
+                data.map { detailData in
+                    guard let title = detailData["title"] as? String,
+                          let image = detailData["imageUrl"] as? String,
+                          let dateString = detailData["startDate"] as? String,
+                          let agency = detailData["subUnit"] as? [String],
+                          let official = detailData["showUnit"] as? String,
+                          let showInfo = detailData["showInfo"] as? [[String: Any]],
+                          let price = showInfo.first?["price"] as? String,
+                          let time = showInfo.first?["time"] as? String,
+                          let latitude = showInfo.first?["latitude"] as? String,
+                          let longitude = showInfo.first?["longitude"] as? String,
+                          let location = showInfo.first?["locationName"] as? String,
+                          let address = showInfo.first?["location"] as? String else { return }
+                    let exhibition = ExhibitionInfo(title: title, image: image == "" ? "noIdea" : "" , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
+                    info.append(exhibition)
+                }
+                self.hotExhibitionRelay.accept(info)
+            }
+        }
+    }
+    
+    //新聞系統還沒建置好
+    func fetchDataNewsExhibition() {
+        
+    }
+    
+    //
+    func fetchRecentExhibition(count: Int) {
+        firebase.getRecentDocuments(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
             } else if let data = data {
@@ -234,8 +245,27 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput,
                     let exhibition = ExhibitionInfo(title: title, image: image == "" ? "noIdea" : "" , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
                     info.append(exhibition)
                 }
-                self.mainPhotoRelay.accept(info)
+                self.allExhibitionRelay.accept(info)
             }
         }
     }
+    
+    
+//    func fetchAllExhibition(by item: Items) {
+//        switch item {
+//        case .newest:
+//            <#code#>
+//        case .popular:
+//            //未有評價系統
+//            firebase.getHotDocument(count: 10) { data, error in
+//                <#code#>
+//            }
+//        case .highRank:
+//
+//        case .recent:
+//            firebase.getRecentDocuments(count: 10) { data, error in
+//                <#code#>
+//            }
+//        }
+//    }
 }

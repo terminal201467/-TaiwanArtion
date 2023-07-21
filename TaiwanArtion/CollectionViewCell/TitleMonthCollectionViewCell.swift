@@ -6,22 +6,35 @@
 //
 
 import UIKit
+import RxSwift
 
 class TitleMonthCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "TitleMonthCollectionViewCell"
     
-    private var currentTitleMonth: String = ""
+    private let disposeBag = DisposeBag()
+    
+    var changedTitleMonth: (() -> Void)?
+    
+    private var currentTitleMonth: String? {
+        didSet {
+            changedTitleMonth?()
+            titleBarItem.title = currentTitleMonth
+        }
+    }
     
     var nextMonthAction: (() -> Void)?
     
     var preMonthAction: (() -> Void)?
     
+    private let titleBarItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
+    
+    private let rightArrowButton = UIBarButtonItem(image: .init(named: "rightArrow")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: nil)
+    
+    private let leftArrowButton = UIBarButtonItem(image: .init(named: "leftArrow")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: nil)
+
     private lazy var monthTitleBar: UIToolbar = {
-        let rightArrowButton = UIBarButtonItem(image: .init(named: "rightArrow")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(nextMonth))
-        let titleBarItem = UIBarButtonItem(title: self.currentTitleMonth, style: .plain, target: self, action: nil)
         titleBarItem.tintColor = .brownTitleColor
-        let leftArrowButton = UIBarButtonItem(image: .init(named: "leftArrow")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(preMonth))
         let toolBar = UIToolbar()
         toolBar.barTintColor = .white
         toolBar.backgroundColor = .white
@@ -33,28 +46,36 @@ class TitleMonthCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoLayout()
+        setButtonAction()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func nextMonth() {
-        nextMonthAction?()
-    }
-    
-    @objc private func preMonth() {
-        preMonthAction?()
+    private func setButtonAction() {
+        rightArrowButton.rx.tap
+            .subscribe(onNext: {
+                self.nextMonthAction?()
+            })
+            .disposed(by: disposeBag)
+        
+        leftArrowButton.rx.tap
+            .subscribe(onNext: {
+                self.preMonthAction?()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {
-        addSubview(monthTitleBar)
+        contentView.addSubview(monthTitleBar)
         monthTitleBar.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
-    func configure(currenMonth: String) {
-        currentTitleMonth = currenMonth
+    func configure(currenMonth: Month) {
+        currentTitleMonth = "\(currenMonth.numberText)" + "月" + "\(currenMonth.englishText)"
+        print("currentTitleMonth:\(currentTitleMonth!)")
     }
 }

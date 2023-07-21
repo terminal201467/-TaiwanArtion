@@ -96,15 +96,22 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
         switch CustomCalendarItems(rawValue: indexPath.section) {
         case .title:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleMonthCollectionViewCell.reuseIdentifier, for: indexPath) as! TitleMonthCollectionViewCell
-            cell.configure(currenMonth: currentMonth.numberText + currentMonth.englishText)
+            cell.changedTitleMonth = {
+                collectionView.reloadData()
+            }
+            cell.configure(currenMonth: currentMonth)
             cell.nextMonthAction = {
-                self.viewModel.input.nextMonth.accept(())
+                self.viewModel.input.nextMonth.onNext(())
                 collectionView.reloadData()
             }
             cell.preMonthAction = {
-                self.viewModel.input.preMonth.accept(())
+                self.viewModel.input.preMonth.onNext(())
                 collectionView.reloadData()
             }
+            viewModel.output.reloadCalendar.subscribe(onNext: {
+                collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
             return cell
         case .week:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeekCollectionViewCell.reuseIdentifier, for: indexPath) as! WeekCollectionViewCell

@@ -14,6 +14,7 @@ protocol CalendarOutput{
     var isAllowToTap: BehaviorRelay<Bool> { get }
     var outputMonth: BehaviorRelay<String> { get }
     var sendOutSelecteMonthAndDate: BehaviorRelay<(month: String, date: String)> { get }
+    var reloadCalendar: RxRelay.PublishRelay<Void> { get }
 }
 
 protocol CalendarInput {
@@ -22,8 +23,8 @@ protocol CalendarInput {
     var correctTime: PublishRelay<Void> { get }
     var storeTime: BehaviorRelay<String> { get }
     var currentMonthDate: BehaviorRelay<String> { get }
-    var nextMonth: BehaviorRelay<Void> { get }
-    var preMonth: BehaviorRelay<Void> { get }
+    var nextMonth: PublishSubject<Void> { get }
+    var preMonth: PublishSubject<Void> { get }
 }
 
 protocol CalendarViewModelType {
@@ -38,8 +39,8 @@ class CustomCalendarViewModel: CalendarViewModelType, CalendarInput, CalendarOut
     //MARK: -Input
     var correctTime: RxRelay.PublishRelay<Void> = PublishRelay()
     var storeTime: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
-    var nextMonth: RxRelay.BehaviorRelay<Void> = BehaviorRelay(value: ())
-    var preMonth: RxRelay.BehaviorRelay<Void> = BehaviorRelay(value: ())
+    var nextMonth: PublishSubject<Void> = PublishSubject()
+    var preMonth: PublishSubject<Void> = PublishSubject()
     var inputYear: RxRelay.BehaviorRelay<Int> = BehaviorRelay(value: 0)
     
     //MARK: -Output

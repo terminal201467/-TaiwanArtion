@@ -34,7 +34,7 @@ class NewsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setCollectionViewBinding()
+//        setCollectionViewBinding()
         autoLayout()
     }
     
@@ -42,27 +42,27 @@ class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setCollectionViewBinding() {
-        collectionView.rx.setDelegate(self)
+//    private func setCollectionViewBinding() {
+//        collectionView.rx.setDelegate(self)
+//
+//        collectionView.rx.itemSelected
+//            .subscribe(onNext: { indexPath in
+//                self.viewModel.inputs.newsExhibitionSelected.onNext(indexPath)
+//            })
+//            .disposed(by: disposeBag)
         
-        collectionView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
-                self.viewModel.inputs.newsExhibitionSelected.onNext(indexPath)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.viewDidLoad.newses
-            .bind(to: collectionView.rx.items(cellIdentifier: NewsCollectionViewCell.reuseIdentifier, cellType: NewsCollectionViewCell.self)) { (row, item, cell) in
-                cell.configure(image: item.image, title: item.title, date: item.date, author: item.author)
-            }
-            .disposed(by: disposeBag)
+//        viewModel.viewDidLoad.newses
+//            .bind(to: collectionView.rx.items(cellIdentifier: NewsCollectionViewCell.reuseIdentifier, cellType: NewsCollectionViewCell.self)) { (row, item, cell) in
+//                cell.configure(image: item.image, title: item.title, date: item.date, author: item.author)
+//            }
+//            .disposed(by: disposeBag)
         
 //        viewModel.outputs.didSelectedNewsExhibitionRow
 //            .subscribe { news in
 //                self.pushToViewController?(news)
 //            }
 //            .disposed(by: disposeBag)
-    }
+//    }
     
     private func autoLayout() {
         contentView.addSubview(collectionView)

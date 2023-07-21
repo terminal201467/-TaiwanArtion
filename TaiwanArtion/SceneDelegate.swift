@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.backgroundColor = .white
         FirebaseApp.configure()
-        window?.rootViewController = UINavigationController(rootViewController: ChooseHabbyViewController())
+        window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
 //        if userManager.getIsLoggedIn() {
 //            //如果已經登入
 //            window?.rootViewController = RootViewController()

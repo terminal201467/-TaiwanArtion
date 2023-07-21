@@ -88,6 +88,14 @@ class FirebaseDatabase {
         }
     }
     
+    func getPopularDocument() {
+        
+    }
+    
+    func getHighEvaluationDocument() {
+        
+    }
+    
     //首頁讀取資料的相關function
     func readDocument(habby: String? = nil, month: String? = nil, item: String? = nil, completion: @escaping ([[String: Any]], Error?) -> Void) {
         var query: Query = db.collection(collectionName)
