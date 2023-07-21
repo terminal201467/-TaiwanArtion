@@ -24,7 +24,7 @@ class AllExhibitionTableViewCell: UITableViewCell {
     
     private let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
+        flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = 5
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(AllExhibitionCollectionViewCell.self, forCellWithReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier)
@@ -46,18 +46,23 @@ class AllExhibitionTableViewCell: UITableViewCell {
 
     private func setCollectionViewBinding() {
         collectionView.rx.setDelegate(self)
+        
+        viewModel.outputs.allExhibitionRelay
+            .bind(to: collectionView.rx.items) { (collectionView, row, element) in
+                let indexPath = IndexPath(row: row, section: 0)
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier, for: indexPath) as! AllExhibitionCollectionViewCell
+                cell.configure(with: element)
+                return cell
+            }
+            .disposed(by: disposeBag)
+
         collectionView.rx.itemSelected
             .subscribe(onNext: { indexPath in
                 self.viewModel.inputs.allExhibitionSelected.onNext(indexPath)
                 self.collectionView.reloadData()
+                self.pushToViewController?(self.viewModel.outputs.allExhibitionRelay.value[indexPath.row])
             })
             .disposed(by: disposeBag)
-        
-//        viewModel.allExhibitionObservable
-//            .bind(to: collectionView.rx.items(cellIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier,cellType: AllExhibitionCollectionViewCell.self)) { row, info, cell in
-//
-//            }
-//            .disposed(by: disposeBag)
     }
     
     private func autoLayout() {
@@ -72,38 +77,22 @@ class AllExhibitionTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(itemView.snp.bottom).offset(12.0)
-            make.leading.equalToSuperview().offset(12.0)
-            make.trailing.equalToSuperview().offset(-12.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
 }
 
 extension AllExhibitionTableViewCell: UICollectionViewDelegateFlowLayout {
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return viewModel.allExhibitionNumerOfRowInSection(section: section)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier, for: indexPath) as! AllExhibitionCollectionViewCell
-//        cell.configure(with: viewModel.allExhibitionCellForRowAt(indexPath: indexPath))
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        viewModel.allExhibitionDidSelectedRowAt(indexPath: indexPath) { exhibition in
-//            self.pushToViewController?(exhibition)
-//        }
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellHeight = 230.0
-        let cellWidth = (frame.width - 24 * 1) / 2
+        let cellWidth = (frame.width - 16 * 2 - 12 * 2) / 2
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 }

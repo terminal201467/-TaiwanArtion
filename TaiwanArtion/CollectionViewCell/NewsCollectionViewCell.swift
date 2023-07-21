@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NewsCollectionViewCell: UICollectionViewCell {
     
@@ -73,7 +74,13 @@ class NewsCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(image: String, title: String, date: String, author: String) {
-        mainImage.image = UIImage(named: image)
+        if image == "defaultExhibition" {
+            mainImage.image = UIImage(named: image)
+        } else {
+            if let imageURL = URL(string: image) {
+                mainImage.kf.setImage(with: imageURL)
+            }
+        }
         titleLabel.text = title
         subTitleLabel.text = "\(date)|\(author)"
     }

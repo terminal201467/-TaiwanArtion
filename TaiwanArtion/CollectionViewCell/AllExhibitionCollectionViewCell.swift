@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxRelay
+import Kingfisher
 
 class AllExhibitionCollectionViewCell: UICollectionViewCell {
     
@@ -129,7 +130,13 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with exhibition: ExhibitionInfo) {
-        exhibitionImage.image = UIImage(named: exhibition.image)
+        if exhibition.image == "defaultExhibition" {
+            exhibitionImage.image = UIImage(named: exhibition.image)
+        } else {
+            if let imageURL = URL(string: exhibition.image) {
+                exhibitionImage.kf.setImage(with: imageURL)
+            }
+        }
         titleLabel.text = exhibition.title
         dateLabel.text = exhibition.dateString
         cityLabel.text = exhibition.location

@@ -19,6 +19,7 @@ target 'TaiwanArtion' do
   pod 'GoogleSignIn'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
+  pod 'Kingfisher', '~> 6.0'
 
   target 'TaiwanArtionTests' do
     inherit! :search_paths

@@ -10,6 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import RxRelay
+import Kingfisher
 
 class MainPhotosCollectionViewCell: UICollectionViewCell {
     
@@ -126,7 +127,13 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         titleLabel.text = title
         dateLabel.text = date
         tagLabel.text = tagText
-        exhibitionImage.image = UIImage(named: image)
+         if image == "defaultExhibition" {
+             exhibitionImage.image = UIImage(named: image)
+         } else {
+             if let imageURL = URL(string: image) {
+                 exhibitionImage.kf.setImage(with: imageURL)
+             }
+         }
     }
     
     private func setCollectButton() {

@@ -85,7 +85,7 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     private let currentHabbySubject = BehaviorSubject<HabbyItem?>(value: nil)
     
-    private let currenItemSubject = BehaviorSubject<Items>(value: .highRank)
+    private let currenItemSubject = BehaviorSubject<Items>(value: .newest)
     
     var months: Observable<Month> { currentMonthsSubject.asObservable() }
     
@@ -106,19 +106,50 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         habbySelected
             .subscribe(onNext: { indexPath in
                 self.currentHabbySubject.onNext(HabbyItem(rawValue: indexPath.row))
-                self.fetchDataKind(by: HabbyItem(rawValue: indexPath.row)!)
+//                self.fetchDataKind(by: HabbyItem(rawValue: indexPath.row)!)
             })
             .disposed(by: disposeBag)
         
         itemSelected
             .subscribe(onNext: { indexPath in
                 self.currenItemSubject.onNext(Items(rawValue: indexPath.row)!)
-                self.fetchDataKind(by: Items(rawValue: indexPath.row)!)
+                self.allExhibitionSelected.onNext(indexPath)
             })
             .disposed(by: disposeBag)
         
-        fetchDataRecentExhibition(by: 5)
-        fetchDataHotExhibition(by: 5)
+        //主要圖像
+        fetchRecentExhibition(count: 5) { info in
+            print("mainPhoto:\(info)")
+            self.mainPhotoRelay.accept(info)
+        }
+        
+        //熱門展覽
+        fetchDataHotExhibition(by: 5) { info in
+            self.hotExhibitionRelay.accept(info)
+        }
+        
+        allExhibitionSelected.subscribe(onNext: { indexPath in
+            switch Items(rawValue: indexPath.row) {
+            case .newest:
+                self.fetchRecentExhibition(count: 10) { info in
+                    self.allExhibitionRelay.accept(info)
+            }
+            case .popular:
+                self.fetchDataHotExhibition(by: 10) { info in
+                    self.allExhibitionRelay.accept(info)
+                }
+            case .highRank:
+                self.fetchDataHotExhibition(by: 10) { info in
+                    self.allExhibitionRelay.accept(info)
+                }
+            case .recent:
+                self.fetchRecentExhibition(count: 10) { info in
+                    self.allExhibitionRelay.accept(info)
+                }
+            case .none: print("none")
+            }
+        })
+        .disposed(by: disposeBag)
     }
     
     //MARK: - Firebase
@@ -135,31 +166,9 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         }
     }
     
-    func fetchDataKind(by item: Items) {
-        firebase.readDocument(item: item.text) { data, error in
-            if let error = error {
-                print("error:\(error)")
-            } else if data != nil {
-                print("data:\(data)")
-            }
-        }
-    }
-    
-    //目前這個function應該是沒有什麼用
-    func fetchDataKind(by habby: HabbyItem) {
-        firebase.readDocument(habby: habby.titleText) { data, error in
-            if let error = error {
-                print("error:\(error)")
-            } else if data != nil {
-                print("data:\(data)")
-//                self.allExhibitionRelay.accept(   －)
-            }
-        }
-    }
-    
     //MARK: - Firebase fetch Method
     
-    func fetchDataRecentExhibition(by count: Int) {
+    func fetchDataRecentExhibition(by count: Int, completion: @escaping (([ExhibitionInfo]) -> Void)) {
         firebase.getRandomDocuments(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
@@ -180,15 +189,15 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
                           let address = showInfo.first?["location"] as? String else { return }
                     //這邊的image需要設計沒有相關圖片的圖
                     //分類的部分都會先給定一般
-                    let exhibition = ExhibitionInfo(title: title, image: image == "" ? "noIdea" : "" , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
+                    let exhibition = ExhibitionInfo(title: title, image: image == "" ? "defaultExhibition" : image , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
                     info.append(exhibition)
                 }
-                self.mainPhotoRelay.accept(info)
+                completion(info)
             }
         }
     }
     
-    func fetchDataHotExhibition(by count: Int) {
+    func fetchDataHotExhibition(by count: Int, completion: @escaping (([ExhibitionInfo]) -> Void)) {
         firebase.getHotDocument(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
@@ -207,10 +216,10 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
                           let longitude = showInfo.first?["longitude"] as? String,
                           let location = showInfo.first?["locationName"] as? String,
                           let address = showInfo.first?["location"] as? String else { return }
-                    let exhibition = ExhibitionInfo(title: title, image: image == "" ? "noIdea" : "" , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
+                    let exhibition = ExhibitionInfo(title: title, image: image == "" ? "defaultExhibition" : image , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
                     info.append(exhibition)
                 }
-                self.hotExhibitionRelay.accept(info)
+                completion(info)
             }
         }
     }
@@ -221,7 +230,7 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     }
     
     //
-    func fetchRecentExhibition(count: Int) {
+    func fetchRecentExhibition(count: Int, completion: @escaping (([ExhibitionInfo]) -> Void)) {
         firebase.getRecentDocuments(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
@@ -242,30 +251,12 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
                           let address = showInfo.first?["location"] as? String else { return }
                     //這邊的image需要設計沒有相關圖片的圖
                     //分類的部分都會先給定一般
-                    let exhibition = ExhibitionInfo(title: title, image: image == "" ? "noIdea" : "" , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
+                    let exhibition = ExhibitionInfo(title: title, image: image == "" ? "defaultExhibition" : image , tag: "一般", dateString: dateString, time: time, agency: agency.map{$0}.joined(), official: official, telephone: "", advanceTicketPrice: price, unanimousVotePrice: price, studentPrice: price, groupPrice: price, lovePrice: price, free: "", earlyBirdPrice: "", city: String(location.prefix(3)), location: location, address: address, latitude: latitude, longtitude: longitude)
                     info.append(exhibition)
                 }
-                self.allExhibitionRelay.accept(info)
+                completion(info)
             }
         }
     }
     
-    
-//    func fetchAllExhibition(by item: Items) {
-//        switch item {
-//        case .newest:
-//            <#code#>
-//        case .popular:
-//            //未有評價系統
-//            firebase.getHotDocument(count: 10) { data, error in
-//                <#code#>
-//            }
-//        case .highRank:
-//
-//        case .recent:
-//            firebase.getRecentDocuments(count: 10) { data, error in
-//                <#code#>
-//            }
-//        }
-//    }
 }

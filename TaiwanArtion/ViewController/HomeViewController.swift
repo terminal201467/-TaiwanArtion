@@ -212,6 +212,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             allView.contentView.backgroundColor = .whiteGrayColor
             allView.configureTitle(with: HomeSections.all.title)
             allView.backgroundColor = .whiteGrayColor
+            headerView.backgroundColor = .whiteGrayColor
         case .none: return UIView()
         }
         return headerView
