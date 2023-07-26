@@ -28,6 +28,14 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     private let calendarPopUpView = CalendarPopUpView()
     
+    private let timer = CountdownTimer(timeInterval: 2)
+    
+    private var littleTopPopUpView: LittleTopPopUpView = {
+        let view = LittleTopPopUpView()
+        view.configure(title: "編輯個人檔案成功", image: "brownCheck")
+        return view
+    }()
+    
     private let settingHeadViewController = SettingHeadViewController()
     
     private lazy var popUpViewController: PopUpViewController = {
@@ -35,6 +43,16 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         popUpViewController.modalPresentationStyle = .overFullScreen
         popUpViewController.modalTransitionStyle = .coverVertical
         calendarPopUpView.dismissFromController = {
+            popUpViewController.dismiss(animated: true)
+        }
+        return popUpViewController
+    }()
+    
+    private lazy var saveSucceedPopUpViewController: PopUpViewController = {
+        let popUpViewController = PopUpViewController(popUpView: littleTopPopUpView)
+        popUpViewController.modalPresentationStyle = .overFullScreen
+        popUpViewController.modalTransitionStyle = .coverVertical
+        littleTopPopUpView.dismissFromController = {
             popUpViewController.dismiss(animated: true)
         }
         return popUpViewController
@@ -51,6 +69,7 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         setNavigationBar()
         setTable()
         setHeadButton()
+        setPopUpViewDismiss()
     }
     
     private func setNavigationBar() {
@@ -80,6 +99,12 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         }
         personInfoView.tableView.delegate = self
         personInfoView.tableView.dataSource = self
+    }
+    
+    private func setPopUpViewDismiss() {
+        timer.onCompleted = {
+            self.dismiss(animated: true)
+        }
     }
 }
 
@@ -169,13 +194,15 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
         case .save:
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier) as! ButtonTableViewCell
             self.viewModel.saveCheck.subscribe { isAllowSaved in
-                cell.button.isEnabled = isAllowSaved ? true : false
+//                cell.button.isEnabled = isAllowSaved ? true : false
                 cell.button.backgroundColor = isAllowSaved ? .brownColor : .whiteGrayColor
                 cell.button.setTitleColor(isAllowSaved ? .white : .grayTextColor, for: .normal)
                 cell.configure(buttonName: PersonInfo.save.placeHolder)
             }
             cell.action = {
                 self.viewModel.input.saveAction.onNext(())
+                self.present(self.saveSucceedPopUpViewController, animated: true)
+                self.timer.start()
             }
             return cell
         case .none: return UITableViewCell()

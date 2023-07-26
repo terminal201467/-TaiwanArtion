@@ -73,7 +73,7 @@ class LittleTopPopUpView: UIView {
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(57.0)
             make.height.equalTo(36.0)
-            make.width.equalTo(162.0)
+            make.width.equalToSuperview().multipliedBy(0.5)
         }
         
         checkImage.snp.makeConstraints { make in
