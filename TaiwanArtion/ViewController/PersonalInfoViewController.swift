@@ -86,6 +86,7 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     private func setHeadButton() {
         settingHeadViewController.selectedHeadPhoto = { photo in
             self.personFileView.configurePersonImageButton(image: photo)
+            //popUp
         }
         personFileView.changePhoto = {
             self.navigationController?.pushViewController(self.settingHeadViewController, animated: true)
@@ -194,7 +195,7 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
         case .save:
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier) as! ButtonTableViewCell
             self.viewModel.saveCheck.subscribe { isAllowSaved in
-//                cell.button.isEnabled = isAllowSaved ? true : false
+                cell.button.isEnabled = isAllowSaved ? true : false
                 cell.button.backgroundColor = isAllowSaved ? .brownColor : .whiteGrayColor
                 cell.button.setTitleColor(isAllowSaved ? .white : .grayTextColor, for: .normal)
                 cell.configure(buttonName: PersonInfo.save.placeHolder)

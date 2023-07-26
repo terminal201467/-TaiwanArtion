@@ -30,6 +30,18 @@ class SearchViewController: UIViewController {
         }
     }
     
+    private let searchFilterView = BottomUpPopUpView(frame: .infinite, type: .search)
+    
+    private lazy var popUpViewController: PopUpViewController = {
+        let popUpViewController = PopUpViewController(popUpView: searchFilterView)
+        popUpViewController.modalPresentationStyle = .overFullScreen
+        popUpViewController.modalTransitionStyle = .coverVertical
+        searchFilterView.dismissFromController = {
+            popUpViewController.dismiss(animated: true)
+        }
+        return popUpViewController
+    }()
+    
     //MARK: - LifeCycle
     override func loadView() {
         super.loadView()
@@ -47,6 +59,7 @@ class SearchViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
         setCurrentItem()
+        setSearchFilterSelected()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -59,6 +72,12 @@ class SearchViewController: UIViewController {
     //MARK: - Methods
     private func setNavigationBar() {
         navigationItem.hidesBackButton = true
+    }
+    
+    private func setSearchFilterSelected() {
+        searchFilterView.searchSelectedItem = { item in
+            print("item:\(item.text)")
+        }
     }
     
     private func hiddenLocation() {
@@ -154,7 +173,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
             case .filterIcon:
                 buttonCell.configure(iconText: cellInfo.title)
                 buttonCell.action = {
-                    print("press")
+                    self.present(self.popUpViewController, animated: true)
                 }
                 return buttonCell
             case .none: print("none")

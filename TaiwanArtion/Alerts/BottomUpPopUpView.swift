@@ -20,13 +20,42 @@ enum FilterItems: Int, CaseIterable {
     }
 }
 
+enum SearchItems: Int, CaseIterable {
+    case mostSurvey = 0, mostCollect, mostEvaluation, recent
+    var text: String {
+        switch self {
+        case .mostSurvey: return "最多瀏覽"
+        case .mostCollect: return "最多收藏"
+        case .mostEvaluation: return "最高評價"
+        case .recent: return "日期由近到遠"
+        }
+    }
+}
+
+enum PopUpType: Int {
+    case filter = 0, search
+}
+
 class BottomUpPopUpView: UIView {
     
     private let disposeBag = DisposeBag()
     
-    var filterCondition: ((String) -> Void)?
+    var filterSelectedItem: ((FilterItems) -> Void)?
     
-    private var currentSelectedItem: FilterItems?
+    var searchSelectedItem: ((SearchItems) -> Void)?
+    
+    var dismissFromController: (() -> Void)?
+    
+    private var popUpType: PopUpType
+    
+    init(frame: CGRect ,type: PopUpType) {
+        self.popUpType = type
+        super.init(frame: frame)
+        autoLayout()
+        setTableView()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissPresentedViewController))
+        backgroundView.addGestureRecognizer(tapGesture)
+    }
 
     private let backgroundView: UIView = {
         let view = UIView()
@@ -34,98 +63,27 @@ class BottomUpPopUpView: UIView {
         view.backgroundColor = .black
         return view
     }()
-
-    private let containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 12)
-        return view
-    }()
     
-    private let toolBar: UIToolbar = {
-        let barTitle = UIBarButtonItem(title: "篩選", style: .done, target: self, action: nil)
-       let toolBar = UIToolbar()
-        toolBar.setItems([barTitle], animated: false)
-        return  toolBar
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.reuseIdentifier)
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
+        tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 12)
+        return tableView
     }()
-    
-    private let openButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("營業中", for: .normal)
-        return button
-    }()
-    
-    private let highEvaluateButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("最高評價", for: .normal)
-        return button
-    }()
-    
-    private let recentButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("距離最近", for: .normal)
-        return button
-    }()
-    
-    private lazy var buttonStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [openButton, highEvaluateButton, recentButton])
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 0
-        return stackView
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        autoLayout()
-        setButtonSubscribe()
-        setButtonSelectedColor()
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setButtonSubscribe() {
-        openButton.rx.tap
-            .subscribe(onNext: {
-                self.filterCondition?(FilterItems.open.text)
-                self.currentSelectedItem = .open
-            })
-            .disposed(by: disposeBag)
-        
-        highEvaluateButton.rx.tap
-            .subscribe(onNext: {
-                self.filterCondition?(FilterItems.highEvaluate.text)
-                self.currentSelectedItem = .highEvaluate
-            })
-            .disposed(by: disposeBag)
-        
-        recentButton.rx.tap
-            .subscribe(onNext: {
-                self.filterCondition?(FilterItems.recent.text)
-                self.currentSelectedItem = .recent
-            })
-            .disposed(by: disposeBag)
+    @objc private func dismissPresentedViewController() {
+        dismissFromController?()
     }
     
-    private func setButtonSelectedColor() {
-        switch currentSelectedItem {
-        case .open:
-            openButton.setTitleColor(.brownColor, for: .normal)
-            highEvaluateButton.setTitleColor(.black, for: .normal)
-            recentButton.setTitleColor(.black, for: .normal)
-        case .highEvaluate:
-            openButton.setTitleColor(.black, for: .normal)
-            highEvaluateButton.setTitleColor(.brownColor, for: .normal)
-            recentButton.setTitleColor(.black, for: .normal)
-        case .recent:
-            openButton.setTitleColor(.black, for: .normal)
-            highEvaluateButton.setTitleColor(.black, for: .normal)
-            recentButton.setTitleColor(.brownColor, for: .normal)
-        case .none: print("none")
-        }
+    private func setTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func autoLayout() {
@@ -134,28 +92,55 @@ class BottomUpPopUpView: UIView {
             make.edges.equalToSuperview()
         }
         
-        addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.height.equalToSuperview().multipliedBy(185.0)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+        addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.height.equalToSuperview().dividedBy(3.0)
             make.bottom.equalToSuperview()
-        }
-        
-        containerView.addSubview(toolBar)
-        toolBar.snp.makeConstraints { make in
-            make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(39.0)
         }
-        
-        containerView.addSubview(buttonStack)
-        buttonStack.snp.makeConstraints { make in
-            make.top.equalTo(toolBar.snp.bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+    }
+}
+
+extension BottomUpPopUpView: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containerView = UIView()
+        let label: UILabel = {
+           let label = UILabel()
+            label.text = "篩選"
+            label.textColor = .black
+            label.font = .systemFont(ofSize: 14, weight: .heavy)
+            return label
+        }()
+        containerView.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
+        return containerView
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return popUpType == .filter ? FilterItems.allCases.count : SearchItems.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.reuseIdentifier, for: indexPath) as! FilterTableViewCell
+        cell.selectionStyle = .none
+        cell.configure(text: popUpType == .filter ? FilterItems.allCases[indexPath.row].text : SearchItems.allCases[indexPath.row].text)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if popUpType == .filter {
+            filterSelectedItem?(FilterItems(rawValue: indexPath.row)!)
+        } else {
+            searchSelectedItem?(SearchItems(rawValue: indexPath.row)!)
+        }
+        dismissFromController?()
     }
 }
