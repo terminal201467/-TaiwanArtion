@@ -52,6 +52,7 @@ class SelectCollectionItemsView: UIView {
     }
     
     private func setCollectionViewBinding() {
+        viewModel.inputs.itemSelected.onNext([0,0])
         collectionView.rx.setDelegate(self)
         collectionView.rx.itemSelected
             .bind(to: viewModel.inputs.itemSelected)

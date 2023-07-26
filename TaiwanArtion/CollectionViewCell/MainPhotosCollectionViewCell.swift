@@ -96,7 +96,7 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
             make.top.equalToSuperview().offset(5)
-            
+            make.height.equalTo(backgroundWhiteView.snp.height).multipliedBy(0.8)
         }
         
         contentView.addSubview(tagLabel)
@@ -123,17 +123,18 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         }
     }
     
-     func configure(title: String, date: String, tagText: String, image: String) {
-        titleLabel.text = title
-        dateLabel.text = date
-        tagLabel.text = tagText
-         if image == "defaultExhibition" {
-             exhibitionImage.image = UIImage(named: image)
+    func configure(item: ExhibitionInfo) {
+        if item.image == "defaultExhibition" {
+             exhibitionImage.image = UIImage(named: item.image)
          } else {
-             if let imageURL = URL(string: image) {
+             if let imageURL = URL(string: item.image) {
+                 print("imageURL:\(imageURL)")
                  exhibitionImage.kf.setImage(with: imageURL)
              }
          }
+        titleLabel.text = item.title
+        dateLabel.text = item.dateString
+        tagLabel.text = item.tag
     }
     
     private func setCollectButton() {

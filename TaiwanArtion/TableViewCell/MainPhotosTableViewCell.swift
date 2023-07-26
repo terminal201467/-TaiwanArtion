@@ -60,7 +60,7 @@ class MainPhotosTableViewCell: UITableViewCell {
         
         viewModel.outputs.mainPhotoRelay
             .bind(to: collectionView.rx.items(cellIdentifier: MainPhotosCollectionViewCell.reuseIdentifier, cellType: MainPhotosCollectionViewCell.self)) { (row, item, cell) in
-                cell.configure(title: item.title, date: item.dateString, tagText: item.tag, image: item.image)
+                cell.configure(item: item)
             }
             .disposed(by: disposeBag)
     }

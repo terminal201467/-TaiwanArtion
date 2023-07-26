@@ -46,7 +46,6 @@ class AllExhibitionTableViewCell: UITableViewCell {
 
     private func setCollectionViewBinding() {
         collectionView.rx.setDelegate(self)
-        
         viewModel.outputs.allExhibitionRelay
             .bind(to: collectionView.rx.items) { (collectionView, row, element) in
                 let indexPath = IndexPath(row: row, section: 0)

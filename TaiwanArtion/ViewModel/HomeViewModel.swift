@@ -106,7 +106,6 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         habbySelected
             .subscribe(onNext: { indexPath in
                 self.currentHabbySubject.onNext(HabbyItem(rawValue: indexPath.row))
-//                self.fetchDataKind(by: HabbyItem(rawValue: indexPath.row)!)
             })
             .disposed(by: disposeBag)
         
