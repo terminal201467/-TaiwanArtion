@@ -245,7 +245,11 @@ class NotifyView: UIView {
     }
     
     private func setSwitchItem() {
-        notifyIsOn?(switchItem.isOn)
+        switchItem.rx.isOn
+            .subscribe(onNext: { isOn in
+                self.notifyIsOn?(isOn)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setBackButton() {

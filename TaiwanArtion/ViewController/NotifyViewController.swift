@@ -13,6 +13,24 @@ class NotifyViewController: UIViewController {
 
     private let notifyView = NotifyView()
     
+    private let littleTopPopUpView: LittleTopPopUpView = {
+        let view = LittleTopPopUpView()
+        view.configure(title: "已開啟推播通知", image: "brownCheck")
+        return view
+    }()
+    
+    private lazy var popUpViewController: PopUpViewController = {
+        let popUpViewController = PopUpViewController(popUpView: littleTopPopUpView)
+        popUpViewController.modalPresentationStyle = .overFullScreen
+        popUpViewController.modalTransitionStyle = .coverVertical
+        littleTopPopUpView.dismissFromController = {
+            popUpViewController.dismiss(animated: true)
+        }
+        return popUpViewController
+    }()
+    
+    private let timer = CountdownTimer(timeInterval: 2)
+    
     //MARK: - LifeCycle
     override func loadView() {
         super.loadView()
@@ -31,6 +49,15 @@ class NotifyViewController: UIViewController {
         notifyView.notifyIsOn = { isOn in
             print("isOn:\(isOn)")
             self.viewModel.toggleNotification(isOn: isOn)
+            if isOn == true {
+                self.present(self.popUpViewController, animated: true)
+                self.timer.start()
+            }
+            
+            self.timer.onCompleted = {
+                self.dismiss(animated: true)
+            }
+            
         }
         
         notifyView.backAction = {
