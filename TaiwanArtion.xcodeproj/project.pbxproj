@@ -127,6 +127,8 @@
 		978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */; };
 		978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */; };
 		97977C6B2A70D9DF00BC89E0 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C6A2A70D9DF00BC89E0 /* FilterTableViewCell.swift */; };
+		97977C6D2A70EA6E00BC89E0 /* FlexibleTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C6C2A70EA6E00BC89E0 /* FlexibleTabBarView.swift */; };
+		97977C6F2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */; };
 		97BD68572A5624D300F4BCAB /* PersonalFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68562A5624D300F4BCAB /* PersonalFileView.swift */; };
 		97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */; };
 		97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */; };
@@ -313,6 +315,8 @@
 		978834C82A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsContentTableViewCell.swift; sourceTree = "<group>"; };
 		978834CA2A1EF22B00ADBEE8 /* NewsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSectionView.swift; sourceTree = "<group>"; };
 		97977C6A2A70D9DF00BC89E0 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		97977C6C2A70EA6E00BC89E0 /* FlexibleTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTabBarView.swift; sourceTree = "<group>"; };
+		97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTabBarCollectionViewCell.swift; sourceTree = "<group>"; };
 		97BD68562A5624D300F4BCAB /* PersonalFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileView.swift; sourceTree = "<group>"; };
 		97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
 		97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoViewModel.swift; sourceTree = "<group>"; };
@@ -464,6 +468,7 @@
 				9771A15D2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift */,
 				97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */,
 				973C83752A5F735100490D25 /* TitleMonthCollectionViewCell.swift */,
+				97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -683,6 +688,7 @@
 				97FD07102A658DCA00A64808 /* ResetSucceedView.swift */,
 				97FD07142A665A6F00A64808 /* AccountSettingView.swift */,
 				97FD07182A666D0200A64808 /* ChooseHabbyView.swift */,
+				97977C6C2A70EA6E00BC89E0 /* FlexibleTabBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -979,6 +985,7 @@
 				97FD070B2A658BBD00A64808 /* AlreadyLoginViewController.swift in Sources */,
 				97977C6B2A70D9DF00BC89E0 /* FilterTableViewCell.swift in Sources */,
 				973C17B12A29623F00581DC6 /* SystemTableViewCell.swift in Sources */,
+				97977C6D2A70EA6E00BC89E0 /* FlexibleTabBarView.swift in Sources */,
 				97D66A2D2A0C730A00A25935 /* UIColor.swift in Sources */,
 				978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */,
 				97FD07112A658DCA00A64808 /* ResetSucceedView.swift in Sources */,
@@ -1069,6 +1076,7 @@
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
 				97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */,
 				97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */,
+				97977C6F2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift in Sources */,
 				973C83742A5F6D3500490D25 /* PopUpViewController.swift in Sources */,
 				973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */,
 				973C836E2A5D3FEA00490D25 /* GenderInfoCell.swift in Sources */,
