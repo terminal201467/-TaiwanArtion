@@ -159,5 +159,4 @@ class HomeView: UIView {
             make.bottom.equalToSuperview()
         }
     }
-    
 }

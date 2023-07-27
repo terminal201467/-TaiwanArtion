@@ -14,7 +14,7 @@ class RootViewController: UITabBarController {
     
     private let nearViewController = NearViewController()
     
-    private let collectionViewController = CollectionViewController()
+    private let collectionViewController = UINavigationController(rootViewController: CollectViewController())
     
     private let calendarViewController = CalendarViewController()
     

@@ -93,7 +93,7 @@
 		976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03132A0E8B2200424ACF /* NewsTableViewCell.swift */; };
 		976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */; };
 		976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03192A0E8CAD00424ACF /* NearViewController.swift */; };
-		976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031B2A0E8CBE00424ACF /* CollectionViewController.swift */; };
+		976A031C2A0E8CBE00424ACF /* CollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031B2A0E8CBE00424ACF /* CollectViewController.swift */; };
 		976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */; };
 		976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */; };
 		976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03212A0E8DDF00424ACF /* HomeViewController.swift */; };
@@ -129,6 +129,9 @@
 		97977C6B2A70D9DF00BC89E0 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C6A2A70D9DF00BC89E0 /* FilterTableViewCell.swift */; };
 		97977C6D2A70EA6E00BC89E0 /* FlexibleTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C6C2A70EA6E00BC89E0 /* FlexibleTabBarView.swift */; };
 		97977C6F2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */; };
+		97977C712A71569C00BC89E0 /* CollectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C702A71569C00BC89E0 /* CollectView.swift */; };
+		97977C732A715EB500BC89E0 /* MenuCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C722A715EB500BC89E0 /* MenuCollectionView.swift */; };
+		97977C752A71FEE000BC89E0 /* CollectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C742A71FEE000BC89E0 /* CollectViewModel.swift */; };
 		97BD68572A5624D300F4BCAB /* PersonalFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68562A5624D300F4BCAB /* PersonalFileView.swift */; };
 		97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */; };
 		97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */; };
@@ -281,7 +284,7 @@
 		976A03132A0E8B2200424ACF /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExhibitionTableViewCell.swift; sourceTree = "<group>"; };
 		976A03192A0E8CAD00424ACF /* NearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearViewController.swift; sourceTree = "<group>"; };
-		976A031B2A0E8CBE00424ACF /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		976A031B2A0E8CBE00424ACF /* CollectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectViewController.swift; sourceTree = "<group>"; };
 		976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileViewController.swift; sourceTree = "<group>"; };
 		976A03212A0E8DDF00424ACF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -317,6 +320,9 @@
 		97977C6A2A70D9DF00BC89E0 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		97977C6C2A70EA6E00BC89E0 /* FlexibleTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTabBarView.swift; sourceTree = "<group>"; };
 		97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTabBarCollectionViewCell.swift; sourceTree = "<group>"; };
+		97977C702A71569C00BC89E0 /* CollectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectView.swift; sourceTree = "<group>"; };
+		97977C722A715EB500BC89E0 /* MenuCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionView.swift; sourceTree = "<group>"; };
+		97977C742A71FEE000BC89E0 /* CollectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectViewModel.swift; sourceTree = "<group>"; };
 		97BD68562A5624D300F4BCAB /* PersonalFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileView.swift; sourceTree = "<group>"; };
 		97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
 		97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoViewModel.swift; sourceTree = "<group>"; };
@@ -624,7 +630,7 @@
 				976A03212A0E8DDF00424ACF /* HomeViewController.swift */,
 				97D66A252A0C723800A25935 /* SplashViewController.swift */,
 				976A03192A0E8CAD00424ACF /* NearViewController.swift */,
-				976A031B2A0E8CBE00424ACF /* CollectionViewController.swift */,
+				976A031B2A0E8CBE00424ACF /* CollectViewController.swift */,
 				976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */,
 				976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */,
 				978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */,
@@ -689,6 +695,8 @@
 				97FD07142A665A6F00A64808 /* AccountSettingView.swift */,
 				97FD07182A666D0200A64808 /* ChooseHabbyView.swift */,
 				97977C6C2A70EA6E00BC89E0 /* FlexibleTabBarView.swift */,
+				97977C702A71569C00BC89E0 /* CollectView.swift */,
+				97977C722A715EB500BC89E0 /* MenuCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -708,6 +716,7 @@
 				97BD68662A579C8700F4BCAB /* SettingHeadViewModel.swift */,
 				973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */,
 				97FD071A2A66798600A64808 /* ChooseHabbyViewModel.swift */,
+				97977C742A71FEE000BC89E0 /* CollectViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -967,6 +976,7 @@
 				973C17772A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift in Sources */,
 				973C17B42A298A2E00581DC6 /* CalendarView.swift in Sources */,
 				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
+				97977C752A71FEE000BC89E0 /* CollectViewModel.swift in Sources */,
 				97FD07052A600FC400A64808 /* ResetPasswordView.swift in Sources */,
 				9771A15C2A3A9237006F4F9D /* WelcomeRegisterFooterView.swift in Sources */,
 				973C83702A5D88FF00490D25 /* CalendarPopUpView.swift in Sources */,
@@ -998,7 +1008,7 @@
 				97506C392A41986400F6BB24 /* RegisterSucceedViewController.swift in Sources */,
 				973C17832A23907100581DC6 /* ScoreTableViewCell.swift in Sources */,
 				978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */,
-				976A031C2A0E8CBE00424ACF /* CollectionViewController.swift in Sources */,
+				976A031C2A0E8CBE00424ACF /* CollectViewController.swift in Sources */,
 				97FD070D2A658BDF00A64808 /* AlreadyLoginView.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
 				978834C72A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift in Sources */,
@@ -1064,6 +1074,7 @@
 				97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */,
 				97FD071B2A66798700A64808 /* ChooseHabbyViewModel.swift in Sources */,
 				973C17732A1F385300581DC6 /* ExhibitionCardItemCell.swift in Sources */,
+				97977C712A71569C00BC89E0 /* CollectView.swift in Sources */,
 				9771A15A2A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift in Sources */,
 				97BD68672A579C8700F4BCAB /* SettingHeadViewModel.swift in Sources */,
 				97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */,
@@ -1075,6 +1086,7 @@
 				973C83822A5FDFBC00490D25 /* NotMemberTableViewCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
 				97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */,
+				97977C732A715EB500BC89E0 /* MenuCollectionView.swift in Sources */,
 				97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */,
 				97977C6F2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift in Sources */,
 				973C83742A5F6D3500490D25 /* PopUpViewController.swift in Sources */,

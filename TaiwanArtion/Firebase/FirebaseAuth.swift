@@ -9,5 +9,11 @@ import Foundation
 
 class FirebaseAuth {
     
+    //Goole登入
+    
+    //Facebook登入
+    
+    //一般登入
+    
     
 }

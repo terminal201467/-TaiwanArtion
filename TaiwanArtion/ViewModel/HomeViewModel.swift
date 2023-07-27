@@ -118,7 +118,6 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         
         //主要圖像
         fetchRecentExhibition(count: 5) { info in
-            print("mainPhoto:\(info)")
             self.mainPhotoRelay.accept(info)
         }
         
