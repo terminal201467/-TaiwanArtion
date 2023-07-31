@@ -10,6 +10,10 @@ import RxSwift
 import RxCocoa
 import RxRelay
 
+protocol ResultControllerDelegate: AnyObject {
+    func resultControllerDidCancelSearch()
+}
+
 enum CollectContent: Int, CaseIterable {
     case contentMenu = 0, centents
 }
@@ -27,18 +31,22 @@ enum ContentMenu: Int, CaseIterable {
 }
 
 class CollectViewController: UIViewController {
-    
+
     private let disposeBag = DisposeBag()
     
     private let collectView = CollectView()
     
     private let viewModel = CollectViewModel()
     
-    let searchViewController: UISearchController = {
-       let searchViewController = UISearchController(searchResultsController: nil)
+    private let resultController = ResultViewController()
+    
+    private lazy var searchViewController: UISearchController = {
+       let searchViewController = UISearchController(searchResultsController: resultController)
         searchViewController.searchBar.searchTextField.roundCorners(cornerRadius: 20)
         searchViewController.searchBar.searchTextField.backgroundColor = .white
         searchViewController.searchBar.searchBarStyle = .default
+        searchViewController.searchBar.showsCancelButton = false
+        searchViewController.showsSearchResultsController = true
         searchViewController.searchBar.searchTextField.placeholder = "搜尋已收藏的展覽"
         return searchViewController
     }()
@@ -55,9 +63,18 @@ class CollectViewController: UIViewController {
         setNavigationBar()
     }
     
+    //MARK: -Methods
     private func setNavigationBar() {
-        self.navigationController?.navigationItem.searchController = searchViewController
+        navigationItem.searchController = searchViewController
+    }
+    
+    @objc func back() {
         
+    }
+    
+    private func setSearchResult() {
+        searchViewController.searchResultsUpdater = self
+        searchViewController.searchBar.searchTextField.delegate = self
     }
     
     private func setCollectionView() {
@@ -67,13 +84,8 @@ class CollectViewController: UIViewController {
     
     private func setMenuSelected() {
         collectView.menu.selectedMenuItem = { selectedMenuItem in
-            self.viewModel.input.currentCollectMenu.accept(selectedMenuItem)
+//            self.viewModel.input.currentCollectMenu.accept(selectedMenuItem)
         }
-        
-        viewModel.output.currentSelectedIndex.subscribe(onNext: { indexRow in
-            self.collectView.menu.currentMenu = indexRow
-        })
-        .disposed(by: disposeBag)
     }
 }
 
@@ -94,8 +106,7 @@ extension CollectViewController: UICollectionViewDelegateFlowLayout, UICollectio
         switch CollectContent(rawValue: indexPath.section) {
         case .contentMenu:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-            let isSelected = self.viewModel.output.currentSelectedIndex.value == indexPath.row
-            print("self.viewModel.output.currentSelectedIndex.value:\(self.viewModel.output.currentSelectedIndex.value)")
+            let isSelected = self.viewModel.currentContentMenu == indexPath.row
             cell.configure(with: ContentMenu.allCases[indexPath.row].text, selected: isSelected)
             return cell
         case .centents:
@@ -109,10 +120,9 @@ extension CollectViewController: UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch CollectContent(rawValue: indexPath.section) {
         case .contentMenu:
-            viewModel.input.currentContentMenu.onNext(indexPath.row)
+            viewModel.currentContentMenu = indexPath.row
             collectionView.reloadData()
         case .centents:
-            //推到該ViewController
             let viewController = ExhibitionCardViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
             //這邊應該要提供給展覽資料
@@ -126,17 +136,34 @@ extension CollectViewController: UICollectionViewDelegateFlowLayout, UICollectio
         switch CollectContent(rawValue: indexPath.section) {
         case .contentMenu: return .init(width: collectionViewWidth / 5, height: 34.0)
         case .centents:
-//            let cellHeight = collectionViewHeight - 34.0 - 16 / 2
-            return .init(width: view.frame.width - 24 * 2 / 2, height: 250.0)
+            let cellHeight = collectionViewHeight - (34 + 48)
+            return .init(width: collectionViewWidth - 24 * 2 / 2, height: cellHeight)
         case .none: return .zero
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         switch CollectContent(rawValue: section) {
-        case .contentMenu: return .init(top: 24, left: 8, bottom: 24, right: 8)
+        case .contentMenu: return .init(top: 24, left: 16, bottom: 24, right: 16)
         case .centents: return .init(top: 24, left: 16, bottom: 24, right: 16)
         case .none: return .zero
         }
     }
+}
+
+extension CollectViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+}
+
+extension CollectViewController: ResultControllerDelegate {
+    func resultControllerDidCancelSearch() {
+        
+    }
+}
+
+extension CollectViewController: UISearchTextFieldDelegate {
+    
+    
 }

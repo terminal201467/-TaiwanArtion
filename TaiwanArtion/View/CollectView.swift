@@ -33,7 +33,7 @@ class CollectView: UIView {
     
     //MARK: -foreground
     
-//    private let searchTextField: UITextField = {
+//    let searchTextField: UITextField = {
 //       let textField = UITextField()
 //        textField.roundCorners(cornerRadius: 20)
 //        textField.leftView = UIImageView(image: .init(named: "search"))
@@ -57,6 +57,7 @@ class CollectView: UIView {
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
         collectionView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        collectionView.applyShadow(color: .black, opacity: 0.3, offset: CGSize(width: 1, height: 1), radius: 4)
         return collectionView
     }()
     
@@ -82,7 +83,7 @@ class CollectView: UIView {
     private func foregroundAutoLayout() {
         addSubview(menu)
         menu.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(24)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(36.0)

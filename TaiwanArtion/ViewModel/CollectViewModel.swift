@@ -13,10 +13,10 @@ import RxRelay
 protocol CollectInput {
     
     //傳入現在正在的頁籤事件：收藏展覽、收藏展覽館、收藏新聞
-    var currentCollectMenu: BehaviorRelay<Int> { get }
+//    var currentCollectMenu: BehaviorRelay<Int> { get }
     
     //傳入現在正在的menu事件：全部展覽、今天開始、明天開始、本週開始
-    var currentContentMenu: BehaviorSubject<Int> { get }
+//    var currentContentMenu: BehaviorSubject<Int> { get }
     
     //進入搜尋狀態與否
     var isSearchMode: BehaviorRelay<Bool> { get }
@@ -31,7 +31,7 @@ protocol CollectInput {
 
 protocol CollectOutput {
     
-    var currentSelectedIndex: BehaviorRelay<Int> { get }
+//    var currentSelectedIndex: BehaviorRelay<Int> { get }
     
     //輸出所有收藏展覽的內容
     var currentExhibitionContent: BehaviorRelay<[ExhibitionInfo]> { get }
@@ -62,9 +62,9 @@ class CollectViewModel: CollectInputOutputType, CollectInput, CollectOutput {
     private let disposeBag = DisposeBag()
 
     //MARK: - input
-    var currentCollectMenu: RxRelay.BehaviorRelay<Int> = BehaviorRelay(value: 0)
-    
-    var currentContentMenu: BehaviorSubject<Int> = BehaviorSubject(value: 0)
+//    var currentCollectMenu: RxRelay.BehaviorRelay<Int> = BehaviorRelay(value: 0)
+//
+//    var currentContentMenu: BehaviorSubject<Int> = BehaviorSubject(value: 0)
     
     var isSearchMode: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
@@ -73,7 +73,7 @@ class CollectViewModel: CollectInputOutputType, CollectInput, CollectOutput {
     var removeSpecificSearchHistory: RxRelay.PublishRelay<Int> = PublishRelay()
     
     //MARK: - output
-    var currentSelectedIndex: RxRelay.BehaviorRelay<Int> = BehaviorRelay(value: 0)
+//    var currentSelectedIndex: RxRelay.BehaviorRelay<Int> = BehaviorRelay(value: 0)
     
     var currentExhibitionContent: RxRelay.BehaviorRelay<[ExhibitionInfo]> = BehaviorRelay(value: [])
     
@@ -86,6 +86,8 @@ class CollectViewModel: CollectInputOutputType, CollectInput, CollectOutput {
     var collectNewsSearchHistory: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
     
     //MARK: - Store
+    
+    var currentContentMenu: Int = 0
     
     private var exhibitions: [ExhibitionInfo] = []
     
@@ -117,19 +119,19 @@ class CollectViewModel: CollectInputOutputType, CollectInput, CollectOutput {
     
     //MARK: -Initialization
     init() {
-        currentCollectMenu.subscribe(onNext: { currentMenuPage in
-            self.currentSelectedIndex.accept(currentMenuPage)
-        })
-        .disposed(by: disposeBag)
-        
-        currentContentMenu.subscribe(onNext: { contentSelectedMenu in
-            //fetchData
-            self.fetchFirebaseCollectData(by: 10) { info in
-                //output.accept
-                self.currentExhibitionContent.accept(info)
-            }
-        })
-        .disposed(by: disposeBag)
+//        currentCollectMenu.subscribe(onNext: { currentMenuPage in
+//            self.currentSelectedIndex.accept(currentMenuPage)
+//        })
+//        .disposed(by: disposeBag)
+
+//        currentContentMenu.subscribe(onNext: { contentSelectedMenu in
+//            //fetchData
+//            self.fetchFirebaseCollectData(by: 10) { info in
+//                //output.accept
+//                self.currentExhibitionContent.accept(info)
+//            }
+//        })
+//        .disposed(by: disposeBag)
         
         //搜尋模式開始與否
         isSearchMode.subscribe(onNext: { isSearching in

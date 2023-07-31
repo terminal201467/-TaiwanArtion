@@ -14,10 +14,15 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
     let itemLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.roundCorners(cornerRadius: 12)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
+    }()
+    
+    private let backgroundChangedView: UIView = {
+        let view = UIView()
+        view.roundCorners(cornerRadius: 12)
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -30,23 +35,26 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
     }
     
     private func autoLayout() {
-        contentView.addSubview(itemLabel)
+        contentView.addSubview(backgroundChangedView)
+        backgroundChangedView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        backgroundChangedView.addSubview(itemLabel)
         itemLabel.snp.makeConstraints { make in
-            make.width.greaterThanOrEqualTo(60.0)
-            make.height.equalTo(34.0)
-            make.top.equalToSuperview()
             make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     
     func configure(with text: String, selected: Bool) {
         if selected {
             itemLabel.text = text
-            itemLabel.backgroundColor = .brownTitleColor
+            backgroundChangedView.backgroundColor = .brownTitleColor
             itemLabel.textColor = .white
         } else {
             itemLabel.text = text
-            itemLabel.backgroundColor = .whiteGrayColor
+            backgroundChangedView.backgroundColor = .whiteGrayColor
             itemLabel.textColor = .grayTextColor
         }
     }

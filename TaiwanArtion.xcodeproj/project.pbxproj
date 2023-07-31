@@ -13,6 +13,7 @@
 		9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */; };
 		9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705E5062A4AAC1300FD81D1 /* MonthAndDate.swift */; };
 		9705E50D2A52E3CA00FD81D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */; };
+		971590772A77CC5E00C3745D /* SearchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971590762A77CC5E00C3745D /* SearchHistoryTableViewCell.swift */; };
 		973C176C2A1F2DB200581DC6 /* PasswordHintFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176B2A1F2DB200581DC6 /* PasswordHintFooterView.swift */; };
 		973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */; };
 		973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */; };
@@ -146,6 +147,11 @@
 		97BD686D2A5BBD0F00F4BCAB /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD686C2A5BBD0F00F4BCAB /* GenderView.swift */; };
 		97BD686F2A5BC02500F4BCAB /* YearCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */; };
 		97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68712A5BE3A700F4BCAB /* DateInterface.swift */; };
+		97D1C1EA2A7740FF00B367F0 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1E92A7740FF00B367F0 /* ResultViewController.swift */; };
+		97D1C1EC2A77570D00B367F0 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1EB2A77570D00B367F0 /* ResultView.swift */; };
+		97D1C1EE2A775D9C00B367F0 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */; };
+		97D1C1F02A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1EF2A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift */; };
+		97D1C1F22A77C45100B367F0 /* SearchingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1F12A77C45100B367F0 /* SearchingHistoryView.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
 		97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F92A0C6C3600A25935 /* RootViewController.swift */; };
@@ -204,6 +210,7 @@
 		9705E5022A4349AD00FD81D1 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		9705E5062A4AAC1300FD81D1 /* MonthAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthAndDate.swift; sourceTree = "<group>"; };
 		9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		971590762A77CC5E00C3745D /* SearchHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		973C176B2A1F2DB200581DC6 /* PasswordHintFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordHintFooterView.swift; sourceTree = "<group>"; };
 		973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewController.swift; sourceTree = "<group>"; };
 		973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardView.swift; sourceTree = "<group>"; };
@@ -337,6 +344,11 @@
 		97BD686C2A5BBD0F00F4BCAB /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCellTableViewCell.swift; sourceTree = "<group>"; };
 		97BD68712A5BE3A700F4BCAB /* DateInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInterface.swift; sourceTree = "<group>"; };
+		97D1C1E92A7740FF00B367F0 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		97D1C1EB2A77570D00B367F0 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
+		97D1C1EF2A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionNothingSearchedView.swift; sourceTree = "<group>"; };
+		97D1C1F12A77C45100B367F0 /* SearchingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingHistoryView.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97D669F72A0C6C3600A25935 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -517,6 +529,7 @@
 				97BD686E2A5BC02500F4BCAB /* YearCellTableViewCell.swift */,
 				973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */,
 				97977C6A2A70D9DF00BC89E0 /* FilterTableViewCell.swift */,
+				971590762A77CC5E00C3745D /* SearchHistoryTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -631,6 +644,7 @@
 				97D66A252A0C723800A25935 /* SplashViewController.swift */,
 				976A03192A0E8CAD00424ACF /* NearViewController.swift */,
 				976A031B2A0E8CBE00424ACF /* CollectViewController.swift */,
+				97D1C1E92A7740FF00B367F0 /* ResultViewController.swift */,
 				976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */,
 				976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */,
 				978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */,
@@ -697,6 +711,9 @@
 				97977C6C2A70EA6E00BC89E0 /* FlexibleTabBarView.swift */,
 				97977C702A71569C00BC89E0 /* CollectView.swift */,
 				97977C722A715EB500BC89E0 /* MenuCollectionView.swift */,
+				97D1C1EB2A77570D00B367F0 /* ResultView.swift */,
+				97D1C1EF2A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift */,
+				97D1C1F12A77C45100B367F0 /* SearchingHistoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -717,6 +734,7 @@
 				973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */,
 				97FD071A2A66798600A64808 /* ChooseHabbyViewModel.swift */,
 				97977C742A71FEE000BC89E0 /* CollectViewModel.swift */,
+				97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1002,6 +1020,7 @@
 				973C17A12A273CDD00581DC6 /* SearchView.swift in Sources */,
 				97FD07172A666CF000A64808 /* ChooseHabbyViewController.swift in Sources */,
 				978834C92A1E2C4800ADBEE8 /* NewsContentTableViewCell.swift in Sources */,
+				97D1C1EC2A77570D00B367F0 /* ResultView.swift in Sources */,
 				97FD07192A666D0200A64808 /* ChooseHabbyView.swift in Sources */,
 				97BD686F2A5BC02500F4BCAB /* YearCellTableViewCell.swift in Sources */,
 				978834C32A1E25DA00ADBEE8 /* NewsViewController.swift in Sources */,
@@ -1009,6 +1028,7 @@
 				973C17832A23907100581DC6 /* ScoreTableViewCell.swift in Sources */,
 				978834CB2A1EF22B00ADBEE8 /* NewsSectionView.swift in Sources */,
 				976A031C2A0E8CBE00424ACF /* CollectViewController.swift in Sources */,
+				97D1C1F22A77C45100B367F0 /* SearchingHistoryView.swift in Sources */,
 				97FD070D2A658BDF00A64808 /* AlreadyLoginView.swift in Sources */,
 				976A030A2A0E790B00424ACF /* UserManager.swift in Sources */,
 				978834C72A1E28E700ADBEE8 /* NewsDetailTableViewCell.swift in Sources */,
@@ -1022,8 +1042,10 @@
 				97FD07152A665A6F00A64808 /* AccountSettingView.swift in Sources */,
 				97506C332A403E0300F6BB24 /* StrengthTableViewCell.swift in Sources */,
 				9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */,
+				97D1C1F02A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift in Sources */,
 				97506C312A3C46F600F6BB24 /* PasswordHintView.swift in Sources */,
 				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
+				97D1C1EE2A775D9C00B367F0 /* ResultViewModel.swift in Sources */,
 				97506C2B2A3C28A400F6BB24 /* AccountPasswordView.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
 				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
@@ -1057,6 +1079,7 @@
 				97FD07072A601F5500A64808 /* ResetView.swift in Sources */,
 				97506C372A41432D00F6BB24 /* EmailVerifyViewModel.swift in Sources */,
 				97FD07092A601F9C00A64808 /* NewPasswordView.swift in Sources */,
+				971590772A77CC5E00C3745D /* SearchHistoryTableViewCell.swift in Sources */,
 				978834BF2A1DD49500ADBEE8 /* SelectCollectionItemsView.swift in Sources */,
 				973C83802A5FCBCB00490D25 /* LoginViewModel.swift in Sources */,
 				973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */,
@@ -1081,6 +1104,7 @@
 				97BD68612A56C7BA00F4BCAB /* SettingHeadViewController.swift in Sources */,
 				9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */,
 				9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */,
+				97D1C1EA2A7740FF00B367F0 /* ResultViewController.swift in Sources */,
 				973C179B2A2720F700581DC6 /* NotifyView.swift in Sources */,
 				9771A15E2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift in Sources */,
 				973C83822A5FDFBC00490D25 /* NotMemberTableViewCell.swift in Sources */,
