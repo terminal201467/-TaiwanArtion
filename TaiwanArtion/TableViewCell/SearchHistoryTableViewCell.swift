@@ -6,29 +6,40 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchHistoryTableViewCell: UITableViewCell {
     
-    let image: UIImageView = {
+    static let reuseIdentifier: String = "SearchHistoryTableViewCell"
+    
+    var deleteHistory: (() -> Void)?
+    
+    private let disposeBag = DisposeBag()
+    
+    private let historyImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let label: UILabel = {
+    private let historyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: <#T##CGFloat#>)
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
-    let button: UIButton = {
+    private let deleteButton: UIButton = {
         let button = UIButton()
-//        button.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        button.setImage(.init(named: "close"), for: .normal)
         return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setButtonSubScribe()
+        autoLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -36,11 +47,36 @@ class SearchHistoryTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.addSubview(historyImage)
+        historyImage.snp.makeConstraints { make in
+            make.height.equalTo(16)
+            make.width.equalTo(16)
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(8)
+        }
         
+        contentView.addSubview(historyLabel)
+        historyLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(8)
+            make.centerY.equalToSuperview()
+        }
+        
+        contentView.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-8)
+            make.centerY.equalToSuperview()
+        }
     }
     
-    func configure() {
-        
+    private func setButtonSubScribe() {
+        deleteButton.rx.tap
+            .subscribe(onNext: {
+                self.deleteHistory?()
+            })
+            .disposed(by: disposeBag)
     }
-
+    
+    func configure(history: String) {
+        historyLabel.text = history
+    }
 }

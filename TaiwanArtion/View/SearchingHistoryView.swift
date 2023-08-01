@@ -9,7 +9,11 @@ import UIKit
 
 class SearchingHistoryView: UIView {
     
-    var historys: [String]
+    var historys: [String] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     init(frame: CGRect, historys: [String]) {
         self.historys = historys
@@ -18,11 +22,12 @@ class SearchingHistoryView: UIView {
         autoLayout()
     }
     
-    let tableView: UITableView = {
-        let tableView = UITableView()
-//        tableView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellReuseIdentifier: <#T##String#>)
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.register(SearchHistoryTableViewCell.self, forCellReuseIdentifier: SearchHistoryTableViewCell.reuseIdentifier)
         tableView.separatorStyle = .none
         tableView.allowsSelection = true
+        tableView.backgroundColor = .white
         return tableView
     }()
     
@@ -41,14 +46,34 @@ class SearchingHistoryView: UIView {
             make.edges.equalToSuperview()
         }
     }
-
 }
 extension SearchingHistoryView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containerView = UIView()
+        let titleHeader = TitleHeaderView()
+        containerView.addSubview(titleHeader)
+        titleHeader.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        titleHeader.configureTitle(with: "搜尋紀錄")
+        titleHeader.configureButton(with: "清除紀錄")
+        titleHeader.button.setTitleColor(.brownColor, for: .normal)
+        titleHeader.buttonAction = {
+            self.historys.removeAll()
+        }
+        return containerView
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         historys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: <#T##String#>, for: <#T##IndexPath#>)
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryTableViewCell.reuseIdentifier, for: indexPath) as! SearchHistoryTableViewCell
+        cell.configure(history: historys[indexPath.row])
+        cell.deleteHistory = {
+            self.historys.remove(at: indexPath.row)
+        }
+        return cell
     }
 }
