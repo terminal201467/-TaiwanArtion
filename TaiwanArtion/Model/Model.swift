@@ -94,3 +94,14 @@ struct CommentRate: Hashable {
     var price: Double
     var service: Double
 }
+
+struct ExhibitionHallInfo {
+    
+    var title: String
+    var location: String
+    var time: String
+    var telephone: String
+    var adress: String
+    var webSite: String
+    
+}
