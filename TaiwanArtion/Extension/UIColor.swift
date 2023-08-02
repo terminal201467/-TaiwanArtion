@@ -20,5 +20,6 @@ extension UIColor {
     static let strengthGreen = UIColor(red: 25/255, green: 128/255, blue: 57/255, alpha: 1.0)
     static let strengthYellow = UIColor(red: 246/255, green: 192/255, blue: 2/255, alpha: 1.0)
     static let strengthRed = UIColor(red: 211/255, green: 28/255, blue: 28/255, alpha: 1.0)
+    static let linkBlue = UIColor(red: 55/255, green: 138/255, blue: 231/255, alpha: 1.0)
 
 }

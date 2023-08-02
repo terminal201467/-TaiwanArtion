@@ -15,6 +15,9 @@
 		9705E50D2A52E3CA00FD81D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */; };
 		971590772A77CC5E00C3745D /* SearchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971590762A77CC5E00C3745D /* SearchHistoryTableViewCell.swift */; };
 		971590792A788CF400C3745D /* ExhibitionHallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971590782A788CF400C3745D /* ExhibitionHallTableViewCell.swift */; };
+		9715907B2A7A06A000C3745D /* ExhibitionHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9715907A2A7A06A000C3745D /* ExhibitionHallViewController.swift */; };
+		9715907D2A7A06B700C3745D /* ExhibitionHallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9715907C2A7A06B700C3745D /* ExhibitionHallView.swift */; };
+		9715907F2A7A14CA00C3745D /* WebSiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9715907E2A7A14CA00C3745D /* WebSiteTableViewCell.swift */; };
 		973C176C2A1F2DB200581DC6 /* PasswordHintFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176B2A1F2DB200581DC6 /* PasswordHintFooterView.swift */; };
 		973C176E2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */; };
 		973C17702A1F2E9A00581DC6 /* ExhibitionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */; };
@@ -213,6 +216,9 @@
 		9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		971590762A77CC5E00C3745D /* SearchHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		971590782A788CF400C3745D /* ExhibitionHallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionHallTableViewCell.swift; sourceTree = "<group>"; };
+		9715907A2A7A06A000C3745D /* ExhibitionHallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionHallViewController.swift; sourceTree = "<group>"; };
+		9715907C2A7A06B700C3745D /* ExhibitionHallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionHallView.swift; sourceTree = "<group>"; };
+		9715907E2A7A14CA00C3745D /* WebSiteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSiteTableViewCell.swift; sourceTree = "<group>"; };
 		973C176B2A1F2DB200581DC6 /* PasswordHintFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordHintFooterView.swift; sourceTree = "<group>"; };
 		973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardViewController.swift; sourceTree = "<group>"; };
 		973C176F2A1F2E9A00581DC6 /* ExhibitionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCardView.swift; sourceTree = "<group>"; };
@@ -533,6 +539,7 @@
 				97977C6A2A70D9DF00BC89E0 /* FilterTableViewCell.swift */,
 				971590762A77CC5E00C3745D /* SearchHistoryTableViewCell.swift */,
 				971590782A788CF400C3745D /* ExhibitionHallTableViewCell.swift */,
+				9715907E2A7A14CA00C3745D /* WebSiteTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -666,6 +673,7 @@
 				97FD070E2A658DB200A64808 /* ResetSucceedViewController.swift */,
 				97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */,
 				97FD07162A666CF000A64808 /* ChooseHabbyViewController.swift */,
+				9715907A2A7A06A000C3745D /* ExhibitionHallViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -717,6 +725,7 @@
 				97D1C1EB2A77570D00B367F0 /* ResultView.swift */,
 				97D1C1EF2A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift */,
 				97D1C1F12A77C45100B367F0 /* SearchingHistoryView.swift */,
+				9715907C2A7A06B700C3745D /* ExhibitionHallView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1106,6 +1115,7 @@
 				97BD68672A579C8700F4BCAB /* SettingHeadViewModel.swift in Sources */,
 				97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */,
 				97BD68612A56C7BA00F4BCAB /* SettingHeadViewController.swift in Sources */,
+				9715907B2A7A06A000C3745D /* ExhibitionHallViewController.swift in Sources */,
 				9705E5072A4AAC1300FD81D1 /* MonthAndDate.swift in Sources */,
 				9705E5032A4349AD00FD81D1 /* PersonalInfoViewController.swift in Sources */,
 				97D1C1EA2A7740FF00B367F0 /* ResultViewController.swift in Sources */,
@@ -1123,6 +1133,7 @@
 				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
 				973C17992A2720E100581DC6 /* NotifyViewController.swift in Sources */,
+				9715907D2A7A06B700C3745D /* ExhibitionHallView.swift in Sources */,
 				973C17AC2A2840A700581DC6 /* NotifyTableViewCell.swift in Sources */,
 				9771A1522A3A0918006F4F9D /* WelcomeRegisterView.swift in Sources */,
 				976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */,
@@ -1139,6 +1150,7 @@
 				97506C232A3AC5F600F6BB24 /* InputTextFieldTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,
 				973C17A32A273CF500581DC6 /* SearchViewController.swift in Sources */,
+				9715907F2A7A14CA00C3745D /* WebSiteTableViewCell.swift in Sources */,
 				973C17CA2A2C191F00581DC6 /* FilterCondition.swift in Sources */,
 				973C17C42A2AF74900581DC6 /* SearchingCollectionViewCell.swift in Sources */,
 				973C17A82A27451100581DC6 /* Citys.swift in Sources */,

@@ -71,14 +71,18 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
         return Observable.just(storeExhibitionHalls)
     }
     
-    //MARK: -Store
-    private var searchText: String = ""
+    //MARK: -Firebase
     
-    private var currentMenu: CollectMenu = .collectExhibition {
+    private let firebase = FirebaseDatabase(collectionName: "History")
+    
+    //MARK: -Store
+    private var searchText: String = "" {
         didSet {
-            
+            self.setSearchFilterType(with: searchText)
         }
     }
+    
+    private var currentMenu: CollectMenu = .collectExhibition
     
     private var storeSearchExhibitionHistorys: [ExhibitionInfo] = []
     
@@ -98,6 +102,21 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
         .disposed(by: disposeBag)
     }
     
+    private func setSearchFilterType(with: String) {
+        switch currentMenu {
+        case .collectExhibition:
+            let exhibitionInfo = filterSearchExhibitionHistory(searchText: searchText)
+            storeSearchExhibitionHistorys = exhibitionInfo
+        case .collectExhibitionHall:
+            let hallInfo = filterSearchExhibitionHallHistory(searchText: searchText)
+            storeExhibitionHalls = hallInfo
+        case .collectNews:
+            let newInfo = filterSearchNewsHistory(searchText: searchText)
+            storeSearchNews = newInfo
+        }
+    }
+    
+    //MARK: - FilterMethod
     private func filterSearchExhibitionHistory(searchText: String) -> [ExhibitionInfo] {
         let searchResult = storeSearchExhibitionHistorys.filter { history in
             history.title.localizedStandardContains(searchText)
@@ -119,16 +138,12 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
         return searchResult
     }
     
-    //Firebase歷史搜尋紀錄
-    private func fetchHistory() {
+    //MARK: -Firebase歷史搜尋紀錄
+    private func fetchExhibitionHistory() {
         
     }
     
     private func fetchExhibitionHall() {
-        
-    }
-    
-    private func fetchExhibition() {
         
     }
     
