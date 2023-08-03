@@ -8,13 +8,14 @@
 import UIKit
 
 enum ExhibitionHallMenu: Int, CaseIterable {
-    case overviewExhibition = 0, recentExhibition, soonOpenExhibition, finishExhibition
+    case overviewExhibition = 0, recentExhibition, soonOpenExhibition, finishExhibition, allExhibition
     var text: String {
         switch self {
         case .overviewExhibition: return "展覽館總覽"
         case .recentExhibition: return "近期展覽"
         case .soonOpenExhibition: return "即將展覽"
         case .finishExhibition: return "結束展覽"
+        case .allExhibition: return "全部展覽"
         }
     }
 }
@@ -32,6 +33,7 @@ enum ExhibitionHallContent: Int, CaseIterable {
 }
 
 class ExhibitionHallView: UIView {
+    
     //MARK: -Background
     private let backgroundImage: UIImageView = {
         let imageView = UIImageView()
@@ -48,38 +50,68 @@ class ExhibitionHallView: UIView {
     
     //MARK: -Foreground
     
-    private let searchBar: UISearchBar = {
-       let searchBar = UISearchBar()
-        searchBar.roundCorners(cornerRadius: 20)
-        searchBar.backgroundColor = .white
-        searchBar.searchTextField.placeholder = "輸入展覽名稱"
-        searchBar.searchTextField.tintColor = .grayTextColor
-        searchBar.searchTextField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
-        return searchBar
+    private let locationImage: UIImageView = {
+        let imageView = UIImageView(image: .init(named: "locationWhiteIcon"))
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
-    private let menu = MenuCollectionView(frame: .zero, menu: ExhibitionHallMenu.allCases.map{$0.text})
+    private let hallTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 24)
+        label.textColor = .white
+        return label
+    }()
     
-    private let tableView: UITableView = {
+    private lazy var titleStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [locationImage, hallTitleLabel])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0
+        return stackView
+    }()
+    
+    let searchTextField: UISearchTextField = {
+       let searchTextField = UISearchTextField()
+        searchTextField.roundCorners(cornerRadius: 20)
+        searchTextField.placeholder = "輸入展覽名稱"
+        searchTextField.tintColor = .grayTextColor
+        searchTextField.backgroundColor = .white
+        searchTextField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
+        searchTextField.keyboardType = .emailAddress
+        return searchTextField
+    }()
+    
+    let menu: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(SelectedItemsCollectionViewCell.self, forCellWithReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier)
+        collectionView.allowsSelection = true
+        collectionView.isScrollEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
+    
+    let tableView: UITableView = {
         let tableView = UITableView()
-//        tableView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellReuseIdentifier: <#T##String#>)
+        tableView.register(ExhibitionHallTableViewCell.self, forCellReuseIdentifier: ExhibitionHallTableViewCell.reuseIdentifier)
+        tableView.register(NewsDetailTableViewCell.self, forCellReuseIdentifier: NewsDetailTableViewCell.reuseIdentifier)
+        tableView.register(WebSiteTableViewCell.self, forCellReuseIdentifier: WebSiteTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
         return tableView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setTableView()
         autoLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
     private func autoLayout() {
@@ -93,19 +125,25 @@ class ExhibitionHallView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(242.0 / frame.height)
+            make.height.equalTo(242.0)
         }
         
-        addSubview(searchBar)
-        searchBar.snp.makeConstraints { make in
+        addSubview(searchTextField)
+        searchTextField.snp.makeConstraints { make in
             make.centerY.equalTo(backgroundImage.snp.bottom)
             make.leading.equalToSuperview().offset(25)
             make.trailing.equalToSuperview().offset(-25)
         }
         
+        addSubview(titleStack)
+        titleStack.snp.makeConstraints { make in
+            make.bottom.equalTo(searchTextField.snp.top).offset(16)
+            make.leading.equalTo(searchTextField.snp.leading)
+        }
+        
         addSubview(menu)
         menu.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(24.0)
+            make.top.equalTo(searchTextField.snp.bottom).offset(24.0)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(34.0)
@@ -120,30 +158,8 @@ class ExhibitionHallView: UIView {
         }
     }
     
-}
-
-extension ExhibitionHallView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ExhibitionHallContent.allCases.count
+    func configure(hallTitle: String, hallImage: String?) {
+        hallTitleLabel.text = hallTitle
+        backgroundImage.image = UIImage(named: hallImage ?? "defaultBackgroundImage")
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch ExhibitionHallContent(rawValue: indexPath.row) {
-        case .time:
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
-            return cell
-        case .telephone:
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
-            return cell
-        case .website:
-            print("")
-        case .address:
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsDetailTableViewCell.reuseIdentifier, for: indexPath) as! NewsDetailTableViewCell
-            return cell
-        case .none:
-            print("none")
-        }
-        return UITableViewCell()
-    }
-    
 }

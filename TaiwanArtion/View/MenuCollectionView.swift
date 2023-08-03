@@ -32,7 +32,7 @@ class MenuCollectionView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(ExhibitionCardItemCell.self, forCellWithReuseIdentifier: ExhibitionCardItemCell.reuseIdentifier)
         collectionView.allowsSelection = true
-        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = true
         collectionView.backgroundColor = nil
         return collectionView
     }()

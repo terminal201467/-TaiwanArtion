@@ -6,42 +6,49 @@
 //
 
 import UIKit
+import RxSwift
 
 class WebSiteTableViewCell: UITableViewCell {
+    
+    static let reuseIdentifier: String = "WebSiteTableViewCell"
+    
+    private let disposeBag = DisposeBag()
+    
+    var selectedWebSiteLink: (() -> Void)?
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .grayTextColor
         return label
     }()
     
     private let linkTextButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.grayTextColor, for: .normal)
+        button.setTitleColor(.linkBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
-        
-//        button.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
         return button
     }()
     
-    private let imageButton: UIButton = {
+    private let linkImageButton: UIButton = {
         let button = UIButton()
-//        button.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        button.setImage(.init(named: "linkIcon")?.withTintColor(.linkBlue, renderingMode: .alwaysOriginal), for: .normal)
         return button
     }()
     
-//    lazy var stackView: UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: <#T##[UIView]#>)
-//        stackView.axis =
-//        stackView.alignment =
-//        stackView.distribution =
-//        stackView.spacing =
-//        return stackView
-//    }()
+    private lazy var linkStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [linkTextButton, linkImageButton])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 4
+        return stackView
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        autoLayout()
+        setButtonSubscribe()
     }
     
     required init?(coder: NSCoder) {
@@ -49,20 +56,41 @@ class WebSiteTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
-//        addSubview(labelStack)
-//        labelStack.snp.makeConstraints { make in
-//            make.centerY.equalToSuperview()
-//            make.leading.equalToSuperview().offset(16)
-//        }
-//
-//        contentLabel.snp.makeConstraints { make in
-//            make.width.greaterThanOrEqualTo(56.0)
-//            make.height.equalTo(24.0)
-//        }
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.width.greaterThanOrEqualTo(56.0)
+            make.leading.equalToSuperview().offset(16)
+        }
+        
+        linkImageButton.snp.makeConstraints { make in
+            make.height.equalTo(24.0)
+            make.width.equalTo(24.0)
+        }
+        
+        contentView.addSubview(linkStack)
+        linkStack.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(titleLabel.snp.trailing).offset(16)
+        }
     }
     
-    func configure() {
+    private func setButtonSubscribe() {
+        linkTextButton.rx.tap
+            .subscribe(onNext: {
+                self.selectedWebSiteLink?()
+            })
+            .disposed(by: disposeBag)
         
+        linkImageButton.rx.tap
+            .subscribe(onNext: {
+                self.selectedWebSiteLink?()
+            })
+            .disposed(by: disposeBag)
     }
-
+    
+    func configure(title: String, linkText: String) {
+        titleLabel.text = title
+        linkTextButton.setTitle(linkText, for: .normal)
+    }
 }
