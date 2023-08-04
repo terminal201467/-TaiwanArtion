@@ -34,6 +34,14 @@ enum ExhibitionNothingSearchType: Int {
         case .newsNothingSearch: return "去看看現在有什麼最新展覽新聞吧！"
         }
     }
+    
+    var buttonText: String {
+        switch self {
+        case .exhibitionNothingSearch: return "探索展覽"
+        case .exhibitionHallNothingSearch: return "探索展覽館"
+        case .newsNothingSearch: return "探索展覽新聞"
+        }
+    }
 }
 
 class ExhibitionNothingSearchedView: UIView {
@@ -52,12 +60,14 @@ class ExhibitionNothingSearchedView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
@@ -104,7 +114,7 @@ class ExhibitionNothingSearchedView: UIView {
         addSubview(nothingSearchImage)
         nothingSearchImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.bottom.equalTo(self.snp.centerY)
         }
         
         addSubview(labelStack)
@@ -118,7 +128,7 @@ class ExhibitionNothingSearchedView: UIView {
             make.top.equalTo(labelStack.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
-            make.width.equalToSuperview().multipliedBy(192.0 / frame.width)
+            make.width.equalTo(192.0)
         }
     }
     
@@ -126,5 +136,6 @@ class ExhibitionNothingSearchedView: UIView {
         nothingSearchImage.image = .init(named: type.image)
         titleLabel.text = type.title
         descriptionLabel.text = type.description
+        linkToOtherPageButton.setTitle(type.buttonText, for: .normal)
     }
 }

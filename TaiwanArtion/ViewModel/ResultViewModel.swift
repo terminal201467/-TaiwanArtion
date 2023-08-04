@@ -56,7 +56,7 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
     //MARK: -Output
     
     var currentExhibitionMenu: Observable<CollectMenu> {
-        return Observable.just(currentMenu)
+        return currentMenuRelay.asObservable()
     }
     
     var storeHistoryObservable: Observable<[ExhibitionInfo]> {
@@ -93,11 +93,6 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
     init() {
         textEditingRelay.subscribe(onNext: { text in
             self.searchText = text
-        })
-        .disposed(by: disposeBag)
-        
-        currentMenuRelay.subscribe(onNext: { menu in
-            self.currentMenu = menu
         })
         .disposed(by: disposeBag)
     }

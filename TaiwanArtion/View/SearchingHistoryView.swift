@@ -9,20 +9,31 @@ import UIKit
 
 class SearchingHistoryView: UIView {
     
+    var didSelectedHistory: ((Int) -> Void)?
+    
     var historys: [String] = [] {
         didSet {
-            tableView.reloadData()
+            setViewToContainer()
+            filterSearchingtableView.reloadData()
         }
     }
     
-    init(frame: CGRect, historys: [String]) {
+    var type: ExhibitionNothingSearchType
+    
+    init(frame: CGRect, historys: [String], type: ExhibitionNothingSearchType) {
         self.historys = historys
+        self.type = type
         super.init(frame: frame)
         setTableView()
         autoLayout()
+        setViewToContainer()
     }
     
-    private let tableView: UITableView = {
+    private let containerView = UIView()
+    
+    lazy var exhibitionSearchedNothingView = ExhibitionNothingSearchedView(frame: .zero, type: self.type)
+    
+    private let filterSearchingtableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(SearchHistoryTableViewCell.self, forCellReuseIdentifier: SearchHistoryTableViewCell.reuseIdentifier)
         tableView.separatorStyle = .none
@@ -36,14 +47,29 @@ class SearchingHistoryView: UIView {
     }
     
     private func setTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        filterSearchingtableView.delegate = self
+        filterSearchingtableView.dataSource = self
     }
     
     private func autoLayout() {
-        addSubview(tableView)
-        tableView.snp.makeConstraints { make in
+        addSubview(containerView)
+        containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+    }
+    
+    func setViewToContainer() {
+        containerView.removeAllSubviews(from: containerView)
+        if historys.isEmpty {
+            containerView.addSubview(exhibitionSearchedNothingView)
+            exhibitionSearchedNothingView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+        } else {
+            containerView.addSubview(filterSearchingtableView)
+            filterSearchingtableView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
         }
     }
 }
@@ -75,5 +101,9 @@ extension SearchingHistoryView: UITableViewDelegate, UITableViewDataSource {
             self.historys.remove(at: indexPath.row)
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        didSelectedHistory?(indexPath.row)
     }
 }

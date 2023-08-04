@@ -32,5 +32,14 @@ extension UIView {
         layer.shadowRadius = radius
         layer.masksToBounds = false
     }
-
+    
+    func removeAllSubviews(from view: UIView) {
+        for subview in view.subviews {
+            subview.removeFromSuperview()
+        }
+    }
+    
+    func removeSubview(_ subview: UIView) {
+        subview.removeFromSuperview()
+    }
 }
