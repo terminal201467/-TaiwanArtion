@@ -29,7 +29,11 @@ class SearchingHistoryView: UIView {
         setViewToContainer()
     }
     
-    private let containerView = UIView()
+    private let containerView: UIView = {
+       let view = UIView()
+        view.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        return view
+    }()
     
     lazy var exhibitionSearchedNothingView = ExhibitionNothingSearchedView(frame: .zero, type: self.type)
     

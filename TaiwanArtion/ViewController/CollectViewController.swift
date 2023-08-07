@@ -14,22 +14,6 @@ protocol ResultControllerDelegate: AnyObject {
     func resultControllerDidCancelSearch()
 }
 
-enum CollectContent: Int, CaseIterable {
-    case contentMenu = 0, centents
-}
-
-enum ContentMenu: Int, CaseIterable {
-    case allExhibition = 0, todayStart, tomorrowStart, weekStart
-    var text: String {
-        switch self {
-        case .allExhibition: return "全部"
-        case .todayStart: return "今天開始"
-        case .tomorrowStart: return "明天開始"
-        case .weekStart: return "本週開始"
-        }
-    }
-}
-
 class CollectViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
@@ -78,76 +62,63 @@ class CollectViewController: UIViewController {
     }
     
     private func setCollectionView() {
-        collectView.collectionView.delegate = self
-        collectView.collectionView.dataSource = self
+        collectView.contents.delegate = self
+        collectView.contents.dataSource = self
     }
     
     private func setMenuSelected() {
         collectView.menu.selectedMenuItem = { selectedMenuItem in
-//            self.viewModel.input.currentCollectMenu.accept(selectedMenuItem)
+            print("selectedMenuItem:\(selectedMenuItem)")
+            self.viewModel.input.currentCollectMenu.accept(selectedMenuItem)
         }
+        
+        viewModel.output.currentSelectedCollectMenuIndex
+            .subscribe(onNext: { menuIndex in
+                self.collectView.menu.currentMenu = menuIndex
+            })
+            .disposed(by: disposeBag)
+        
+        collectView.selectedTimeMenu = { menuIndex in
+            print("menuIndex:\(menuIndex)")
+            self.viewModel.input.currentTimeMenu.accept(menuIndex)
+        }
+        
+        viewModel.output.currentSelectedTimeMenu
+            .subscribe(onNext: { menuIndex in
+                print("menuIndex:\(menuIndex)")
+                self.collectView.currentTimeMenuSelected = menuIndex
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 extension CollectViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return CollectContent.allCases.count
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch CollectContent(rawValue: section) {
-        case .contentMenu: return ContentMenu.allCases.count
-        case .centents: return viewModel.output.currentExhibitionContent.value.count
-        case .none: return 0
-        }
+        return viewModel.output.currentExhibitionContent.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch CollectContent(rawValue: indexPath.section) {
-        case .contentMenu:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-            let isSelected = self.viewModel.currentContentMenu == indexPath.row
-            cell.configure(with: ContentMenu.allCases[indexPath.row].text, selected: isSelected)
-            return cell
-        case .centents:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier, for: indexPath) as! AllExhibitionCollectionViewCell
-            cell.configure(with: viewModel.output.currentExhibitionContent.value[indexPath.row])
-            return cell
-        case .none: return UICollectionViewCell()
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier, for: indexPath) as! AllExhibitionCollectionViewCell
+        print("viewModel.output.currentExhibitionContent.value:\(viewModel.output.currentExhibitionContent.value)")
+        cell.configure(with: viewModel.output.currentExhibitionContent.value[indexPath.row])
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch CollectContent(rawValue: indexPath.section) {
-        case .contentMenu:
-            viewModel.currentContentMenu = indexPath.row
-            collectionView.reloadData()
-        case .centents:
-            let viewController = ExhibitionCardViewController()
-            self.navigationController?.pushViewController(viewController, animated: true)
-            //這邊應該要提供給展覽資料
-        case .none: print("none")
-        }
+        let viewController = ExhibitionCardViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+        //這邊應該要提供給展覽資料
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionViewWidth = self.view.frame.width
-        let collectionViewHeight = collectionView.frame.height
-        switch CollectContent(rawValue: indexPath.section) {
-        case .contentMenu: return .init(width: collectionViewWidth / 5, height: 34.0)
-        case .centents:
-            let cellHeight = collectionViewHeight - (34 + 48)
-            return .init(width: collectionViewWidth - 24 * 2 / 2, height: cellHeight)
-        case .none: return .zero
-        }
+        let cellWidth = (self.view.frame.width - (16 * 2) - 24) / 2
+        let cellHeight = 233.0
+        return .init(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        switch CollectContent(rawValue: section) {
-        case .contentMenu: return .init(top: 24, left: 16, bottom: 24, right: 16)
-        case .centents: return .init(top: 24, left: 16, bottom: 24, right: 16)
-        case .none: return .zero
-        }
+        return .init(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
