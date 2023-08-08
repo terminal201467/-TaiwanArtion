@@ -38,22 +38,20 @@ class SearchView: UIView {
         return button
     }()
     
-    private let searchBar: UISearchBar = {
-       let searchBar = UISearchBar()
-        searchBar.searchTextField.backgroundColor = .white
-        searchBar.backgroundColor = .caramelColor
-        searchBar.barTintColor = .caramelColor
-        searchBar.setImage(UIImage(named: "search"), for: .search, state: .normal)
-        searchBar.searchTextField.placeholder = "搜尋展覽"
-        searchBar.searchTextField.textColor = .grayTextColor
-        searchBar.searchTextField.roundCorners(cornerRadius: 25)
-        searchBar.searchTextField.clearButtonMode = .whileEditing
-        searchBar.searchTextField.keyboardType = .emailAddress
-        return searchBar
+    private let searchTextField: UISearchTextField = {
+       let searchTextField = UISearchTextField()
+        searchTextField.backgroundColor = .white
+//        searchTextField.setImage(UIImage(named: "search"), for: .search, state: .normal)
+        searchTextField.placeholder = "搜尋展覽"
+        searchTextField.textColor = .grayTextColor
+        searchTextField.roundCorners(cornerRadius: 20)
+        searchTextField.clearButtonMode = .whileEditing
+        searchTextField.keyboardType = .emailAddress
+        return searchTextField
     }()
     
     private lazy var searchBarStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [backButton, searchBar])
+        let stackView = UIStackView(arrangedSubviews: [backButton, searchTextField])
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
@@ -164,8 +162,8 @@ class SearchView: UIView {
     }
     
     private func setSearchBarBinding() {
-        searchBar.searchTextField.delegate = self
-        searchBar.searchTextField.rx.text
+        searchTextField.delegate = self
+        searchTextField.rx.text
             .orEmpty
             .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] searchText in
@@ -200,7 +198,7 @@ class SearchView: UIView {
             make.width.equalTo(frame.width)
         }
         
-        searchBar.snp.makeConstraints { make in
+        searchTextField.snp.makeConstraints { make in
             make.height.equalTo(36.0)
             make.width.equalTo(298.0)
         }
@@ -214,7 +212,7 @@ class SearchView: UIView {
             make.leading.equalToSuperview().offset(16.0)
             make.trailing.equalToSuperview().offset(-16.0)
             make.top.equalToSuperview().offset(66.0)
-            make.height.equalTo(150.0)
+            make.height.equalTo(80.0)
         }
         
         filterTableView.snp.makeConstraints { make in

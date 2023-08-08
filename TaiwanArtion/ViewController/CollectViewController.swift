@@ -10,10 +10,6 @@ import RxSwift
 import RxCocoa
 import RxRelay
 
-protocol ResultControllerDelegate: AnyObject {
-    func resultControllerDidCancelSearch()
-}
-
 class CollectViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
@@ -22,7 +18,7 @@ class CollectViewController: UIViewController {
     
     private let viewModel = CollectViewModel()
     
-    private let resultController = ResultViewController()
+    private let resultController = UINavigationController(rootViewController: ResultViewController())
     
     private lazy var searchViewController: UISearchController = {
        let searchViewController = UISearchController(searchResultsController: resultController)
@@ -47,23 +43,22 @@ class CollectViewController: UIViewController {
         setNavigationBar()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dismiss(animated: true)
+    }
+    
     //MARK: -Methods
     private func setNavigationBar() {
-        navigationItem.searchController = searchViewController
+        navigationItem.titleView = searchViewController.searchBar
     }
     
     @objc func back() {
-        
-    }
-    
-    private func setSearchResult() {
-        searchViewController.searchResultsUpdater = self
-        searchViewController.searchBar.searchTextField.delegate = self
+        print("")
     }
     
     private func setCollectionView() {
-        collectView.contents.delegate = self
-        collectView.contents.dataSource = self
+        collectView.exhibitionCollectionView.contents.delegate = self
+        collectView.exhibitionCollectionView.contents.dataSource = self
     }
     
     private func setMenuSelected() {
@@ -78,7 +73,7 @@ class CollectViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        collectView.selectedTimeMenu = { menuIndex in
+        collectView.exhibitionCollectionView.selectedTimeMenu = { menuIndex in
             print("menuIndex:\(menuIndex)")
             self.viewModel.input.currentTimeMenu.accept(menuIndex)
         }
@@ -86,7 +81,7 @@ class CollectViewController: UIViewController {
         viewModel.output.currentSelectedTimeMenu
             .subscribe(onNext: { menuIndex in
                 print("menuIndex:\(menuIndex)")
-                self.collectView.currentTimeMenuSelected = menuIndex
+                self.collectView.exhibitionCollectionView.currentTimeMenuSelected = menuIndex
             })
             .disposed(by: disposeBag)
     }
@@ -120,21 +115,4 @@ extension CollectViewController: UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 0, right: 0)
     }
-}
-
-extension CollectViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
-}
-
-extension CollectViewController: ResultControllerDelegate {
-    func resultControllerDidCancelSearch() {
-        
-    }
-}
-
-extension CollectViewController: UISearchTextFieldDelegate {
-    
-    
 }

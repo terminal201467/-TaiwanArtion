@@ -16,13 +16,19 @@ class ResultViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    weak var delegate: ResultControllerDelegate?
-    
     private let resultView = ResultView()
     
     private let viewModel = ResultViewModel()
     
     private var searchHistoryView: SearchingHistoryView?
+    
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchTextField.roundCorners(cornerRadius: 20)
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.searchTextField.placeholder = "搜尋已收藏的展覽"
+        return searchBar
+    }()
 
     override func loadView() {
         super.loadView()
@@ -32,11 +38,26 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setMenu()
+        setNavigationBar()
         viewModel.output.currentExhibitionMenu
             .subscribe(onNext: { menu in
                 self.setViewInContainer(by: menu.rawValue)
             })
             .disposed(by: disposeBag)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        searchBar.searchTextField.resignFirstResponder()
+    }
+    
+    @objc func back() {
+        dismiss(animated: true)
+    }
+    
+    private func setNavigationBar() {
+        let leftButton = UIBarButtonItem(image: .init(named: "leftArrow")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(back))
+        navigationItem.leftBarButtonItem = leftButton
+        navigationItem.titleView = searchBar
     }
     
     private func setMenu() {
@@ -88,12 +109,4 @@ class ResultViewController: UIViewController {
         case .none: print("none")
         }
     }
-    
-    
-    @objc func backButtonTapped() {
-        // 在這裡執行返回操作，例如返回上一個畫面
-        // 或者退出搜索模式（如果你想保留搜索結果，可以不退出搜索模式）
-        delegate?.resultControllerDidCancelSearch()
-    }
-
 }
