@@ -39,6 +39,7 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         setMenu()
         setNavigationBar()
+        setSearchTextField()
         viewModel.output.currentExhibitionMenu
             .subscribe(onNext: { menu in
                 self.setViewInContainer(by: menu.rawValue)
@@ -48,6 +49,10 @@ class ResultViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchBar.searchTextField.resignFirstResponder()
+    }
+    
+    private func setSearchTextField() {
+        searchBar.searchTextField.delegate = self
     }
     
     @objc func back() {
@@ -63,7 +68,6 @@ class ResultViewController: UIViewController {
     private func setMenu() {
         resultView.menu.selectedMenuItem = { selectItem in
             self.viewModel.input.currentMenuRelay.accept(CollectMenu(rawValue: selectItem)!)
-//            self.setViewInContainer(by: selectItem)
         }
     }
     
@@ -108,5 +112,14 @@ class ResultViewController: UIViewController {
             }
         case .none: print("none")
         }
+    }
+}
+
+extension ResultViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("text:\(textField.text!)")
+        viewModel.textEditingRelay.accept(textField.text!)
+        return true
     }
 }

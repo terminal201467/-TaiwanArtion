@@ -105,3 +105,14 @@ struct ExhibitionHallInfo {
     var webSite: String
     
 }
+
+struct User {
+    
+    var name: String
+    var gender: String
+    var phone: String
+    var email: String
+    var birth: String
+    var headImage: String
+    
+}

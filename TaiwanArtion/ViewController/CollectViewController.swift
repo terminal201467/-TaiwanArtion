@@ -52,10 +52,6 @@ class CollectViewController: UIViewController {
         navigationItem.titleView = searchViewController.searchBar
     }
     
-    @objc func back() {
-        print("")
-    }
-    
     private func setCollectionView() {
         collectView.exhibitionCollectionView.contents.delegate = self
         collectView.exhibitionCollectionView.contents.dataSource = self

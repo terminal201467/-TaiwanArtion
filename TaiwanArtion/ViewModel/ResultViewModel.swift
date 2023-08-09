@@ -98,17 +98,20 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
     }
     
     private func setSearchFilterType(with: String) {
-        switch currentMenu {
-        case .collectExhibition:
-            let exhibitionInfo = filterSearchExhibitionHistory(searchText: searchText)
-            storeSearchExhibitionHistorys = exhibitionInfo
-        case .collectExhibitionHall:
-            let hallInfo = filterSearchExhibitionHallHistory(searchText: searchText)
-            storeExhibitionHalls = hallInfo
-        case .collectNews:
-            let newInfo = filterSearchNewsHistory(searchText: searchText)
-            storeSearchNews = newInfo
-        }
+        currentMenuRelay.subscribe(onNext: { currentMenu in
+            switch currentMenu {
+            case .collectExhibition:
+                let exhibitionInfo = self.filterSearchExhibitionHistory(searchText: self.searchText)
+                self.storeSearchExhibitionHistorys = exhibitionInfo
+            case .collectExhibitionHall:
+                let hallInfo = self.filterSearchExhibitionHallHistory(searchText: self.searchText)
+                self.storeExhibitionHalls = hallInfo
+            case .collectNews:
+                let newInfo = self.filterSearchNewsHistory(searchText: self.searchText)
+                self.storeSearchNews = newInfo
+            }
+        })
+        .disposed(by: disposeBag)
     }
     
     //MARK: - FilterMethod
