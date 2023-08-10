@@ -14,7 +14,7 @@ import RxSwift
 protocol UserManagerInput {
     
     //輸入嗜好
-    var updateHabbyRelay: BehaviorRelay<String> { get }
+    var updateHabbyRelay: BehaviorRelay<[String]> { get }
     
     //輸入使用者名字
     var updateNameRelay: BehaviorRelay<String> { get }
@@ -36,6 +36,18 @@ protocol UserManagerInput {
     
     //儲存資料
     var saveDataPublished: PublishRelay<Void> { get }
+    
+    //googleLogin
+    var googleLoginPublished: PublishRelay<Void> { get }
+    
+    //facebookLogin
+    var facebookLoginPublished: PublishRelay<Void> { get }
+    
+    //createAccount
+    var normalCreateAccountPubished: PublishRelay<(account: String, password: String)> { get }
+    
+    //normalLogin
+    var normalLoginAccountPublished: PublishRelay<(account: String, password: String)> { get }
 }
 
 protocol UserManagerOutput {
@@ -63,8 +75,15 @@ protocol UserManagerOutput {
     var outputStoreHeadImage: BehaviorRelay<String> { get }
 }
 
-class UserManager {
-    
+protocol UserInputOutputType {
+    var input: UserManagerInput { get }
+    var output: UserManagerOutput { get }
+}
+
+class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
+
+    private let disposeBag = DisposeBag()
+        
     static let shared = UserManager()
     
     private let userDefaults = UserDefaults.standard
@@ -73,14 +92,102 @@ class UserManager {
     
     private let fireBaseAuth = FirebaseAuth()
     
+    //MARK: -Stream
+    
+    var input: UserManagerInput { self }
+    
+    var output: UserManagerOutput { self }
+    
     //MARK: -Input
+    
+    var updateHabbyRelay: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [""])
+    
+    var updateNameRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var updateBirthRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var updateGenderRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var updatePhoneNumberRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var updateEmailRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var updateHeadImageRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var saveDataPublished: RxRelay.PublishRelay<Void> = PublishRelay()
+    
+    //ThirdPartyKitLoginRelay
+    var googleLoginPublished: RxRelay.PublishRelay<Void> = PublishRelay()
+    
+    var facebookLoginPublished: RxRelay.PublishRelay<Void> = PublishRelay()
+    
+    //Normal
+    var normalCreateAccountPubished: RxRelay.PublishRelay<(account: String, password: String)> = PublishRelay()
+    
+    var normalLoginAccountPublished: RxRelay.PublishRelay<(account: String, password: String)> = PublishRelay()
     
     //MARK: -Output
     
+    var isLoginedRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
+    var outputStoreNameRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var outputStoreBirthRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var outputStoreGenderRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var outputStorePhoneNumberRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var outputStoreEmailRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var outputStoreHeadImage: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
     private init() {
         //input訂閱
+        updateNameRelay.subscribe(onNext: { name in
+            self.setUsername(name)
+        })
+        .disposed(by: disposeBag)
+        
+        updateGenderRelay.subscribe(onNext: { gender in
+            self.setGender(gender)
+        })
+        .disposed(by: disposeBag)
+        
+        updateBirthRelay.subscribe(onNext: { birth in
+            self.setBirth(birth)
+        })
+        .disposed(by: disposeBag)
+        
+        updateEmailRelay.subscribe(onNext: { email in
+            self.setEmail(email)
+        })
+        .disposed(by: disposeBag)
+        
+        updateHabbyRelay.subscribe(onNext: { habbys in
+            self.setStoreHabby(habbys: habbys)
+        })
+        .disposed(by: disposeBag)
+        
+        updateHeadImageRelay.subscribe(onNext: { headImage in
+            self.setHeadImage(headImage)
+        })
+        .disposed(by: disposeBag)
+        
+        updatePhoneNumberRelay.subscribe(onNext: { phoneNumber in
+            self.setPhoneNumber(number: phoneNumber)
+        })
+        .disposed(by: disposeBag)
+        
+        saveDataPublished.subscribe(onNext: {
+            print("Save!")
+            self.uploadUserInfoToFireBase()
+        })
+        .disposed(by: disposeBag)
         
         //output訂閱
+        isLoginedRelay.accept(getIsLoggedIn())
+        
     }
     
     //MARK: -UserDefault
@@ -147,13 +254,21 @@ class UserManager {
         return userDefaults.string(forKey: "documentID")
     }
     
-    //MARK: - Loggin Situation
-    func setIsLoggedIn(_ isLoggedIn: Bool) {
+    private func setStoreHabby(habbys: [String]) {
+        userDefaults.set(habbys, forKey: "habbys")
+        userDefaults.synchronize()
+    }
+    
+    private func getStoreHabby() -> [String]? {
+        return userDefaults.array(forKey: "habbys") as? [String]
+    }
+    
+    private func setIsLoggedIn(_ isLoggedIn: Bool) {
         userDefaults.set(isLoggedIn, forKey: "isLoggedIn")
         userDefaults.synchronize()
     }
     
-    func getIsLoggedIn() -> Bool {
+    private func getIsLoggedIn() -> Bool {
         return userDefaults.bool(forKey: "isLoggedIn")
     }
     
