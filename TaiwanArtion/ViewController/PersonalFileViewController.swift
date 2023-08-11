@@ -15,6 +15,7 @@ class PersonalFileViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        view = welcomeRegisterView
         manageUser()
     }
     
@@ -27,14 +28,7 @@ class PersonalFileViewController: UIViewController {
 
     private func manageUser() {
         
-        if userManager.getIsLoggedIn() {
-            //已經都登入過
-            
-        } else {
-            //如果未註冊
-            view = welcomeRegisterView
-            
-        }
+//
         //這邊要有UserDefault的設定
         
         //如果已經註冊，也已經登入

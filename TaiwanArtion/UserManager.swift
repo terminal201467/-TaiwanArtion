@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseAuth
 import GoogleSignIn
 import RxRelay
@@ -99,6 +100,8 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     static let shared = UserManager()
     
     private let userDefaults = UserDefaults.standard
+    
+    private let appConfigure = FirebaseApp.configure()
     
     private let fireBaseDataBase = FirebaseDatabase(collectionName: "users")
     

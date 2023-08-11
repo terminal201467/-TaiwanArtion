@@ -82,4 +82,72 @@ class FirebaseAuth {
             }
         }
     }
+    
+    //手機號碼驗證
+    func sendMessengeVerified(by number: String) {
+        Auth.auth().settings?.isAppVerificationDisabledForTesting = true  // 開發測試用，實際使用需移除
+        PhoneAuthProvider.provider().verifyPhoneNumber(number, uiDelegate: nil) { verificationID, error in
+            if let error = error {
+                print("Error sending verification code: \(error.localizedDescription)")
+                return
+            }
+            
+            // 將 verificationID 儲存起來，稍後用於驗證碼確認
+            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+        }
+    }
+    
+    func verifyMessengeCode(by code: String, completion: @escaping (String) -> Void) {
+        // 在某個按鈕點擊事件中處理
+        let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
+        let verificationCode = code // 使用者輸入的驗證碼
+
+        let credential = PhoneAuthProvider.provider().credential(
+            withVerificationID: verificationID ?? "",
+            verificationCode: verificationCode
+        )
+
+        Auth.auth().signIn(with: credential) { authResult, error in
+            if let error = error {
+                print("Error verifying verification code: \(error.localizedDescription)")
+                return
+            }
+            authResult?.additionalUserInfo?.username
+            // 驗證成功，authResult 中包含使用者資訊
+        }
+
+    }
+    
+    func sendEmailVerified(by email: String, by password: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Error creating user: \(error.localizedDescription)")
+                return
+            }
+
+            // 發送驗證郵件
+            authResult?.user.sendEmailVerification(completion: { error in
+                if let error = error {
+                    print("Error sending verification email: \(error.localizedDescription)")
+                    return
+                }
+
+                print("Verification email sent.")
+            })
+        }
+    }
+    
+    func verifiedEmailCode(email: String, password: String, code: String) {
+        let verificationCode = code // 使用者通過郵件接收到的驗證碼
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+
+        Auth.auth().currentUser?.reauthenticate(with: credential) { authResult, error in
+            if let error = error {
+                print("Error reauthenticating: \(error.localizedDescription)")
+                return
+            }
+            // 驗證成功，更新你的使用者介面
+            print("Email verification succeeded.")
+        }
+    }
 }

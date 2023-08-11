@@ -106,6 +106,9 @@ extension LoginViewController : UITableViewDelegate, UITableViewDataSource {
         case .account:
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
             cell.accountConfigure(placeholderText: "4-21碼小寫英文.數字")
+            cell.inputAction = { inputText in
+                
+            }
             return cell
         case .password:
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTextFieldTableViewCell.reuseIdentifier, for: indexPath) as! InputTextFieldTableViewCell
