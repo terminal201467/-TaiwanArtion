@@ -61,22 +61,24 @@ class FirebaseAuth {
     }
 
     //一般註冊
-    func normalCreateAccount(email: String, password: String) {
+    func normalCreateAccount(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("註冊失敗：\(error.localizedDescription)")
             } else {
                 print("註冊成功，使用者名稱：\(authResult?.user.displayName ?? "未知")")
+                completionIsVerified(authResult?.user.isEmailVerified ?? false)
             }
         }
     }
     //一般登入
-    func normalLogin(email: String, password: String) {
+    func normalLogin(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("登入失敗：\(error.localizedDescription)")
             } else {
                 print("登入成功，使用者名稱：\(authResult?.user.displayName ?? "未知")")
+                completionIsVerified(authResult?.user.isEmailVerified ?? false)
             }
         }
     }

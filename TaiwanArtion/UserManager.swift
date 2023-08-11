@@ -53,7 +53,7 @@ protocol UserManagerInput {
 protocol UserManagerOutput {
     
     //目前是會回覆登入或沒有登入的狀態
-    var isLoginedRelay: BehaviorRelay<Bool> { get }
+    var outputIsLoginedRelay: BehaviorRelay<Bool> { get }
     ///怎麼樣會顯示為：有登入、沒有登入？
     
     //取得使用者名字
@@ -72,7 +72,19 @@ protocol UserManagerOutput {
     var outputStoreEmailRelay: BehaviorRelay<String> { get }
     
     //取得照片
-    var outputStoreHeadImage: BehaviorRelay<String> { get }
+    var outputStoreHeadImageRelay: BehaviorRelay<String> { get }
+    
+    //輸出google登入
+    var outputGoogleLoginRelay: BehaviorRelay<Bool> { get }
+    
+    //輸出facebook登入
+    var outputFacebookLoginRelay: BehaviorRelay<Bool> { get }
+    
+    //輸出一般註冊結果
+    var outputNormalCreateAccountRelay: BehaviorRelay<Bool> { get }
+    
+    //輸出一般登入結果
+    var outputNormalLoginRelay: BehaviorRelay<Bool> { get }
 }
 
 protocol UserInputOutputType {
@@ -128,7 +140,7 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     //MARK: -Output
     
-    var isLoginedRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var outputIsLoginedRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     var outputStoreNameRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
@@ -140,7 +152,15 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     var outputStoreEmailRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    var outputStoreHeadImage: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    var outputStoreHeadImageRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var outputGoogleLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
+    var outputFacebookLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
+    var outputNormalCreateAccountRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
+    var outputNormalLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     private init() {
         //input訂閱
@@ -185,8 +205,52 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         })
         .disposed(by: disposeBag)
         
+        googleLoginPublished.subscribe(onNext: {
+            print("Google Login")
+            self.googleLogin { isLogin in
+                print("isGoogleLogin Result:\(isLogin)")
+                self.outputGoogleLoginRelay.accept(isLogin)
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        facebookLoginPublished.subscribe(onNext: {
+            print("Facebook Login")
+            self.facebookLogin { isLogin in
+                print("isFaceBookLogin Result:\(isLogin)")
+                self.outputFacebookLoginRelay.accept(isLogin)
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        normalCreateAccountPubished.subscribe(onNext: { account, password in
+            self.normalCreateUser(email: account, password: password) { displayName in
+                self.outputNormalCreateAccountRelay.accept(displayName)
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        normalLoginAccountPublished.subscribe(onNext: { account, password in
+            self.normalUserLogin(email: account, password: password) { displayName in
+                self.outputNormalLoginRelay.accept(displayName)
+            }
+        })
+        .disposed(by: disposeBag)
+        
         //output訂閱
-        isLoginedRelay.accept(getIsLoggedIn())
+        outputIsLoginedRelay.accept(getIsLoggedIn())
+        
+        outputStoreNameRelay.accept(getUsername() ?? "未輸入名字")
+        
+        outputStoreGenderRelay.accept(getGender() ?? "未輸入性別")
+        
+        outputStoreEmailRelay.accept(getEmail() ?? "未輸入Email")
+        
+        outputStoreBirthRelay.accept(getBirth() ?? "未輸入生日")
+        
+        outputStoreHeadImageRelay.accept(getHeadImage() ?? "未輸入大頭照")
+        
+        outputStorePhoneNumberRelay.accept(getPhoneNumber() ?? "未輸入電話號碼")
         
     }
     
@@ -274,26 +338,31 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     //MARK: - FirebaseAuth
     //Google驗證
-    func googleLogin(completion: @escaping (Bool) -> Void) {
+    func googleLogin(completionIsVerified: @escaping (Bool) -> Void) {
         fireBaseAuth.googleSignIn(.sharedInstance, didSignInFor: .none, withError: .none) { isEmailVerified in
-            completion(isEmailVerified)
+            completionIsVerified(isEmailVerified)
         }
     }
     
     //Facebook驗證
-    func facebookLogin(completion: @escaping (Bool) -> Void) {
+    func facebookLogin(completionIsVerified: @escaping (Bool) -> Void) {
         fireBaseAuth.facebookSignIn(didCompleteWith: .none, error: nil) { isEmailVerified in
-            completion(isEmailVerified)
+            completionIsVerified(isEmailVerified)
         }
     }
     
     //一般用戶驗證
-    func createNormalUser(email: String, password: String, completion: @escaping () -> Void) {
-        fireBaseAuth.normalCreateAccount(email: email, password: password)
+    func normalCreateUser(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
+        fireBaseAuth.normalCreateAccount(email: email, password: password) { isVerified in
+            completionIsVerified(isVerified)
+        }
     }
     
-    func normalUserLogin(email: String, password: String, compltion: @escaping (Bool) -> Void) {
-        fireBaseAuth.normalLogin(email: email, password: password)
+    //一般用戶登入
+    func normalUserLogin(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
+        fireBaseAuth.normalLogin(email: email, password: password) { isVerified in
+            completionIsVerified(isVerified)
+        }
     }
     
     //MARK: - FireBaseDataBase
