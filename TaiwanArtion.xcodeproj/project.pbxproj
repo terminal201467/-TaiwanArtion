@@ -564,6 +564,14 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
+		97AF920C2A871BF700F8F920 /* UserFeature */ = {
+			isa = PBXGroup;
+			children = (
+				976A03092A0E790B00424ACF /* UserManager.swift */,
+			);
+			path = UserFeature;
+			sourceTree = "<group>";
+		};
 		97BD68702A5BE38100F4BCAB /* DateInterface */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,7 +609,7 @@
 				9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */,
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
-				976A03092A0E790B00424ACF /* UserManager.swift */,
+				97AF920C2A871BF700F8F920 /* UserFeature */,
 				97BD68702A5BE38100F4BCAB /* DateInterface */,
 				9771A15F2A3AC2A0006F4F9D /* Firebase */,
 				973C17B22A2989FF00581DC6 /* CustomObject */,

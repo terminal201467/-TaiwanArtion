@@ -84,20 +84,20 @@ class FirebaseAuth {
     }
     
     //手機號碼驗證
-    func sendMessengeVerified(by number: String) {
+    func sendMessengeVerified(byPhoneNumber number: String) {
         Auth.auth().settings?.isAppVerificationDisabledForTesting = true  // 開發測試用，實際使用需移除
         PhoneAuthProvider.provider().verifyPhoneNumber(number, uiDelegate: nil) { verificationID, error in
             if let error = error {
                 print("Error sending verification code: \(error.localizedDescription)")
                 return
             }
-            
+            print("verificationID:\(verificationID)")
             // 將 verificationID 儲存起來，稍後用於驗證碼確認
             UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
         }
     }
     
-    func verifyMessengeCode(by code: String, completion: @escaping (String) -> Void) {
+    func verifyMessengeCode(byVerifyCode code: String, completion: @escaping (String) -> Void) {
         // 在某個按鈕點擊事件中處理
         let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
         let verificationCode = code // 使用者輸入的驗證碼
@@ -118,7 +118,7 @@ class FirebaseAuth {
 
     }
     
-    func sendEmailVerified(by email: String, by password: String) {
+    func sendEmailVerified(byEmail email: String, byPassword password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("Error creating user: \(error.localizedDescription)")
@@ -137,7 +137,7 @@ class FirebaseAuth {
         }
     }
     
-    func verifiedEmailCode(email: String, password: String, code: String) {
+    func verifiedEmailCode(byEmail email: String, byPassword password: String, code: String) {
         let verificationCode = code // 使用者通過郵件接收到的驗證碼
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
 

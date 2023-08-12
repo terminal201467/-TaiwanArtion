@@ -30,6 +30,7 @@ class RegisterViewController: UIViewController {
         setNavigationBar()
         setCollectionView()
         setStepAddContainer()
+        setInputInfo()
     }
     
     //MARK: - Methods
@@ -65,6 +66,7 @@ class RegisterViewController: UIViewController {
                 self.firstStepView?.removeFromSuperview()
                 self.registerView.stepCollectionView.reloadData()
                 self.setStepAddContainer()
+                self.viewModel.input.inputSendVerifyCodeActionSubject.onNext(())
             }
         case .acountPassword:
             secondStepView = AccountPasswordView()
@@ -93,6 +95,16 @@ class RegisterViewController: UIViewController {
                 self.registerView.stepCollectionView.reloadData()
             }
         case .complete: break
+        }
+    }
+    
+    private func setInputInfo() {
+        firstStepView?.changedPhoneText = { changedText in
+            //1. 檢查輸入的號碼(需要客製)
+                ///a.如果沒有輸入正確的號碼會跳PopUp提示
+            print("changedText:\(changedText)")
+            //2.FireBaseAuth
+            self.viewModel.input.inputPhoneNumberRelay.accept(changedText)
         }
     }
 }

@@ -50,6 +50,8 @@ class PhoneVerifyView: UIView {
     
     var toNextStep: (() -> Void)?
     
+    var changedPhoneText: ((String) -> Void)?
+    
     private var inputText: String = "" {
         didSet {
             contentTableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .none)
@@ -156,6 +158,7 @@ extension PhoneVerifyView: UITableViewDelegate, UITableViewDataSource {
                     verifyCell.configure(preTeleNumber: "+886", country: "roc")
                     verifyCell.inputAction = { text in
                         self.inputText = text
+                        self.changedPhoneText?(text)
                     }
                     return verifyCell
                 case .stepTwo:
@@ -182,6 +185,7 @@ extension PhoneVerifyView: UITableViewDelegate, UITableViewDataSource {
                     nextButtonCell.action = {
                         self.currentStep = .stepTwo
                         tableView.reloadData()
+                        self.toNextStep?()
                     }
                     return nextButtonCell
                 case .stepTwo:
