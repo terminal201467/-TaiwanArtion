@@ -24,8 +24,8 @@ protocol RegisterViewModelInput {
     // 驗證碼輸入Relay
     var inputMessengeVerifyCodeRelay: BehaviorRelay<String> { get }
     
-    // 重新發送驗證碼事件
-    var inputReSendMessengeVerifyCodeRelay: PublishRelay<Void> { get }
+    // 檢驗驗證碼Subject
+    var inputCheckVerifyCodeSubject: PublishSubject<Void> { get }
     
     //MARK: -StepTwo
     // 帳號輸入Relay
@@ -39,7 +39,7 @@ protocol RegisterViewModelInput {
     var inputEmailVerifyInfoRelay: BehaviorRelay<String> { get }
     
     //重新發送驗證碼進Email
-    var inputReSendVerifyCodeRelay: PublishRelay<Void> { get }
+    var inputReSendVerifyCodeSubject: PublishSubject<Void> { get }
 }
 
 protocol RegisterViewModelOutput {
@@ -66,7 +66,7 @@ class RegisterViewModel: RegisterInputOutputType, RegisterViewModelInput, Regist
     
     var inputMessengeVerifyCodeRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    var inputReSendMessengeVerifyCodeRelay: RxRelay.PublishRelay<Void> = PublishRelay()
+    var inputCheckVerifyCodeSubject: PublishSubject<Void> = PublishSubject<Void>()
     
     var inputAccountInfoRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
@@ -74,7 +74,7 @@ class RegisterViewModel: RegisterInputOutputType, RegisterViewModelInput, Regist
     
     var inputEmailVerifyInfoRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    var inputReSendVerifyCodeRelay: RxRelay.PublishRelay<Void> = PublishRelay()
+    var inputReSendVerifyCodeSubject: PublishSubject<Void> = PublishSubject<Void>()
     
     //MARK: - Input、output
     var input: RegisterViewModelInput { self }
@@ -102,7 +102,6 @@ class RegisterViewModel: RegisterInputOutputType, RegisterViewModelInput, Regist
         //input訂閱
         inputPhoneNumberRelay.subscribe(onNext: { phoneNumber in
             self.storePhoneNumber = phoneNumber
-            print("phoneNumber:\(phoneNumber)")
         })
         .disposed(by: disposeBag)
         
@@ -116,7 +115,7 @@ class RegisterViewModel: RegisterInputOutputType, RegisterViewModelInput, Regist
         })
         .disposed(by: disposeBag)
         
-        inputReSendVerifyCodeRelay.subscribe(onNext: {
+        inputReSendVerifyCodeSubject.subscribe(onNext: {
             print("ReSend!")
         })
         .disposed(by: disposeBag)

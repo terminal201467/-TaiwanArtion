@@ -91,9 +91,9 @@ class FirebaseAuth {
                 print("Error sending verification code: \(error.localizedDescription)")
                 return
             }
-            print("verificationID:\(verificationID)")
+            print("verificationID:\(verificationID!)")
             // 將 verificationID 儲存起來，稍後用於驗證碼確認
-            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+            UserDefaults.standard.set(verificationID!, forKey: "authVerificationID")
         }
     }
     

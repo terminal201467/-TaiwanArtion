@@ -33,6 +33,11 @@ class RegisterViewController: UIViewController {
         setInputInfo()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        //停止倒數
+    }
+    
     //MARK: - Methods
     private func setNavigationBar() {
         title = "會員註冊"
@@ -66,7 +71,6 @@ class RegisterViewController: UIViewController {
                 self.firstStepView?.removeFromSuperview()
                 self.registerView.stepCollectionView.reloadData()
                 self.setStepAddContainer()
-                self.viewModel.input.inputSendVerifyCodeActionSubject.onNext(())
             }
         case .acountPassword:
             secondStepView = AccountPasswordView()
@@ -106,6 +110,19 @@ class RegisterViewController: UIViewController {
             //2.FireBaseAuth
             self.viewModel.input.inputPhoneNumberRelay.accept(changedText)
         }
+        //發送認證碼給手機門號
+        firstStepView?.toSendVerifyCode = {
+            self.viewModel.input.inputSendVerifyCodeActionSubject.onNext(())
+        }
+        //驗證驗證碼
+        firstStepView?.toVerifiedMessengeCode = {
+            self.viewModel.input.inputCheckVerifyCodeSubject.onNext(())
+        }
+        //接收驗證碼
+        firstStepView?.toVerifyChangedCode = { verifyCode in
+            self.viewModel.input.inputMessengeVerifyCodeRelay.accept(verifyCode)
+        }
+        
     }
 }
 extension RegisterViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {

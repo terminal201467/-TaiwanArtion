@@ -96,6 +96,10 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
             self.timeTickAction?(second)
         }
     }
+    
+    func stopTimer() {
+        timer.stop()
+    }
 
     private func autoLayout() {
         contentView.addSubview(inputerStack)

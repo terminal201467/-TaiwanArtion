@@ -50,6 +50,12 @@ class PhoneVerifyView: UIView {
     
     var toNextStep: (() -> Void)?
     
+    var toSendVerifyCode: (() -> Void)?
+    
+    var toVerifiedMessengeCode: (() -> Void)?
+    
+    var toVerifyChangedCode: ((String) -> Void)?
+    
     var changedPhoneText: ((String) -> Void)?
     
     private var inputText: String = "" {
@@ -166,9 +172,11 @@ extension PhoneVerifyView: UITableViewDelegate, UITableViewDataSource {
                     sendVerifyCell.configure(placeHolder: "請輸入手機驗證碼")
                     sendVerifyCell.inputAction = { text in
                         self.inputText = text
+                        self.toVerifyChangedCode?(text)
                     }
                     sendVerifyCell.sendAction = {
                         tableView.reloadRows(at: [indexPath], with: .none)
+                        self.toSendVerifyCode?()
                     }
                     sendVerifyCell.timeTickAction = { second in
                         sendVerifyCell.setSendButton(timeRemaining: second)
@@ -185,7 +193,7 @@ extension PhoneVerifyView: UITableViewDelegate, UITableViewDataSource {
                     nextButtonCell.action = {
                         self.currentStep = .stepTwo
                         tableView.reloadData()
-                        self.toNextStep?()
+                        self.toSendVerifyCode?()
                     }
                     return nextButtonCell
                 case .stepTwo:
@@ -193,6 +201,7 @@ extension PhoneVerifyView: UITableViewDelegate, UITableViewDataSource {
                     setButtonSelection(button: nextButtonCell.button, isInputText: inputText == "")
                     nextButtonCell.action = {
                         self.toNextStep?()
+                        self.toVerifiedMessengeCode?()
                     }
                     return nextButtonCell
                 }
