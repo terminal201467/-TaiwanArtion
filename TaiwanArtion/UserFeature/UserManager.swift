@@ -36,13 +36,13 @@ protocol UserManagerInput {
     var updateHeadImageRelay: BehaviorRelay<String> { get }
     
     //儲存資料
-    var saveDataPublished: PublishRelay<Void> { get }
+    var saveDataSubject: PublishSubject<Void> { get }
     
     //googleLogin
-    var googleLoginPublished: PublishRelay<Void> { get }
+    var googleLoginSubject: PublishSubject<Void> { get }
     
     //facebookLogin
-    var facebookLoginPublished: PublishRelay<Void> { get }
+    var facebookLoginSubject: PublishSubject<Void> { get }
     
     //createAccount
     var normalCreateAccountPubished: PublishRelay<(account: String, password: String)> { get }
@@ -94,7 +94,7 @@ protocol UserInputOutputType {
 }
 
 class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
-
+    
     private let disposeBag = DisposeBag()
         
     static let shared = UserManager()
@@ -129,13 +129,11 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     var updateHeadImageRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    var saveDataPublished: RxRelay.PublishRelay<Void> = PublishRelay()
-    
+    var saveDataSubject: RxSwift.PublishSubject<Void> = PublishSubject()
     //ThirdPartyKitLoginRelay
-    var googleLoginPublished: RxRelay.PublishRelay<Void> = PublishRelay()
+    var googleLoginSubject: RxSwift.PublishSubject<Void> = PublishSubject()
     
-    var facebookLoginPublished: RxRelay.PublishRelay<Void> = PublishRelay()
-    
+    var facebookLoginSubject: RxSwift.PublishSubject<Void> = PublishSubject()
     //Normal
     var normalCreateAccountPubished: RxRelay.PublishRelay<(account: String, password: String)> = PublishRelay()
     
@@ -202,13 +200,13 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         })
         .disposed(by: disposeBag)
         
-        saveDataPublished.subscribe(onNext: {
+        saveDataSubject.subscribe(onNext: {
             print("Save!")
             self.uploadUserInfoToFireBase()
         })
         .disposed(by: disposeBag)
         
-        googleLoginPublished.subscribe(onNext: {
+        googleLoginSubject.subscribe(onNext: {
             print("Google Login")
             self.googleLogin { isLogin in
                 print("isGoogleLogin Result:\(isLogin)")
@@ -217,7 +215,7 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         })
         .disposed(by: disposeBag)
         
-        facebookLoginPublished.subscribe(onNext: {
+        facebookLoginSubject.subscribe(onNext: {
             print("Facebook Login")
             self.facebookLogin { isLogin in
                 print("isFaceBookLogin Result:\(isLogin)")

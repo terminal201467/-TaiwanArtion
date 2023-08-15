@@ -27,7 +27,6 @@ class PersonalFileViewController: UIViewController {
     
 
     private func manageUser() {
-        
 //
         //這邊要有UserDefault的設定
         
@@ -49,6 +48,12 @@ class PersonalFileViewController: UIViewController {
         
         welcomeRegisterView.socialKitRegister = { socialKitKind in
             print(socialKitKind)
+            switch socialKitKind {
+            case "facebook": self.userManager.input.facebookLoginSubject.onNext(())
+            case "google": self.userManager.input.googleLoginSubject.onNext(())
+            case "line": print("not Define")
+            default: print("default")
+            }
         }
     }
 
