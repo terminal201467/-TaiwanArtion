@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PersonalFileViewController: UIViewController {
+class PersonalFileViewController: UIViewController{
 
     private let welcomeRegisterView = WelcomeRegisterView()
     
@@ -27,7 +27,6 @@ class PersonalFileViewController: UIViewController {
     
 
     private func manageUser() {
-//
         //這邊要有UserDefault的設定
         
         //如果已經註冊，也已經登入
@@ -50,7 +49,9 @@ class PersonalFileViewController: UIViewController {
             print(socialKitKind)
             switch socialKitKind {
             case "facebook": self.userManager.input.facebookLoginSubject.onNext(())
-            case "google": self.userManager.input.googleLoginSubject.onNext(())
+            case "google":
+                self.userManager.input.googleLoginSubject.onNext(())
+                self.userManager.fireBaseAuth.googleSignInAction(with: self)
             case "line": print("not Define")
             default: print("default")
             }

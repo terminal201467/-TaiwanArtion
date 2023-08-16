@@ -12,6 +12,41 @@ import FirebaseAuth
 import Firebase
 
 class FirebaseAuth {
+    
+    static let shared = FirebaseAuth()
+    
+    init() {
+        setGoogleSignInConfiguration()
+    }
+    
+    private func setGoogleSignInConfiguration() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+    }
+    
+    func googleSignInAction(with controller: UIViewController) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: controller) { authResult, error in
+            if let error = error {
+                print("error:\(error.localizedDescription)")
+            }
+            
+            if let result = authResult {
+                print(
+                """
+                userID:\(result.user.userID)
+                name:\(result.user.profile?.name)
+                email:\(result.user.profile?.email)
+                url:\(result.user.profile?.imageURL(withDimension: .init()))
+                client:\(result.user.configuration.clientID)
+                accessToken:\(result.user.accessToken)
+                refreshToken:\(result.user.refreshToken.tokenString)
+                """
+                )
+            }
+        }
+    }
+    
     //Google登入
     func googleSignIn(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?, isLogginCompletion: @escaping (Bool) -> Void) {
         if let error = error {
@@ -19,10 +54,9 @@ class FirebaseAuth {
             return
         }
         
-        guard let idToken = user.idToken?.tokenString else { return }
+        guard let idToken = user.idToken else { return }
         let accessToken = user.accessToken.tokenString
-        
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
                                                        accessToken: accessToken)
         
         // 使用 Firebase 認證憑證登入
@@ -34,6 +68,11 @@ class FirebaseAuth {
             print("使用者成功登入：\(authResult?.user.displayName ?? "未知使用者")")
             isLogginCompletion((authResult?.user.isEmailVerified)!)
         }
+    }
+    
+    //GoogleSignOut
+    func googleSignOut() {
+        
     }
     
     //Facebook登入

@@ -105,7 +105,7 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     private let fireBaseDataBase = FirebaseDatabase(collectionName: "users")
     
-    private let fireBaseAuth = FirebaseAuth()
+    let fireBaseAuth = FirebaseAuth.shared
     
     //MARK: -Stream
     
@@ -340,7 +340,7 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     //MARK: - FirebaseAuth
     //Google驗證
     func googleLogin(completionIsVerified: @escaping (Bool) -> Void) {
-        fireBaseAuth.googleSignIn(.sharedInstance, didSignInFor: .none, withError: .none) { isEmailVerified in
+         fireBaseAuth.googleSignIn(.sharedInstance, didSignInFor: .init(), withError: .none) { isEmailVerified in
             completionIsVerified(isEmailVerified)
         }
     }
