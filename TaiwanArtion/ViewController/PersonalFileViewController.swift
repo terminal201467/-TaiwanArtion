@@ -48,10 +48,10 @@ class PersonalFileViewController: UIViewController{
         welcomeRegisterView.socialKitRegister = { socialKitKind in
             print(socialKitKind)
             switch socialKitKind {
-            case "facebook": self.userManager.input.facebookLoginSubject.onNext(())
+            case "facebook":
+                self.userManager.input.facebookLoginSubject.onNext(self)
             case "google":
-                self.userManager.input.googleLoginSubject.onNext(())
-                self.userManager.fireBaseAuth.googleSignInAction(with: self)
+                self.userManager.input.googleLoginSubject.onNext(self)
             case "line": print("not Define")
             default: print("default")
             }

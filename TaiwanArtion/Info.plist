@@ -24,6 +24,27 @@
 				<string>com.googleusercontent.apps.57281493334-k0a21sdes9c3lpbmkpkr9tovetlkdrav</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb2016375328710488</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>2016375328710488</string>
+	<key>FacebookClientToken</key>
+	<string>bbf7f1374e22b62f4be516f7cb4379f9</string>
+	<key>FacebookDisplayName</key>
+	<string>TaiwanArtion</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

@@ -39,10 +39,10 @@ protocol UserManagerInput {
     var saveDataSubject: PublishSubject<Void> { get }
     
     //googleLogin
-    var googleLoginSubject: PublishSubject<Void> { get }
+    var googleLoginSubject: PublishSubject<UIViewController> { get }
     
     //facebookLogin
-    var facebookLoginSubject: PublishSubject<Void> { get }
+    var facebookLoginSubject: PublishSubject<UIViewController> { get }
     
     //createAccount
     var normalCreateAccountPubished: PublishRelay<(account: String, password: String)> { get }
@@ -131,9 +131,9 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     var saveDataSubject: RxSwift.PublishSubject<Void> = PublishSubject()
     //ThirdPartyKitLoginRelay
-    var googleLoginSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    var googleLoginSubject: RxSwift.PublishSubject<UIViewController> = PublishSubject()
     
-    var facebookLoginSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    var facebookLoginSubject: RxSwift.PublishSubject<UIViewController> = PublishSubject()
     //Normal
     var normalCreateAccountPubished: RxRelay.PublishRelay<(account: String, password: String)> = PublishRelay()
     
@@ -206,21 +206,16 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         })
         .disposed(by: disposeBag)
         
-        googleLoginSubject.subscribe(onNext: {
-            print("Google Login")
-            self.googleLogin { isLogin in
+        googleLoginSubject.subscribe(onNext: { controller in
+            self.googleLogin(controller: controller) { isLogin in
                 print("isGoogleLogin Result:\(isLogin)")
                 self.outputGoogleLoginRelay.accept(isLogin)
             }
         })
         .disposed(by: disposeBag)
         
-        facebookLoginSubject.subscribe(onNext: {
-            print("Facebook Login")
-            self.facebookLogin { isLogin in
-                print("isFaceBookLogin Result:\(isLogin)")
-                self.outputFacebookLoginRelay.accept(isLogin)
-            }
+        facebookLoginSubject.subscribe(onNext: { controller in
+            self.facebookLogin(controller: controller)
         })
         .disposed(by: disposeBag)
         
@@ -339,16 +334,17 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     //MARK: - FirebaseAuth
     //Google驗證
-    func googleLogin(completionIsVerified: @escaping (Bool) -> Void) {
+    func googleLogin(controller: UIViewController, completionIsVerified: @escaping (Bool) -> Void) {
+         fireBaseAuth.googleSignInAction(with: controller)
          fireBaseAuth.googleSignIn(.sharedInstance, didSignInFor: .init(), withError: .none) { isEmailVerified in
             completionIsVerified(isEmailVerified)
         }
     }
     
     //Facebook驗證
-    func facebookLogin(completionIsVerified: @escaping (Bool) -> Void) {
-        fireBaseAuth.facebookSignIn(didCompleteWith: .none, error: nil) { isEmailVerified in
-            completionIsVerified(isEmailVerified)
+    func facebookLogin(controller: UIViewController) {
+        fireBaseAuth.facebookSignIn(with: controller) { profile in
+            print("profile:\(profile)")
         }
     }
     

@@ -342,6 +342,7 @@
 		97977C722A715EB500BC89E0 /* MenuCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionView.swift; sourceTree = "<group>"; };
 		97977C742A71FEE000BC89E0 /* CollectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectViewModel.swift; sourceTree = "<group>"; };
 		97AF920D2A8C5FD400F8F920 /* ThirdKitLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdKitLoginViewController.swift; sourceTree = "<group>"; };
+		97AF920F2A8CAFE900F8F920 /* TaiwanArtionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaiwanArtionDebug.entitlements; sourceTree = "<group>"; };
 		97BD68562A5624D300F4BCAB /* PersonalFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileView.swift; sourceTree = "<group>"; };
 		97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
 		97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoViewModel.swift; sourceTree = "<group>"; };
@@ -608,6 +609,7 @@
 		97D669F42A0C6C3600A25935 /* TaiwanArtion */ = {
 			isa = PBXGroup;
 			children = (
+				97AF920F2A8CAFE900F8F920 /* TaiwanArtionDebug.entitlements */,
 				9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */,
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
@@ -1356,6 +1358,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TaiwanArtion/TaiwanArtionDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;

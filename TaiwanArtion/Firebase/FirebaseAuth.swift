@@ -8,6 +8,7 @@
 import Foundation
 import GoogleSignIn
 import FBSDKLoginKit
+import FBSDKCoreKit
 import FirebaseAuth
 import Firebase
 
@@ -23,6 +24,10 @@ class FirebaseAuth {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
+    }
+    
+    private func setFacebookSignInConfiguration() {
+        Settings.shared.appID
     }
     
     func googleSignInAction(with controller: UIViewController) {
@@ -72,31 +77,47 @@ class FirebaseAuth {
     
     //GoogleSignOut
     func googleSignOut() {
-        
+        GIDSignIn.sharedInstance.signOut()
     }
     
     //Facebook登入
-    func facebookSignIn(didCompleteWith result: LoginManagerLoginResult?, error: Error?, isLogginCompletion: @escaping (Bool) -> Void) {
-        if let error = error {
-            print("Facebook 登入發生錯誤：\(error.localizedDescription)")
-            return
-        }
-        
-        guard let result = result, !result.isCancelled else {
-            print("使用者取消了 Facebook 登入")
-            return
-        }
-        
-        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-        
-        Auth.auth().signIn(with: credential) { authResult, error in
+    func facebookSignIn(with controller: UIViewController, completion: @escaping (Profile) -> Void) {
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["public_profile","email"], from: controller) { result, error in
             if let error = error {
-                print("Firebase 登入發生錯誤：\(error.localizedDescription)")
+                print("Facebook 登入發生錯誤：\(error.localizedDescription)")
                 return
+            } else if let result = result, !result.isCancelled {
+                if AccessToken.current != nil {
+                    Profile.loadCurrentProfile { (profile, error) in
+                        if let profile = profile {
+                            print(
+                            """
+                            userID:\(profile.userID)
+                            refreshDate:\(profile.refreshDate)
+                            name:\(profile.name)
+                            birthDay:\(profile.birthday)
+                            gender:\(profile.gender)
+                            imageURL\(profile.imageURL)
+                            email:\(profile.email)
+                            """
+                            )
+                            completion(profile)
+                        }
+                    }
+                }
             }
-            print("使用者成功登入：\(authResult?.user.displayName ?? "未知使用者")")
-            isLogginCompletion((authResult?.user.isEmailVerified)!)
         }
+//        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+//
+//        Auth.auth().signIn(with: credential) { authResult, error in
+//            if let error = error {
+//                print("Firebase 登入發生錯誤：\(error.localizedDescription)")
+//                return
+//            }
+//            print("使用者成功登入：\(authResult?.user.displayName ?? "未知使用者")")
+//            isLogginCompletion((authResult?.user.isEmailVerified)!)
+//        }
     }
 
     //一般註冊
