@@ -139,6 +139,7 @@
 		97977C732A715EB500BC89E0 /* MenuCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C722A715EB500BC89E0 /* MenuCollectionView.swift */; };
 		97977C752A71FEE000BC89E0 /* CollectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C742A71FEE000BC89E0 /* CollectViewModel.swift */; };
 		97AF92112A8CB64200F8F920 /* UserDefaultInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AF92102A8CB64100F8F920 /* UserDefaultInterface.swift */; };
+		97AF92132A8D00E700F8F920 /* NearViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AF92122A8D00E700F8F920 /* NearViewModel.swift */; };
 		97BD68572A5624D300F4BCAB /* PersonalFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68562A5624D300F4BCAB /* PersonalFileView.swift */; };
 		97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */; };
 		97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */; };
@@ -343,6 +344,7 @@
 		97977C742A71FEE000BC89E0 /* CollectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectViewModel.swift; sourceTree = "<group>"; };
 		97AF920F2A8CAFE900F8F920 /* TaiwanArtionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaiwanArtionDebug.entitlements; sourceTree = "<group>"; };
 		97AF92102A8CB64100F8F920 /* UserDefaultInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultInterface.swift; sourceTree = "<group>"; };
+		97AF92122A8D00E700F8F920 /* NearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearViewModel.swift; sourceTree = "<group>"; };
 		97BD68562A5624D300F4BCAB /* PersonalFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileView.swift; sourceTree = "<group>"; };
 		97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
 		97BD685A2A562AFD00F4BCAB /* PersonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoViewModel.swift; sourceTree = "<group>"; };
@@ -763,6 +765,7 @@
 				97FD071A2A66798600A64808 /* ChooseHabbyViewModel.swift */,
 				97977C742A71FEE000BC89E0 /* CollectViewModel.swift */,
 				97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */,
+				97AF92122A8D00E700F8F920 /* NearViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1034,6 +1037,7 @@
 				973C17BE2A29937B00581DC6 /* DateCollectionViewCell.swift in Sources */,
 				973C17932A26D56200581DC6 /* SliderTableViewCell.swift in Sources */,
 				97506C2D2A3C28B400F6BB24 /* EmailVerifyView.swift in Sources */,
+				97AF92132A8D00E700F8F920 /* NearViewModel.swift in Sources */,
 				9771A1582A3A0B87006F4F9D /* UIButton.swift in Sources */,
 				976A030C2A0E87A800424ACF /* HomeView.swift in Sources */,
 				97BD685F2A563AFD00F4BCAB /* GenderTableViewCell.swift in Sources */,
