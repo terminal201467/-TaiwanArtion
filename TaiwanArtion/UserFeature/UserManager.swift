@@ -99,7 +99,7 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         
     static let shared = UserManager()
     
-    private let userDefaults = UserDefaults.standard
+    private let userDefaultInterface = UserDefaultInterface.shared
     
     private let appConfigure = FirebaseApp.configure()
     
@@ -166,37 +166,37 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     private init() {
         //input訂閱
         updateNameRelay.subscribe(onNext: { name in
-            self.setUsername(name)
+            self.userDefaultInterface.setUsername(name)
         })
         .disposed(by: disposeBag)
         
         updateGenderRelay.subscribe(onNext: { gender in
-            self.setGender(gender)
+            self.userDefaultInterface.setGender(gender)
         })
         .disposed(by: disposeBag)
         
         updateBirthRelay.subscribe(onNext: { birth in
-            self.setBirth(birth)
+            self.userDefaultInterface.setBirth(birth)
         })
         .disposed(by: disposeBag)
         
         updateEmailRelay.subscribe(onNext: { email in
-            self.setEmail(email)
+            self.userDefaultInterface.setEmail(email)
         })
         .disposed(by: disposeBag)
         
         updateHabbyRelay.subscribe(onNext: { habbys in
-            self.setStoreHabby(habbys: habbys)
+            self.userDefaultInterface.setStoreHabby(habbys: habbys)
         })
         .disposed(by: disposeBag)
         
         updateHeadImageRelay.subscribe(onNext: { headImage in
-            self.setHeadImage(headImage)
+            self.userDefaultInterface.setHeadImage(headImage)
         })
         .disposed(by: disposeBag)
         
         updatePhoneNumberRelay.subscribe(onNext: { phoneNumber in
-            self.setPhoneNumber(number: phoneNumber)
+            self.userDefaultInterface.setPhoneNumber(number: phoneNumber)
         })
         .disposed(by: disposeBag)
         
@@ -234,108 +234,34 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         .disposed(by: disposeBag)
         
         //output訂閱
-        outputIsLoginedRelay.accept(getIsLoggedIn())
+        outputIsLoginedRelay.accept(self.userDefaultInterface.getIsLoggedIn())
         
-        outputStoreNameRelay.accept(getUsername() ?? "未輸入名字")
+        outputStoreNameRelay.accept(self.userDefaultInterface.getUsername() ?? "未輸入名字")
         
-        outputStoreGenderRelay.accept(getGender() ?? "未輸入性別")
+        outputStoreGenderRelay.accept(self.userDefaultInterface.getGender() ?? "未輸入性別")
         
-        outputStoreEmailRelay.accept(getEmail() ?? "未輸入Email")
+        outputStoreEmailRelay.accept(self.userDefaultInterface.getEmail() ?? "未輸入Email")
         
-        outputStoreBirthRelay.accept(getBirth() ?? "未輸入生日")
+        outputStoreBirthRelay.accept(self.userDefaultInterface.getBirth() ?? "未輸入生日")
         
-        outputStoreHeadImageRelay.accept(getHeadImage() ?? "未輸入大頭照")
+        outputStoreHeadImageRelay.accept(self.userDefaultInterface.getHeadImage() ?? "未輸入大頭照")
         
-        outputStorePhoneNumberRelay.accept(getPhoneNumber() ?? "未輸入電話號碼")
+        outputStorePhoneNumberRelay.accept(self.userDefaultInterface.getPhoneNumber() ?? "未輸入電話號碼")
         
-    }
-    
-    //MARK: -UserDefault
-    private func setUsername(_ username: String) {
-        userDefaults.set(username, forKey: "username")
-        userDefaults.synchronize()
-    }
-    
-    private func getUsername() -> String? {
-        return userDefaults.string(forKey: "username")
-    }
-    
-    private func setBirth(_ date: String) {
-        userDefaults.set(date, forKey: "birth")
-        userDefaults.synchronize()
-    }
-    
-    private func getBirth() -> String? {
-        return userDefaults.string(forKey: "birth")
-    }
-    
-    private func setGender(_ gender: String) {
-        userDefaults.set(gender, forKey: "gender")
-        userDefaults.synchronize()
-    }
-    
-    private func getGender() -> String? {
-        return  userDefaults.string(forKey: "gender")
-    }
-    
-    private func setPhoneNumber(number: String) {
-        userDefaults.set(number, forKey: "phoneNumber")
-        userDefaults.synchronize()
-    }
-    
-    private func getPhoneNumber() -> String? {
-        return userDefaults.string(forKey: "phoneNumber")
-    }
-    
-    private func setEmail(_ email: String) {
-        userDefaults.set(email, forKey: "email")
-        userDefaults.synchronize()
-    }
-    
-    private func getEmail() -> String? {
-        return userDefaults.string(forKey: "email")
-    }
-    
-    private func setHeadImage(_ image: String) {
-        userDefaults.set(image, forKey: "headImage")
-        userDefaults.synchronize()
-    }
-    
-    private func getHeadImage() -> String? {
-        return userDefaults.string(forKey: "headImage")
-    }
-    
-    private func setDocumentID(identifier: String) {
-        userDefaults.set(identifier, forKey: "documentID")
-        userDefaults.synchronize()
-    }
-    
-    private func getDocumentID() -> String? {
-        return userDefaults.string(forKey: "documentID")
-    }
-    
-    private func setStoreHabby(habbys: [String]) {
-        userDefaults.set(habbys, forKey: "habbys")
-        userDefaults.synchronize()
-    }
-    
-    private func getStoreHabby() -> [String]? {
-        return userDefaults.array(forKey: "habbys") as? [String]
-    }
-    
-    private func setIsLoggedIn(_ isLoggedIn: Bool) {
-        userDefaults.set(isLoggedIn, forKey: "isLoggedIn")
-        userDefaults.synchronize()
-    }
-    
-    private func getIsLoggedIn() -> Bool {
-        return userDefaults.bool(forKey: "isLoggedIn")
     }
     
     //MARK: - FirebaseAuth
     //Google驗證
     func googleLogin(controller: UIViewController, completionIsVerified: @escaping (Bool) -> Void) {
-         fireBaseAuth.googleSignInAction(with: controller)
+        fireBaseAuth.googleSignInAction(with: controller) { user in
+            self.userDefaultInterface.setUsername(user.name)
+            self.userDefaultInterface.setGender(user.gender)
+            self.userDefaultInterface.setBirth(user.birth)
+            self.userDefaultInterface.setEmail(user.email)
+            self.userDefaultInterface.setPhoneNumber(number: user.phone)
+            self.userDefaultInterface.setHeadImage(user.headImage)
+            self.userDefaultInterface.setIsLoggedIn(true)
+        }
          fireBaseAuth.googleSignIn(.sharedInstance, didSignInFor: .init(), withError: .none) { isEmailVerified in
             completionIsVerified(isEmailVerified)
         }
@@ -343,8 +269,14 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     //Facebook驗證
     func facebookLogin(controller: UIViewController) {
-        fireBaseAuth.facebookSignIn(with: controller) { profile in
-            print("profile:\(profile)")
+        fireBaseAuth.facebookSignIn(with: controller) { user in
+            self.userDefaultInterface.setUsername(user.name)
+            self.userDefaultInterface.setGender(user.gender)
+            self.userDefaultInterface.setBirth(user.birth)
+            self.userDefaultInterface.setEmail(user.email)
+            self.userDefaultInterface.setPhoneNumber(number: user.phone)
+            self.userDefaultInterface.setHeadImage(user.headImage)
+            self.userDefaultInterface.setIsLoggedIn(true)
         }
     }
     
@@ -365,18 +297,18 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     //MARK: - FireBaseDataBase
     //後台資料上傳
     private func uploadUserInfoToFireBase() {
-        let storeUserInfo = ["birth" : getBirth(),
-                    "email" : getEmail(),
-                    "gender" : getGender(),
-                    "headImage" : getHeadImage(),
-                    "phone" : getPhoneNumber(),
-                    "username" : getUsername()]
+        let storeUserInfo = ["birth" : self.userDefaultInterface.getBirth(),
+                             "email" : self.userDefaultInterface.getEmail(),
+                             "gender" : self.userDefaultInterface.getGender(),
+                             "headImage" : self.userDefaultInterface.getHeadImage(),
+                             "phone" : self.userDefaultInterface.getPhoneNumber(),
+                             "username" : self.userDefaultInterface.getUsername()]
         fireBaseDataBase.createDocument(data: storeUserInfo) { documentID, error in
             if let error = error {
                 print("上傳使用者資訊Error:\(error.localizedDescription)")
             }
             print("documentID:\(documentID)")
-            self.setDocumentID(identifier: documentID ?? "未知的ID")
+            self.userDefaultInterface.setDocumentID(identifier: documentID ?? "未知的ID")
         }
     }
     

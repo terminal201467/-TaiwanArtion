@@ -26,11 +26,7 @@ class FirebaseAuth {
         GIDSignIn.sharedInstance.configuration = config
     }
     
-    private func setFacebookSignInConfiguration() {
-        Settings.shared.appID
-    }
-    
-    func googleSignInAction(with controller: UIViewController) {
+    func googleSignInAction(with controller: UIViewController, completion: @escaping (User) -> Void) {
         GIDSignIn.sharedInstance.signIn(withPresenting: controller) { authResult, error in
             if let error = error {
                 print("error:\(error.localizedDescription)")
@@ -39,15 +35,24 @@ class FirebaseAuth {
             if let result = authResult {
                 print(
                 """
+                ----------Google登入資訊-----------
                 userID:\(result.user.userID)
                 name:\(result.user.profile?.name)
                 email:\(result.user.profile?.email)
-                url:\(result.user.profile?.imageURL(withDimension: .init()))
+                url:\(result.user.profile?.imageURL(withDimension: .zero))
                 client:\(result.user.configuration.clientID)
                 accessToken:\(result.user.accessToken)
                 refreshToken:\(result.user.refreshToken.tokenString)
+                ----------------------------------
                 """
                 )
+                let user = User(name: result.user.profile?.name ?? "未知的名字",
+                                gender: "未知的性別",
+                                phone: "未知的電話",
+                                email: result.user.profile?.email ?? "未知的Email",
+                                birth: "未知的生日",
+                                headImage: result.user.profile?.imageURL(withDimension: .zero)?.scheme ?? "未知的大頭貼")
+                completion(user)
             }
         }
     }
@@ -81,7 +86,7 @@ class FirebaseAuth {
     }
     
     //Facebook登入
-    func facebookSignIn(with controller: UIViewController, completion: @escaping (Profile) -> Void) {
+    func facebookSignIn(with controller: UIViewController, completion: @escaping (User) -> Void) {
         let loginManager = LoginManager()
         loginManager.logIn(permissions: ["public_profile","email"], from: controller) { result, error in
             if let error = error {
@@ -93,6 +98,7 @@ class FirebaseAuth {
                         if let profile = profile {
                             print(
                             """
+                            ---------facebook登入資訊----------
                             userID:\(profile.userID)
                             refreshDate:\(profile.refreshDate)
                             name:\(profile.name)
@@ -100,24 +106,23 @@ class FirebaseAuth {
                             gender:\(profile.gender)
                             imageURL\(profile.imageURL)
                             email:\(profile.email)
+                            ----------------------------------
                             """
                             )
-                            completion(profile)
+                            let formatter = DateFormatter()
+                            let user = User(name: profile.name ?? "未知的姓名",
+                                            gender: profile.gender ?? "未知的性別",
+                                            phone: "未知的電話",
+                                            email: profile.email ?? "未知的Email",
+                                            birth: formatter.string(from: profile.birthday ?? Date()) ?? "未知的生日",
+                                            headImage: profile.imageURL?.scheme ?? "未知的大頭貼")
+                            
+                            completion(user)
                         }
                     }
                 }
             }
         }
-//        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-//
-//        Auth.auth().signIn(with: credential) { authResult, error in
-//            if let error = error {
-//                print("Firebase 登入發生錯誤：\(error.localizedDescription)")
-//                return
-//            }
-//            print("使用者成功登入：\(authResult?.user.displayName ?? "未知使用者")")
-//            isLogginCompletion((authResult?.user.isEmailVerified)!)
-//        }
     }
 
     //一般註冊
