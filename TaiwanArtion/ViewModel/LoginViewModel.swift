@@ -33,6 +33,8 @@ protocol NormalLoginOutput {
     
     var isPrevented: BehaviorRelay<Bool> { get }
     
+    var loginSuccessRelay: BehaviorRelay<Bool> { get }
+    
 }
 
 protocol NormalLoginViewModelType {
@@ -63,6 +65,8 @@ class LoginViewModel: NormalLoginInput, NormalLoginOutput, NormalLoginViewModelT
     var isLocked: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     var isPrevented: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
+    var loginSuccessRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     //MARK: - Firebase
     
@@ -97,7 +101,6 @@ class LoginViewModel: NormalLoginInput, NormalLoginOutput, NormalLoginViewModelT
         }).disposed(by: disposeBag)
         
         loginActionSubject.subscribe(onNext: {
-            print("LoginSubject!")
             self.firebaseAuth.normalLogin(email: self.accountInput.value, password: self.passwordInput.value) { user in
                 self.userDefaultInterface.setUsername(user.name)
                 self.userDefaultInterface.setGender(user.gender)
@@ -109,6 +112,8 @@ class LoginViewModel: NormalLoginInput, NormalLoginOutput, NormalLoginViewModelT
             }
         })
         .disposed(by: disposeBag)
+        
+        loginSuccessRelay.accept(self.userDefaultInterface.getIsLoggedIn())
     }
     
     //MARK: -Account

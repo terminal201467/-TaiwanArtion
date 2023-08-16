@@ -138,7 +138,6 @@
 		97977C712A71569C00BC89E0 /* CollectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C702A71569C00BC89E0 /* CollectView.swift */; };
 		97977C732A715EB500BC89E0 /* MenuCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C722A715EB500BC89E0 /* MenuCollectionView.swift */; };
 		97977C752A71FEE000BC89E0 /* CollectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C742A71FEE000BC89E0 /* CollectViewModel.swift */; };
-		97AF920E2A8C5FD400F8F920 /* ThirdKitLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AF920D2A8C5FD400F8F920 /* ThirdKitLoginViewController.swift */; };
 		97AF92112A8CB64200F8F920 /* UserDefaultInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AF92102A8CB64100F8F920 /* UserDefaultInterface.swift */; };
 		97BD68572A5624D300F4BCAB /* PersonalFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68562A5624D300F4BCAB /* PersonalFileView.swift */; };
 		97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD68582A5628D100F4BCAB /* PersonalInfoView.swift */; };
@@ -342,7 +341,6 @@
 		97977C702A71569C00BC89E0 /* CollectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectView.swift; sourceTree = "<group>"; };
 		97977C722A715EB500BC89E0 /* MenuCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionView.swift; sourceTree = "<group>"; };
 		97977C742A71FEE000BC89E0 /* CollectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectViewModel.swift; sourceTree = "<group>"; };
-		97AF920D2A8C5FD400F8F920 /* ThirdKitLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdKitLoginViewController.swift; sourceTree = "<group>"; };
 		97AF920F2A8CAFE900F8F920 /* TaiwanArtionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaiwanArtionDebug.entitlements; sourceTree = "<group>"; };
 		97AF92102A8CB64100F8F920 /* UserDefaultInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultInterface.swift; sourceTree = "<group>"; };
 		97BD68562A5624D300F4BCAB /* PersonalFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileView.swift; sourceTree = "<group>"; };
@@ -691,7 +689,6 @@
 				97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */,
 				97FD07162A666CF000A64808 /* ChooseHabbyViewController.swift */,
 				9715907A2A7A06A000C3745D /* ExhibitionHallViewController.swift */,
-				97AF920D2A8C5FD400F8F920 /* ThirdKitLoginViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1095,7 +1092,6 @@
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
 				973C17872A2431C400581DC6 /* StarCollectionViewCell.swift in Sources */,
 				973C837C2A5FBA6C00490D25 /* LoginViewController.swift in Sources */,
-				97AF920E2A8C5FD400F8F920 /* ThirdKitLoginViewController.swift in Sources */,
 				976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */,
 				973C83782A5F796300490D25 /* CustomCalendar.swift in Sources */,
 				97D66A352A0CF13700A25935 /* CountdownTimer.swift in Sources */,

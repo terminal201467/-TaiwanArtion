@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 enum LoginSection: Int, CaseIterable {
     case account = 0, password, loginButton, notMember
@@ -17,6 +18,10 @@ class LoginViewController: UIViewController {
     
     private let viewModel = LoginViewModel()
     
+    private let disposeBag = DisposeBag()
+    
+    var loginSuccess: (() -> Void)?
+    
     override func loadView() {
         super.loadView()
         view = loginView
@@ -26,6 +31,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBar()
         setTableView()
+        setLoginSuccess()
     }
     
     private func setTableView() {
@@ -37,6 +43,14 @@ class LoginViewController: UIViewController {
         title = "會員登入"
         let leftBarItem = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(back))
         self.navigationItem.leftBarButtonItem = leftBarItem
+    }
+    
+    private func setLoginSuccess() {
+        self.viewModel.loginSuccessRelay.subscribe(onNext: { loginSuccess in
+            self.navigationController?.popViewController(animated: true)
+            self.loginSuccess?()
+        })
+        .disposed(by: disposeBag)
     }
     
     @objc func back() {

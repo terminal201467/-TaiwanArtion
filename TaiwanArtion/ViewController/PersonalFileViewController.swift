@@ -14,6 +14,8 @@ class PersonalFileViewController: UIViewController{
     
     private let userManager = UserManager.shared
     
+    private var alreadyLoginViewController: AlreadyLoginViewController?
+    
     override func loadView() {
         super.loadView()
         view = welcomeRegisterView
@@ -24,7 +26,6 @@ class PersonalFileViewController: UIViewController{
         setActions()
     }
 
-    
     private func setActions() {
         welcomeRegisterView.registerAction = {
             let viewController = RegisterViewController()
@@ -34,6 +35,10 @@ class PersonalFileViewController: UIViewController{
         welcomeRegisterView.loginAction = {
             let viewController = LoginViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
+            viewController.loginSuccess = {
+                self.alreadyLoginViewController = AlreadyLoginViewController()
+                self.navigationController?.pushViewController(self.alreadyLoginViewController!, animated: true)
+            }
         }
         
         welcomeRegisterView.socialKitRegister = { socialKitKind in
