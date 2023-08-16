@@ -21,9 +21,10 @@ class LoginView: UIView {
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(InputTextFieldTableViewCell.self, forCellReuseIdentifier: InputTextFieldTableViewCell.reuseIdentifier)
-        tableView.backgroundColor = .white
         tableView.register(NotMemberTableViewCell.self, forCellReuseIdentifier: NotMemberTableViewCell.reuseIdentifier)
+        tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.reuseIdentifier)
         tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        tableView.backgroundColor = .white
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         return tableView

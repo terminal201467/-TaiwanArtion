@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class PersonalFileViewController: UIViewController{
 
     private let welcomeRegisterView = WelcomeRegisterView()
@@ -16,23 +17,13 @@ class PersonalFileViewController: UIViewController{
     override func loadView() {
         super.loadView()
         view = welcomeRegisterView
-        manageUser()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setActions()
-        // Do any additional setup after loading the view.
     }
-    
 
-    private func manageUser() {
-        //這邊要有UserDefault的設定
-        
-        //如果已經註冊，也已經登入
-        
-        //如果已經註冊過，未登入
-    }
     
     private func setActions() {
         welcomeRegisterView.registerAction = {

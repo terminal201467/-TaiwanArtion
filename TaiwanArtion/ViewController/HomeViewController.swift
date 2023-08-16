@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxRelay
+import Firebase
 
 enum YearCell: Int, CaseIterable {
     case monthCell = 0, habbyCell, mainPhotoCell

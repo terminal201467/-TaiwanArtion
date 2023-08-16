@@ -17,6 +17,8 @@ class NotMemberTableViewCell: UITableViewCell {
     private let disposeBag = DisposeBag()
     
     var forgetAction: (() -> Void)?
+    
+    var registerAction: (() -> Void)?
 
     private let notMemberLabel: UILabel = {
         let label = UILabel()
@@ -66,6 +68,12 @@ class NotMemberTableViewCell: UITableViewCell {
         forgetPasswordButton.rx.tap
             .subscribe(onNext: {
                 self.forgetAction?()
+            })
+            .disposed(by: disposeBag)
+        
+        forgetPasswordButton.rx.tap
+            .subscribe(onNext: {
+                self.registerAction?()
             })
             .disposed(by: disposeBag)
     }

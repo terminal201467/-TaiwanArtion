@@ -75,17 +75,17 @@ protocol UserManagerOutput {
     //取得照片
     var outputStoreHeadImageRelay: BehaviorRelay<String> { get }
     
-    //輸出google登入
-    var outputGoogleLoginRelay: BehaviorRelay<Bool> { get }
+//    //輸出google登入
+//    var outputGoogleLoginRelay: BehaviorRelay<User> { get }
+//
+//    //輸出facebook登入
+//    var outputFacebookLoginRelay: BehaviorRelay<User> { get }
+//
+//    //輸出一般註冊結果
+//    var outputNormalCreateAccountRelay: BehaviorRelay<User> { get }
     
-    //輸出facebook登入
-    var outputFacebookLoginRelay: BehaviorRelay<Bool> { get }
-    
-    //輸出一般註冊結果
-    var outputNormalCreateAccountRelay: BehaviorRelay<Bool> { get }
-    
-    //輸出一般登入結果
-    var outputNormalLoginRelay: BehaviorRelay<Bool> { get }
+//    //輸出一般登入結果
+//    var outputNormalLoginRelay: BehaviorRelay<Bool> { get }
 }
 
 protocol UserInputOutputType {
@@ -99,9 +99,7 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         
     static let shared = UserManager()
     
-    private let userDefaultInterface = UserDefaultInterface.shared
-    
-    private let appConfigure = FirebaseApp.configure()
+    let userDefaultInterface = UserDefaultInterface.shared
     
     private let fireBaseDataBase = FirebaseDatabase(collectionName: "users")
     
@@ -130,11 +128,15 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     var updateHeadImageRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
     var saveDataSubject: RxSwift.PublishSubject<Void> = PublishSubject()
-    //ThirdPartyKitLoginRelay
+    
+    //MARK: -ThirdPartyKitLoginRelay
     var googleLoginSubject: RxSwift.PublishSubject<UIViewController> = PublishSubject()
     
     var facebookLoginSubject: RxSwift.PublishSubject<UIViewController> = PublishSubject()
-    //Normal
+    
+    ///line登入
+    
+    //MARK: -Normal
     var normalCreateAccountPubished: RxRelay.PublishRelay<(account: String, password: String)> = PublishRelay()
     
     var normalLoginAccountPublished: RxRelay.PublishRelay<(account: String, password: String)> = PublishRelay()
@@ -155,14 +157,15 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     var outputStoreHeadImageRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    var outputGoogleLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+//    var outputGoogleLoginRelay: RxRelay.BehaviorRelay<User> = BehaviorRelay(value: User())
+//
+//    var outputFacebookLoginRelay: RxRelay.BehaviorRelay<User> = BehaviorRelay(value: User())
+//
+//    var outputNormalCreateAccountRelay: RxRelay.BehaviorRelay<User> = BehaviorRelay(value: User())
     
-    var outputFacebookLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+//    var outputNormalLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
-    var outputNormalCreateAccountRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
-    var outputNormalLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
+    //MARK: -Initailization
     private init() {
         //input訂閱
         updateNameRelay.subscribe(onNext: { name in
@@ -209,7 +212,6 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         googleLoginSubject.subscribe(onNext: { controller in
             self.googleLogin(controller: controller) { isLogin in
                 print("isGoogleLogin Result:\(isLogin)")
-                self.outputGoogleLoginRelay.accept(isLogin)
             }
         })
         .disposed(by: disposeBag)
@@ -220,15 +222,15 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
         .disposed(by: disposeBag)
         
         normalCreateAccountPubished.subscribe(onNext: { account, password in
-            self.normalCreateUser(email: account, password: password) { displayName in
-                self.outputNormalCreateAccountRelay.accept(displayName)
+            self.normalCreateUser(email: account, password: password) { user in
+                
             }
         })
         .disposed(by: disposeBag)
         
         normalLoginAccountPublished.subscribe(onNext: { account, password in
-            self.normalUserLogin(email: account, password: password) { displayName in
-                self.outputNormalLoginRelay.accept(displayName)
+            self.normalUserLogin(email: account, password: password) { user in
+
             }
         })
         .disposed(by: disposeBag)
@@ -281,16 +283,16 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     }
     
     //一般用戶驗證
-    func normalCreateUser(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
-        fireBaseAuth.normalCreateAccount(email: email, password: password) { isVerified in
-            completionIsVerified(isVerified)
+    func normalCreateUser(email: String, password: String, completion: @escaping (User) -> Void) {
+        fireBaseAuth.normalCreateAccount(email: email, password: password) { user in
+            completion(user)
         }
     }
     
     //一般用戶登入
-    func normalUserLogin(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
-        fireBaseAuth.normalLogin(email: email, password: password) { isVerified in
-            completionIsVerified(isVerified)
+    func normalUserLogin(email: String, password: String, completion: @escaping (User) -> Void) {
+        fireBaseAuth.normalLogin(email: email, password: password) { user in
+            completion(user)
         }
     }
     

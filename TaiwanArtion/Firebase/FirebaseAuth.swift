@@ -101,11 +101,11 @@ class FirebaseAuth {
                             ---------facebook登入資訊----------
                             userID:\(profile.userID)
                             refreshDate:\(profile.refreshDate)
-                            name:\(profile.name)
+                            name:\(profile.name!)
                             birthDay:\(profile.birthday)
                             gender:\(profile.gender)
-                            imageURL\(profile.imageURL)
-                            email:\(profile.email)
+                            imageURL:\(profile.imageURL!)
+                            email:\(profile.email!)
                             ----------------------------------
                             """
                             )
@@ -126,24 +126,62 @@ class FirebaseAuth {
     }
 
     //一般註冊
-    func normalCreateAccount(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
+    func normalCreateAccount(email: String, password: String, completion: @escaping (User) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("註冊失敗：\(error.localizedDescription)")
-            } else {
-                print("註冊成功，使用者名稱：\(authResult?.user.displayName ?? "未知")")
-                completionIsVerified(authResult?.user.isEmailVerified ?? false)
+            }
+            
+            if let result = authResult {
+                print(
+                """
+                ----------一般註冊成功資訊-----------
+                name:\(result.user.displayName)
+                email:\(result.user.email!)
+                userID:\(result.user.uid)
+                phone:\(result.user.phoneNumber!)
+                headImage:\(result.user.photoURL?.scheme!)
+                token:\(result.user.refreshToken!)
+                ----------------------------------
+                """
+                )
+                let user = User(name: result.user.displayName ?? "未知的姓名",
+                                gender: "未知的性別",
+                                phone: result.user.phoneNumber ?? "未知的電話",
+                                email: result.user.email ?? "未知的Email",
+                                birth: "未知的生日",
+                                headImage: result.user.photoURL?.scheme ?? "未知的大頭貼")
+                completion(user)
             }
         }
     }
     //一般登入
-    func normalLogin(email: String, password: String, completionIsVerified: @escaping (Bool) -> Void) {
+    func normalLogin(email: String, password: String, completion: @escaping (User) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("登入失敗：\(error.localizedDescription)")
-            } else {
-                print("登入成功，使用者名稱：\(authResult?.user.displayName ?? "未知")")
-                completionIsVerified(authResult?.user.isEmailVerified ?? false)
+            }
+            
+            if let result = authResult {
+                print(
+                """
+                ----------一般登入成功資訊-----------
+                name:\(result.user.displayName!)
+                email:\(result.user.email!)
+                userID:\(result.user.uid)
+                phone:\(result.user.phoneNumber!)
+                headImage:\(result.user.photoURL!)
+                token:\(result.user.refreshToken!)
+                ----------------------------------
+                """
+                )
+                let user = User(name: result.user.displayName ?? "未知的姓名",
+                                gender: "未知的性別",
+                                phone: result.user.phoneNumber ?? "未知的電話",
+                                email: result.user.email ?? "未知的Email",
+                                birth: "未知的生日",
+                                headImage: result.user.photoURL?.scheme ?? "未知的大頭貼")
+                completion(user)
             }
         }
     }
