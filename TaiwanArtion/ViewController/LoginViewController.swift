@@ -131,7 +131,6 @@ extension LoginViewController : UITableViewDelegate, UITableViewDataSource {
             cell.configure(buttonName: "登入")
             cell.action = {
                 self.viewModel.input.loginActionSubject.onNext(())
-                print("Login!")
             }
             return cell
         case .notMember:

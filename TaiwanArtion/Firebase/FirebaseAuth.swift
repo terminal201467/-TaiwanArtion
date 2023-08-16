@@ -166,12 +166,12 @@ class FirebaseAuth {
                 print(
                 """
                 ----------一般登入成功資訊-----------
-                name:\(result.user.displayName!)
-                email:\(result.user.email!)
+                name:\(result.user.displayName)
+                email:\(result.user.email)
                 userID:\(result.user.uid)
-                phone:\(result.user.phoneNumber!)
-                headImage:\(result.user.photoURL!)
-                token:\(result.user.refreshToken!)
+                phone:\(result.user.phoneNumber)
+                headImage:\(result.user.photoURL)
+                token:\(result.user.refreshToken)
                 ----------------------------------
                 """
                 )

@@ -68,6 +68,10 @@ class LoginViewModel: NormalLoginInput, NormalLoginOutput, NormalLoginViewModelT
     
     private let firebaseAuth = FirebaseAuth.shared
     
+    //MARK: - UserDefault
+    
+    private let userDefaultInterface = UserDefaultInterface.shared
+    
     //MARK: input/output
     var input: NormalLoginInput { self }
     
@@ -94,9 +98,14 @@ class LoginViewModel: NormalLoginInput, NormalLoginOutput, NormalLoginViewModelT
         
         loginActionSubject.subscribe(onNext: {
             print("LoginSubject!")
-            //創建email
-            self.firebaseAuth.normalCreateAccount(email: self.accountInput.value, password: self.passwordInput.value) { user in
-                print("create user:\(user)")
+            self.firebaseAuth.normalLogin(email: self.accountInput.value, password: self.passwordInput.value) { user in
+                self.userDefaultInterface.setUsername(user.name)
+                self.userDefaultInterface.setGender(user.gender)
+                self.userDefaultInterface.setBirth(user.birth)
+                self.userDefaultInterface.setEmail(user.email)
+                self.userDefaultInterface.setPhoneNumber(number: user.phone)
+                self.userDefaultInterface.setHeadImage(user.headImage)
+                self.userDefaultInterface.setIsLoggedIn(true)
             }
         })
         .disposed(by: disposeBag)
