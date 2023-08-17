@@ -9,13 +9,15 @@ import UIKit
 import RxSwift
 import RxRelay
 
-enum ExhibitionNothingSearchType: Int {
-    case exhibitionNothingSearch = 0, exhibitionHallNothingSearch, newsNothingSearch
+enum ExhibitionNothingSearchType: Equatable {
+    
+    case exhibitionNothingSearch, exhibitionHallNothingSearch, newsNothingSearch, nothingFoundInNear
     var image: String {
         switch self {
         case .exhibitionNothingSearch: return "exhibitionNotFound"
         case .exhibitionHallNothingSearch: return "exhibitionHallNotFound"
         case .newsNothingSearch: return "newsNotFound"
+        case .nothingFoundInNear: return "exhibitionNotFound"
         }
     }
     
@@ -24,6 +26,7 @@ enum ExhibitionNothingSearchType: Int {
         case .exhibitionNothingSearch: return "還沒開始收藏展覽"
         case .exhibitionHallNothingSearch: return "還沒開始收藏展覽館"
         case .newsNothingSearch: return "還沒開始收藏展覽新聞"
+        case .nothingFoundInNear: return ""
         }
     }
     
@@ -32,6 +35,7 @@ enum ExhibitionNothingSearchType: Int {
         case .exhibitionNothingSearch: return "去看看有什麼最新展覽吧！"
         case .exhibitionHallNothingSearch: return "去看看有什麼最新展覽館吧！"
         case .newsNothingSearch: return "去看看現在有什麼最新展覽新聞吧！"
+        case .nothingFoundInNear: return "換個關鍵字再試試看！"
         }
     }
     
@@ -40,6 +44,7 @@ enum ExhibitionNothingSearchType: Int {
         case .exhibitionNothingSearch: return "探索展覽"
         case .exhibitionHallNothingSearch: return "探索展覽館"
         case .newsNothingSearch: return "探索展覽新聞"
+        case .nothingFoundInNear: return ""
         }
     }
 }
@@ -49,6 +54,8 @@ class ExhibitionNothingSearchedView: UIView {
     var linkToOtherPage: (() -> Void)?
     
     var type: ExhibitionNothingSearchType
+    
+    var keyword: String = ""
     
     private let disposeBag = DisposeBag()
     
@@ -94,7 +101,7 @@ class ExhibitionNothingSearchedView: UIView {
         super.init(frame: frame)
         autoLayout()
         setButtonSubscription()
-        configure()
+        configure(keyword: keyword)
     }
     
     required init?(coder: NSCoder) {
@@ -132,10 +139,12 @@ class ExhibitionNothingSearchedView: UIView {
         }
     }
     
-    private func configure() {
+    
+    private func configure(keyword: String) {
         nothingSearchImage.image = .init(named: type.image)
-        titleLabel.text = type.title
+        titleLabel.text = type == .nothingFoundInNear ? "哎呀，找不到「\(keyword)」相關的展覽館" : type.title
         descriptionLabel.text = type.description
         linkToOtherPageButton.setTitle(type.buttonText, for: .normal)
+        linkToOtherPageButton.isHidden = type == .nothingFoundInNear ? true : false
     }
 }

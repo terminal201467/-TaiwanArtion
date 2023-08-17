@@ -9,21 +9,47 @@ import UIKit
 
 class NearViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    private let nearView = NearView()
+    
+    private let viewModel = NearViewModel.shared
+    
+    private let resultViewController = UINavigationController(rootViewController: NearSearchResultViewController())
+    
+    private lazy var searchViewController: UISearchController = {
+       let searchViewController = UISearchController(searchResultsController: resultViewController)
+        searchViewController.searchBar.searchTextField.roundCorners(cornerRadius: 20)
+        searchViewController.showsSearchResultsController = true
+        return searchViewController
+    }()
+    
+    //MARK: - LifeCycle
+    override func loadView() {
+        super.loadView()
+        view = nearView
+        view.backgroundColor = .white
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNavigationBar()
     }
-    */
+    
+    private func setNavigationBar() {
+        navigationItem.titleView = searchViewController.searchBar
+    }
+}
 
+extension NearViewController: UITextFieldDelegate {
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("searchTextField:\(textField.text)")
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+//        print("textField:\(textField.text)")
+    }
 }

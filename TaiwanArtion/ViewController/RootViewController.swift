@@ -16,7 +16,7 @@ class RootViewController: UITabBarController {
     //MARK: - ViewControllers
     private let homeViewController = UINavigationController(rootViewController: HomeViewController())
     
-    private let nearViewController = NearViewController()
+    private let nearViewController = UINavigationController(rootViewController: NearViewController())
     
     private let collectionViewController = UINavigationController(rootViewController: CollectViewController())
     

@@ -134,6 +134,9 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
     
     init() {
         
+        
+        
+        outputSearchHistory.accept(getSearchHistory() ?? [])
     }
     
     //MARK: - FirebaseDataBase
@@ -150,7 +153,7 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
         userDefault.setStoreSearchHistory(searchHistory: history)
     }
     
-    private func getSearchHistory() -> [String]? {
+    func getSearchHistory() -> [String]? {
         return userDefault.getStoreSearchHistory()
     }
     
