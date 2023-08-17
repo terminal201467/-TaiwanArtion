@@ -79,4 +79,9 @@ extension NearViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
 //        print("textField:\(textField.text)")
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //紀錄到UserDefault裡面
+        return true
+    }
 }

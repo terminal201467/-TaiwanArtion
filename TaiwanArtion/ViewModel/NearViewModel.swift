@@ -76,6 +76,8 @@ protocol NearInputOutputType {
 
 class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutput {
     
+    private let disposeBag = DisposeBag()
+    
     static let shared = NearViewModel()
     
     //MARK: -Firebase
@@ -133,8 +135,11 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
     var output: NearViewModelOutput { self }
     
     init() {
-        
-        
+        storeSearchRecordsSubject
+            .subscribe(onNext: {
+                self.storeSearchHistory(history: [self.inputSearchKeyword.value])
+            })
+            .disposed(by: disposeBag)
         
         outputSearchHistory.accept(getSearchHistory() ?? [])
     }

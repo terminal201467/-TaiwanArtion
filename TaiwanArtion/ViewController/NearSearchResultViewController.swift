@@ -25,6 +25,8 @@ class NearSearchResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
+        setSearchTextField()
+        setSearchHistory()
         viewModel.output.outputSearchHistory
             .subscribe(onNext: { historyInfos in
                 self.nearSearchReaultView.configure(historys: historyInfos)
@@ -35,6 +37,19 @@ class NearSearchResultViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         dismiss(animated: true)
     }
+    
+    private func setSearchTextField() {
+        nearSearchReaultView.searchBar.searchTextField.delegate = self
+    }
+    
+    private func setSearchHistory() {
+        viewModel.output.outputSearchHistory
+            .subscribe(onNext: { historyInfos in
+                print("historys:\(historyInfos)")
+                self.nearSearchReaultView.configure(historys: historyInfos)
+            })
+            .disposed(by: disposeBag)
+    }
 
     private func setNavigationBar() {
         let leftButton = UIBarButtonItem(image: .init(named: "leftArrow")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(back))
@@ -44,5 +59,26 @@ class NearSearchResultViewController: UIViewController {
     
     @objc private func back() {
         dismiss(animated: true)
+    }
+}
+
+extension NearSearchResultViewController: UISearchTextFieldDelegate {
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("searchTextField:\(textField.text!)")
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        viewModel.input.inputSearchKeyword.accept(textField.text!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        viewModel.input.storeSearchRecordsSubject.onNext(())
+        textField.resignFirstResponder()
+        return true
     }
 }
