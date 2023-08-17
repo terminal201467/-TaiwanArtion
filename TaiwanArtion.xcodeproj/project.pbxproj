@@ -179,6 +179,8 @@
 		97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A362A0DD27900A25935 /* HabbyCollectionViewCell.swift */; };
 		97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D66A3A2A0DE20000A25935 /* SplashViewModel.swift */; };
 		97E0F5902A8DF925004D6C0F /* NearSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E0F58F2A8DF925004D6C0F /* NearSearchResultView.swift */; };
+		97E0F5922A8E2330004D6C0F /* InputChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E0F5912A8E2330004D6C0F /* InputChecker.swift */; };
+		97E0F5942A8E5116004D6C0F /* CheckLogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E0F5932A8E5116004D6C0F /* CheckLogicInterface.swift */; };
 		97FD07032A600FB000A64808 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07022A600FB000A64808 /* ResetPasswordViewController.swift */; };
 		97FD07052A600FC400A64808 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07042A600FC400A64808 /* ResetPasswordView.swift */; };
 		97FD07072A601F5500A64808 /* ResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07062A601F5500A64808 /* ResetView.swift */; };
@@ -391,6 +393,8 @@
 		97D66A362A0DD27900A25935 /* HabbyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabbyCollectionViewCell.swift; sourceTree = "<group>"; };
 		97D66A3A2A0DE20000A25935 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		97E0F58F2A8DF925004D6C0F /* NearSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearSearchResultView.swift; sourceTree = "<group>"; };
+		97E0F5912A8E2330004D6C0F /* InputChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputChecker.swift; sourceTree = "<group>"; };
+		97E0F5932A8E5116004D6C0F /* CheckLogicInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckLogicInterface.swift; sourceTree = "<group>"; };
 		97FD07022A600FB000A64808 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		97FD07042A600FC400A64808 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		97FD07062A601F5500A64808 /* ResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetView.swift; sourceTree = "<group>"; };
@@ -580,6 +584,8 @@
 			children = (
 				976A03092A0E790B00424ACF /* UserManager.swift */,
 				97AF92102A8CB64100F8F920 /* UserDefaultInterface.swift */,
+				97E0F5912A8E2330004D6C0F /* InputChecker.swift */,
+				97E0F5932A8E5116004D6C0F /* CheckLogicInterface.swift */,
 			);
 			path = UserFeature;
 			sourceTree = "<group>";
@@ -1112,6 +1118,7 @@
 				9771A14E2A3A08D1006F4F9D /* RegisterView.swift in Sources */,
 				973C17C82A2B405D00581DC6 /* ButtonCollectionViewCell.swift in Sources */,
 				97D66A312A0CD45F00A25935 /* SkipView.swift in Sources */,
+				97E0F5942A8E5116004D6C0F /* CheckLogicInterface.swift in Sources */,
 				973C837A2A5F80D000490D25 /* CustomCalendarViewModel.swift in Sources */,
 				973C17792A205BE000581DC6 /* TicketPriceTableViewCell.swift in Sources */,
 				976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */,
@@ -1178,6 +1185,7 @@
 				973C178D2A24A62400581DC6 /* AllCommentHeaderView.swift in Sources */,
 				976A032C2A15CD1700424ACF /* HomeViewModel.swift in Sources */,
 				973C177F2A20B5F300581DC6 /* ButtonTableViewCell.swift in Sources */,
+				97E0F5922A8E2330004D6C0F /* InputChecker.swift in Sources */,
 				97BD686D2A5BBD0F00F4BCAB /* GenderView.swift in Sources */,
 				97506C232A3AC5F600F6BB24 /* InputTextFieldTableViewCell.swift in Sources */,
 				976A03122A0E8AFA00424ACF /* HotHxhibitionTableViewCell.swift in Sources */,

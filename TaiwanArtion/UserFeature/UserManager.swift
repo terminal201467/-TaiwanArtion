@@ -75,17 +75,6 @@ protocol UserManagerOutput {
     //取得照片
     var outputStoreHeadImageRelay: BehaviorRelay<String> { get }
     
-//    //輸出google登入
-//    var outputGoogleLoginRelay: BehaviorRelay<User> { get }
-//
-//    //輸出facebook登入
-//    var outputFacebookLoginRelay: BehaviorRelay<User> { get }
-//
-//    //輸出一般註冊結果
-//    var outputNormalCreateAccountRelay: BehaviorRelay<User> { get }
-    
-//    //輸出一般登入結果
-//    var outputNormalLoginRelay: BehaviorRelay<Bool> { get }
 }
 
 protocol UserInputOutputType {
@@ -157,13 +146,6 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
     
     var outputStoreHeadImageRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-//    var outputGoogleLoginRelay: RxRelay.BehaviorRelay<User> = BehaviorRelay(value: User())
-//
-//    var outputFacebookLoginRelay: RxRelay.BehaviorRelay<User> = BehaviorRelay(value: User())
-//
-//    var outputNormalCreateAccountRelay: RxRelay.BehaviorRelay<User> = BehaviorRelay(value: User())
-    
-//    var outputNormalLoginRelay: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     //MARK: -Initailization
     private init() {
