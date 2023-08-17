@@ -18,7 +18,7 @@ protocol CheckerInput {
     var passwordInputRelay: BehaviorRelay<String> { get }
     
     //5.驗證碼輸入
-    var verifiedInputRelay: BehaviorRelay<String> { get }
+    var verifiedCodeInputRelay: BehaviorRelay<String> { get }
     
     //6.電子郵件輸入
     var emailVerifiedInputRelay: BehaviorRelay<String> { get }
@@ -41,7 +41,7 @@ protocol CheckerOutput {
     var passwordStrenghtOutputSignal: Signal<String> { get }
     
     //5.驗證碼檢查
-    var verifyCodeCheckOutputSignal: Signal<String> { get }
+    var verifyCodeCheckOutputSignal: Signal<Bool> { get }
     
     //6.電子郵件檢查
     var emailCheckOutputSignal: Signal<[String]> { get }
@@ -58,6 +58,8 @@ protocol CheckInputOutputType {
 }
 
 class InputChecker: CheckInputOutputType, CheckerInput, CheckerOutput {
+    
+    private let disposeBag = DisposeBag()
 
     //MARK: -Input
     
@@ -65,7 +67,7 @@ class InputChecker: CheckInputOutputType, CheckerInput, CheckerOutput {
     
     var passwordInputRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    var verifiedInputRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    var verifiedCodeInputRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
     var emailVerifiedInputRelay: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
@@ -81,7 +83,7 @@ class InputChecker: CheckInputOutputType, CheckerInput, CheckerOutput {
     
     var passwordStrenghtOutputSignal: RxCocoa.Signal<String> = Signal.just("")
     
-    var verifyCodeCheckOutputSignal: RxCocoa.Signal<String> = Signal.just("")
+    var verifyCodeCheckOutputSignal: RxCocoa.Signal<Bool> = Signal.just(false)
     
     var emailCheckOutputSignal: RxCocoa.Signal<[String]> = Signal.just([])
     
@@ -98,7 +100,47 @@ class InputChecker: CheckInputOutputType, CheckerInput, CheckerOutput {
     
     //訂閱
     init() {
+        accountCheckOutputSignal = accountInputRelay
+            .map({ text in
+                return self.checkLogic.checkAccount(text)
+            })
+            .asSignal(onErrorJustReturn: false)
         
+        passwordCheckOutputSignal = passwordInputRelay
+            .map({ text in
+                return self.checkLogic.checkPassword(text)
+            })
+            .asSignal(onErrorJustReturn: false)
+        
+        passwordHintOutputSignal = passwordInputRelay
+            .map({ text in
+                return self.checkLogic.checkPasswordHint(text)
+            })
+            .asSignal(onErrorJustReturn: [])
+        
+        passwordStrenghtOutputSignal = passwordInputRelay
+            .map({ text in
+                return self.checkLogic.checkPasswordStrenght(text)
+            })
+            .asSignal(onErrorJustReturn: "")
+        
+        verifyCodeCheckOutputSignal = verifiedCodeInputRelay
+            .map({ text in
+                return self.checkLogic.checkVerifyCode(text)
+            })
+            .asSignal(onErrorJustReturn: false)
+        
+        emailCheckOutputSignal = emailVerifiedInputRelay
+            .map({ text in
+                return self.checkLogic.checkEmail(text)
+            })
+            .asSignal(onErrorJustReturn: [])
+        
+        phoneNumberOutoutSignal = phoneVerifiedInputRelay
+            .map({ text in
+                return self.checkLogic.checkPhoneNumber(text)
+            })
+            .asSignal(onErrorJustReturn: [])
     }
 
 }

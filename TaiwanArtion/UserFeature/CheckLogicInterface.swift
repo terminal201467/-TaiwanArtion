@@ -11,7 +11,7 @@ class CheckLogicInterface {
     
     //MARK: - MultipleCheckLogic
     //1.帳號輸入檢查
-    private func checkAccount(_ account: String) -> Bool {
+    func checkAccount(_ account: String) -> Bool {
         ///4-21碼小寫英文.數字
         let accountRegex = "^[a-z0-9]{4,21}$"
         let accountPredicate = NSPredicate(format: "SELF MATCHES %@", accountRegex)
@@ -28,7 +28,7 @@ class CheckLogicInterface {
 //    }
     
     //2.密碼輸入檢查
-    private func checkPassword(_ password: String) -> Bool {
+    func checkPassword(_ password: String) -> Bool {
         ///6-18位數密碼,請區分大小寫
         let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{6,18}$"
         let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
@@ -45,7 +45,7 @@ class CheckLogicInterface {
 //    }
     
     //3.密碼提示檢查
-    private func checkPasswordHint(_ password: String) -> [String] {
+    func checkPasswordHint(_ password: String) -> [String] {
         var hints: [String] = []
 
             let uppercaseRegex = ".*[A-Z]+.*"
@@ -89,7 +89,7 @@ class CheckLogicInterface {
 //    }
     
     //4.密碼強度檢查
-    private func checkPasswordStrenght(_ password: String) -> String {
+    func checkPasswordStrenght(_ password: String) -> String {
         let verifiedCheckCondition = checkPasswordHint(password).count
         switch verifiedCheckCondition {
         case ..<1: return "無"
@@ -102,12 +102,13 @@ class CheckLogicInterface {
     }
     
     //5.驗證碼檢查
-    private func checkVerifyCode(_ code: String) {
+    func checkVerifyCode(_ code: String) -> Bool {
         //從UserDefault取出
+        return false
     }
     
     //6.電子郵件檢查
-    private func checkEmail(_ email: String) -> [String] {
+    func checkEmail(_ email: String) -> [String] {
         var errors: [String] = []
         
         let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
@@ -152,7 +153,7 @@ class CheckLogicInterface {
 //    }
     
     //7.手機號碼檢查
-    private func checkPhoneNumber(_ phoneNumber: String) -> [String] {
+    func checkPhoneNumber(_ phoneNumber: String) -> [String] {
         var errors: [String] = []
         
         let phoneNumberRegex = "^09[0-9]{8}$"
