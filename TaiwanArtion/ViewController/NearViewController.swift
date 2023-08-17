@@ -6,20 +6,39 @@
 //
 
 import UIKit
+import RxSwift
 
 class NearViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
 
     private let nearView = NearView()
     
     private let viewModel = NearViewModel.shared
     
-    private let resultViewController = UINavigationController(rootViewController: NearSearchResultViewController())
+    private let resultViewController = NearSearchResultViewController()
+    
+    private lazy var searchResultViewController = UINavigationController(rootViewController: self.resultViewController)
     
     private lazy var searchViewController: UISearchController = {
-       let searchViewController = UISearchController(searchResultsController: resultViewController)
+       let searchViewController = UISearchController(searchResultsController: searchResultViewController)
         searchViewController.searchBar.searchTextField.roundCorners(cornerRadius: 20)
+        searchViewController.searchBar.searchTextField.placeholder = "搜尋附近展覽館"
         searchViewController.showsSearchResultsController = true
         return searchViewController
+    }()
+    
+    private let bottomUpView = BottomUpPopUpView(frame: .zero, type: .filter)
+    
+    private lazy var popUpViewController: PopUpViewController = {
+        let popUpViewController = PopUpViewController(popUpView: bottomUpView)
+        popUpViewController.modalPresentationStyle = .overFullScreen
+        popUpViewController.modalTransitionStyle = .coverVertical
+        bottomUpView.dismissFromController = {
+            popUpViewController.dismiss(animated: true)
+            self.nearView.filterButtonIsSelected.toggle()
+        }
+        return popUpViewController
     }()
     
     //MARK: - LifeCycle
@@ -32,10 +51,18 @@ class NearViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
+        setNearView()
     }
     
     private func setNavigationBar() {
         navigationItem.titleView = searchViewController.searchBar
+    }
+    
+    private func setNearView() {
+        nearView.filterSubject.subscribe(onNext: {
+            self.present(self.popUpViewController, animated: true)
+        })
+        .disposed(by: disposeBag)
     }
 }
 

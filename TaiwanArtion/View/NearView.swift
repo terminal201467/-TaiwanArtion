@@ -26,7 +26,7 @@ class NearView: UIView {
     
     let filterSubject: PublishSubject<Void> = PublishSubject()
     
-    var isHadSearchResult: Bool = false {
+    var isHadSearchResult: Bool = true {
         didSet {
             setContainerLayout()
         }
@@ -42,7 +42,7 @@ class NearView: UIView {
     
     var searchText: String = ""
     
-    private var filterButtonIsSelected: Bool = false {
+    var filterButtonIsSelected: Bool = false {
         didSet {
             setFilterButton()
         }
