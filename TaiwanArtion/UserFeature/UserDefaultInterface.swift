@@ -95,4 +95,13 @@ class UserDefaultInterface {
         return userDefaults.bool(forKey: "isLoggedIn")
     }
     
+    func setStoreSearchHistory(searchHistory: [String]) {
+        userDefaults.set(searchHistory, forKey: "searchHistory")
+        userDefaults.synchronize()
+    }
+    
+    func getStoreSearchHistory() -> [String]? {
+        return userDefaults.array(forKey: "searchHistory") as? [String]
+    }
+    
 }

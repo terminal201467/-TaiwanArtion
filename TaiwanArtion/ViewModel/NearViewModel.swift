@@ -6,55 +6,152 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 protocol NearViewModelInput {
     //篩選Action：營業中、最高評價、距離最近
+    var filterActionSubject: PublishSubject<Void> { get }
     
     //input附近展覽館
+    var inputNearExhibitionHall: BehaviorRelay<String> { get }
     
     //input附近展覽
+    var inputNearExhibition: BehaviorRelay<String> { get }
     
     //input搜尋關鍵字（展覽館、展覽）
+    var inputSearchKeyword: BehaviorRelay<String> { get }
     
     //確認搜尋ActionSubject
+    var searchActionSubject: PublishSubject<Void> { get }
     
     //清除搜尋紀錄ActionSubject
+    var clearSearchRecordSubject: PublishSubject<Void> { get }
     
     //清除單一搜尋紀錄ActionSubject
+    var clearCertainSearchRecordSubject: PublishSubject<Void> { get }
     
-    //紀錄搜尋紀錄ActionSubject
+    //儲存搜尋紀錄ActionSubject
+    var storeSearchRecordsSubject: PublishSubject<Void> { get }
+    
+    //取得最近的展覽ActionSubject
+    var getRecentExhibitionActionSubject: PublishSubject<Void> { get }
     
     //取得現在位置ActionSubject
+    var getCurrentLocationActionSubject: PublishSubject<Void> { get }
     
     //查看位置ActionSubject
+    var lookUpLocationActionSubject: PublishSubject<Void> { get }
     
     //查看展覽館展覽ActionSubject
+    var lookUpExhibitionHallActionSubject: PublishSubject<Void> { get }
     
     //向右滑動展覽館ActionSubject
+    var rightSwipeExhibitionActionSubject: PublishSubject<Void> { get }
     
     //向左滑動展覽館ActionSubject
+    var leftSwipeExhibitionActionSubject: PublishSubject<Void> { get }
 }
 
 protocol NearViewModelOutput {
     
-    //篩選後的（展覽館、展覽）資料
+    //篩選後的（展覽館）資料
+    var outputExhibitionHall: BehaviorRelay<[ExhibitionHallInfo]> { get }
     
+    //篩選後的（展覽）資料
+    var outputExhibitionInfo: BehaviorRelay<[ExhibitionInfo]> { get }
+    
+    //搜尋紀錄
+    var outputSearchHistory: BehaviorRelay<[String]> { get }
     
 }
 
 protocol NearInputOutputType {
     
     var input: NearViewModelInput { get }
+    
     var output: NearViewModelOutput { get }
     
 }
 
-
-class NearViewModel {
+class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutput {
+    
+    static let shared = NearViewModel()
+    
+    //MARK: -Firebase
+    
+    private let firebaseDatabase = FirebaseDatabase(collectionName: "exhibition")
+    
+    //MARK: -UserDefault
+    
+    private let userDefault = UserDefaultInterface()
+    
+    //MARK: -input
+    
+    var filterActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var inputNearExhibitionHall: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var inputNearExhibition: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var inputSearchKeyword: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var searchActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var clearSearchRecordSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var clearCertainSearchRecordSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var recordSearchRecordsSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var getRecentExhibitionActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var getCurrentLocationActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var lookUpLocationActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var lookUpExhibitionHallActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var rightSwipeExhibitionActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var leftSwipeExhibitionActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    //MARK: -output
+    
+    var storeSearchRecordsSubject: RxSwift.PublishSubject<Void> = PublishSubject()
+    
+    var outputExhibitionHall: RxRelay.BehaviorRelay<[ExhibitionHallInfo]> = BehaviorRelay(value: [])
+    
+    var outputExhibitionInfo: RxRelay.BehaviorRelay<[ExhibitionInfo]> = BehaviorRelay(value: [])
+    
+    var outputSearchHistory: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
+    
+    //MARK: -input/output
+    
+    var input: NearViewModelInput { self }
+    
+    var output: NearViewModelOutput { self }
     
     init() {
         
     }
     
+    //MARK: - FirebaseDataBase
+    
+    func getFirebaseExhibitionInfo() {
+        //取得firebase的展覽資料
+    }
+    
+    func getFirebaseExhibitionHall() {
+        //取得firebase的展覽館資料
+    }
+    
+    private func storeSearchHistory(history: [String]) {
+        userDefault.setStoreSearchHistory(searchHistory: history)
+    }
+    
+    private func getSearchHistory() -> [String]? {
+        return userDefault.getStoreSearchHistory()
+    }
     
 }
