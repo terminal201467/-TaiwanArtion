@@ -97,6 +97,7 @@ struct CommentRate: Hashable {
 
 struct ExhibitionHallInfo {
     
+    var hallImage: String
     var title: String
     var location: String
     var time: String

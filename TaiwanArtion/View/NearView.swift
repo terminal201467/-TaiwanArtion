@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 import MapKit
 
 enum NearViewSelectedItem: Int, CaseIterable {
@@ -25,6 +26,8 @@ class NearView: UIView {
     private let disposeBag = DisposeBag()
     
     let filterSubject: PublishSubject<Void> = PublishSubject()
+    
+    var locatedNearSignal: Signal<Void> = Signal.just(())
     
     var isHadSearchResult: Bool = true {
         didSet {
@@ -69,6 +72,26 @@ class NearView: UIView {
         return view
     }()
     
+    let locateRecentExhibitionButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("離我最近的展覽館", for: .normal)
+        button.backgroundColor = .brownColor
+        button.titleLabel?.textColor = .white
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.roundCorners(cornerRadius: 12)
+        return button
+    }()
+    
+    let locationContentCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(LocationContentCollectionViewCell.self, forCellWithReuseIdentifier: LocationContentCollectionViewCell.reuseIdentifier)
+        collectionView.allowsSelection = true
+        collectionView.isScrollEnabled = true
+        return collectionView
+    }()
+    
     private let containerView: UIView = {
        let view = UIView()
         return view
@@ -111,6 +134,9 @@ class NearView: UIView {
                 self.filterSubject.onNext(())
             })
             .disposed(by: disposeBag)
+        
+        locatedNearSignal = locateRecentExhibitionButton.rx.tap
+            .asSignal(onErrorJustReturn: ())
     }
     
     private func setFilterButton() {
@@ -157,6 +183,18 @@ class NearView: UIView {
             containerView.addSubview(mapView)
             mapView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
+            }
+            mapView.addSubview(locateRecentExhibitionButton)
+            locateRecentExhibitionButton.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.top.equalToSuperview().offset(24)
+                make.width.equalToSuperview().dividedBy(3)
+            }
+            mapView.addSubview(locationContentCollectionView)
+            locationContentCollectionView.snp.makeConstraints { make in
+                make.leading.equalToSuperview()
+                make.trailing.equalToSuperview()
+                make.height.equalToSuperview().multipliedBy(93.0 / mapView.frame.height)
             }
         } else {
             containerView.addSubview(nothingSearchedView)

@@ -92,6 +92,7 @@
 		97506C372A41432D00F6BB24 /* EmailVerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C362A41432D00F6BB24 /* EmailVerifyViewModel.swift */; };
 		97506C392A41986400F6BB24 /* RegisterSucceedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C382A41986400F6BB24 /* RegisterSucceedViewController.swift */; };
 		9756C1EF2A811BE300E6FD54 /* ExhibitionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */; };
+		975FD63C2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -301,6 +302,7 @@
 		97506C362A41432D00F6BB24 /* EmailVerifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerifyViewModel.swift; sourceTree = "<group>"; };
 		97506C382A41986400F6BB24 /* RegisterSucceedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSucceedViewController.swift; sourceTree = "<group>"; };
 		9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCollectionView.swift; sourceTree = "<group>"; };
+		975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				973C17C72A2B405D00581DC6 /* ButtonCollectionViewCell.swift */,
 				97BD68642A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift */,
 				9771A15D2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift */,
+				975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */,
 				97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */,
 				973C83752A5F735100490D25 /* TitleMonthCollectionViewCell.swift */,
 				97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */,
@@ -1092,6 +1095,7 @@
 				9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */,
 				97D1C1F02A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift in Sources */,
 				97506C312A3C46F600F6BB24 /* PasswordHintView.swift in Sources */,
+				975FD63C2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift in Sources */,
 				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
 				97D1C1EE2A775D9C00B367F0 /* ResultViewModel.swift in Sources */,
 				97506C2B2A3C28A400F6BB24 /* AccountPasswordView.swift in Sources */,

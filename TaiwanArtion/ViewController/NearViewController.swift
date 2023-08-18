@@ -52,10 +52,16 @@ class NearViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBar()
         setNearView()
+        setLocationContentCollectionView()
     }
     
     private func setNavigationBar() {
         navigationItem.titleView = searchViewController.searchBar
+    }
+    
+    private func setLocationContentCollectionView() {
+        nearView.locationContentCollectionView.delegate = self
+        nearView.locationContentCollectionView.dataSource = self
     }
     
     private func setNearView() {
@@ -83,5 +89,41 @@ extension NearViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //紀錄到UserDefault裡面
         return true
+    }
+}
+
+//MARK: -NearView
+extension NearViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.output.outputExhibitionHall.value.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationContentCollectionViewCell.reuseIdentifier, for: indexPath) as! LocationContentCollectionViewCell
+        cell.configure(hallInfo: viewModel.output.outputExhibitionHall.value[indexPath.row])
+        cell.lookUpLocationSignal.emit(onNext: {
+            //查看位置
+            //HightLight定位
+        })
+        .disposed(by: disposeBag)
+        cell.lookUpExhibitionHallSignal.emit(onNext: {
+            //推到展覽館頁面
+        })
+        .disposed(by: disposeBag)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //HighLight定位
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 30, left: 24, bottom: 30, right: 24)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = collectionView.frame.width * (257.0 / nearView.mapView.frame.width)
+        let cellHeight = collectionView.frame.height * (93.0 / nearView.mapView.frame.height)
+        return .init(width: cellWidth, height: cellHeight)
     }
 }
