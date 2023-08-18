@@ -93,6 +93,7 @@
 		97506C392A41986400F6BB24 /* RegisterSucceedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C382A41986400F6BB24 /* RegisterSucceedViewController.swift */; };
 		9756C1EF2A811BE300E6FD54 /* ExhibitionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */; };
 		975FD63C2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */; };
+		975FD63F2A8F21980006F76C /* LocationInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD63E2A8F21980006F76C /* LocationInterface.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -303,6 +304,7 @@
 		97506C382A41986400F6BB24 /* RegisterSucceedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSucceedViewController.swift; sourceTree = "<group>"; };
 		9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCollectionView.swift; sourceTree = "<group>"; };
 		975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		975FD63E2A8F21980006F76C /* LocationInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInterface.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -492,6 +494,14 @@
 			path = CustomObject;
 			sourceTree = "<group>";
 		};
+		975FD63D2A8F216C0006F76C /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				975FD63E2A8F21980006F76C /* LocationInterface.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		976A030D2A0E882F00424ACF /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,6 +641,7 @@
 				9705E50C2A52E3C900FD81D1 /* GoogleService-Info.plist */,
 				97D669F52A0C6C3600A25935 /* AppDelegate.swift */,
 				97D669F72A0C6C3600A25935 /* SceneDelegate.swift */,
+				975FD63D2A8F216C0006F76C /* Map */,
 				97AF920C2A871BF700F8F920 /* UserFeature */,
 				97BD68702A5BE38100F4BCAB /* DateInterface */,
 				9771A15F2A3AC2A0006F4F9D /* Firebase */,
@@ -1092,6 +1103,7 @@
 				973C17892A2444F300581DC6 /* LikeCommentFooter.swift in Sources */,
 				97FD07152A665A6F00A64808 /* AccountSettingView.swift in Sources */,
 				97506C332A403E0300F6BB24 /* StrengthTableViewCell.swift in Sources */,
+				975FD63F2A8F21980006F76C /* LocationInterface.swift in Sources */,
 				9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */,
 				97D1C1F02A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift in Sources */,
 				97506C312A3C46F600F6BB24 /* PasswordHintView.swift in Sources */,
