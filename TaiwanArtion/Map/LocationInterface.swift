@@ -31,6 +31,14 @@ class LocationInterface: NSObject {
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
     }
+    
+    func checkLocationAuthorization() {
+        if locationManager.authorizationStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
     //取得最近的展覽館
     //回傳4個經緯度提供給MapView
     func getNearExhibition(currentLatitude: String, currentLongitude: String) -> [LocationInfo] {
@@ -69,6 +77,16 @@ class LocationInterface: NSObject {
         return (latitude: coordinate.latitude.formatted(),longitude: coordinate.longitude.formatted())
     }
     
+    func getCurrentLocationDegrees() -> (latitudeDegree: CLLocationDegrees, longtitudeDegree: CLLocationDegrees) {
+        guard let coordinate = locationManager.location?.coordinate else { return (Double(),Double()) }
+        return (latitudeDegree: coordinate.latitude, longtitudeDegree: coordinate.longitude)
+    }
+    
+    func getCurrentLocation() -> CLLocation {
+        guard let location = locationManager.location else { return CLLocation() }
+        return location
+    }
+    
     private func addAnnotationForMapItem(mapItem: MKMapItem) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.coordinate = mapItem.placemark.coordinate
@@ -92,5 +110,9 @@ extension LocationInterface: CLLocationManagerDelegate {
             mapUpdateCenter?(region)
             locationManager.stopUpdatingLocation()
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("定位失敗：\(error.localizedDescription)")
     }
 }

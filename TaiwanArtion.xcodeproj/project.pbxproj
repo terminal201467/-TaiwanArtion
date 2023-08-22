@@ -94,6 +94,7 @@
 		9756C1EF2A811BE300E6FD54 /* ExhibitionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */; };
 		975FD63C2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */; };
 		975FD63F2A8F21980006F76C /* LocationInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD63E2A8F21980006F76C /* LocationInterface.swift */; };
+		975FD6412A9307600006F76C /* ExhibitionMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD6402A9307600006F76C /* ExhibitionMapView.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -305,6 +306,7 @@
 		9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCollectionView.swift; sourceTree = "<group>"; };
 		975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		975FD63E2A8F21980006F76C /* LocationInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInterface.swift; sourceTree = "<group>"; };
+		975FD6402A9307600006F76C /* ExhibitionMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionMapView.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				975FD63E2A8F21980006F76C /* LocationInterface.swift */,
+				975FD6402A9307600006F76C /* ExhibitionMapView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1156,6 +1159,7 @@
 				97AF92112A8CB64200F8F920 /* UserDefaultInterface.swift in Sources */,
 				97BD685B2A562AFD00F4BCAB /* PersonInfoViewModel.swift in Sources */,
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
+				975FD6412A9307600006F76C /* ExhibitionMapView.swift in Sources */,
 				978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */,
 				973C17C02A29B58B00581DC6 /* CalendarDateTableViewCell.swift in Sources */,
 				97506C272A3BF94200F6BB24 /* HintTableViewCell.swift in Sources */,
@@ -1405,6 +1409,7 @@
 				DEVELOPMENT_TEAM = QRA5DG5SAD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TaiwanArtion/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1435,6 +1440,7 @@
 				DEVELOPMENT_TEAM = QRA5DG5SAD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TaiwanArtion/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
