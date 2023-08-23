@@ -35,6 +35,7 @@ class ExhibitionMapView: UIView {
     let mapView: MKMapView = {
        let view = MKMapView()
         view.preferredConfiguration.elevationStyle = .flat
+        view.showsUserLocation = true
         return view
     }()
     
@@ -77,6 +78,7 @@ class ExhibitionMapView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setMapView()
         setLocationContentCollectionView()
         autoLayout()
         autoLayoutContainerContent()
@@ -91,6 +93,18 @@ class ExhibitionMapView: UIView {
     private func setLocationContentCollectionView() {
         locationContentCollectionView.delegate = self
         locationContentCollectionView.dataSource = self
+    }
+    
+    private func setMapView() {
+        mapView.delegate = self
+    }
+    
+    func AnnotationLocationWith(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mapView.setRegion(region, animated: true)
+        let annotation = MapLocationPinAnnotation(coordinate: location.coordinate)
+        mapView.addAnnotation(annotation)
     }
     
     private func autoLayout() {
@@ -149,7 +163,7 @@ class ExhibitionMapView: UIView {
     }
 }
 
-//MARK: -NearView
+//MARK: -NearViewCollectionViewDelegate
 extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -187,4 +201,37 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
         let cellHeight = collectionView.frame.height * (93.0 / mapView.frame.height)
         return .init(width: cellWidth, height: cellHeight)
     }
+}
+
+//MARK: -MapViewCollectionViewDelegate
+
+extension ExhibitionMapView: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        print("add")
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? MapLocationPinAnnotation else { return nil }
+        
+        let identifier = MapLocationPinAnnotation.reuseIdentifier
+        var annotationView: MKAnnotationView
+        
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+            annotationView = dequeuedView
+            
+        } else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView.image = UIImage(named: "locationPin")
+            annotationView.canShowCallout = true
+        }
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? MapLocationPinAnnotation {
+//            let customCalloutView = CustomCalloutView(annotation: annotation)
+//            view.detailCalloutAccessoryView = customCalloutView
+        }
+    }
+
 }

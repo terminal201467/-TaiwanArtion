@@ -95,6 +95,8 @@
 		975FD63C2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */; };
 		975FD63F2A8F21980006F76C /* LocationInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD63E2A8F21980006F76C /* LocationInterface.swift */; };
 		975FD6412A9307600006F76C /* ExhibitionMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD6402A9307600006F76C /* ExhibitionMapView.swift */; };
+		975FD6432A94500B0006F76C /* MapLocationPinAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD6422A94500B0006F76C /* MapLocationPinAnnotation.swift */; };
+		975FD6452A9460DB0006F76C /* MapAnnocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975FD6442A9460DB0006F76C /* MapAnnocationView.swift */; };
 		976A030A2A0E790B00424ACF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03092A0E790B00424ACF /* UserManager.swift */; };
 		976A030C2A0E87A800424ACF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030B2A0E87A800424ACF /* HomeView.swift */; };
 		976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */; };
@@ -307,6 +309,8 @@
 		975FD63B2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		975FD63E2A8F21980006F76C /* LocationInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInterface.swift; sourceTree = "<group>"; };
 		975FD6402A9307600006F76C /* ExhibitionMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionMapView.swift; sourceTree = "<group>"; };
+		975FD6422A94500B0006F76C /* MapLocationPinAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationPinAnnotation.swift; sourceTree = "<group>"; };
+		975FD6442A9460DB0006F76C /* MapAnnocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnocationView.swift; sourceTree = "<group>"; };
 		976A03092A0E790B00424ACF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		976A030B2A0E87A800424ACF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		976A030F2A0E88B500424ACF /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -501,6 +505,8 @@
 			children = (
 				975FD63E2A8F21980006F76C /* LocationInterface.swift */,
 				975FD6402A9307600006F76C /* ExhibitionMapView.swift */,
+				975FD6422A94500B0006F76C /* MapLocationPinAnnotation.swift */,
+				975FD6442A9460DB0006F76C /* MapAnnocationView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1115,6 +1121,7 @@
 				97D1C1EE2A775D9C00B367F0 /* ResultViewModel.swift in Sources */,
 				97506C2B2A3C28A400F6BB24 /* AccountPasswordView.swift in Sources */,
 				97D66A3B2A0DE20000A25935 /* SplashViewModel.swift in Sources */,
+				975FD6452A9460DB0006F76C /* MapAnnocationView.swift in Sources */,
 				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
 				973C17AA2A27456F00581DC6 /* Area.swift in Sources */,
 				973C17C22A29B7BA00581DC6 /* CalendarMonthTableViewCell.swift in Sources */,
@@ -1232,6 +1239,7 @@
 				9756C1EF2A811BE300E6FD54 /* ExhibitionCollectionView.swift in Sources */,
 				97E0F5902A8DF925004D6C0F /* NearSearchResultView.swift in Sources */,
 				973C178F2A25F0B000581DC6 /* EvaluateViewController.swift in Sources */,
+				975FD6432A94500B0006F76C /* MapLocationPinAnnotation.swift in Sources */,
 				97FD070F2A658DB200A64808 /* ResetSucceedViewController.swift in Sources */,
 				976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */,
 				97FD07132A665A5D00A64808 /* AccountSettingViewController.swift in Sources */,

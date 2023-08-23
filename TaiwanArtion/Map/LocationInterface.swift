@@ -52,6 +52,36 @@ class LocationInterface: NSObject {
         return []
     }
     
+    func searchTheLocations(searchKeyword: String, completion: @escaping ([MKMapItem]) -> Void) {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchKeyword
+        request.region = MKCoordinateRegion(center: getCurrentLocation().coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        
+        let search = MKLocalSearch(request: request)
+        search.start { response, error in
+            if let error = error {
+                print("error:\(error.localizedDescription)")
+            }
+            
+            guard let items = response?.mapItems else { return }
+            completion(items)
+            for item in items {
+                print(
+                """
+                -----------館別資料--------------
+                name: \(item.name ?? "Unknown")
+                phone:\(item.phoneNumber ?? "Unknown Phone")
+                timeZone:\(item.timeZone ?? .none)
+                url:\(item.url ?? URL(string: ""))
+                placemark: \(item.placemark)
+                distance: \(self.getCurrentLocation().distance(from: item.placemark.location!)) meters\n
+                -------------------------------
+                """
+                )
+            }
+        }
+    }
+    
     func searchForPlaces(keyword: String, searchIn mapView: MKMapView) {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = keyword
@@ -105,11 +135,7 @@ extension LocationInterface: CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-            mapUpdateCenter?(region)
-            locationManager.stopUpdatingLocation()
-        }
+        guard let currentLocation = locations.last else { return }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

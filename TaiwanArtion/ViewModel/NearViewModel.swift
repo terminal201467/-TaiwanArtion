@@ -150,9 +150,6 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
         //取得firebase的展覽資料
     }
     
-    func getFirebaseExhibitionHall() {
-        //取得firebase的展覽館資料
-    }
     
     private func storeSearchHistory(history: [String]) {
         userDefault.setStoreSearchHistory(searchHistory: history)

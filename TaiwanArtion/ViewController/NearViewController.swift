@@ -59,6 +59,7 @@ class NearViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.nearView.exhibitionMapView.locationInterface.checkLocationAuthorization()
+        self.showCurrentLocation()
     }
     
     private func setNavigationBar() {
@@ -83,7 +84,20 @@ class NearViewController: UIViewController {
         //顯示現在位置＋周邊展覽館
         nearView.exhibitionMapView.locatedNearSignal.emit(onNext: {
             self.showCurrentLocation()
-            //這邊還要另外顯示4個展覽館
+            //這邊還要另外顯示附近的展覽館
+            self.nearView.exhibitionMapView.locationInterface.searchTheLocations(searchKeyword: "博物館") { mapItems in
+                //標記博物館
+                
+            }
+            
+            self.nearView.exhibitionMapView.locationInterface.searchTheLocations(searchKeyword: "展覽館") { mapItems in
+                //標記展覽館
+            }
+            
+            self.nearView.exhibitionMapView.locationInterface.searchTheLocations(searchKeyword: "藝文中心") { mapItems in
+                //標記藝文中心
+            }
+            
         })
         .disposed(by: disposeBag)
         
