@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 public struct NewsModel {
     
@@ -95,11 +96,15 @@ struct CommentRate: Hashable {
     var service: Double
 }
 
-struct ExhibitionHallInfo {
+struct ExhibitionHallInfo: Equatable {
+    static func == (lhs: ExhibitionHallInfo, rhs: ExhibitionHallInfo) -> Bool {
+        return lhs.locationCoordinate.longitude == rhs.locationCoordinate.longitude && lhs.locationCoordinate.latitude == rhs.locationCoordinate.latitude
+    }
     
     var hallImage: String
     var title: String
     var location: String
+    var locationCoordinate: CLLocationCoordinate2D
     var time: String
     var telephone: String
     var adress: String

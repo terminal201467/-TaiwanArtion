@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 import RxSwift
 import RxRelay
 
@@ -14,7 +15,7 @@ protocol NearViewModelInput {
     var filterActionSubject: PublishSubject<Void> { get }
     
     //input附近展覽館
-    var inputNearExhibitionHall: BehaviorRelay<String> { get }
+    var inputNearExhibitionHall: BehaviorRelay<[MKMapItem]> { get }
     
     //input附近展覽
     var inputNearExhibition: BehaviorRelay<String> { get }
@@ -61,6 +62,9 @@ protocol NearViewModelOutput {
     //篩選後的（展覽）資料
     var outputExhibitionInfo: BehaviorRelay<[ExhibitionInfo]> { get }
     
+    //輸出MapItem
+    var outputMapItem: BehaviorRelay<[MKMapItem]> { get }
+    
     //搜尋紀錄
     var outputSearchHistory: BehaviorRelay<[String]> { get }
     
@@ -92,7 +96,7 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
     
     var filterActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
     
-    var inputNearExhibitionHall: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    var inputNearExhibitionHall: RxRelay.BehaviorRelay<[MKMapItem]> = BehaviorRelay(value: [])
     
     var inputNearExhibition: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
@@ -128,6 +132,8 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
     
     var outputSearchHistory: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
     
+    var outputMapItem: BehaviorRelay<[MKMapItem]> = BehaviorRelay(value: [])
+    
     //MARK: -input/output
     
     var input: NearViewModelInput { self }
@@ -142,6 +148,14 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
             .disposed(by: disposeBag)
         
         outputSearchHistory.accept(getSearchHistory() ?? [])
+        
+        inputNearExhibitionHall
+            .subscribe(onNext: { mapItems in
+                print("mapItem:\(mapItems)")
+//                self.outputExhibitionHall.accept(self.transferExhibition(mapItems: mapItems))
+                self.outputMapItem.accept(mapItems)
+            })
+            .disposed(by: disposeBag)
     }
     
     //MARK: - FirebaseDataBase
@@ -150,6 +164,17 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
         //取得firebase的展覽資料
     }
     
+    private func transferExhibition(mapItems: [MKMapItem]) -> [ExhibitionHallInfo] {
+        let exhibitionHallInfos = mapItems.map {ExhibitionHallInfo(hallImage: "",
+                                                                   title: $0.placemark.title ?? "",
+                                                                   location: $0.placemark.countryCode ?? "",
+                                                                   locationCoordinate: $0.placemark.coordinate ?? CLLocationCoordinate2D(),
+                                                                  time: "",
+                                                                   telephone: $0.phoneNumber ?? "",
+                                                                  adress: "",
+                                                                  webSite: "")}
+        return exhibitionHallInfos
+    }
     
     private func storeSearchHistory(history: [String]) {
         userDefault.setStoreSearchHistory(searchHistory: history)

@@ -55,7 +55,7 @@ class LocationInterface: NSObject {
     func searchTheLocations(searchKeyword: String, completion: @escaping ([MKMapItem]) -> Void) {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchKeyword
-        request.region = MKCoordinateRegion(center: getCurrentLocation().coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        request.region = MKCoordinateRegion(center: getCurrentLocation().coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
         let search = MKLocalSearch(request: request)
         search.start { response, error in
@@ -71,10 +71,10 @@ class LocationInterface: NSObject {
                 -----------館別資料--------------
                 name: \(item.name ?? "Unknown")
                 phone:\(item.phoneNumber ?? "Unknown Phone")
-                timeZone:\(item.timeZone ?? .none)
-                url:\(item.url ?? URL(string: ""))
+                timeZone:\(item.timeZone! ?? .none)
+                url:\(item.url! ?? URL(string: ""))
                 placemark: \(item.placemark)
-                distance: \(self.getCurrentLocation().distance(from: item.placemark.location!)) meters\n
+                distance: \(self.getCurrentLocation().distance(from: item.placemark.location!)) meters
                 -------------------------------
                 """
                 )

@@ -14,14 +14,9 @@ class MapAnnocationView: MKAnnotationView {
     
     private let numberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .brownTitleColor
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return label
-    }()
-    
-    private let pinImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
     }()
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
@@ -34,20 +29,14 @@ class MapAnnocationView: MKAnnotationView {
     }
     
     private func autoLayout() {
-        addSubview(pinImage)
-        pinImage.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        pinImage.addSubview(numberLabel)
+        addSubview(numberLabel)
         numberLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
         }
     }
     
-    func configure(number: Int, isSelected: Bool) {
-        pinImage.image = UIImage(named: isSelected ? "locationSelectedPin" : "locationPin")
+    func configure(number: Int) {
         numberLabel.text = "\(number)"
     }
 }

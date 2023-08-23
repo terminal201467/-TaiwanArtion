@@ -10,6 +10,12 @@ import MapKit
 import RxCocoa
 import RxSwift
 
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
+}
+
 class ExhibitionMapView: UIView {
     
     private let viewModel = NearViewModel.shared
@@ -36,6 +42,7 @@ class ExhibitionMapView: UIView {
        let view = MKMapView()
         view.preferredConfiguration.elevationStyle = .flat
         view.showsUserLocation = true
+        view.register(MapAnnocationView.self, forAnnotationViewWithReuseIdentifier: MapAnnocationView.reuseIdentifier)
         return view
     }()
     
@@ -207,30 +214,33 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
 
 extension ExhibitionMapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        print("add")
+        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? MapLocationPinAnnotation else { return nil }
-        
-        let identifier = MapLocationPinAnnotation.reuseIdentifier
-        var annotationView: MKAnnotationView
-        
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
-            annotationView = dequeuedView
-            
-        } else {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView.image = UIImage(named: "locationPin")
-            annotationView.canShowCallout = true
+        let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: MapAnnocationView.reuseIdentifier, for: annotation) as! MapAnnocationView
+        dequeuedView.image = UIImage(named: "locationPin")
+        if let index = viewModel.output.outputMapItem.value.firstIndex(where: {$0.placemark.location?.coordinate == annotation.coordinate}) {
+            dequeuedView.configure(number: index + 1)
         }
-        return annotationView
+        return dequeuedView
+
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("selected:\(mapView.selectedAnnotations)")
         if let annotation = view.annotation as? MapLocationPinAnnotation {
-//            let customCalloutView = CustomCalloutView(annotation: annotation)
-//            view.detailCalloutAccessoryView = customCalloutView
+            let identifier = MapLocationPinAnnotation.reuseIdentifier
+            var annotationView: MKAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+                annotationView = dequeuedView
+            } else {
+                let mapAnnotationView = MapAnnocationView(annotation: annotation, reuseIdentifier: identifier)
+                mapAnnotationView.image = UIImage(named: "locationSelectedPin")
+                mapAnnotationView.configure(number: 1)
+                annotationView = mapAnnotationView
+            }
         }
     }
 
