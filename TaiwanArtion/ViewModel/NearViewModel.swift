@@ -52,6 +52,9 @@ protocol NearViewModelInput {
     
     //向左滑動展覽館ActionSubject
     var leftSwipeExhibitionActionSubject: PublishSubject<Void> { get }
+    
+    //紀錄選取的MapItem
+    var inputSelectedAnnotation: PublishRelay<MKAnnotation> { get }
 }
 
 protocol NearViewModelOutput {
@@ -67,6 +70,8 @@ protocol NearViewModelOutput {
     
     //搜尋紀錄
     var outputSearchHistory: BehaviorRelay<[String]> { get }
+    
+    var outputSelectedAnnotation: PublishRelay<MKAnnotation> { get }
     
 }
 
@@ -122,6 +127,8 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
     
     var leftSwipeExhibitionActionSubject: RxSwift.PublishSubject<Void> = PublishSubject()
     
+    var inputSelectedAnnotation: PublishRelay<MKAnnotation> = PublishRelay()
+    
     //MARK: -output
     
     var storeSearchRecordsSubject: RxSwift.PublishSubject<Void> = PublishSubject()
@@ -133,6 +140,8 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
     var outputSearchHistory: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
     
     var outputMapItem: BehaviorRelay<[MKMapItem]> = BehaviorRelay(value: [])
+    
+    var outputSelectedAnnotation: PublishRelay<MKAnnotation> = PublishRelay()
     
     //MARK: -input/output
     
@@ -152,10 +161,12 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
         inputNearExhibitionHall
             .subscribe(onNext: { mapItems in
                 print("mapItem:\(mapItems)")
-//                self.outputExhibitionHall.accept(self.transferExhibition(mapItems: mapItems))
                 self.outputMapItem.accept(mapItems)
             })
             .disposed(by: disposeBag)
+        
+        outputSelectedAnnotation = inputSelectedAnnotation
+
     }
     
     //MARK: - FirebaseDataBase

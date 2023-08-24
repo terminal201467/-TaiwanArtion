@@ -213,35 +213,23 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
 //MARK: -MapViewCollectionViewDelegate
 
 extension ExhibitionMapView: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        
-    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? MapLocationPinAnnotation else { return nil }
         let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: MapAnnocationView.reuseIdentifier, for: annotation) as! MapAnnocationView
-        dequeuedView.image = UIImage(named: "locationPin")
+        viewModel.output.outputSelectedAnnotation.subscribe(onNext: { selectedAnnotation in
+            dequeuedView.configureMarkBackground(isSelected: selectedAnnotation.coordinate == annotation.coordinate)
+        })
+        .disposed(by: disposeBag)
         if let index = viewModel.output.outputMapItem.value.firstIndex(where: {$0.placemark.location?.coordinate == annotation.coordinate}) {
             dequeuedView.configure(number: index + 1)
+            dequeuedView.configureMarkBackground(isSelected: false)
         }
         return dequeuedView
-
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("selected:\(mapView.selectedAnnotations)")
-        if let annotation = view.annotation as? MapLocationPinAnnotation {
-            let identifier = MapLocationPinAnnotation.reuseIdentifier
-            var annotationView: MKAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
-                annotationView = dequeuedView
-            } else {
-                let mapAnnotationView = MapAnnocationView(annotation: annotation, reuseIdentifier: identifier)
-                mapAnnotationView.image = UIImage(named: "locationSelectedPin")
-                mapAnnotationView.configure(number: 1)
-                annotationView = mapAnnotationView
-            }
+        mapView.selectedAnnotations.map { annotation in
+            viewModel.input.inputSelectedAnnotation.accept(annotation)
         }
     }
-
 }

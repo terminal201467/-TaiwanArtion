@@ -39,4 +39,9 @@ class MapAnnocationView: MKAnnotationView {
     func configure(number: Int) {
         numberLabel.text = "\(number)"
     }
+    
+    func configureMarkBackground(isSelected: Bool) {
+        image = .init(named: isSelected ? "locationSelectedPin" : "locationPin")
+        numberLabel.textColor = isSelected ? .white : .brownTitleColor
+    }
 }
