@@ -82,24 +82,24 @@ class LocationInterface: NSObject {
         }
     }
     
-    func searchForPlaces(keyword: String, searchIn mapView: MKMapView) {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = keyword
-        let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-
-            if let items = response?.mapItems {
-                mapView.removeAnnotations(mapView.annotations)
-                for item in items {
-                    mapView.addAnnotation(self.addAnnotationForMapItem(mapItem: item))
-                }
-            }
-        }
-    }
+//    func searchForPlaces(keyword: String, searchIn mapView: MKMapView) {
+//        let request = MKLocalSearch.Request()
+//        request.naturalLanguageQuery = keyword
+//        let search = MKLocalSearch(request: request)
+//        search.start { (response, error) in
+//            if let error = error {
+//                print("Error: \(error)")
+//                return
+//            }
+//
+//            if let items = response?.mapItems {
+//                mapView.removeAnnotations(mapView.annotations)
+//                for item in items {
+//                    mapView.addAnnotation(self.addAnnotationForMapItem(mapItem: item))
+//                }
+//            }
+//        }
+//    }
     
     //取得當前位置
     func getCurrentLocation() -> LocationInfo {

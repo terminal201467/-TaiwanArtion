@@ -52,14 +52,12 @@ class NearViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
-        setNearView()
-        setMapFeature()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.nearView.exhibitionMapView.locationInterface.checkLocationAuthorization()
-        self.showCurrentLocation(by: 1000, longitudinalMeters: 1000)
+        self.nearView.exhibitionMapView.showCurrentLocation(by: 1000, by: 1000)
     }
     
     private func setNavigationBar() {
@@ -71,59 +69,6 @@ class NearViewController: UIViewController {
             self.present(self.popUpViewController, animated: true)
         })
         .disposed(by: disposeBag)
-    }
-    
-    private func showCurrentLocation(by latitudinalMeters: Double, longitudinalMeters: Double) {
-        self.nearView.exhibitionMapView.locationInterface.checkLocationAuthorization()
-        let locationCoordinate = self.nearView.exhibitionMapView.locationInterface.getCurrentLocation().coordinate
-        let region = MKCoordinateRegion(center: locationCoordinate, latitudinalMeters: latitudinalMeters, longitudinalMeters: longitudinalMeters)
-        self.nearView.exhibitionMapView.mapView.setRegion(region, animated: true)
-    }
-    
-    private func setMapFeature() {
-        //顯示現在位置＋周邊展覽館
-        nearView.exhibitionMapView.locatedNearSignal.emit(onNext: {
-            self.showCurrentLocation(by: 5000, longitudinalMeters: 5000)
-            //這邊還要另外顯示附近的展覽館
-            self.nearView.exhibitionMapView.locationInterface.searchTheLocations(searchKeyword: "博物館") { mapItems in
-                for item in mapItems {
-                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
-                    self.nearView.exhibitionMapView.mapView.addAnnotation(mapAnnotation)
-                }
-                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
-            }
-            
-            self.nearView.exhibitionMapView.locationInterface.searchTheLocations(searchKeyword: "展覽館") { mapItems in
-                for item in mapItems {
-                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
-                    self.nearView.exhibitionMapView.mapView.addAnnotation(mapAnnotation)
-                }
-                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
-            }
-            
-            self.nearView.exhibitionMapView.locationInterface.searchTheLocations(searchKeyword: "藝文中心") { mapItems in
-                for item in mapItems {
-                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
-                    self.nearView.exhibitionMapView.mapView.addAnnotation(mapAnnotation)
-                }
-                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
-            }
-        })
-        .disposed(by: disposeBag)
-        
-        //顯示現在位置
-        nearView.exhibitionMapView.locatedCurrentMyLocationSignal.emit(onNext: {
-            self.showCurrentLocation(by: 1000, longitudinalMeters: 1000)
-            self.nearView.exhibitionMapView.mapView.annotations.map { annotation in
-                self.nearView.exhibitionMapView.mapView.removeAnnotation(annotation)
-            }
-        })
-        .disposed(by: disposeBag)
-        
-        self.nearView.exhibitionMapView.locationInterface.mapUpdateCenter = { centerRegion in
-            print("centerRegion:\((centerRegion))")
-            self.nearView.exhibitionMapView.mapView.setRegion(centerRegion, animated: true)
-        }
     }
 }
 

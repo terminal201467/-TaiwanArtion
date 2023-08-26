@@ -91,6 +91,8 @@ class ExhibitionMapView: UIView {
         autoLayoutContainerContent()
         setContentStackIsHidden()
         setButtonSubscribtion()
+//        setAnnotation()
+        setMapFeature()
     }
     
     required init?(coder: NSCoder) {
@@ -106,12 +108,11 @@ class ExhibitionMapView: UIView {
         mapView.delegate = self
     }
     
-    func AnnotationLocationWith(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+    func showCurrentLocation(by latitudinalMeters: Double, by longitudinalMeters: Double) {
+        locationInterface.checkLocationAuthorization()
+        let locationCoordinate = locationInterface.getCurrentLocation().coordinate
+        let region = MKCoordinateRegion(center: locationCoordinate, latitudinalMeters: latitudinalMeters, longitudinalMeters: longitudinalMeters)
         mapView.setRegion(region, animated: true)
-        let annotation = MapLocationPinAnnotation(coordinate: location.coordinate)
-        mapView.addAnnotation(annotation)
     }
     
     private func autoLayout() {
@@ -168,6 +169,52 @@ class ExhibitionMapView: UIView {
         locatedCurrentMyLocationSignal = locationButton.rx.tap
             .asSignal(onErrorJustReturn: ())
     }
+    
+    private func setMapFeature() {
+        //顯示現在位置＋周邊展覽館
+        locatedNearSignal.emit(onNext: {
+            self.showCurrentLocation(by: 5000, by: 5000)
+            //這邊還要另外顯示附近的展覽館
+            self.locationInterface.searchTheLocations(searchKeyword: "博物館") { mapItems in
+                for item in mapItems {
+                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
+                    self.mapView.addAnnotation(mapAnnotation)
+                }
+                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
+            }
+            
+            self.locationInterface.searchTheLocations(searchKeyword: "展覽館") { mapItems in
+                for item in mapItems {
+                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
+                    self.mapView.addAnnotation(mapAnnotation)
+                }
+                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
+            }
+            
+            self.locationInterface.searchTheLocations(searchKeyword: "藝文中心") { mapItems in
+                for item in mapItems {
+                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
+                    self.mapView.addAnnotation(mapAnnotation)
+                }
+                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        //顯示現在位置
+        locatedCurrentMyLocationSignal.emit(onNext: {
+            self.showCurrentLocation(by: 1000, by: 1000)
+            self.mapView.annotations.map { annotation in
+                self.mapView.removeAnnotation(annotation)
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        self.locationInterface.mapUpdateCenter = { centerRegion in
+            print("centerRegion:\((centerRegion))")
+            self.mapView.setRegion(centerRegion, animated: true)
+        }
+    }
 }
 
 //MARK: -NearViewCollectionViewDelegate
@@ -215,6 +262,7 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
 extension ExhibitionMapView: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let mapAnnotation = annotation as? MapLocationPinAnnotation else { return .none}
         let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: MapAnnocationView.reuseIdentifier, for: annotation) as! MapAnnocationView
         viewModel.output.outputSelectedAnnotation.subscribe(onNext: { selectedAnnotation in
             dequeuedView.configureMarkBackground(isSelected: selectedAnnotation.coordinate == annotation.coordinate)
