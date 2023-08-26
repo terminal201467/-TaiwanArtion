@@ -146,6 +146,7 @@ class LocationContentCollectionViewCell: UICollectionViewCell {
     private let containerView: UIView = {
         let view = UIView()
         view.roundCorners(cornerRadius: 12)
+        view.backgroundColor = .white
         return view
     }()
     

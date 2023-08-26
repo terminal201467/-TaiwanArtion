@@ -149,6 +149,8 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
     
     var output: NearViewModelOutput { self }
     
+    var mapItems: [MKMapItem] = []
+    
     init() {
         storeSearchRecordsSubject
             .subscribe(onNext: {
@@ -160,13 +162,20 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
         
         inputNearExhibitionHall
             .subscribe(onNext: { mapItems in
-                print("mapItem:\(mapItems)")
                 self.outputMapItem.accept(mapItems)
+                self.outputExhibitionHall.accept(self.transferExhibition(mapItems: mapItems))
             })
             .disposed(by: disposeBag)
         
         outputSelectedAnnotation = inputSelectedAnnotation
-
+        
+//        inputNearExhibitionHall
+//            .flatMap { mapItems in
+//                print("mapItems:\(mapItems)")
+//                return Observable.just(self.transferExhibition(mapItems: mapItems))
+//        }
+//        .bind(to: outputExhibitionHall)
+//        .disposed(by: disposeBag)
     }
     
     //MARK: - FirebaseDataBase
@@ -175,7 +184,7 @@ class NearViewModel: NearInputOutputType, NearViewModelInput, NearViewModelOutpu
         //取得firebase的展覽資料
     }
     
-    private func transferExhibition(mapItems: [MKMapItem]) -> [ExhibitionHallInfo] {
+    func transferExhibition(mapItems: [MKMapItem]) -> [ExhibitionHallInfo] {
         let exhibitionHallInfos = mapItems.map {ExhibitionHallInfo(hallImage: "",
                                                                    title: $0.placemark.title ?? "",
                                                                    location: $0.placemark.countryCode ?? "",

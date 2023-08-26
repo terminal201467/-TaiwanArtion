@@ -46,12 +46,6 @@ class ExhibitionMapView: UIView {
         return view
     }()
     
-    //右下角定位鈕
-    private let headerContainerView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
     private let locationButton: UIButton = {
         let button = UIButton()
         button.setImage(.init(named: "locationButton"), for: .normal)
@@ -66,21 +60,8 @@ class ExhibitionMapView: UIView {
         collectionView.register(LocationContentCollectionViewCell.self, forCellWithReuseIdentifier: LocationContentCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
+        collectionView.backgroundColor = .white
         return collectionView
-    }()
-    
-    private lazy var contentStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [headerContainerView, locationContentCollectionView])
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 24
-        return stackView
-    }()
-    
-    private let contentContainerView: UIView = {
-        let view = UIView()
-        return view
     }()
     
     override init(frame: CGRect) {
@@ -88,11 +69,16 @@ class ExhibitionMapView: UIView {
         setMapView()
         setLocationContentCollectionView()
         autoLayout()
-        autoLayoutContainerContent()
         setContentStackIsHidden()
         setButtonSubscribtion()
-//        setAnnotation()
         setMapFeature()
+        viewModel.output.outputExhibitionHall
+            .asObservable()
+            .subscribe(onNext: { info in
+                self.locationContentCollectionView.reloadData()
+                self.setContentStackIsHidden()
+            })
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -128,38 +114,40 @@ class ExhibitionMapView: UIView {
             make.width.equalToSuperview().dividedBy(3)
         }
         
-        mapView.addSubview(contentContainerView)
-        contentContainerView.snp.makeConstraints { make in
+        mapView.addSubview(locationContentCollectionView)
+        locationContentCollectionView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
             make.height.equalTo(150.0)
-            make.leading.equalToSuperview().offset(16.0)
-            make.trailing.equalToSuperview().offset(-16.0)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
-        }
-    }
-    
-    private func autoLayoutContainerContent() {
-        contentContainerView.addSubview(contentStack)
-        contentStack.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
         
-        headerContainerView.snp.makeConstraints { make in
-            make.height.equalTo(40.0)
-        }
-        
-        headerContainerView.addSubview(locationButton)
+        mapView.addSubview(locationButton)
         locationButton.snp.makeConstraints { make in
             make.height.equalTo(36.0)
             make.width.equalTo(36.0)
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
+        }
+    }
+    
+    private func locationButtonAutoLayoutWithContent() {
+        locationContentCollectionView.isHidden = false
+        locationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(locationContentCollectionView.snp.top).offset(-24)
+            make.trailing.equalToSuperview().offset(-16)
+        }
+    }
+    
+    private func locationButtonAutoLayoutWithoutContent() {
+        locationContentCollectionView.isHidden = true
+        locationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.trailing.equalToSuperview().offset(-16)
         }
     }
     
     private func setContentStackIsHidden() {
-        locationContentCollectionView.isHidden = viewModel.output.outputExhibitionHall.value.isEmpty ? true : false
+        viewModel.output.outputExhibitionHall.value.isEmpty ? self.locationButtonAutoLayoutWithoutContent() : self.locationButtonAutoLayoutWithContent()
     }
     
     private func setButtonSubscribtion() {
@@ -198,6 +186,7 @@ class ExhibitionMapView: UIView {
                 }
                 self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
             }
+            self.setContentStackIsHidden()
         })
         .disposed(by: disposeBag)
         
@@ -207,6 +196,7 @@ class ExhibitionMapView: UIView {
             self.mapView.annotations.map { annotation in
                 self.mapView.removeAnnotation(annotation)
             }
+            self.setContentStackIsHidden()
         })
         .disposed(by: disposeBag)
         
@@ -219,12 +209,9 @@ class ExhibitionMapView: UIView {
 
 //MARK: -NearViewCollectionViewDelegate
 extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.output.outputExhibitionHall.value.count
+        return viewModel.output.outputExhibitionHall.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -247,12 +234,12 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 30, left: 24, bottom: 30, right: 24)
+        return .init(top: 16, left: 16, bottom: 16, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.width * (257.0 / mapView.frame.width)
-        let cellHeight = collectionView.frame.height * (93.0 / mapView.frame.height)
+        let cellWidth = collectionView.frame.width * (2 / 3)
+        let cellHeight = 93.0 - (30 * 2)
         return .init(width: cellWidth, height: cellHeight)
     }
 }
@@ -276,8 +263,8 @@ extension ExhibitionMapView: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        mapView.selectedAnnotations.map { annotation in
-            viewModel.input.inputSelectedAnnotation.accept(annotation)
-        }
+        viewModel.input.inputSelectedAnnotation.accept(view.annotation!)
+        mapView.setCenter(view.annotation?.coordinate ?? mapView.userLocation.coordinate, animated: true)
+        //點按之後show出
     }
 }

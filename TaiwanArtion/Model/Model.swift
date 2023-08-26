@@ -96,10 +96,7 @@ struct CommentRate: Hashable {
     var service: Double
 }
 
-struct ExhibitionHallInfo: Equatable {
-    static func == (lhs: ExhibitionHallInfo, rhs: ExhibitionHallInfo) -> Bool {
-        return lhs.locationCoordinate.longitude == rhs.locationCoordinate.longitude && lhs.locationCoordinate.latitude == rhs.locationCoordinate.latitude
-    }
+struct ExhibitionHallInfo {
     
     var hallImage: String
     var title: String
