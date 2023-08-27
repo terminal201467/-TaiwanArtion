@@ -60,7 +60,8 @@ class ExhibitionMapView: UIView {
         collectionView.register(LocationContentCollectionViewCell.self, forCellWithReuseIdentifier: LocationContentCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
@@ -69,14 +70,14 @@ class ExhibitionMapView: UIView {
         setMapView()
         setLocationContentCollectionView()
         autoLayout()
-        setContentStackIsHidden()
+//        setContentStackIsHidden()
         setButtonSubscribtion()
         setMapFeature()
         viewModel.output.outputExhibitionHall
             .asObservable()
             .subscribe(onNext: { info in
-                self.locationContentCollectionView.reloadData()
                 self.setContentStackIsHidden()
+                self.locationContentCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
     }
@@ -116,37 +117,46 @@ class ExhibitionMapView: UIView {
         
         mapView.addSubview(locationContentCollectionView)
         locationContentCollectionView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalTo(150.0)
+            make.height.equalTo(130.0)
             make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
+        }
+    }
+    
+    private func locationButtonAutoLayoutWithContent() {
+        locationContentCollectionView.isHidden = false
+        
+        mapView.addSubview(locationContentCollectionView)
+        locationContentCollectionView.snp.makeConstraints { make in
+            make.height.equalTo(130.0)
+            make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview()
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
         
         mapView.addSubview(locationButton)
         locationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(locationContentCollectionView.snp.top).offset(-16)
+            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(36.0)
             make.width.equalTo(36.0)
         }
     }
     
-    private func locationButtonAutoLayoutWithContent() {
-        locationContentCollectionView.isHidden = false
-        locationButton.snp.makeConstraints { make in
-            make.bottom.equalTo(locationContentCollectionView.snp.top).offset(-24)
-            make.trailing.equalToSuperview().offset(-16)
-        }
-    }
-    
     private func locationButtonAutoLayoutWithoutContent() {
         locationContentCollectionView.isHidden = true
+        mapView.addSubview(locationButton)
         locationButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(36.0)
+            make.width.equalTo(36.0)
         }
     }
     
     private func setContentStackIsHidden() {
+        mapView.removeSubview(locationButton)
         viewModel.output.outputExhibitionHall.value.isEmpty ? self.locationButtonAutoLayoutWithoutContent() : self.locationButtonAutoLayoutWithContent()
     }
     
@@ -162,7 +172,6 @@ class ExhibitionMapView: UIView {
         //顯示現在位置＋周邊展覽館
         locatedNearSignal.emit(onNext: {
             self.showCurrentLocation(by: 5000, by: 5000)
-            //這邊還要另外顯示附近的展覽館
             self.locationInterface.searchTheLocations(searchKeyword: "博物館") { mapItems in
                 for item in mapItems {
                     let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
@@ -196,7 +205,7 @@ class ExhibitionMapView: UIView {
             self.mapView.annotations.map { annotation in
                 self.mapView.removeAnnotation(annotation)
             }
-            self.setContentStackIsHidden()
+            self.locationButtonAutoLayoutWithoutContent()
         })
         .disposed(by: disposeBag)
         
@@ -234,13 +243,17 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 16, left: 16, bottom: 16, right: 16)
+        return .init(top: 12, left: 16, bottom: 12, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.width * (2 / 3)
-        let cellHeight = 93.0 - (30 * 2)
+        let cellWidth = collectionView.frame.width - (16 * 2)
+        let cellHeight = 130.0
         return .init(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16.0
     }
 }
 
@@ -265,6 +278,6 @@ extension ExhibitionMapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         viewModel.input.inputSelectedAnnotation.accept(view.annotation!)
         mapView.setCenter(view.annotation?.coordinate ?? mapView.userLocation.coordinate, animated: true)
-        //點按之後show出
+        //點按之後CollectionView show 出該 資訊的Cell
     }
 }

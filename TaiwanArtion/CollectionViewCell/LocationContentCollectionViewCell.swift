@@ -91,7 +91,7 @@ class LocationContentCollectionViewCell: UICollectionViewCell {
     private let lookUpLocationButton: UIButton = {
         let button = UIButton()
         button.setTitle("查看位置", for: .normal)
-        button.titleLabel?.textColor = .brownColor
+        button.setTitleColor(.brownTitleColor, for: .normal)
         button.backgroundColor = .white
         button.roundCorners(cornerRadius: 12)
         button.addBorder(borderWidth: 1, borderColor: .brownColor)
@@ -101,7 +101,7 @@ class LocationContentCollectionViewCell: UICollectionViewCell {
     private let lookUpExhibitionHallButton: UIButton = {
         let button = UIButton()
         button.setTitle("查看展覽館", for: .normal)
-        button.titleLabel?.textColor = .grayTextColor
+        button.setTitleColor(.grayTextColor, for: .normal)
         button.backgroundColor = .whiteGrayColor
         button.roundCorners(cornerRadius: 12)
         return button
@@ -129,7 +129,7 @@ class LocationContentCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView(arrangedSubviews: [lookUpLocationButton, lookUpExhibitionHallButton])
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fillEqually
         stackView.spacing = 10
         return stackView
     }()
@@ -181,7 +181,15 @@ class LocationContentCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(16.0)
         }
         
-        addSubview(contentStack)
+        lookUpLocationButton.snp.makeConstraints { make in
+            make.height.equalTo(34.0)
+        }
+        
+        lookUpExhibitionHallButton.snp.makeConstraints { make in
+            make.height.equalTo(34.0)
+        }
+        
+        containerView.addSubview(contentStack)
         contentStack.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.leading.equalToSuperview().offset(16)
