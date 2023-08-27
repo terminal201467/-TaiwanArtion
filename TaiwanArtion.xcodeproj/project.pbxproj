@@ -75,6 +75,8 @@
 		973C837E2A5FBA7B00490D25 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C837D2A5FBA7B00490D25 /* LoginView.swift */; };
 		973C83802A5FCBCB00490D25 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */; };
 		973C83822A5FDFBC00490D25 /* NotMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */; };
+		9746561B2A9B866F008F4E1F /* NearExhibitionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746561A2A9B866E008F4E1F /* NearExhibitionDetailView.swift */; };
+		9746561D2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746561C2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift */; };
 		97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */; };
 		97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */; };
 		97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */; };
@@ -289,6 +291,8 @@
 		973C837D2A5FBA7B00490D25 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		973C837F2A5FCBCB00490D25 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotMemberTableViewCell.swift; sourceTree = "<group>"; };
+		9746561A2A9B866E008F4E1F /* NearExhibitionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearExhibitionDetailView.swift; sourceTree = "<group>"; };
+		9746561C2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearExhibitionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVerifyTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -534,6 +538,7 @@
 				97BD68682A59017500F4BCAB /* HintCollectionViewCell.swift */,
 				973C83752A5F735100490D25 /* TitleMonthCollectionViewCell.swift */,
 				97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */,
+				9746561C2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -782,6 +787,7 @@
 				9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */,
 				97AF92142A8DB07D00F8F920 /* NearView.swift */,
 				97E0F58F2A8DF925004D6C0F /* NearSearchResultView.swift */,
+				9746561A2A9B866E008F4E1F /* NearExhibitionDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1196,6 +1202,7 @@
 				973C83742A5F6D3500490D25 /* PopUpViewController.swift in Sources */,
 				973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */,
 				973C836E2A5D3FEA00490D25 /* GenderInfoCell.swift in Sources */,
+				9746561B2A9B866F008F4E1F /* NearExhibitionDetailView.swift in Sources */,
 				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,
 				973C17992A2720E100581DC6 /* NotifyViewController.swift in Sources */,
@@ -1203,6 +1210,7 @@
 				973C17AC2A2840A700581DC6 /* NotifyTableViewCell.swift in Sources */,
 				9771A1522A3A0918006F4F9D /* WelcomeRegisterView.swift in Sources */,
 				976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */,
+				9746561D2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift in Sources */,
 				97BD68632A56C7D300F4BCAB /* SettingHeadView.swift in Sources */,
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
 				973C17B82A29921600581DC6 /* DateTableViewCell.swift in Sources */,

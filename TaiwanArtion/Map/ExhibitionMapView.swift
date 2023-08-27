@@ -70,7 +70,6 @@ class ExhibitionMapView: UIView {
         setMapView()
         setLocationContentCollectionView()
         autoLayout()
-//        setContentStackIsHidden()
         setButtonSubscribtion()
         setMapFeature()
         viewModel.output.outputExhibitionHall
@@ -227,12 +226,15 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationContentCollectionViewCell.reuseIdentifier, for: indexPath) as! LocationContentCollectionViewCell
         cell.configure(hallInfo: viewModel.output.outputExhibitionHall.value[indexPath.row])
         cell.lookUpLocationSignal.emit(onNext: {
-            //查看位置
-            //HightLight定位
+            print("indexPath.row:\(indexPath.row)")
+            self.viewModel.input.inputSelectedAnnotation.accept(self.mapView.selectedAnnotations.first ?? self.mapView.userLocation)
+            self.mapView(self.mapView, didSelect: self.mapView.dequeueReusableAnnotationView(withIdentifier: MapAnnocationView.reuseIdentifier, for: self.mapView.selectedAnnotations.first ?? self.mapView.userLocation))
+            self.mapView.setCenter(self.mapView.selectedAnnotations.first?.coordinate ?? self.mapView.userLocation.coordinate, animated: true)
         })
         .disposed(by: disposeBag)
         cell.lookUpExhibitionHallSignal.emit(onNext: {
             //推到展覽館頁面
+            print("indexPath.row:\(indexPath.row)")
         })
         .disposed(by: disposeBag)
         return cell

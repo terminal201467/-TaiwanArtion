@@ -86,6 +86,8 @@ class NearView: UIView {
         setFilterButton()
         autoLayout()
         setNothingSearch()
+        
+        //
         setContainerLayout()
     }
     
@@ -149,6 +151,7 @@ class NearView: UIView {
         }
     }
     
+    //地圖搜尋模式
     private func setContainerLayout() {
         containerView.removeAllSubviews(from: containerView)
         if isHadSearchResult {
@@ -161,6 +164,22 @@ class NearView: UIView {
             nothingSearchedView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
             }
+        }
+    }
+    
+    private func setFindExhibitionContainerLayout() {
+        containerView.removeAllSubviews(from: containerView)
+        if isHadSearchResult {
+            //
+//            containerView.addSubview(exhibitionMapView)
+//            exhibitionMapView.snp.makeConstraints { make in
+//                make.edges.equalToSuperview()
+//            }
+        } else {
+//            containerView.addSubview(nothingSearchedView)
+//            nothingSearchedView.snp.makeConstraints { make in
+//                make.edges.equalToSuperview()
+//            }
         }
     }
 }
