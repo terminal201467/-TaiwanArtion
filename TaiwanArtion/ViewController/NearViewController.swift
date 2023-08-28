@@ -52,6 +52,7 @@ class NearViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
+        setNearView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

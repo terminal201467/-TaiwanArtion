@@ -204,7 +204,7 @@ class LocationContentCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(hallInfo: ExhibitionHallInfo) {
-        exhibitionImage.image = .init(named: hallInfo.hallImage)
+        exhibitionImage.image = .init(named: "defaultLocationImage")
         exhibitionTitlelabel.text = hallInfo.title
         locationLabel.text = hallInfo.location
         timeLabel.text = "營業中\(hallInfo.time)"
