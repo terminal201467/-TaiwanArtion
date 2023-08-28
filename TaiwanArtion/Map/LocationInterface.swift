@@ -39,19 +39,6 @@ class LocationInterface: NSObject {
         }
     }
     
-    //取得最近的展覽館
-    //回傳4個經緯度提供給MapView
-    func getNearExhibition(currentLatitude: String, currentLongitude: String) -> [LocationInfo] {
-        //先拿到現在位置的經緯度
-        
-        //篩選Firebase上符合該縣市的展覽館資訊
-        
-        //輸出四個相近的展覽館資訊
-        
-        //這邊要跟Firebase要所有ExhibitionHall的Info
-        return []
-    }
-    
     func searchTheLocations(searchKeyword: String, completion: @escaping ([MKMapItem]) -> Void) {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchKeyword
@@ -82,6 +69,15 @@ class LocationInterface: NSObject {
         }
     }
     
+    func filterTheNearExhibition(by infos: [ExhibitionInfo]) -> [ExhibitionInfo] {
+        let desiredDistance: CLLocationDistance = 5000
+        return infos.filter { info in
+            let exhibitionLocation = CLLocation(latitude: Double(info.latitude) ?? 0.0, longitude: Double(info.longtitude) ?? 0.0)
+            let distance = self.getCurrentLocation().distance(from: exhibitionLocation)
+            return distance <= desiredDistance
+        }
+    }
+
 //    func searchForPlaces(keyword: String, searchIn mapView: MKMapView) {
 //        let request = MKLocalSearch.Request()
 //        request.naturalLanguageQuery = keyword

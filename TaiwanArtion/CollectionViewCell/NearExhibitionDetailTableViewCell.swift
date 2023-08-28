@@ -11,7 +11,7 @@ import RxCocoa
 
 class NearExhibitionDetailTableViewCell: UITableViewCell {
 
-    let likeActionSignal: Signal<Void> = Signal.just(())
+    var likeActionSignal: Signal<Void> = Signal.just(())
     
     private var isLiked: Bool = false {
         didSet {
@@ -32,19 +32,21 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
     
     private let tagLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     
     private let tagView: UIView = {
         let view = UIView()
+        view.backgroundColor = .tagYellowColor
         view.setSpecificRoundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner], radius: 8)
         return view
     }()
     
     private let likeButton: UIButton = {
         let button = UIButton()
-        button.setImage(.init(named: "collect"), for: .normal)
+        button.addTarget(self, action: #selector(like), for: .touchDown)
         return button
     }()
     
@@ -122,21 +124,37 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    private let containerView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         autoLayout()
-        setButtonSubscribe()
         setLikeButton()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func autoLayout() {
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(12.0)
+            make.leading.equalTo(12.0)
+            make.trailing.equalTo(-12.0)
+            make.bottom.equalTo(-12.0)
+            make.height.equalTo(260.0)
+        }
         //圖片
-        addSubview(contentMainImage)
+        containerView.addSubview(contentMainImage)
         contentMainImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(24)
-            make.trailing.equalToSuperview().offset(-24)
-            make.top.equalToSuperview().offset(24)
-            make.height.equalToSuperview().multipliedBy(180.0 / self.frame.height)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.equalTo(180.0)
         }
         
         contentMainImage.addSubview(tagView)
@@ -153,27 +171,33 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
         
-        contentMainImage.addSubview(likeButton)
+        contentView.addSubview(likeButton)
         likeButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(16)
+            make.trailing.equalTo(containerView.snp.trailing).offset(-16)
+            make.top.equalTo(containerView.snp.top).offset(16)
             make.height.equalTo(30.0)
             make.width.equalTo(30.0)
         }
         
         //title
-        addSubview(titleLabel)
+        containerView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(contentMainImage.snp.leading)
             make.top.equalTo(contentMainImage.snp.bottom).offset(6.5)
+            make.width.equalToSuperview().multipliedBy(0.5)
         }
         
         //評價
-        addSubview(evaluatesStack)
+        containerView.addSubview(evaluatesStack)
         evaluatesStack.snp.makeConstraints { make in
             make.trailing.equalTo(contentMainImage.snp.trailing)
             make.centerY.equalTo(titleLabel.snp.centerY)
         }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(42.0)
+        }
+        
         //詳細內容
         timeImage.snp.makeConstraints { make in
             make.height.equalTo(24.0)
@@ -185,36 +209,43 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
             make.width.equalTo(24.0)
         }
         
-        addSubview(detailStack)
+        locationLabel.snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(42.0)
+        }
+        
+        containerView.addSubview(detailStack)
         detailStack.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(6.5)
             make.leading.equalTo(contentMainImage.snp.leading)
+            make.trailing.equalTo(contentMainImage.snp.trailing)
+            make.bottom.equalToSuperview()
         }
     }
     
-    private func setButtonSubscribe() {
-        likeButton.rx.tap
-            .subscribe({ _ in
-                isLiked.toggle()
-            })
-            .bind(to: likeActionSignal)
-            .disposed(by: disposeBag)
+    @objc private func like() {
+        self.isLiked.toggle()
+        self.setLikeButton()
+//        likeActionSignal = likeButton.rx.tap.asSignal(onErrorJustReturn: ())
+//            .do(onNext: {
+//            })
     }
-    
+
     private func setLikeButton() {
         likeButton.setImage(.init(named: isLiked ? "collectSelect": "collect"), for: .normal)
     }
     
     //評價
     func evaluateConfigure(with info: ExhibitionInfo) {
-        starEvaluatelabel.text = info.evaluation?.allCommentStar
+        starEvaluatelabel.text = "\(info.evaluation?.allCommentStar)"
         evaluateLabel.text = "(\(info.evaluation?.allCommentCount))"
     }
     
     //細節內容
     func detailConfigure(with info: ExhibitionInfo) {
+        contentMainImage.image = UIImage(named: info.image)
         titleLabel.text = info.title
-        timeLabel.text = info.time
+        timeLabel.text = info.dateString
+        tagLabel.text = info.tag
         locationLabel.text = info.location
     }
 }

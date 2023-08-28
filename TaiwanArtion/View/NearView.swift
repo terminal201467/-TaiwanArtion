@@ -29,14 +29,15 @@ class NearView: UIView {
     
     var isHadSearchResult: Bool = true {
         didSet {
-            setContainerLayout()
+//            setContainerLayout()
         }
     }
     
     var currentIndex: ((Int) -> Void)?
     
-    private var currentStoreIndex: Int = 0 {
+    private var currentNearSelectedItem: NearViewSelectedItem = .nearExhibitionHall {
         didSet {
+            self.setSelectedItemViewLayout()
             self.collectionView.reloadData()
         }
     }
@@ -78,6 +79,8 @@ class NearView: UIView {
     private let nothingSearchedView = ExhibitionNothingSearchedView(frame: .zero, type: .nothingFoundInNear)
     
     let exhibitionMapView = ExhibitionMapView()
+    
+    private let exhibitionDetailView = NearExhibitionDetailView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,9 +89,7 @@ class NearView: UIView {
         setFilterButton()
         autoLayout()
         setNothingSearch()
-        
-        //
-        setContainerLayout()
+        setSelectedItemViewLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -152,7 +153,7 @@ class NearView: UIView {
     }
     
     //地圖搜尋模式
-    private func setContainerLayout() {
+    private func setFindExhibitionContainerLayout() {
         containerView.removeAllSubviews(from: containerView)
         if isHadSearchResult {
             containerView.addSubview(exhibitionMapView)
@@ -167,19 +168,19 @@ class NearView: UIView {
         }
     }
     
-    private func setFindExhibitionContainerLayout() {
-        containerView.removeAllSubviews(from: containerView)
-        if isHadSearchResult {
-            //
-//            containerView.addSubview(exhibitionMapView)
-//            exhibitionMapView.snp.makeConstraints { make in
-//                make.edges.equalToSuperview()
-//            }
-        } else {
-//            containerView.addSubview(nothingSearchedView)
-//            nothingSearchedView.snp.makeConstraints { make in
-//                make.edges.equalToSuperview()
-//            }
+    //附近展覽搜尋模式
+    private func setExhibitionDetailViewLayout() {
+        containerView.addSubview(exhibitionDetailView)
+        exhibitionDetailView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    //附近展覽篩選
+    private func setSelectedItemViewLayout() {
+        switch currentNearSelectedItem {
+        case .nearExhibitionHall: setFindExhibitionContainerLayout()
+        case .nearExhibition: setExhibitionDetailViewLayout()
         }
     }
 }
@@ -192,13 +193,13 @@ extension NearView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier, for: indexPath) as! SelectedItemsCollectionViewCell
-        let isSelected = currentStoreIndex == indexPath.row
+        let isSelected = currentNearSelectedItem == NearViewSelectedItem(rawValue: indexPath.row)
         cell.configure(with: NearViewSelectedItem.allCases[indexPath.row].text, selected: isSelected)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        currentStoreIndex = indexPath.row
+        currentNearSelectedItem = NearViewSelectedItem(rawValue: indexPath.row)!
         currentIndex?(indexPath.row)
     }
     
