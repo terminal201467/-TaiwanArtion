@@ -32,6 +32,12 @@ protocol NewsSearchingInput {
     //輸入藝文新聞欄位選擇篩選資料項目
     var inputNewsFilter: PublishRelay<NewsFilterItem> { get }
     
+    //輸入搜尋關鍵字
+    var inputSearchingText: PublishRelay<String> { get }
+    
+    //輸入完成輸入
+    var inputFinishEditing: PublishSubject<Void> { get }
+    
 }
 
 protocol NewsSearchingOutput {
@@ -50,6 +56,8 @@ protocol NewsSearchingOutput {
     
     //輸出新聞搜尋紀錄
     var outputNewsSearchingHistory: BehaviorRelay<[String]> { get }
+    
+    var outputIsSearchingMode: BehaviorRelay<Bool> { get }
     
 }
 
@@ -78,6 +86,10 @@ class NewsSearchingViewModel: NewsSearchingType, NewsSearchingInput, NewsSearchi
     
     var inputNewsFilter: PublishRelay<NewsFilterItem> = PublishRelay()
     
+    var inputSearchingText: PublishRelay<String> = PublishRelay()
+    
+    var inputFinishEditing: PublishSubject<Void> = PublishSubject()
+    
     //MARK: -Output
     
     var outputMonth: RxRelay.BehaviorRelay<Month> = BehaviorRelay(value: .jan)
@@ -90,9 +102,15 @@ class NewsSearchingViewModel: NewsSearchingType, NewsSearchingInput, NewsSearchi
     
     var outputNewsSearchingHistory: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
     
+    var outputIsSearchingMode: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
     //MARK: -UserDefault
     
     private let userDefaultInterface = UserDefaultInterface.shared
+    
+    private var historySearchingObservable: Observable<[String]?> {
+        return Observable.just(getSearchingHistoryFromUserDefault())
+    }
     
     //MARK: -Firebase
     
@@ -123,27 +141,36 @@ class NewsSearchingViewModel: NewsSearchingType, NewsSearchingInput, NewsSearchi
             .bind(to: outputFilterNews)
             .disposed(by: disposeBag)
         
-        outputNewsSearchingHistory.accept(self.getSearchingHistoryFromUserDefault() ?? [])
-        
+        //輸入文字篩選暫存歷史關鍵字
+        inputSearchingText.asObservable()
+            .filter { text in
+                return (self.getSearchingHistoryFromUserDefault() ?? []).contains(text)
+            }
+            .subscribe(onNext: { filteredText in
+                var currentHistory = self.outputNewsSearchingHistory.value
+                currentHistory.append(filteredText)
+                self.outputNewsSearchingHistory.accept(currentHistory)
+            })
+            .disposed(by: disposeBag)
+            
     }
     
     private func getNewsByMonthFilter(month: Month) -> [NewsModel] {
-        
+        //月份篩選
         return []
     }
     
     private func getNewsByHabby(habby: HabbyItem) -> [NewsModel] {
-        
+        //嗜好篩選
         return []
     }
     
-    private func getNewsBySelected(selectedItem: NewsFilterItem) -> [NewsModel]{
-        
+    private func getNewsBySelected(selectedItem: NewsFilterItem) -> [NewsModel] {
+        //新聞選擇條件
         return []
     }
     
     private func getSearchingHistoryFromUserDefault() -> [String]? {
         return userDefaultInterface.getStoreNewsSearchHistory()
     }
-    
 }
