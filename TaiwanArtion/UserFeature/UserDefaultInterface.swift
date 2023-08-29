@@ -104,4 +104,12 @@ class UserDefaultInterface {
         return userDefaults.array(forKey: "searchHistory") as? [String]
     }
     
+    func setStoreNewsSearchHistory(newsHistory: [String]) {
+        userDefaults.set(newsHistory, forKey: "newsHistory")
+        userDefaults.synchronize()
+    }
+    
+    func getStoreNewsSearchHistory() -> [String]? {
+        return userDefaults.array(forKey: "newsHistory") as? [String]
+    }
 }

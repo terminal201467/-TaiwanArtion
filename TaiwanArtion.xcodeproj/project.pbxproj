@@ -77,6 +77,11 @@
 		973C83822A5FDFBC00490D25 /* NotMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */; };
 		9746561B2A9B866F008F4E1F /* NearExhibitionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746561A2A9B866E008F4E1F /* NearExhibitionDetailView.swift */; };
 		9746561D2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746561C2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift */; };
+		9746561F2A9CD6BA008F4E1F /* NewsSearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746561E2A9CD6BA008F4E1F /* NewsSearchingViewController.swift */; };
+		974656212A9CD6D2008F4E1F /* NewsSearchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974656202A9CD6D2008F4E1F /* NewsSearchingView.swift */; };
+		974656232A9CD6FD008F4E1F /* NewsSearchingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974656222A9CD6FD008F4E1F /* NewsSearchingResultView.swift */; };
+		974656252A9CD722008F4E1F /* NewsSearchingResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974656242A9CD722008F4E1F /* NewsSearchingResultViewController.swift */; };
+		974656272A9CD750008F4E1F /* NewsSearchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974656262A9CD750008F4E1F /* NewsSearchingViewModel.swift */; };
 		97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */; };
 		97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */; };
 		97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */; };
@@ -293,6 +298,11 @@
 		973C83812A5FDFBC00490D25 /* NotMemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotMemberTableViewCell.swift; sourceTree = "<group>"; };
 		9746561A2A9B866E008F4E1F /* NearExhibitionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearExhibitionDetailView.swift; sourceTree = "<group>"; };
 		9746561C2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearExhibitionDetailTableViewCell.swift; sourceTree = "<group>"; };
+		9746561E2A9CD6BA008F4E1F /* NewsSearchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchingViewController.swift; sourceTree = "<group>"; };
+		974656202A9CD6D2008F4E1F /* NewsSearchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchingView.swift; sourceTree = "<group>"; };
+		974656222A9CD6FD008F4E1F /* NewsSearchingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchingResultView.swift; sourceTree = "<group>"; };
+		974656242A9CD722008F4E1F /* NewsSearchingResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchingResultViewController.swift; sourceTree = "<group>"; };
+		974656262A9CD750008F4E1F /* NewsSearchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchingViewModel.swift; sourceTree = "<group>"; };
 		97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVerifyTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -732,6 +742,8 @@
 				97FD07122A665A5D00A64808 /* AccountSettingViewController.swift */,
 				97FD07162A666CF000A64808 /* ChooseHabbyViewController.swift */,
 				9715907A2A7A06A000C3745D /* ExhibitionHallViewController.swift */,
+				9746561E2A9CD6BA008F4E1F /* NewsSearchingViewController.swift */,
+				974656242A9CD722008F4E1F /* NewsSearchingResultViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -788,6 +800,8 @@
 				97AF92142A8DB07D00F8F920 /* NearView.swift */,
 				97E0F58F2A8DF925004D6C0F /* NearSearchResultView.swift */,
 				9746561A2A9B866E008F4E1F /* NearExhibitionDetailView.swift */,
+				974656202A9CD6D2008F4E1F /* NewsSearchingView.swift */,
+				974656222A9CD6FD008F4E1F /* NewsSearchingResultView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -810,6 +824,7 @@
 				97977C742A71FEE000BC89E0 /* CollectViewModel.swift */,
 				97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */,
 				97AF92122A8D00E700F8F920 /* NearViewModel.swift */,
+				974656262A9CD750008F4E1F /* NewsSearchingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1073,6 +1088,7 @@
 				97FD07052A600FC400A64808 /* ResetPasswordView.swift in Sources */,
 				9771A15C2A3A9237006F4F9D /* WelcomeRegisterFooterView.swift in Sources */,
 				973C83702A5D88FF00490D25 /* CalendarPopUpView.swift in Sources */,
+				974656232A9CD6FD008F4E1F /* NewsSearchingResultView.swift in Sources */,
 				973C17952A2717EA00581DC6 /* CompleteSucceedView.swift in Sources */,
 				97BD68692A59017500F4BCAB /* HintCollectionViewCell.swift in Sources */,
 				973C178B2A24521D00581DC6 /* ExhibitionCardItemCollectionView.swift in Sources */,
@@ -1122,6 +1138,7 @@
 				9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */,
 				97D1C1F02A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift in Sources */,
 				97506C312A3C46F600F6BB24 /* PasswordHintView.swift in Sources */,
+				9746561F2A9CD6BA008F4E1F /* NewsSearchingViewController.swift in Sources */,
 				975FD63C2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift in Sources */,
 				973C177B2A20B3B200581DC6 /* EquipmentCollectionViewCell.swift in Sources */,
 				97D1C1EE2A775D9C00B367F0 /* ResultViewModel.swift in Sources */,
@@ -1196,6 +1213,7 @@
 				973C83822A5FDFBC00490D25 /* NotMemberTableViewCell.swift in Sources */,
 				976A03142A0E8B2200424ACF /* NewsTableViewCell.swift in Sources */,
 				97BD68722A5BE3A700F4BCAB /* DateInterface.swift in Sources */,
+				974656252A9CD722008F4E1F /* NewsSearchingResultViewController.swift in Sources */,
 				97977C732A715EB500BC89E0 /* MenuCollectionView.swift in Sources */,
 				97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */,
 				97977C6F2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift in Sources */,
@@ -1243,8 +1261,10 @@
 				976A03282A15055900424ACF /* HabbyTableViewCell.swift in Sources */,
 				973C17BC2A29936F00581DC6 /* WeekCollectionViewCell.swift in Sources */,
 				9771A14A2A39F0F1006F4F9D /* BottomUpPopUpView.swift in Sources */,
+				974656272A9CD750008F4E1F /* NewsSearchingViewModel.swift in Sources */,
 				97D66A262A0C723800A25935 /* SplashViewController.swift in Sources */,
 				9756C1EF2A811BE300E6FD54 /* ExhibitionCollectionView.swift in Sources */,
+				974656212A9CD6D2008F4E1F /* NewsSearchingView.swift in Sources */,
 				97E0F5902A8DF925004D6C0F /* NearSearchResultView.swift in Sources */,
 				973C178F2A25F0B000581DC6 /* EvaluateViewController.swift in Sources */,
 				975FD6432A94500B0006F76C /* MapLocationPinAnnotation.swift in Sources */,
