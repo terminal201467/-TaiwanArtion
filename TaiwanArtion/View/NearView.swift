@@ -76,7 +76,7 @@ class NearView: UIView {
         return view
     }()
     
-    private let nothingSearchedView = ExhibitionNothingSearchedView(frame: .zero, type: .nothingFoundInNear)
+    private let nothingSearchedView = NothingSearchedView(frame: .zero, type: .nothingFoundInNear)
     
     let exhibitionMapView = ExhibitionMapView()
     

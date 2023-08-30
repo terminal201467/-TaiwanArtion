@@ -86,6 +86,11 @@ class HabbyCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func configureHabbyWithoutBorder(by item: HabbyItem, isSelected: Bool) {
+        habbyLabel.text = item.habbyTitleText
+        configureItem(by: item, selected: isSelected)
+    }
+    
     private func configureItem(by item: HabbyItem, selected: Bool) {
         if selected {
             habbyImage.image = UIImage(named: item.homeHabbyImageText + "Selected")

@@ -27,7 +27,7 @@ class NearExhibitionDetailView: UIView {
         return tableView
     }()
     
-    private let nothingView = ExhibitionNothingSearchedView(frame: .zero, type: .nothingFoundInNear)
+    private let nothingView = NothingSearchedView(frame: .zero, type: .nothingFoundInNear)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

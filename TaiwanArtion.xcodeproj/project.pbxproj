@@ -83,6 +83,8 @@
 		974656252A9CD722008F4E1F /* NewsSearchingResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974656242A9CD722008F4E1F /* NewsSearchingResultViewController.swift */; };
 		974656272A9CD750008F4E1F /* NewsSearchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974656262A9CD750008F4E1F /* NewsSearchingViewModel.swift */; };
 		974656292A9DEDE2008F4E1F /* TitleCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974656282A9DEDE2008F4E1F /* TitleCollectionReusableHeaderView.swift */; };
+		9746562B2A9E34F9008F4E1F /* MonthsHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746562A2A9E34F9008F4E1F /* MonthsHorizontalCollectionViewCell.swift */; };
+		9746562D2A9ECBDB008F4E1F /* FilterNewsHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746562C2A9ECBDB008F4E1F /* FilterNewsHorizontalCollectionViewCell.swift */; };
 		97506C1B2A3AC40F00F6BB24 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */; };
 		97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */; };
 		97506C1F2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */; };
@@ -172,7 +174,7 @@
 		97D1C1EA2A7740FF00B367F0 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1E92A7740FF00B367F0 /* ResultViewController.swift */; };
 		97D1C1EC2A77570D00B367F0 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1EB2A77570D00B367F0 /* ResultView.swift */; };
 		97D1C1EE2A775D9C00B367F0 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */; };
-		97D1C1F02A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1EF2A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift */; };
+		97D1C1F02A77B8BB00B367F0 /* NothingSearchedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1EF2A77B8BB00B367F0 /* NothingSearchedView.swift */; };
 		97D1C1F22A77C45100B367F0 /* SearchingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C1F12A77C45100B367F0 /* SearchingHistoryView.swift */; };
 		97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F52A0C6C3600A25935 /* AppDelegate.swift */; };
 		97D669F82A0C6C3600A25935 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D669F72A0C6C3600A25935 /* SceneDelegate.swift */; };
@@ -305,6 +307,8 @@
 		974656242A9CD722008F4E1F /* NewsSearchingResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchingResultViewController.swift; sourceTree = "<group>"; };
 		974656262A9CD750008F4E1F /* NewsSearchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchingViewModel.swift; sourceTree = "<group>"; };
 		974656282A9DEDE2008F4E1F /* TitleCollectionReusableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableHeaderView.swift; sourceTree = "<group>"; };
+		9746562A2A9E34F9008F4E1F /* MonthsHorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthsHorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
+		9746562C2A9ECBDB008F4E1F /* FilterNewsHorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNewsHorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
 		97506C1A2A3AC40F00F6BB24 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		97506C1C2A3AC41E00F6BB24 /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		97506C1E2A3AC54700F6BB24 /* SendVerifyTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVerifyTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -395,7 +399,7 @@
 		97D1C1E92A7740FF00B367F0 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		97D1C1EB2A77570D00B367F0 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
-		97D1C1EF2A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionNothingSearchedView.swift; sourceTree = "<group>"; };
+		97D1C1EF2A77B8BB00B367F0 /* NothingSearchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NothingSearchedView.swift; sourceTree = "<group>"; };
 		97D1C1F12A77C45100B367F0 /* SearchingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingHistoryView.swift; sourceTree = "<group>"; };
 		97D669F22A0C6C3600A25935 /* TaiwanArtion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaiwanArtion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D669F52A0C6C3600A25935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -551,6 +555,8 @@
 				973C83752A5F735100490D25 /* TitleMonthCollectionViewCell.swift */,
 				97977C6E2A70EC0F00BC89E0 /* FlexibleTabBarCollectionViewCell.swift */,
 				9746561C2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift */,
+				9746562A2A9E34F9008F4E1F /* MonthsHorizontalCollectionViewCell.swift */,
+				9746562C2A9ECBDB008F4E1F /* FilterNewsHorizontalCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -795,7 +801,7 @@
 				97977C702A71569C00BC89E0 /* CollectView.swift */,
 				97977C722A715EB500BC89E0 /* MenuCollectionView.swift */,
 				97D1C1EB2A77570D00B367F0 /* ResultView.swift */,
-				97D1C1EF2A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift */,
+				97D1C1EF2A77B8BB00B367F0 /* NothingSearchedView.swift */,
 				97D1C1F12A77C45100B367F0 /* SearchingHistoryView.swift */,
 				9715907C2A7A06B700C3745D /* ExhibitionHallView.swift */,
 				9756C1EE2A811BE300E6FD54 /* ExhibitionCollectionView.swift */,
@@ -1139,7 +1145,7 @@
 				97506C332A403E0300F6BB24 /* StrengthTableViewCell.swift in Sources */,
 				975FD63F2A8F21980006F76C /* LocationInterface.swift in Sources */,
 				9771A14C2A3A08BE006F4F9D /* RegisterViewController.swift in Sources */,
-				97D1C1F02A77B8BB00B367F0 /* ExhibitionNothingSearchedView.swift in Sources */,
+				97D1C1F02A77B8BB00B367F0 /* NothingSearchedView.swift in Sources */,
 				97506C312A3C46F600F6BB24 /* PasswordHintView.swift in Sources */,
 				9746561F2A9CD6BA008F4E1F /* NewsSearchingViewController.swift in Sources */,
 				975FD63C2A8F04FE0006F76C /* LocationContentCollectionViewCell.swift in Sources */,
@@ -1161,6 +1167,7 @@
 				973C179D2A27265700581DC6 /* NotifyViewModel.swift in Sources */,
 				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
+				9746562B2A9E34F9008F4E1F /* MonthsHorizontalCollectionViewCell.swift in Sources */,
 				973C17872A2431C400581DC6 /* StarCollectionViewCell.swift in Sources */,
 				974656292A9DEDE2008F4E1F /* TitleCollectionReusableHeaderView.swift in Sources */,
 				973C837C2A5FBA6C00490D25 /* LoginViewController.swift in Sources */,
@@ -1255,6 +1262,7 @@
 				97506C2F2A3C422300F6BB24 /* PasswordHintTableViewCell.swift in Sources */,
 				978834C52A1E25F000ADBEE8 /* NewsView.swift in Sources */,
 				97BD68652A57983400F4BCAB /* HeadPhotoCollectionViewCell.swift in Sources */,
+				9746562D2A9ECBDB008F4E1F /* FilterNewsHorizontalCollectionViewCell.swift in Sources */,
 				97506C252A3BEA1600F6BB24 /* RegisterEnum.swift in Sources */,
 				97506C292A3C278D00F6BB24 /* PhoneVerifyView.swift in Sources */,
 				97506C1D2A3AC41E00F6BB24 /* FirebaseAuth.swift in Sources */,

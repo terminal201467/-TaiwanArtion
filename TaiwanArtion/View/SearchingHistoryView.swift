@@ -35,7 +35,7 @@ class SearchingHistoryView: UIView {
         return view
     }()
     
-    lazy var exhibitionSearchedNothingView = ExhibitionNothingSearchedView(frame: .zero, type: self.type)
+    lazy var exhibitionSearchedNothingView = NothingSearchedView(frame: .zero, type: self.type)
     
     private let filterSearchingtableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)

@@ -13,7 +13,7 @@ class TitleCollectionReusableHeaderView: UICollectionReusableView {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .blackDarkGrayColor
         return label
     }()
     
@@ -29,7 +29,7 @@ class TitleCollectionReusableHeaderView: UICollectionReusableView {
     private func autoLayout() {
         addSubview(label)
         label.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
         }
     }

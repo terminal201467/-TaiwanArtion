@@ -66,6 +66,7 @@ class TitleHeaderView: UITableViewHeaderFooterView {
     
     func configureButton(with text: String) {
         button.setTitle(text, for: .normal)
+        button.isHidden = false
     }
     
     private func setCheckMoreButton() {

@@ -49,7 +49,7 @@ enum ExhibitionNothingSearchType: Equatable {
     }
 }
 
-class ExhibitionNothingSearchedView: UIView {
+class NothingSearchedView: UIView {
     
     var linkToOtherPage: (() -> Void)?
     

@@ -26,17 +26,17 @@ class NewsSearchingView: UIView {
 
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
+        flowLayout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: MonthCollectionViewCell.reuseIdentifier)
+        collectionView.register(MonthsHorizontalCollectionViewCell.self, forCellWithReuseIdentifier: MonthsHorizontalCollectionViewCell.reuseIdentifier)
+        collectionView.register(FilterNewsHorizontalCollectionViewCell.self, forCellWithReuseIdentifier: FilterNewsHorizontalCollectionViewCell.reuseIdentifier)
         collectionView.register(HabbyCollectionViewCell.self, forCellWithReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier)
-        collectionView.register(SelectedItemsCollectionViewCell.self, forCellWithReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier)
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.reuseIdentifier)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.register(TitleCollectionReusableHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleCollectionReusableHeaderView.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-        collectionView.applyShadow(color: .gray, opacity: 0.1, offset: CGSize(width: 0.5, height: 0.5), radius: 1)
         collectionView.backgroundColor = .white
         return collectionView
     }()
@@ -46,14 +46,16 @@ class NewsSearchingView: UIView {
         tableView.register(SearchHistoryTableViewCell.self, forCellReuseIdentifier: SearchHistoryTableViewCell.reuseIdentifier)
         tableView.backgroundColor = .white
         tableView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-        tableView.applyShadow(color: .gray, opacity: 0.1, offset: CGSize(width: 0.5, height: 0.5), radius: 1)
         return tableView
     }()
+    
+    private let newsNotFoundView = NothingSearchedView(frame: .zero, type: .newsNothingSearch)
     
     //可能這邊還要有一個搜尋到資料後的內容的CollectionView
     
     private let containerView: UIView = {
         let view = UIView()
+        view.applyShadow(color: .black, opacity: 0.1, offset: CGSize(width: 0.5, height: 0.5), radius: 1)
         return view
     }()
     
@@ -70,7 +72,10 @@ class NewsSearchingView: UIView {
     private func setCollectionViewAutoLayout() {
         containerView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().offset(-16)
         }
     }
     
@@ -81,12 +86,19 @@ class NewsSearchingView: UIView {
         }
     }
     
+    private func setNotFoundAutoLayout() {
+        containerView.addSubview(newsNotFoundView)
+        newsNotFoundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
     private func setContainerAutoLayout() {
         backgroundColor = .caramelColor
         addSubview(containerView)
         containerView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
@@ -96,5 +108,4 @@ class NewsSearchingView: UIView {
         containerView.removeAllSubviews(from: containerView)
         isSearchingMode ? setTableViewAutoLayout() : setCollectionViewAutoLayout()
     }
-
 }
