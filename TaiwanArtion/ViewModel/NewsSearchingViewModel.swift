@@ -73,6 +73,8 @@ class NewsSearchingViewModel: NewsSearchingType, NewsSearchingInput, NewsSearchi
     
     private let disposeBag = DisposeBag()
     
+    static let shared = NewsSearchingViewModel()
+    
     //MARK: -Input、Output
     var input: NewsSearchingInput { self }
     

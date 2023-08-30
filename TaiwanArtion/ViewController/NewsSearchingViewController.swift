@@ -15,30 +15,39 @@ class NewsSearchingViewController: UIViewController {
 
     private let newsSearchingView = NewsSearchingView()
     
-    private let viewModel = NewsSearchingViewModel()
+    private let viewModel = NewsSearchingViewModel.shared
+    
+    private let newsSearchingResultViewController = UINavigationController(rootViewController: NewsSearchingResultViewController())
+    
+    private lazy var searchingViewController: UISearchController = {
+        let searchViewController = UISearchController(searchResultsController: newsSearchingResultViewController)
+        searchViewController.searchBar.searchTextField.placeholder = "搜尋新聞"
+        searchViewController.searchBar.searchTextField.backgroundColor = .white
+        searchViewController.showsSearchResultsController = true
+        searchViewController.searchBar.searchTextField.roundCorners(cornerRadius: 20)
+        searchViewController.searchBar.searchTextField.tintColor = .grayTextColor
+        return searchViewController
+    }()
     
     //MARK: -LifeCycle
     override func loadView() {
         super.loadView()
         view = newsSearchingView
+        view.backgroundColor = .caramelColor
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavagationBar()
         setDelegates()
-        setSearchBar()
     }
     
     //MARK: -NavigationBar
     private func setNavagationBar() {
         let backButton = UIBarButtonItem(image: .init(named: "leftArrow")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.titleView = newsSearchingView.searchBar
-    }
-    
-    private func setSearchBar() {
-        newsSearchingView.searchBar.searchTextField.delegate = self
+        navigationController?.navigationItem.searchController = searchingViewController
+        navigationItem.titleView = searchingViewController.searchBar
     }
     
     @objc private func back() {
@@ -48,8 +57,6 @@ class NewsSearchingViewController: UIViewController {
     private func setDelegates() {
         newsSearchingView.collectionView.delegate = self
         newsSearchingView.collectionView.dataSource = self
-        newsSearchingView.tableView.delegate = self
-        newsSearchingView.tableView.dataSource = self
     }
 }
 
@@ -179,62 +186,3 @@ extension NewsSearchingViewController: UICollectionViewDelegateFlowLayout, UICol
         collectionView.reloadData()
     }
 }
-
-extension NewsSearchingViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60.0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let titleView = TitleHeaderView()
-        titleView.configureTitle(with: "搜尋紀錄")
-        titleView.configureButton(with: "清除紀錄")
-        let containerView = UIView()
-        containerView.addSubview(titleView)
-        titleView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        return containerView
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.output.outputFilterNews.value.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryTableViewCell.reuseIdentifier, for: indexPath) as! SearchHistoryTableViewCell
-        cell.configure(history: viewModel.output.outputNewsSearchingHistory.value[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        newsSearchingView.searchBar.searchTextField.text = viewModel.output.outputNewsSearchingHistory.value[indexPath.row]
-    }
-}
-
-extension NewsSearchingViewController: UISearchTextFieldDelegate {
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        newsSearchingView.isSearchingMode = false
-        viewModel.input.inputFinishEditing.onNext(())
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.becomeFirstResponder()
-        newsSearchingView.isSearchingMode = true
-        viewModel.input.inputSearchingText.accept(textField.text ?? "")
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        viewModel.input.inputSearchingText.accept(textField.text ?? "")
-    }
-}
-
-
