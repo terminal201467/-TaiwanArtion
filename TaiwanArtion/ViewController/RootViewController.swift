@@ -20,7 +20,7 @@ class RootViewController: UITabBarController {
     
     private let collectionViewController = UINavigationController(rootViewController: CollectViewController())
     
-    private let calendarViewController = CalendarViewController()
+    private let calendarViewController = UINavigationController(rootViewController: ExhibitionCalendarViewController())
     
     private var personFileViewController: UIViewController?
     

@@ -257,7 +257,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 case .city:
                     headerView.configureTitle(with: Area.allCases[section].text)
                     headerView.button.isHidden = false
-                    headerView.configureButton(with: "全選")
+                    headerView.configureTextButton(with: "全選")
                     if section == 5 {
                         headerView.isHidden = true
                     }

@@ -33,7 +33,7 @@ class HabbyCollectionViewCell: UICollectionViewCell {
         stackView.distribution = .fillProportionally
         stackView.spacing = 0
         stackView.roundCorners(cornerRadius: 10)
-        stackView.backgroundColor = .white
+//        stackView.backgroundColor = .white
         return stackView
     }()
     

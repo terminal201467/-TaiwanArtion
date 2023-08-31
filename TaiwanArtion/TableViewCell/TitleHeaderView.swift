@@ -28,6 +28,7 @@ class TitleHeaderView: UITableViewHeaderFooterView {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         button.setTitleColor(.grayTextColor, for: .normal)
+        button.addTarget(self, action: #selector(more), for: .touchDown)
         button.isHidden = true
         return button
     }()
@@ -35,7 +36,6 @@ class TitleHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         autoLayout()
-        setCheckMoreButton()
     }
     
     required init?(coder: NSCoder) {
@@ -43,13 +43,13 @@ class TitleHeaderView: UITableViewHeaderFooterView {
     }
     
     private func autoLayout() {
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
         }
         
-        addSubview(button)
+        contentView.addSubview(button)
         button.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -64,16 +64,17 @@ class TitleHeaderView: UITableViewHeaderFooterView {
         titleLabel.text = text
     }
     
-    func configureButton(with text: String) {
+    func configureTextButton(with text: String) {
         button.setTitle(text, for: .normal)
         button.isHidden = false
     }
     
-    private func setCheckMoreButton() {
-        button.rx.tap
-            .subscribe(onNext: {
-                self.buttonAction?()
-            })
-            .disposed(by: disposeBag)
+    func configureImageButton(with image: String) {
+        button.setImage(.init(named: image), for: .normal)
+        button.isHidden = false
+    }
+    
+    @objc private func more() {
+        self.buttonAction?()
     }
 }

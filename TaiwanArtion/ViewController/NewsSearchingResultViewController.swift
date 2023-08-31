@@ -29,7 +29,7 @@ class NewsSearchingResultViewController: UIViewController {
     }
     
     private func setNavigationBar() {
-        let leftButton = UIBarButtonItem(image: .init(named: "leftArrow")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(back))
+        let leftButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.titleView = newsSearchingResultView.searchBar
     }
@@ -56,7 +56,7 @@ extension NewsSearchingResultViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let titleView = TitleHeaderView()
         titleView.configureTitle(with: "搜尋紀錄")
-        titleView.configureButton(with: "清除紀錄")
+        titleView.configureTextButton(with: "清除紀錄")
         let containerView = UIView()
         containerView.addSubview(titleView)
         titleView.snp.makeConstraints { make in

@@ -53,7 +53,7 @@ class HabbyTableViewCell: UITableViewCell {
                 return HabbyItem.allCases.map{ $0 == item }
             }
             .bind(to: collectionView.rx.items(cellIdentifier: HabbyCollectionViewCell.reuseIdentifier, cellType: HabbyCollectionViewCell.self)) { row, isSelected, cell in
-                cell.configureHabby(by: HabbyItem.allCases[row], isSelected: isSelected)
+                cell.configureHabbyWithoutBorder(by: HabbyItem.allCases[row], isSelected: isSelected)
             }
             .disposed(by: disposeBag)
     }
@@ -76,6 +76,4 @@ extension HabbyTableViewCell: UICollectionViewDelegateFlowLayout {
         let cellHeight = (frame.height - 20) / 2
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
-    
 }

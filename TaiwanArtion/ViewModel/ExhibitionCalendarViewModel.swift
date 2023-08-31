@@ -1,0 +1,93 @@
+//
+//  ExhibitionCalendarViewModel.swift
+//  TaiwanArtion
+//
+//  Created by Jhen Mu on 2023/8/30.
+//
+
+import Foundation
+import RxRelay
+
+enum CalendarTypeChooseItem: Int, CaseIterable {
+    case exhibitionCalendar = 0, exhibitionList
+}
+
+protocol ExhibitionCalendarInput {
+    
+    //輸入點擊Habby
+    var inputHabby: BehaviorRelay<HabbyItem?> { get }
+    
+    //輸入取得時間
+    var inputDate: BehaviorRelay<String> { get }
+    
+    //輸入展覽月曆、展覽清單點擊的Button
+    var inputContentTypeItem: BehaviorRelay<CalendarTypeChooseItem> { get }
+    
+}
+
+protocol ExhibitionCalendarOutput {
+    
+    //輸出點擊的Item
+    var outputContentTypeItem: BehaviorRelay<CalendarTypeChooseItem> { get }
+    
+    //輸出點擊的Habby
+    var outputHabby: BehaviorRelay<HabbyItem?> { get }
+    
+    //選擇的展覽
+    var outputExhibitions: BehaviorRelay<[ExhibitionInfo]> { get }
+    
+    //輸出日期
+    var outputDate: BehaviorRelay<String?> { get }
+    
+    var outputRecentValidExhibitionDate: BehaviorRelay<[ExhibitionInfo]> { get }
+    
+}
+
+protocol ExhibitionCalendarTypeInputOutput {
+    
+    var input: ExhibitionCalendarInput { get }
+    
+    var output: ExhibitionCalendarOutput { get }
+    
+}
+
+
+class ExhibitionCalendarViewModel: ExhibitionCalendarTypeInputOutput, ExhibitionCalendarInput, ExhibitionCalendarOutput {
+    
+    //MARK: - input
+    var inputHabby: BehaviorRelay<HabbyItem?> = BehaviorRelay(value: nil)
+    
+    var inputDate: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var inputContentTypeItem: RxRelay.BehaviorRelay<CalendarTypeChooseItem> = BehaviorRelay(value: .exhibitionCalendar)
+    
+    //MARK: - output
+    
+    var outputContentTypeItem: RxRelay.BehaviorRelay<CalendarTypeChooseItem> = BehaviorRelay(value: .exhibitionCalendar)
+    
+    var outputHabby: BehaviorRelay<HabbyItem?> = BehaviorRelay(value: nil)
+    
+    var outputExhibitions: RxRelay.BehaviorRelay<[ExhibitionInfo]> = BehaviorRelay(value: [])
+    
+    var outputDate: RxRelay.BehaviorRelay<String?> = BehaviorRelay(value: nil)
+    
+    var outputRecentValidExhibitionDate: RxRelay.BehaviorRelay<[ExhibitionInfo]> = BehaviorRelay(value: [])
+    
+    //MARK: - input/output
+    
+    var input: ExhibitionCalendarInput { self }
+    
+    var output: ExhibitionCalendarOutput { self }
+    
+    //MARK: - Initialization
+    init() {
+        outputContentTypeItem = inputContentTypeItem
+        
+        outputHabby = inputHabby
+    }
+    
+    private func getFirebaseData() {
+        
+    }
+    
+}

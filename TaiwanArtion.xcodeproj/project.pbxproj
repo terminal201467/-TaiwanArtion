@@ -115,7 +115,7 @@
 		976A03182A0E8B7700424ACF /* AllExhibitionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */; };
 		976A031A2A0E8CAD00424ACF /* NearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03192A0E8CAD00424ACF /* NearViewController.swift */; };
 		976A031C2A0E8CBE00424ACF /* CollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031B2A0E8CBE00424ACF /* CollectViewController.swift */; };
-		976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */; };
+		976A031E2A0E8CCC00424ACF /* ExhibitionCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031D2A0E8CCC00424ACF /* ExhibitionCalendarViewController.swift */; };
 		976A03202A0E8CE300424ACF /* PersonalFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */; };
 		976A03222A0E8DDF00424ACF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03212A0E8DDF00424ACF /* HomeViewController.swift */; };
 		976A03242A147C6700424ACF /* HomeHabbyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976A03232A147C6700424ACF /* HomeHabbyCollectionViewCell.swift */; };
@@ -136,6 +136,8 @@
 		9771A15A2A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771A1592A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift */; };
 		9771A15C2A3A9237006F4F9D /* WelcomeRegisterFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771A15B2A3A9237006F4F9D /* WelcomeRegisterFooterView.swift */; };
 		9771A15E2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771A15D2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift */; };
+		9772165D2A9F80AE00E9C5B1 /* ExhibitionCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9772165C2A9F80AE00E9C5B1 /* ExhibitionCalendarView.swift */; };
+		9772165F2A9F80D700E9C5B1 /* ExhibitionCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9772165E2A9F80D700E9C5B1 /* ExhibitionCalendarViewModel.swift */; };
 		978834B52A1B892100ADBEE8 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834B42A1B892100ADBEE8 /* TitleHeaderView.swift */; };
 		978834B92A1C967200ADBEE8 /* MainDotBarFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */; };
 		978834BB2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978834BA2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift */; };
@@ -339,7 +341,7 @@
 		976A03172A0E8B7700424ACF /* AllExhibitionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExhibitionTableViewCell.swift; sourceTree = "<group>"; };
 		976A03192A0E8CAD00424ACF /* NearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearViewController.swift; sourceTree = "<group>"; };
 		976A031B2A0E8CBE00424ACF /* CollectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectViewController.swift; sourceTree = "<group>"; };
-		976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		976A031D2A0E8CCC00424ACF /* ExhibitionCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCalendarViewController.swift; sourceTree = "<group>"; };
 		976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFileViewController.swift; sourceTree = "<group>"; };
 		976A03212A0E8DDF00424ACF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		976A03232A147C6700424ACF /* HomeHabbyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHabbyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -360,6 +362,8 @@
 		9771A1592A3A9224006F4F9D /* WelcomeRegisterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeRegisterHeaderView.swift; sourceTree = "<group>"; };
 		9771A15B2A3A9237006F4F9D /* WelcomeRegisterFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeRegisterFooterView.swift; sourceTree = "<group>"; };
 		9771A15D2A3AAF4A006F4F9D /* RegisterStepCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepCollectionViewCell.swift; sourceTree = "<group>"; };
+		9772165C2A9F80AE00E9C5B1 /* ExhibitionCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCalendarView.swift; sourceTree = "<group>"; };
+		9772165E2A9F80D700E9C5B1 /* ExhibitionCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCalendarViewModel.swift; sourceTree = "<group>"; };
 		978834B42A1B892100ADBEE8 /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
 		978834B82A1C967200ADBEE8 /* MainDotBarFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDotBarFooterView.swift; sourceTree = "<group>"; };
 		978834BA2A1D9EE700ADBEE8 /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -731,7 +735,6 @@
 				97AF92162A8DBF8B00F8F920 /* NearSearchResultViewController.swift */,
 				976A031B2A0E8CBE00424ACF /* CollectViewController.swift */,
 				97D1C1E92A7740FF00B367F0 /* ResultViewController.swift */,
-				976A031D2A0E8CCC00424ACF /* CalendarViewController.swift */,
 				976A031F2A0E8CE300424ACF /* PersonalFileViewController.swift */,
 				978834C22A1E25DA00ADBEE8 /* NewsViewController.swift */,
 				973C176D2A1F2E7E00581DC6 /* ExhibitionCardViewController.swift */,
@@ -752,6 +755,7 @@
 				9715907A2A7A06A000C3745D /* ExhibitionHallViewController.swift */,
 				9746561E2A9CD6BA008F4E1F /* NewsSearchingViewController.swift */,
 				974656242A9CD722008F4E1F /* NewsSearchingResultViewController.swift */,
+				976A031D2A0E8CCC00424ACF /* ExhibitionCalendarViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -811,6 +815,7 @@
 				974656202A9CD6D2008F4E1F /* NewsSearchingView.swift */,
 				974656222A9CD6FD008F4E1F /* NewsSearchingResultView.swift */,
 				974656282A9DEDE2008F4E1F /* TitleCollectionReusableHeaderView.swift */,
+				9772165C2A9F80AE00E9C5B1 /* ExhibitionCalendarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -834,6 +839,7 @@
 				97D1C1ED2A775D9C00B367F0 /* ResultViewModel.swift */,
 				97AF92122A8D00E700F8F920 /* NearViewModel.swift */,
 				974656262A9CD750008F4E1F /* NewsSearchingViewModel.swift */,
+				9772165E2A9F80D700E9C5B1 /* ExhibitionCalendarViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1097,6 +1103,7 @@
 				97FD07052A600FC400A64808 /* ResetPasswordView.swift in Sources */,
 				9771A15C2A3A9237006F4F9D /* WelcomeRegisterFooterView.swift in Sources */,
 				973C83702A5D88FF00490D25 /* CalendarPopUpView.swift in Sources */,
+				9772165D2A9F80AE00E9C5B1 /* ExhibitionCalendarView.swift in Sources */,
 				974656232A9CD6FD008F4E1F /* NewsSearchingResultView.swift in Sources */,
 				973C17952A2717EA00581DC6 /* CompleteSucceedView.swift in Sources */,
 				97BD68692A59017500F4BCAB /* HintCollectionViewCell.swift in Sources */,
@@ -1181,7 +1188,7 @@
 				97E0F5942A8E5116004D6C0F /* CheckLogicInterface.swift in Sources */,
 				973C837A2A5F80D000490D25 /* CustomCalendarViewModel.swift in Sources */,
 				973C17792A205BE000581DC6 /* TicketPriceTableViewCell.swift in Sources */,
-				976A031E2A0E8CCC00424ACF /* CalendarViewController.swift in Sources */,
+				976A031E2A0E8CCC00424ACF /* ExhibitionCalendarViewController.swift in Sources */,
 				973C17C62A2B13A800581DC6 /* HotHintTableViewCell.swift in Sources */,
 				973C17D02A2EBD9F00581DC6 /* UnSearchModeChooseTableViewCell.swift in Sources */,
 				97AF92152A8DB07D00F8F920 /* NearView.swift in Sources */,
@@ -1231,6 +1238,7 @@
 				973C83742A5F6D3500490D25 /* PopUpViewController.swift in Sources */,
 				973C179F2A272F6500581DC6 /* NotifyModel.swift in Sources */,
 				973C836E2A5D3FEA00490D25 /* GenderInfoCell.swift in Sources */,
+				9772165F2A9F80D700E9C5B1 /* ExhibitionCalendarViewModel.swift in Sources */,
 				9746561B2A9B866F008F4E1F /* NearExhibitionDetailView.swift in Sources */,
 				973C17852A242FB200581DC6 /* AllCommentTableViewCell.swift in Sources */,
 				976A032A2A15C2D800424ACF /* HotDetailTableViewCell.swift in Sources */,

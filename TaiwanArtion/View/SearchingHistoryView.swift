@@ -86,7 +86,7 @@ extension SearchingHistoryView: UITableViewDelegate, UITableViewDataSource {
             make.edges.equalToSuperview()
         }
         titleHeader.configureTitle(with: "搜尋紀錄")
-        titleHeader.configureButton(with: "清除紀錄")
+        titleHeader.configureTextButton(with: "清除紀錄")
         titleHeader.button.setTitleColor(.brownColor, for: .normal)
         titleHeader.buttonAction = {
             self.historys.removeAll()

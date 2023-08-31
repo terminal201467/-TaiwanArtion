@@ -25,8 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = RootViewController()
         if userDefaultInterface.getIsLoggedIn() {
             //如果已經登入
-//            window?.rootViewController = RootViewController()
-            window?.rootViewController = UINavigationController(rootViewController: NewsSearchingViewController())
+            window?.rootViewController = RootViewController()
         } else {
             //如果未登入
             window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
