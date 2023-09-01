@@ -21,6 +21,8 @@ class ExhibitionMapView: UIView {
     private let viewModel = NearViewModel.shared
     
     let locationInterface = LocationInterface.shared
+
+    private let locationQueue = DispatchQueue(label: "mapLocation", attributes: .concurrent)
     
     private let disposeBag = DisposeBag()
     
@@ -109,9 +111,9 @@ class ExhibitionMapView: UIView {
         
         mapView.addSubview(locateRecentExhibitionButton)
         locateRecentExhibitionButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
+            make.top.equalToSuperview().offset(24.0)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(3)
+            make.width.equalToSuperview().dividedBy(2.5)
         }
         
         mapView.addSubview(locationContentCollectionView)
@@ -171,28 +173,37 @@ class ExhibitionMapView: UIView {
         //顯示現在位置＋周邊展覽館
         locatedNearSignal.emit(onNext: {
             self.showCurrentLocation(by: 5000, by: 5000)
-            self.locationInterface.searchTheLocations(searchKeyword: "博物館") { mapItems in
-                for item in mapItems {
-                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
-                    self.mapView.addAnnotation(mapAnnotation)
-                }
-                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
-            }
             
-            self.locationInterface.searchTheLocations(searchKeyword: "展覽館") { mapItems in
-                for item in mapItems {
-                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
-                    self.mapView.addAnnotation(mapAnnotation)
+            self.locationQueue.async {
+                self.locationInterface.searchTheLocations(searchKeyword: "博物館") { mapItems in
+                    for item in mapItems {
+                        DispatchQueue.main.async {
+                            let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
+                            self.mapView.addAnnotation(mapAnnotation)
+                        }
+                    }
+                    self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
                 }
-                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
-            }
-            
-            self.locationInterface.searchTheLocations(searchKeyword: "藝文中心") { mapItems in
-                for item in mapItems {
-                    let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
-                    self.mapView.addAnnotation(mapAnnotation)
+                
+                self.locationInterface.searchTheLocations(searchKeyword: "展覽館") { mapItems in
+                    for item in mapItems {
+                        DispatchQueue.main.async {
+                            let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
+                            self.mapView.addAnnotation(mapAnnotation)
+                        }
+                    }
+                    self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
                 }
-                self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
+                
+                self.locationInterface.searchTheLocations(searchKeyword: "藝文中心") { mapItems in
+                    for item in mapItems {
+                        DispatchQueue.main.async {
+                            let mapAnnotation = MapLocationPinAnnotation(coordinate: item.placemark.coordinate)
+                            self.mapView.addAnnotation(mapAnnotation)
+                        }
+                    }
+                    self.viewModel.input.inputNearExhibitionHall.accept(mapItems)
+                }
             }
             self.setContentStackIsHidden()
         })

@@ -58,8 +58,8 @@ class LocationInterface: NSObject {
                 -----------館別資料--------------
                 name: \(item.name ?? "Unknown")
                 phone:\(item.phoneNumber ?? "Unknown Phone")
-                timeZone:\(item.timeZone! ?? .none)
-                url:\(item.url! ?? URL(string: ""))
+                timeZone:\(item.timeZone ?? .none)
+                url:\(item.url ?? URL(string: ""))
                 placemark: \(item.placemark)
                 distance: \(self.getCurrentLocation().distance(from: item.placemark.location!)) meters
                 -------------------------------

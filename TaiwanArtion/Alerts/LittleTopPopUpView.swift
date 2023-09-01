@@ -93,5 +93,4 @@ class LittleTopPopUpView: UIView {
         hintLabel.text = title
         checkImage.image = .init(named: image)
     }
-
 }

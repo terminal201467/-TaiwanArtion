@@ -38,6 +38,7 @@ class CollectView: UIView {
     private let leftImage: UIImageView = {
         let imageView = UIImageView(image: .init(named: "leftImage"))
         imageView.contentMode = .scaleAspectFit
+        imageView.roundCorners(cornerRadius: 20)
         return imageView
     }()
     
