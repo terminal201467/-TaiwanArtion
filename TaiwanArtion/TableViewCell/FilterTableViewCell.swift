@@ -28,6 +28,7 @@ class FilterTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        backgroundColor = .white
         addSubview(label)
         label.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

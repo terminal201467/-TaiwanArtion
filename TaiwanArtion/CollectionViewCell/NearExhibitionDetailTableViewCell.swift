@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 class NearExhibitionDetailTableViewCell: UITableViewCell {
 
@@ -99,6 +100,7 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
         return label
     }()
     
@@ -112,6 +114,7 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
     private let locationLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
         return label
     }()
     
@@ -140,6 +143,7 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
             make.top.equalTo(12.0)
@@ -242,7 +246,13 @@ class NearExhibitionDetailTableViewCell: UITableViewCell {
     
     //細節內容
     func detailConfigure(with info: ExhibitionInfo) {
-        contentMainImage.image = UIImage(named: info.image)
+        if info.image == "defaultMainPhoto" {
+            self.contentMainImage.image = .init(named: info.image)
+        } else {
+            if let imageURL = URL(string: info.image) {
+                self.contentMainImage.kf.setImage(with: imageURL)
+            }
+        }
         titleLabel.text = info.title
         timeLabel.text = info.dateString
         tagLabel.text = info.tag

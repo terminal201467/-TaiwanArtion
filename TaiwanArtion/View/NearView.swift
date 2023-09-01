@@ -57,6 +57,7 @@ class NearView: UIView {
         collectionView.register(SelectedItemsCollectionViewCell.self, forCellWithReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
