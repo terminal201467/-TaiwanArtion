@@ -107,6 +107,7 @@ class NotifyTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(backgroundWhiteGrayView)
         backgroundWhiteGrayView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)

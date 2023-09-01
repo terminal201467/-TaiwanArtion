@@ -61,6 +61,7 @@ class SystemTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(bellImage)
         bellImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
