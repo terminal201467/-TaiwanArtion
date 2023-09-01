@@ -30,6 +30,7 @@ class SettingHeadView: UIView {
         collectionView.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: ButtonCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
+        collectionView.backgroundColor = .caramelColor
         return collectionView
     }()
     

@@ -77,6 +77,7 @@ class PersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         title = "編輯個人檔案"
         let closeButton = UIBarButtonItem(image: .init(named: "close")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = closeButton
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
     }
     
     @objc private func close() {

@@ -53,11 +53,17 @@ class PhoneNumberInputTableViewCell: UITableViewCell {
     
     private let textField: UITextField = {
         let textField = UITextField()
+        let placeholderAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.gray,
+            .font: UIFont.systemFont(ofSize: 14)
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: "請輸入手機號碼", attributes: placeholderAttributes)
         textField.textColor = .grayTextColor
         textField.borderStyle = .roundedRect
         textField.roundCorners(cornerRadius: 12)
         textField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         textField.clearButtonMode = .whileEditing
+        textField.backgroundColor = .white
         textField.placeholder = "請輸入手機號碼"
         return textField
     }()
@@ -93,6 +99,7 @@ class PhoneNumberInputTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(inputStack)
         containerView.snp.makeConstraints { make in
             make.width.equalTo(90.0)

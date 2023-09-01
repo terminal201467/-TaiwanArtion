@@ -29,6 +29,7 @@ class HintTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(hintLabel)
         hintLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

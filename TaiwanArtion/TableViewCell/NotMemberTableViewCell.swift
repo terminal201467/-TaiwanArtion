@@ -43,6 +43,7 @@ class NotMemberTableViewCell: UITableViewCell {
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
         stackView.spacing = 0
+        stackView.backgroundColor = .white
         return stackView
     }()
     
@@ -57,7 +58,8 @@ class NotMemberTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
-        addSubview(hintStack)
+        contentView.backgroundColor = .white
+        contentView.addSubview(hintStack)
         hintStack.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()

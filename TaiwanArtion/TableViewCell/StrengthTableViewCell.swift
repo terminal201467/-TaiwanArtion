@@ -14,6 +14,7 @@ class StrengthTableViewCell: UITableViewCell {
     private let passwordStrengthLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
         return label
     }()
     
@@ -39,6 +40,7 @@ class StrengthTableViewCell: UITableViewCell {
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         stackView.spacing = 8
+        stackView.backgroundColor = .white
         return stackView
     }()
     
@@ -52,6 +54,7 @@ class StrengthTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(strengthStack)
         strengthStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()

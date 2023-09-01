@@ -27,11 +27,17 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
 
     private let textField: UITextField = {
         let textField = UITextField()
+        let placeholderAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.gray,
+            .font: UIFont.systemFont(ofSize: 14)
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: "請輸入手機號碼", attributes: placeholderAttributes)
         textField.textColor = .grayTextColor
         textField.roundCorners(cornerRadius: 12)
         textField.borderStyle = .roundedRect
         textField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         textField.clearButtonMode = .whileEditing
+        textField.backgroundColor = .white
         return textField
     }()
     
@@ -102,6 +108,7 @@ class SendVerifyTextFieldTableViewCell: UITableViewCell {
     }
 
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(inputerStack)
         inputerStack.snp.makeConstraints { make in
             make.height.equalTo(40.0)

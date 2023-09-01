@@ -45,11 +45,18 @@ class AlreadyLoginViewController: UIViewController {
     
     private func setNavigationBar() {
         title = "個人檔案"
+        let backButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backAction))
+        navigationItem.leftBarButtonItem = backButton
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
     }
     
     private func setTable() {
         alreadyLoginView.tableView.delegate = self
         alreadyLoginView.tableView.dataSource = self
+    }
+    
+    @objc private func backAction() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -64,7 +71,9 @@ extension AlreadyLoginViewController: UITableViewDelegate, UITableViewDataSource
         cell.contentView.backgroundColor = .white
         cell.imageView?.image = .init(named: AlreadyLoginCell.allCases[indexPath.row].logo)
         cell.textLabel?.text = AlreadyLoginCell.allCases[indexPath.row].title
+        cell.textLabel?.textColor = .black
         cell.accessoryView = UIImageView.init(image: .init(named: "rightArrow"))
+        cell.backgroundColor = .white
         return cell
     }
     

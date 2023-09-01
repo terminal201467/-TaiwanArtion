@@ -29,6 +29,7 @@ class BirthTableViewCell: UITableViewCell {
     private let yearChooseButton: UIButton = {
         let button = UIButton()
         button.setImage(.init(named: "downArrow"), for: .normal)
+        button.backgroundColor = .white
         return button
     }()
     
@@ -38,6 +39,7 @@ class BirthTableViewCell: UITableViewCell {
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
         stackView.spacing = 5
+        stackView.backgroundColor = .white
         return stackView
     }()
     
@@ -60,6 +62,7 @@ class BirthTableViewCell: UITableViewCell {
         stackView.alignment = .center
         stackView.distribution = .fillProportionally
         stackView.spacing = 5
+        stackView.backgroundColor = .white
         return stackView
     }()
     
@@ -67,6 +70,7 @@ class BirthTableViewCell: UITableViewCell {
        let view = UIView()
         view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
         view.roundCorners(cornerRadius: 10)
+        view.backgroundColor = .white
         return view
     }()
     
@@ -74,6 +78,7 @@ class BirthTableViewCell: UITableViewCell {
         let view = UIView()
         view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
          view.roundCorners(cornerRadius: 10)
+        view.backgroundColor = .white
          return view
     }()
     
@@ -83,6 +88,7 @@ class BirthTableViewCell: UITableViewCell {
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
         stackView.spacing = 5
+        stackView.backgroundColor = .white
         return stackView
     }()
     
@@ -111,6 +117,7 @@ class BirthTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(birthStack)
         birthStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()

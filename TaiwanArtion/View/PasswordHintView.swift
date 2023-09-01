@@ -34,6 +34,7 @@ class PasswordHintView: UIView {
         tableView.isScrollEnabled = false
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
         return tableView
     }()
     

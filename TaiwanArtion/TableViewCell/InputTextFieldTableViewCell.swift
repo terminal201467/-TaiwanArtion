@@ -21,6 +21,11 @@ class InputTextFieldTableViewCell: UITableViewCell {
 
     private let textField: UITextField = {
         let textField = UITextField()
+        let placeholderAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.grayTextColor, // 或您想要的任何顏色
+            .font: UIFont.systemFont(ofSize: 14) // 或您想要的字體大小
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: "請輸入文字", attributes: placeholderAttributes)
         textField.textColor = .grayTextColor
         textField.roundCorners(cornerRadius: 12)
         textField.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
@@ -28,6 +33,8 @@ class InputTextFieldTableViewCell: UITableViewCell {
         textField.leftViewMode = .always
         textField.rightViewMode = .whileEditing
         textField.clearButtonMode = .whileEditing
+        textField.backgroundColor = .white
+        textField.tintColor = .white
         return textField
     }()
     
@@ -64,6 +71,7 @@ class InputTextFieldTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.height.equalTo(40.0)

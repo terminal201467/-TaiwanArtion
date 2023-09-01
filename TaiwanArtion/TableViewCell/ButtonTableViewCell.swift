@@ -37,6 +37,7 @@ class ButtonTableViewCell: UITableViewCell {
     }
     
     private func autoLayout() {
+        contentView.backgroundColor = .white
         contentView.addSubview(button)
         button.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

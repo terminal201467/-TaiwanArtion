@@ -43,6 +43,7 @@ class RegisterViewController: UIViewController {
         title = "會員註冊"
         let backButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backAction))
         navigationItem.leftBarButtonItem = backButton
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
     }
     
     @objc private func backAction() {

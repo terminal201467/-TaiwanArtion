@@ -37,6 +37,7 @@ class SettingHeadViewController: UIViewController {
     
     private func setNavigationBar() {
         title = "設定大頭貼"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         let backButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = backButton
     }

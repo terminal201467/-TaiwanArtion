@@ -57,6 +57,7 @@ class AccountSettingViewController: UIViewController {
         title = "帳號設定"
         let leftButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = leftButton
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
     }
     
     @objc private func back() {
@@ -77,8 +78,10 @@ extension AccountSettingViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UITableViewCell
         cell.selectionStyle = .none
+        cell.backgroundColor = .white
         cell.imageView?.image = UIImage(named: AccountSettingCell.allCases[indexPath.row].logo)
         cell.textLabel?.text = AccountSettingCell.allCases[indexPath.row].title
+        cell.textLabel?.textColor = .black
         if AccountSettingCell(rawValue: indexPath.row) == .password {
             let label: UILabel = {
                 let label = UILabel()

@@ -21,6 +21,7 @@ class GenderTableViewCell: UITableViewCell {
         let view = UIView()
         view.roundCorners(cornerRadius: 10)
         view.addBorder(borderWidth: 1, borderColor: .whiteGrayColor)
+        view.backgroundColor = .white
         return view
     }()
     
@@ -42,6 +43,7 @@ class GenderTableViewCell: UITableViewCell {
         stackView.alignment = .center
         stackView.distribution = .fillProportionally
         stackView.spacing = 5
+        stackView.backgroundColor = .white
         return stackView
     }()
     
