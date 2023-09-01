@@ -27,6 +27,7 @@ class ExhibitionCollectionView: UIView {
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -39,6 +40,7 @@ class ExhibitionCollectionView: UIView {
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
