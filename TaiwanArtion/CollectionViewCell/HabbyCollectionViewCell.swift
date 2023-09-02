@@ -89,11 +89,11 @@ class HabbyCollectionViewCell: UICollectionViewCell {
     
     func handleSelectedItemView(by selected: Bool) {
         if selected {
-            habbyStack.addBorder(borderWidth: 2, borderColor: .brownColor)
+            habbyStackContainer.addBorder(borderWidth: 2, borderColor: .brownColor)
             habbyImage.tintColor = .brownColor
             habbyLabel.textColor = .brownColor
         } else {
-            habbyStack.addBorder(borderWidth: 0, borderColor: .tintColor)
+            habbyStackContainer.addBorder(borderWidth: 0, borderColor: .tintColor)
             habbyImage.tintColor = .middleGrayColor
             habbyLabel.textColor = .middleGrayColor
         }

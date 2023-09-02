@@ -214,10 +214,12 @@ class SplashView: UIView {
             nextButton.backgroundColor = .brownColor
             nextLabel.textColor = .white
             nextButton.isUserInteractionEnabled = true
+            nextImage.image = UIImage(named: "next")?.withTintColor(.white)
         } else {
             nextButton.backgroundColor = .whiteGrayColor
             nextLabel.textColor = .middleGrayColor
             nextButton.isUserInteractionEnabled = false
+            nextImage.image = UIImage(named: "next")?.withTintColor(.middleGrayColor)
         }
     }
     
@@ -379,6 +381,7 @@ class SplashView: UIView {
             skipView.isHidden = true
             nextButton.backgroundColor = .whiteGrayColor
             nextLabel.textColor = .middleGrayColor
+            nextImage.image = UIImage(named: "next")?.withTintColor(.middleGrayColor)
             nextButton.isUserInteractionEnabled = false
             setHabbyAutoLayout()
         }
