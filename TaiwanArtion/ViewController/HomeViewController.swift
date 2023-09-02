@@ -62,6 +62,10 @@ class HomeViewController: UIViewController {
         setButtonSubscribe()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setNavigationBar()
+    }
+    
     private func setNavigationBar() {
         navigationController?.navigationBar.isHidden = true
     }

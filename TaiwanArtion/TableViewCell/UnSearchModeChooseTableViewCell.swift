@@ -21,11 +21,12 @@ class UnSearchModeChooseTableViewCell: UITableViewCell {
     
     private let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
+        flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(SelectedItemsCollectionViewCell.self, forCellWithReuseIdentifier: SelectedItemsCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
-        collectionView.isScrollEnabled = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isScrollEnabled = true
         return collectionView
     }()
 
@@ -47,8 +48,10 @@ class UnSearchModeChooseTableViewCell: UITableViewCell {
     private func autoLayout() {
         contentView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.height.greaterThanOrEqualTo(0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.height.greaterThanOrEqualTo(34.0)
         }
     }
     
@@ -82,31 +85,22 @@ extension UnSearchModeChooseTableViewCell: UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.frame.width - 16 * 6) / 5
-        let cellHeight = 80.0
+        let text = items[indexPath.row]
+        let cellHeight = collectionView.frame.height
+        let cellWidth = text.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17.0)]).width
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 5, left: 5, bottom: 5, right: 5)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if currentSelectedCells.isEmpty {
             self.currentSelectedCells.insert(indexPath.row)
         } else if currentSelectedCells.contains(indexPath.row) {
-            //如果重複現在選的indexPath的話，就移除
             self.currentSelectedCells.remove(indexPath.row)
         } else if currentSelectedCells.contains(indexPath.row) != true {
-            //如果沒有包含現在選的indexPath的話，就加入
             currentSelectedCells.insert(indexPath.row)
         } else {
             currentSelectedCells.insert(indexPath.row)

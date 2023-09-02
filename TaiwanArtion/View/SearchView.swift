@@ -38,25 +38,15 @@ class SearchView: UIView {
         return button
     }()
     
-    private let searchTextField: UISearchTextField = {
-       let searchTextField = UISearchTextField()
-        searchTextField.backgroundColor = .white
-//        searchTextField.setImage(UIImage(named: "search"), for: .search, state: .normal)
-        searchTextField.placeholder = "搜尋展覽"
-        searchTextField.textColor = .grayTextColor
-        searchTextField.roundCorners(cornerRadius: 20)
-        searchTextField.clearButtonMode = .whileEditing
-        searchTextField.keyboardType = .emailAddress
-        return searchTextField
-    }()
-    
-    private lazy var searchBarStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [backButton, searchTextField])
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 8
-        return stackView
+    let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.searchTextField.placeholder = "搜尋展覽"
+        searchBar.searchTextField.textColor = .grayTextColor
+        searchBar.searchTextField.roundCorners(cornerRadius: 20)
+        searchBar.searchTextField.clearButtonMode = .whileEditing
+        searchBar.searchTextField.keyboardType = .emailAddress
+        return searchBar
     }()
     
     let filterContentCollectionView: UICollectionView = {
@@ -69,15 +59,6 @@ class SearchView: UIView {
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = nil
         return collectionView
-    }()
-    
-    private lazy var searchItemsStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [searchBarStack, filterContentCollectionView])
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 0
-        return stackView
     }()
     
     //MARK: - Foreground
@@ -162,8 +143,8 @@ class SearchView: UIView {
     }
     
     private func setSearchBarBinding() {
-        searchTextField.delegate = self
-        searchTextField.rx.text
+        searchBar.searchTextField.delegate = self
+        searchBar.searchTextField.rx.text
             .orEmpty
             .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] searchText in
@@ -198,21 +179,12 @@ class SearchView: UIView {
             make.width.equalTo(frame.width)
         }
         
-        searchTextField.snp.makeConstraints { make in
-            make.height.equalTo(36.0)
-            make.width.equalTo(298.0)
-        }
-        
-        searchBarStack.snp.makeConstraints { make in
-            make.height.equalTo(36.0)
-        }
-        
-        addSubview(searchItemsStack)
-        searchItemsStack.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16.0)
-            make.trailing.equalToSuperview().offset(-16.0)
-            make.top.equalToSuperview().offset(66.0)
-            make.height.equalTo(80.0)
+        addSubview(filterContentCollectionView)
+        filterContentCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+            make.leading.equalToSuperview().offset(8.0)
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalTo(48)
         }
         
         filterTableView.snp.makeConstraints { make in
@@ -222,16 +194,17 @@ class SearchView: UIView {
         
         addSubview(backgroundWhiteView)
         backgroundWhiteView.snp.makeConstraints { make in
-            make.top.equalTo(searchItemsStack.snp.bottom)
+            make.top.equalTo(filterContentCollectionView.snp.bottom).offset(16.0)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        
         backgroundWhiteView.addSubview(contentStack)
         contentStack.snp.makeConstraints { make in
-            make.top.equalTo(searchItemsStack.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.top.equalTo(backgroundWhiteView).offset(16.0)
+            make.leading.equalToSuperview().offset(16.0)
+            make.trailing.equalToSuperview().offset(-16.0)
             make.bottom.equalToSuperview()
         }
     }

@@ -38,12 +38,14 @@ class SelectedItemsCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(backgroundChangedView)
         backgroundChangedView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.width.greaterThanOrEqualToSuperview()
         }
         
         backgroundChangedView.addSubview(itemLabel)
         itemLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.greaterThanOrEqualToSuperview()
         }
     }
     

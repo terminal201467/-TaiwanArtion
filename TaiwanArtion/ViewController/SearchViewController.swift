@@ -71,7 +71,15 @@ class SearchViewController: UIViewController {
     
     //MARK: - Methods
     private func setNavigationBar() {
+        navigationController?.navigationBar.isHidden = false
         navigationItem.hidesBackButton = true
+        let backButton = UIBarButtonItem(image: .init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backAction))
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.titleView = searchView.searchBar
+    }
+    
+    @objc func backAction() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setSearchFilterSelected() {
@@ -216,7 +224,6 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
         searchView.filterContentCollectionView.reloadData()
         searchView.filterTableView.reloadData()
     }
-    
 }
 
 //MARK: - TableView
@@ -231,6 +238,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return viewModel.unSearchModeTableViewNumberOfRowInSection(section: section)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
