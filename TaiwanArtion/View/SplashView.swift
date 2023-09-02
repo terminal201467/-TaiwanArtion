@@ -168,7 +168,7 @@ class SplashView: UIView {
     
     let habbyCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        flowLayout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(HabbyCollectionViewCell.self, forCellWithReuseIdentifier: HabbyCollectionViewCell.reuseIdentifier)
         collectionView.backgroundColor = nil
@@ -316,10 +316,10 @@ class SplashView: UIView {
         
         addSubview(habbyCollectionView)
         habbyCollectionView.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.95)
+            make.width.equalToSuperview()
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(360.0 / 844.0)
-            make.top.equalTo(chooseHabbyStack.snp.bottom).offset(27)
+            make.top.equalTo(chooseHabbyStack.snp.bottom)
         }
     }
     

@@ -130,11 +130,13 @@ extension SplashViewController: UICollectionViewDataSource, UICollectionViewDele
         collectionView.reloadData()
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 24, left: 25, bottom: 24, right: 25)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = collectionView.bounds.width
-        let availableHeight = collectionView.bounds.height
-        let itemWidth = availableWidth / CGFloat(5)
-        let itemHeight = availableHeight / CGFloat(4)
-        return CGSize(width: itemWidth, height: itemHeight)
+        let cellWidth = (collectionView.frame.width - (25 * 2) - (16 * 3)) / 4
+        let cellHeight = (collectionView.frame.height - (24 * 2)) / 4
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
