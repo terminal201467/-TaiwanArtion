@@ -228,7 +228,11 @@ class SplashView: UIView {
             .when(.recognized)
             .subscribe(onNext: { _ in
                 if self.step < 5 {
-                    self.step += 1
+                    self.nextButton.backgroundColor = .darkBrownColor
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.nextButton.backgroundColor = .brownColor
+                        self.step += 1
+                    }
                 }
             })
             .disposed(by: disposeBag)
