@@ -11,47 +11,32 @@ import SnapKit
 
 class MainDotBarFooterView: UIView {
     
+    var isCurrentDot: ((Int) -> Void)?
+    
     static let reuseIdentifier: String = "MainDotBarFooterView"
     
-    var currentPage: Int = 1 {
+    private var storeItemCount: Int = 5
+    
+    private var currentIndex: Int = 0 {
         didSet {
-            updatesDotBar()
+            collectionView.reloadData()
         }
     }
     
-    private let mainDotOneView: UIView = {
-        let view = UIView()
-        view.roundCorners(cornerRadius: 5)
-        return view
-    }()
-    
-    private let mainDotTwoView: UIView = {
-        let view = UIView()
-        view.roundCorners(cornerRadius: 5)
-        return view
-    }()
-    
-    private let mainDotThreeView: UIView = {
-        let view = UIView()
-        view.roundCorners(cornerRadius: 5)
-        return view
-    }()
-    
-    private lazy var bars: [UIView] = [mainDotOneView, mainDotTwoView, mainDotThreeView]
-    
-    private lazy var mainDotStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: bars)
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 4
-        return stackView
+    private let collectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(MainDotCollectionViewCell.self, forCellWithReuseIdentifier: MainDotCollectionViewCell.reuseIdentifier)
+        collectionView.allowsSelection = true
+        collectionView.isScrollEnabled = false
+        return collectionView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setCollectionViewDelegate()
         autoLayout()
-        updatesDotBar()
     }
     
     required init?(coder: NSCoder) {
@@ -59,35 +44,54 @@ class MainDotBarFooterView: UIView {
     }
     
     private func autoLayout() {
-        addSubview(mainDotStack)
-        mainDotStack.snp.makeConstraints { make in
-            make.width.equalTo(60)
-            make.height.equalTo(10)
+        addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalToSuperview()
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
     }
     
-    private func updatesDotBar() {
-        for (index, bar) in bars.enumerated() {
-            if index == currentPage {
-                UIView.animate(withDuration: 0.3) {
-                    bar.backgroundColor = .brown
-                    bar.snp.makeConstraints { make in
-                        make.width.equalTo(10)
-                        make.height.equalTo(10)
-                    }
-                    self.layoutIfNeeded()
-                }
-            } else {
-                UIView.animate(withDuration: 0.3) {
-                    bar.backgroundColor = .whiteGrayColor
-                    bar.snp.makeConstraints { make in
-                        make.width.equalTo(15)
-                        make.height.equalTo(10)
-                    }
-                }
-            }
-        }
+    private func setCollectionViewDelegate() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    func configureIndex(currentIndex: Int) {
+        self.currentIndex = currentIndex
+    }
+    
+    func configureItemNumber(storeItemNumber: Int) {
+        self.storeItemCount = storeItemNumber
+    }
+}
+
+extension MainDotBarFooterView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return storeItemCount
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainDotCollectionViewCell.reuseIdentifier, for: indexPath) as! MainDotCollectionViewCell
+        var isCurrent = currentIndex == indexPath.row
+        cell.configure(isCurrentDot: isCurrent)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.currentIndex = indexPath.row
+        self.isCurrentDot?(indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        .init(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let largeCellWidth = 20.0
+        let littleCellWidth = 8.0
+        let cellHeight = collectionView.frame.height
+        return  self.currentIndex == indexPath.row ? .init(width: littleCellWidth, height: cellHeight) : .init(width: largeCellWidth, height: cellHeight)
     }
 }

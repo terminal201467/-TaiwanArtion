@@ -38,7 +38,12 @@ class MainPhotosTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    private let footerView = MainDotBarFooterView()
+    private let mainDotContainerView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    private let mainDotfooterView = MainDotBarFooterView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,18 +71,26 @@ class MainPhotosTableViewCell: UITableViewCell {
     }
 
     private func autoLayout() {
-        contentView.addSubview(footerView)
+        contentView.addSubview(mainDotContainerView)
         contentView.addSubview(collectionView)
         contentView.backgroundColor = .white
-        footerView.snp.makeConstraints { make in
+        mainDotContainerView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
-            make.height.equalTo(30.0)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.height.equalTo(15.0)
+        }
+        
+        mainDotContainerView.addSubview(mainDotfooterView)
+        mainDotfooterView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(150.0)
+            make.height.equalTo(10.0)
         }
         
         collectionView.snp.makeConstraints { make in
-            make.bottom.equalTo(footerView.snp.top)
+            make.bottom.equalTo(mainDotfooterView.snp.top)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalToSuperview()
