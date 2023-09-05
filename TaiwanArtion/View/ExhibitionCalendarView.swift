@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ExhibitionCalendarView: UIView {
     
@@ -117,11 +118,13 @@ class ExhibitionCalendarView: UIView {
     
     private let calendarContainerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .green
         return view
     }()
     
     private let tableContainerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .blue
         view.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         return view
     }()
@@ -133,6 +136,7 @@ class ExhibitionCalendarView: UIView {
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
         tableView.applyShadow(color: .black, opacity: 0.3, offset: CGSize(width: 1, height: 1), radius: 4)
+        tableView.backgroundColor = .red
         return tableView
     }()
     
@@ -140,7 +144,7 @@ class ExhibitionCalendarView: UIView {
         super.init(frame: frame)
         setNavigationBarAutoLayout()
         setBackgroundAutoLayout()
-//        setGestureInTableContainer()
+        setupGestures()
         setCalendarModeAutoLayout()
     }
     
@@ -224,43 +228,39 @@ class ExhibitionCalendarView: UIView {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(550.0)
+            make.height.equalTo(600.0)
             make.bottom.equalToSuperview()
+            tableTopConstraint = make.top.equalTo(calendarContainerView.snp.bottom).offset(-40.0).constraint
         }
     }
     
-    private func setListModeContainerAutoLayout() {
-        contentContainerview.addSubview(tableContainerView)
-        tableContainerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+    private var tableTopConstraint: Constraint?
+    
+    private func setupGestures() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        tableContainerView.addGestureRecognizer(panGesture)
     }
     
-    private func setGestureInTableContainer() {
-        let upGesture = UISwipeGestureRecognizer(target: tableContainerView, action: #selector(upSwipe))
-        upGesture.direction = .up
-        tableContainerView.addGestureRecognizer(upGesture)
+    @objc private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        let translation = gestureRecognizer.translation(in: contentContainerview)
         
-        let downGesture = UISwipeGestureRecognizer(target: tableContainerView, action: #selector(downSwipe))
-        downGesture.direction = .down
-        tableContainerView.addGestureRecognizer(upGesture)
-    }
-    
-    @objc private func upSwipe() {
-        UIView.animate(withDuration: 0.3) {
-            self.tableContainerView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+        if gestureRecognizer.state == .changed {
+            let newConstant = min(max(tableTopConstraint!.layoutConstraints.first!.constant - translation.y, -550.0), 0.0)
+            tableTopConstraint?.update(offset: newConstant)
+            gestureRecognizer.setTranslation(.zero, in: contentContainerview)
+        } else if gestureRecognizer.state == .ended {
+            let velocity = gestureRecognizer.velocity(in: contentContainerview)
+            
+            if velocity.y > 0 {
+                // Swipe down
+                tableTopConstraint?.update(offset: 0.0)
+            } else {
+                // Swipe up
+                tableTopConstraint?.update(offset: -550.0)
             }
-        }
-    }
-    
-    @objc private func downSwipe() {
-        UIView.animate(withDuration: 0.3) {
-            self.tableContainerView.snp.makeConstraints { make in
-                make.top.equalTo(self.calendarContainerView.snp.bottom)
-                make.leading.equalToSuperview()
-                make.trailing.equalToSuperview()
-                make.bottom.equalTo(self.contentContainerview.snp.bottom)
+
+            UIView.animate(withDuration: 0.5) {
+                self.contentContainerview.layoutIfNeeded()
             }
         }
     }
