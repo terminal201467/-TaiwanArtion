@@ -13,7 +13,7 @@ class MainDotCollectionViewCell: UICollectionViewCell {
     
     private var isCurrentDot: Bool = false {
         didSet {
-            autoLayout()
+            updateUI()
         }
     }
     
@@ -34,26 +34,26 @@ class MainDotCollectionViewCell: UICollectionViewCell {
     
     private func autoLayout() {
         contentView.addSubview(mainDotView)
-        if self.isCurrentDot {
-            UIView.animate(withDuration: 0.2) {
-                self.mainDotView.backgroundColor = .brownColor
-                self.mainDotView.snp.makeConstraints { make in
-                    make.height.equalTo(8.0)
-                    make.width.equalTo(8.0)
-                }
-            }
-        } else {
-            UIView.animate(withDuration: 0.2) {
-                self.mainDotView.backgroundColor = .middleGrayColor
-                self.mainDotView.snp.makeConstraints { make in
-                    make.height.equalTo(8.0)
-                    make.width.equalTo(20.0)
-                }
-            }
+        mainDotView.backgroundColor = .middleGrayColor
+        mainDotView.snp.makeConstraints { make in
+            make.height.equalTo(8.0)
+            make.width.equalTo(20.0)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     
     func configure(isCurrentDot: Bool) {
         self.isCurrentDot = isCurrentDot
+    }
+    
+    private func updateUI() {
+        UIView.animate(withDuration: 0.2) {
+            self.mainDotView.backgroundColor = self.isCurrentDot ? .brownColor : .middleGrayColor
+            self.mainDotView.snp.updateConstraints { make in
+                make.width.equalTo(self.isCurrentDot ? 8.0 : 20.0)
+            }
+            self.layoutIfNeeded()
+        }
     }
 }

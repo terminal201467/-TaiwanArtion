@@ -76,6 +76,8 @@ extension MainDotBarFooterView: UICollectionViewDelegateFlowLayout, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainDotCollectionViewCell.reuseIdentifier, for: indexPath) as! MainDotCollectionViewCell
         var isCurrent = currentIndex == indexPath.row
         cell.configure(isCurrentDot: isCurrent)
+        //如果是當前的index，就變成點點
+        //如果不是，就變成灰長的view
         return cell
     }
     
