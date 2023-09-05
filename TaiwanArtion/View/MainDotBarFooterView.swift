@@ -11,7 +11,7 @@ import SnapKit
 
 class MainDotBarFooterView: UIView {
     
-    var isCurrentDot: ((Int) -> Void)?
+    var currentDotIndex: ((Int) -> Void)?
     
     static let reuseIdentifier: String = "MainDotBarFooterView"
     
@@ -83,7 +83,7 @@ extension MainDotBarFooterView: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.currentIndex = indexPath.row
-        self.isCurrentDot?(indexPath.row)
+        self.currentDotIndex?(indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

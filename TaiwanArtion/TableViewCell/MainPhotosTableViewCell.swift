@@ -49,6 +49,7 @@ class MainPhotosTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCollectionViewBinding()
         autoLayout()
+        setDotView()
     }
     
     required init?(coder: NSCoder) {
@@ -68,6 +69,19 @@ class MainPhotosTableViewCell: UITableViewCell {
                 cell.configure(item: item)
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func setDotView() {
+        mainDotfooterView.currentDotIndex = { index in
+            self.collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
+    
+    private func findAndStoreCenteredCellIndexPath() {
+        let centerX = collectionView.contentOffset.x + collectionView.bounds.width / 2
+        if let indexPath = collectionView.indexPathForItem(at: CGPoint(x: centerX, y: collectionView.bounds.height / 2)) {
+            mainDotfooterView.configureIndex(currentIndex: indexPath.row)
+        }
     }
 
     private func autoLayout() {
@@ -107,5 +121,15 @@ extension MainPhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        findAndStoreCenteredCellIndexPath()
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            findAndStoreCenteredCellIndexPath()
+        }
     }
 }
