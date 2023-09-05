@@ -8,9 +8,6 @@
 import Foundation
 import RxRelay
 
-enum CalendarTypeChooseItem: Int, CaseIterable {
-    case exhibitionCalendar = 0, exhibitionList
-}
 
 protocol ExhibitionCalendarInput {
     
@@ -21,14 +18,14 @@ protocol ExhibitionCalendarInput {
     var inputDate: BehaviorRelay<String> { get }
     
     //輸入展覽月曆、展覽清單點擊的Button
-    var inputContentTypeItem: BehaviorRelay<CalendarTypeChooseItem> { get }
+    var inputContentTypeItem: BehaviorRelay<Bool> { get }
     
 }
 
 protocol ExhibitionCalendarOutput {
     
     //輸出點擊的Item
-    var outputContentTypeItem: BehaviorRelay<CalendarTypeChooseItem> { get }
+    var outputContentTypeItem: BehaviorRelay<Bool> { get }
     
     //輸出點擊的Habby
     var outputHabby: BehaviorRelay<HabbyItem?> { get }
@@ -59,11 +56,11 @@ class ExhibitionCalendarViewModel: ExhibitionCalendarTypeInputOutput, Exhibition
     
     var inputDate: RxRelay.BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    var inputContentTypeItem: RxRelay.BehaviorRelay<CalendarTypeChooseItem> = BehaviorRelay(value: .exhibitionCalendar)
+    var inputContentTypeItem: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: true)
     
     //MARK: - output
     
-    var outputContentTypeItem: RxRelay.BehaviorRelay<CalendarTypeChooseItem> = BehaviorRelay(value: .exhibitionCalendar)
+    var outputContentTypeItem: RxRelay.BehaviorRelay<Bool> = BehaviorRelay(value: true)
     
     var outputHabby: BehaviorRelay<HabbyItem?> = BehaviorRelay(value: nil)
     

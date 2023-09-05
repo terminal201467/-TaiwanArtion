@@ -9,9 +9,11 @@ import UIKit
 
 class ExhibitionCalendarView: UIView {
     
-    var calendarContentMode: CalendarTypeChooseItem = .exhibitionCalendar {
+    var calendarMode: ((Bool) -> Void)?
+    
+    private var isCalendarMode: Bool = true {
         didSet {
-            //重新ReloadCollectionView、TableView
+            setNavigationBarSelected()
             habbyCollectionView.reloadData()
             tableView.reloadData()
         }
@@ -19,32 +21,40 @@ class ExhibitionCalendarView: UIView {
     
     //MARK: - NavigationBar
     
-//    let navigationBarContainerView: UIView = {
-//        let view = UIView()
-//        return view
-//    }()
+    let navigationBarContainerView: UIView = {
+        let view = UIView()
+        return view
+    }()
     
-    let logoImage: UIImageView = {
+    private let logoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .init(named: "logo")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-//    private lazy var calendarButton: UIButton = {
-//        let button = UIButton()
-//        button.setImage(.init(named: calendarContentMode == .exhibitionCalendar ? "barCalendar" : "barCalendarSelected"), for: .normal)
-//        button.addTarget(self, action: #selector(selectedCalendar), for: .touchDown)
-//        return button
-//    }()
-//
-//    private lazy var listButton:  UIButton = {
-//        let button = UIButton()
-//        button.setImage(.init(named: calendarContentMode == .exhibitionList ? "barList" : "barListSelected"), for: .normal)
-//        button.addTarget(self, action: #selector(selectedList), for: .touchDown)
-//        return button
-//    }()
+    private lazy var calendarButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.init(named: "barCalendarSelected"), for: .normal)
+        button.addTarget(self, action: #selector(selectedCalendar), for: .touchDown)
+        return button
+    }()
+
+    private lazy var listButton:  UIButton = {
+        let button = UIButton()
+        button.setImage(.init(named: "barList"), for: .normal)
+        button.addTarget(self, action: #selector(selectedList), for: .touchDown)
+        return button
+    }()
     
+    private lazy var navigationBarButtonStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [calendarButton, listButton])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 0
+        return stackView
+    }()
     
     private let barButtonContainerView: UIView = {
         let view = UIView()
@@ -95,15 +105,24 @@ class ExhibitionCalendarView: UIView {
         return view
     }()
     
+    private lazy var contentScrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.isScrollEnabled = true
+        scrollView.isUserInteractionEnabled = true
+        scrollView.backgroundColor = .gray
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentSize = CGSize(width: frame.width, height: 1000)
+        return scrollView
+    }()
+    
     private let calendarContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
         return view
     }()
     
     private let tableContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         return view
     }()
     
@@ -119,17 +138,42 @@ class ExhibitionCalendarView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setNavigationBarAutoLayout()
         setBackgroundAutoLayout()
-        setGestureInTableContainer()
+//        setGestureInTableContainer()
+        setCalendarModeAutoLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setNavigationBarAutoLayout() {
+        addSubview(navigationBarContainerView)
+        navigationBarContainerView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.height.equalTo(46.0)
+        }
+        
+        navigationBarContainerView.addSubview(logoImage)
+        logoImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(16.0)
+            make.width.equalTo(122.0)
+            make.height.equalTo(46.0)
+        }
+        
+        navigationBarContainerView.addSubview(navigationBarButtonStack)
+        navigationBarButtonStack.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
+        }
+    }
+    
     private func setBackgroundAutoLayout() {
         backgroundColor = .caramelColor
-        
         addSubview(rightTopImage)
         rightTopImage.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
@@ -138,7 +182,7 @@ class ExhibitionCalendarView: UIView {
         
         addSubview(habbyContainerView)
         habbyContainerView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(24.0)
+            make.top.equalTo(navigationBarContainerView.snp.bottom).offset(24.0)
             make.height.equalTo(78.0)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -161,20 +205,27 @@ class ExhibitionCalendarView: UIView {
     
     //MARK: ModeTransitionMethod
     private func setCalendarModeAutoLayout() {
-        contentContainerview.addSubview(calendarContainerView)
-        calendarContainerView.snp.makeConstraints { make in
-            make.top.equalTo(habbyContainerView.snp.bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(452.0)
+        contentContainerview.addSubview(contentScrollView)
+        contentScrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-        
-        contentContainerview.addSubview(tableContainerView)
-        tableContainerView.snp.makeConstraints { make in
+        contentScrollView.addSubview(calendarContainerView)
+        calendarContainerView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(calendarContainerView.snp.bottom)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.height.equalTo(450.0)
+            make.width.equalToSuperview()
+        }
+
+        contentScrollView.addSubview(tableContainerView)
+        tableContainerView.snp.makeConstraints { make in
+            make.top.equalTo(calendarContainerView.snp.bottom).offset(-40.0)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(550.0)
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -215,10 +266,17 @@ class ExhibitionCalendarView: UIView {
     }
     
     @objc private func selectedCalendar() {
-        calendarContentMode = .exhibitionCalendar
+        calendarMode?(true)
+        isCalendarMode = true
     }
     
     @objc private func selectedList() {
-        calendarContentMode = .exhibitionList
+        calendarMode?(false)
+        isCalendarMode = false
+    }
+    
+    private func setNavigationBarSelected() {
+        calendarButton.setImage(.init(named: isCalendarMode ? "barCalendarSelected" : "barCalendar"), for: .normal)
+        listButton.setImage(.init(named: isCalendarMode ? "barList" : "barListSelected"), for: .normal)
     }
 }

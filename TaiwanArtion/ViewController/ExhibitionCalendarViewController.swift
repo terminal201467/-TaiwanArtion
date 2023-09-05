@@ -21,12 +21,7 @@ class ExhibitionCalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBar()
         setDelegates()
-    }
-    
-    private func setNavigationBar() {
-        navigationItem.titleView = exhibitionCalendarView.logoImage
     }
     
     private func setDelegates() {
