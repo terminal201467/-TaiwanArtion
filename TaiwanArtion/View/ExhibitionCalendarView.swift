@@ -110,7 +110,6 @@ class ExhibitionCalendarView: UIView {
        let scrollView = UIScrollView()
         scrollView.isScrollEnabled = true
         scrollView.isUserInteractionEnabled = true
-        scrollView.backgroundColor = .gray
         scrollView.showsVerticalScrollIndicator = false
         scrollView.contentSize = CGSize(width: frame.width, height: 1000)
         return scrollView
@@ -129,6 +128,8 @@ class ExhibitionCalendarView: UIView {
         return view
     }()
     
+    
+    
     //MARK: -Contents
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -136,7 +137,6 @@ class ExhibitionCalendarView: UIView {
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
         tableView.applyShadow(color: .black, opacity: 0.3, offset: CGSize(width: 1, height: 1), radius: 4)
-        tableView.backgroundColor = .red
         return tableView
     }()
     
@@ -204,7 +204,6 @@ class ExhibitionCalendarView: UIView {
         habbyCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
     }
     
     //MARK: ModeTransitionMethod
@@ -230,7 +229,14 @@ class ExhibitionCalendarView: UIView {
             make.width.equalToSuperview()
             make.height.equalTo(600.0)
             make.bottom.equalToSuperview()
-            tableTopConstraint = make.top.equalTo(calendarContainerView.snp.bottom).offset(-40.0).constraint
+            tableTopConstraint = make.top.equalTo(calendarContainerView.snp.bottom).constraint
+        }
+        
+
+        
+        tableContainerView.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
@@ -254,9 +260,13 @@ class ExhibitionCalendarView: UIView {
             if velocity.y > 0 {
                 // Swipe down
                 tableTopConstraint?.update(offset: 0.0)
+                isCalendarMode = true
+                contentContainerview.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 0)
             } else {
                 // Swipe up
                 tableTopConstraint?.update(offset: -550.0)
+                isCalendarMode = false
+                contentContainerview.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
             }
 
             UIView.animate(withDuration: 0.5) {
@@ -268,11 +278,19 @@ class ExhibitionCalendarView: UIView {
     @objc private func selectedCalendar() {
         calendarMode?(true)
         isCalendarMode = true
+        tableTopConstraint?.update(offset: 0.0)
+        UIView.animate(withDuration: 0.5) {
+            self.contentContainerview.layoutIfNeeded()
+        }
     }
     
     @objc private func selectedList() {
         calendarMode?(false)
         isCalendarMode = false
+        tableTopConstraint?.update(offset: -550.0)
+        UIView.animate(withDuration: 0.5) {
+            self.contentContainerview.layoutIfNeeded()
+        }
     }
     
     private func setNavigationBarSelected() {

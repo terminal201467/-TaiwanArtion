@@ -68,7 +68,7 @@ extension ExhibitionCalendarViewController: UICollectionViewDelegateFlowLayout, 
 
 extension ExhibitionCalendarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0
+        return 50.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
