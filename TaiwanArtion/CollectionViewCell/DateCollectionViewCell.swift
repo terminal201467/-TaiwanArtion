@@ -11,16 +11,21 @@ class DateCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "DateCollectionViewCell"
     
-    private let dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
     
-    private let backgroundImageView: UIImageView = {
+    let backgroundImageView: UIImageView = {
         let view = UIImageView(image: .init(named: "calendarDateSelected"))
         view.contentMode = .scaleAspectFit
         return view
+    }()
+    
+    private let eventDotView: UIImageView = {
+        let imageView = UIImageView(image: .init(named: "brownDot"))
+        return imageView
     }()
     
     override init(frame: CGRect) {
@@ -43,11 +48,20 @@ class DateCollectionViewCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
-
+        
+        contentView.addSubview(eventDotView)
+        eventDotView.snp.makeConstraints { make in
+            make.leading.equalTo(backgroundImageView.snp.leading)
+            make.top.equalTo(backgroundImageView.snp.top)
+        }
     }
     
-    func configure(date: String, isToday: Bool, isCurrentMonth: Bool) {
-        dateLabel.text = date
+    func configureEventDot(isEvent: Bool) {
+        eventDotView.isHidden = !isEvent
+    }
+    
+    func configure(dateString: String, isToday: Bool, isCurrentMonth: Bool) {
+        dateLabel.text = dateString
         if isCurrentMonth {
             dateLabel.textColor = isToday ? .white : .black
         } else {
