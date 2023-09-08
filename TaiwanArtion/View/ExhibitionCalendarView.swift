@@ -128,7 +128,7 @@ class ExhibitionCalendarView: UIView {
         return view
     }()
     
-    
+    private let taiwanArtionCalendar = TaiwanArtionCalendar(frame: .zero, type: .inExhibitionCalendar)
     
     //MARK: -Contents
     let tableView: UITableView = {
@@ -232,7 +232,10 @@ class ExhibitionCalendarView: UIView {
             tableTopConstraint = make.top.equalTo(calendarContainerView.snp.bottom).constraint
         }
         
-
+        calendarContainerView.addSubview(taiwanArtionCalendar)
+        taiwanArtionCalendar.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         tableContainerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in

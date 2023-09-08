@@ -25,10 +25,10 @@ class DateCalculator {
     
     private lazy var weekdayOffset = (calendar.component(.weekday, from: firstDayOfMonth) + 5) % 7 // 計算偏移量
     
-    private var eventsString: [String] = []
+    private var eventsString: [String] = ["2023/09/08","2023/09/09"]
     
     private var eventsDate: [Date] {
-        return eventsString.map { dateString in
+        return self.eventsString.map { dateString in
             let dateFormat = DateFormatter()
             return dateFormat.date(from: dateString) ?? Date()
         }

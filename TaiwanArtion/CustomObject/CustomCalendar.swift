@@ -119,7 +119,7 @@ extension CustomCalendar: UICollectionViewDelegateFlowLayout, UICollectionViewDa
             return  cell
         case .date:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as! DateCollectionViewCell
-            cell.configure(date: viewModel.dateCellForRowAt(indexPath: indexPath).dateString,
+            cell.configure(dateString: viewModel.dateCellForRowAt(indexPath: indexPath).dateString,
                            isToday: viewModel.dateCellForRowAt(indexPath: indexPath).isDateSelected,
                            isCurrentMonth: viewModel.dateCellForRowAt(indexPath: indexPath).isCurrentMonth)
             return cell

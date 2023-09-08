@@ -56,7 +56,7 @@ extension CalendarDateTableViewCell: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as! DateCollectionViewCell
         let cellInfo = logicViewModel.dateCellForRowAt(indexPath: indexPath)
-        cell.configure(date: cellInfo.dateString,
+        cell.configure(dateString: cellInfo.dateString,
                        isToday: cellInfo.isToday,
                        isCurrentMonth: cellInfo.isCurrentMonth)
         return cell
