@@ -73,7 +73,7 @@ class TaiwanArtionYearChangedView: UIView {
         }
         
         yearMonthLabel.snp.makeConstraints { make in
-            make.width.greaterThanOrEqualTo(88.0)
+            make.width.greaterThanOrEqualTo(100.0)
         }
         
         addSubview(titleStack)
