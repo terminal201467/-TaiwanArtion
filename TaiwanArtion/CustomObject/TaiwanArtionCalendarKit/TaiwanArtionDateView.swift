@@ -122,7 +122,7 @@ extension TaiwanArtionDateView: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.frame.width - (16 * 2)) / 7
+        let cellWidth = (collectionView.frame.width - (16 * 2) - (8 * 8)) / 7
         let cellHeight = 40.0
         return .init(width: cellWidth, height: cellHeight)
     }

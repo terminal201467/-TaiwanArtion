@@ -223,7 +223,7 @@ class ExhibitionCalendarView: UIView {
 
         contentScrollView.addSubview(tableContainerView)
         tableContainerView.snp.makeConstraints { make in
-            make.top.equalTo(calendarContainerView.snp.bottom).offset(-40.0)
+            make.top.equalTo(calendarContainerView.snp.bottom).offset(-30.0)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.width.equalToSuperview()

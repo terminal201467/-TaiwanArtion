@@ -100,7 +100,7 @@ class TaiwanArtionCalendar: UIView {
         
         addSubview(weekViewContainer)
         weekViewContainer.snp.makeConstraints { make in
-            make.top.equalTo(monthViewContainer.snp.bottom).offset(12.0)
+            make.top.equalTo(monthViewContainer.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(40.0)
@@ -109,7 +109,7 @@ class TaiwanArtionCalendar: UIView {
         addSubview(dateViewContiner)
         dateViewContiner.snp.makeConstraints { make in
             make.height.equalTo(280.0)
-            make.top.equalTo(weekViewContainer.snp.bottom).offset(16.0)
+            make.top.equalTo(weekViewContainer.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
