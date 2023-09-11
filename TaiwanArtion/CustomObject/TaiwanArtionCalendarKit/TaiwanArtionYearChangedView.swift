@@ -16,12 +16,14 @@ class TaiwanArtionYearChangedView: UIView {
     private let beforeButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(before), for: .touchDown)
+        button.setImage(.init(named: "yearBefore"), for: .normal)
         return button
     }()
     
     private let afterButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(after), for: .touchDown)
+        button.setImage(.init(named: "yearAfter"), for: .normal)
         return button
     }()
     
@@ -61,13 +63,17 @@ class TaiwanArtionYearChangedView: UIView {
     
     private func autoLayout() {
         beforeButton.snp.makeConstraints { make in
-            make.height.equalTo(24.0)
-            make.width.equalTo(24.0)
+            make.height.equalTo(25.0)
+            make.width.equalTo(25.0)
         }
         
         afterButton.snp.makeConstraints { make in
-            make.height.equalTo(24.0)
-            make.width.equalTo(24.0)
+            make.height.equalTo(25.0)
+            make.width.equalTo(25.0)
+        }
+        
+        yearMonthLabel.snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(88.0)
         }
         
         addSubview(titleStack)

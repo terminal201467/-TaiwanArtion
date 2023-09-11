@@ -85,22 +85,22 @@ class TaiwanArtionCalendar: UIView {
         addSubview(titleViewContainer)
         titleViewContainer.snp.makeConstraints { make in
             make.height.equalTo(40.0)
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(16.0)
+            make.leading.equalToSuperview().offset(16.0)
+            make.trailing.equalToSuperview().offset(-16.0)
         }
         
         addSubview(monthViewContainer)
         monthViewContainer.snp.makeConstraints { make in
             make.height.equalTo(49.0)
-            make.top.equalTo(titleViewContainer.snp.bottom).offset(17.0)
+            make.top.equalTo(titleViewContainer.snp.bottom).offset(12.0)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         
         addSubview(weekViewContainer)
         weekViewContainer.snp.makeConstraints { make in
-            make.top.equalTo(monthViewContainer.snp.bottom).offset(10.0)
+            make.top.equalTo(monthViewContainer.snp.bottom).offset(12.0)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(40.0)
@@ -159,10 +159,15 @@ class TaiwanArtionCalendar: UIView {
             buttonViewContainer.isHidden = true
         case .inExhibitionCalendar:
             yearChangedTitleView = TaiwanArtionYearChangedView()
+            yearChangedTitleView?.configure(by: 2023, by: 9)
             titleView = yearChangedTitleView
             buttonViewContainer.isHidden = true
         }
         titleViewContainer.addSubview(titleView!)
+        titleView?.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
     }
     
     private func setCorrectButton() {

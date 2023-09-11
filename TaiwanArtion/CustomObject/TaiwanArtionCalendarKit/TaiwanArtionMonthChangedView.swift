@@ -72,6 +72,8 @@ class TaiwanArtionMonthChangedView: UIView {
         monthLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
+            make.width.equalTo(100.0)
+            make.height.equalTo(50.0)
         }
     }
     

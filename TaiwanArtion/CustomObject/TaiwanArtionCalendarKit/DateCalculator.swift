@@ -58,6 +58,8 @@ class DateCalculator {
     
     func eventDateCellForRowAt(indexPath: IndexPath) -> Bool {
         let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
+        print("date:\(date)")
+//        print("indexPath.row:",indexPath.row)
         let isEventDate = eventsDate[indexPath.row] == date
         return isEventDate
     }

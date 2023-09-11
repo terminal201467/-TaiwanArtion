@@ -102,10 +102,10 @@ extension TaiwanArtionDateView: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as! DateCollectionViewCell
-        let isEvent = dateCalculator.eventDateCellForRowAt(indexPath: indexPath)
+//        let isEvent = dateCalculator.eventDateCellForRowAt(indexPath: indexPath)
         let dateInfo = dateCalculator.dateCellForRowAt(indexPath: indexPath)
         cell.configure(dateString: dateInfo.dateString, isToday: dateInfo.isToday, isCurrentMonth: dateInfo.isCurrentMonth)
-        cell.configureEventDot(isEvent: isEvent)
+//        cell.configureEventDot(isEvent: isEvent)
         return cell
     }
     
