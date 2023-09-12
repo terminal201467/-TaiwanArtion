@@ -51,14 +51,8 @@
 		973C17AA2A27456F00581DC6 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17A92A27456F00581DC6 /* Area.swift */; };
 		973C17AC2A2840A700581DC6 /* NotifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17AB2A2840A700581DC6 /* NotifyTableViewCell.swift */; };
 		973C17B12A29623F00581DC6 /* SystemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17B02A29623F00581DC6 /* SystemTableViewCell.swift */; };
-		973C17B42A298A2E00581DC6 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17B32A298A2E00581DC6 /* CalendarView.swift */; };
-		973C17B62A298BBB00581DC6 /* CalendarLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17B52A298BBB00581DC6 /* CalendarLogic.swift */; };
-		973C17B82A29921600581DC6 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17B72A29921600581DC6 /* DateTableViewCell.swift */; };
-		973C17BA2A29923B00581DC6 /* WeekTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17B92A29923B00581DC6 /* WeekTableViewCell.swift */; };
 		973C17BC2A29936F00581DC6 /* WeekCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17BB2A29936F00581DC6 /* WeekCollectionViewCell.swift */; };
 		973C17BE2A29937B00581DC6 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17BD2A29937B00581DC6 /* DateCollectionViewCell.swift */; };
-		973C17C02A29B58B00581DC6 /* CalendarDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17BF2A29B58B00581DC6 /* CalendarDateTableViewCell.swift */; };
-		973C17C22A29B7BA00581DC6 /* CalendarMonthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C12A29B7BA00581DC6 /* CalendarMonthTableViewCell.swift */; };
 		973C17C42A2AF74900581DC6 /* SearchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C32A2AF74800581DC6 /* SearchingCollectionViewCell.swift */; };
 		973C17C62A2B13A800581DC6 /* HotHintTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C52A2B13A800581DC6 /* HotHintTableViewCell.swift */; };
 		973C17C82A2B405D00581DC6 /* ButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C17C72A2B405D00581DC6 /* ButtonCollectionViewCell.swift */; };
@@ -175,7 +169,6 @@
 		97C1A8272AA5716B002C0B08 /* MainDotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C1A8262AA5716B002C0B08 /* MainDotCollectionViewCell.swift */; };
 		97C1A82C2AA73224002C0B08 /* TaiwanArtionCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C1A82B2AA73224002C0B08 /* TaiwanArtionCalendar.swift */; };
 		97C1A82E2AA734BA002C0B08 /* DateCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C1A82D2AA734BA002C0B08 /* DateCalculator.swift */; };
-		97C1A8302AA738FF002C0B08 /* TaiwanArtionCalendarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C1A82F2AA738FF002C0B08 /* TaiwanArtionCalendarTitleView.swift */; };
 		97C1A8322AA7394D002C0B08 /* TaiwanArtionWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C1A8312AA7394D002C0B08 /* TaiwanArtionWeekView.swift */; };
 		97C1A8342AA73970002C0B08 /* TaiwanArtionDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C1A8332AA73970002C0B08 /* TaiwanArtionDateView.swift */; };
 		97C1A8362AA73990002C0B08 /* TaiwanArtionMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C1A8352AA73990002C0B08 /* TaiwanArtionMonthView.swift */; };
@@ -286,14 +279,8 @@
 		973C17A92A27456F00581DC6 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
 		973C17AB2A2840A700581DC6 /* NotifyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTableViewCell.swift; sourceTree = "<group>"; };
 		973C17B02A29623F00581DC6 /* SystemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTableViewCell.swift; sourceTree = "<group>"; };
-		973C17B32A298A2E00581DC6 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		973C17B52A298BBB00581DC6 /* CalendarLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLogic.swift; sourceTree = "<group>"; };
-		973C17B72A29921600581DC6 /* DateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
-		973C17B92A29923B00581DC6 /* WeekTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekTableViewCell.swift; sourceTree = "<group>"; };
 		973C17BB2A29936F00581DC6 /* WeekCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCollectionViewCell.swift; sourceTree = "<group>"; };
 		973C17BD2A29937B00581DC6 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
-		973C17BF2A29B58B00581DC6 /* CalendarDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateTableViewCell.swift; sourceTree = "<group>"; };
-		973C17C12A29B7BA00581DC6 /* CalendarMonthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthTableViewCell.swift; sourceTree = "<group>"; };
 		973C17C32A2AF74800581DC6 /* SearchingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		973C17C52A2B13A800581DC6 /* HotHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotHintTableViewCell.swift; sourceTree = "<group>"; };
 		973C17C72A2B405D00581DC6 /* ButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -433,7 +420,6 @@
 		97C1A8262AA5716B002C0B08 /* MainDotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDotCollectionViewCell.swift; sourceTree = "<group>"; };
 		97C1A82B2AA73224002C0B08 /* TaiwanArtionCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanArtionCalendar.swift; sourceTree = "<group>"; };
 		97C1A82D2AA734BA002C0B08 /* DateCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCalculator.swift; sourceTree = "<group>"; };
-		97C1A82F2AA738FF002C0B08 /* TaiwanArtionCalendarTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanArtionCalendarTitleView.swift; sourceTree = "<group>"; };
 		97C1A8312AA7394D002C0B08 /* TaiwanArtionWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanArtionWeekView.swift; sourceTree = "<group>"; };
 		97C1A8332AA73970002C0B08 /* TaiwanArtionDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanArtionDateView.swift; sourceTree = "<group>"; };
 		97C1A8352AA73990002C0B08 /* TaiwanArtionMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanArtionMonthView.swift; sourceTree = "<group>"; };
@@ -574,12 +560,6 @@
 		973C17B22A2989FF00581DC6 /* CustomObject */ = {
 			isa = PBXGroup;
 			children = (
-				973C17B32A298A2E00581DC6 /* CalendarView.swift */,
-				973C17B52A298BBB00581DC6 /* CalendarLogic.swift */,
-				973C17B92A29923B00581DC6 /* WeekTableViewCell.swift */,
-				973C17B72A29921600581DC6 /* DateTableViewCell.swift */,
-				973C17BF2A29B58B00581DC6 /* CalendarDateTableViewCell.swift */,
-				973C17C12A29B7BA00581DC6 /* CalendarMonthTableViewCell.swift */,
 				973C83772A5F796300490D25 /* CustomCalendar.swift */,
 				97C1A82A2AA731C9002C0B08 /* TaiwanArtionCalendarKit */,
 				973C83792A5F80D000490D25 /* CustomCalendarViewModel.swift */,
@@ -717,7 +697,6 @@
 			children = (
 				97C1A82B2AA73224002C0B08 /* TaiwanArtionCalendar.swift */,
 				97C1A82D2AA734BA002C0B08 /* DateCalculator.swift */,
-				97C1A82F2AA738FF002C0B08 /* TaiwanArtionCalendarTitleView.swift */,
 				97C1A8312AA7394D002C0B08 /* TaiwanArtionWeekView.swift */,
 				97C1A8332AA73970002C0B08 /* TaiwanArtionDateView.swift */,
 				97C1A8352AA73990002C0B08 /* TaiwanArtionMonthView.swift */,
@@ -1177,7 +1156,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				973C17772A1F3E0F00581DC6 /* ExhibitionCardViewModel.swift in Sources */,
-				973C17B42A298A2E00581DC6 /* CalendarView.swift in Sources */,
 				97D66A2A2A0C729400A25935 /* UIView.swift in Sources */,
 				97977C752A71FEE000BC89E0 /* CollectViewModel.swift in Sources */,
 				97FD07052A600FC400A64808 /* ResetPasswordView.swift in Sources */,
@@ -1245,14 +1223,12 @@
 				975FD6452A9460DB0006F76C /* MapAnnocationView.swift in Sources */,
 				976A03332A15D9A200424ACF /* MainPhotosCollectionViewCell.swift in Sources */,
 				973C17AA2A27456F00581DC6 /* Area.swift in Sources */,
-				973C17C22A29B7BA00581DC6 /* CalendarMonthTableViewCell.swift in Sources */,
 				973C17752A1F3A4400581DC6 /* ExhibitionCardItems.swift in Sources */,
 				97BD685D2A563AD900F4BCAB /* BirthTableViewCell.swift in Sources */,
 				9771A1482A39F0D4006F4F9D /* LittleTopPopUpView.swift in Sources */,
 				9771A1542A3A0970006F4F9D /* RegisterViewModel.swift in Sources */,
 				973C177D2A20B5DD00581DC6 /* MapTableViewCell.swift in Sources */,
 				97506C352A4048CC00F6BB24 /* AccountPasswordViewModel.swift in Sources */,
-				973C17BA2A29923B00581DC6 /* WeekTableViewCell.swift in Sources */,
 				973C179D2A27265700581DC6 /* NotifyViewModel.swift in Sources */,
 				97D669FA2A0C6C3600A25935 /* RootViewController.swift in Sources */,
 				97D669F62A0C6C3600A25935 /* AppDelegate.swift in Sources */,
@@ -1284,7 +1260,6 @@
 				973C83802A5FCBCB00490D25 /* LoginViewModel.swift in Sources */,
 				973C17812A20D66300581DC6 /* EquipmentTableViewCell.swift in Sources */,
 				973C17A52A273D0C00581DC6 /* SearchViewModel.swift in Sources */,
-				973C17B62A298BBB00581DC6 /* CalendarLogic.swift in Sources */,
 				97FF7AE22AA1DE5B0090F338 /* NewsTableViewCell.swift in Sources */,
 				97BD68592A5628D100F4BCAB /* PersonalInfoView.swift in Sources */,
 				973C837E2A5FBA7B00490D25 /* LoginView.swift in Sources */,
@@ -1293,7 +1268,6 @@
 				97D66A372A0DD27900A25935 /* HabbyCollectionViewCell.swift in Sources */,
 				975FD6412A9307600006F76C /* ExhibitionMapView.swift in Sources */,
 				978834C12A1DD51300ADBEE8 /* SelectedItemsCollectionViewCell.swift in Sources */,
-				973C17C02A29B58B00581DC6 /* CalendarDateTableViewCell.swift in Sources */,
 				97506C272A3BF94200F6BB24 /* HintTableViewCell.swift in Sources */,
 				976A03102A0E88B500424ACF /* MonthCollectionViewCell.swift in Sources */,
 				97D66A282A0C724F00A25935 /* SplashView.swift in Sources */,
@@ -1335,7 +1309,6 @@
 				9746561D2A9B8867008F4E1F /* NearExhibitionDetailTableViewCell.swift in Sources */,
 				97BD68632A56C7D300F4BCAB /* SettingHeadView.swift in Sources */,
 				976A03262A15054300424ACF /* MonthTableViewCell.swift in Sources */,
-				973C17B82A29921600581DC6 /* DateTableViewCell.swift in Sources */,
 				97FD07032A600FB000A64808 /* ResetPasswordViewController.swift in Sources */,
 				973C176C2A1F2DB200581DC6 /* PasswordHintFooterView.swift in Sources */,
 				973C83762A5F735100490D25 /* TitleMonthCollectionViewCell.swift in Sources */,
@@ -1375,7 +1348,6 @@
 				974656212A9CD6D2008F4E1F /* NewsSearchingView.swift in Sources */,
 				97E0F5902A8DF925004D6C0F /* NearSearchResultView.swift in Sources */,
 				973C178F2A25F0B000581DC6 /* EvaluateViewController.swift in Sources */,
-				97C1A8302AA738FF002C0B08 /* TaiwanArtionCalendarTitleView.swift in Sources */,
 				975FD6432A94500B0006F76C /* MapLocationPinAnnotation.swift in Sources */,
 				97FD070F2A658DB200A64808 /* ResetSucceedViewController.swift in Sources */,
 				976A03312A15D86800424ACF /* MainPhotosTableViewCell.swift in Sources */,

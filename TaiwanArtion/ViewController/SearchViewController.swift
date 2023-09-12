@@ -348,16 +348,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.configure(itemTitle: DateKind.allCases.map{$0.text})
                         return cell
                     case .calendar:
-                        let calendarView = CalendarView()
-                        calendarCell.contentView.addSubview(calendarView)
-                        calendarView.snp.makeConstraints { make in
-                            make.height.equalTo(500)
-                            make.top.equalToSuperview()
-                            make.leading.equalToSuperview()
-                            make.trailing.equalToSuperview()
-                            make.bottom.equalToSuperview()
-                        }
-                        return calendarCell
+//                        let calendarView = CalendarView()
+//                        calendarCell.contentView.addSubview(calendarView)
+//                        calendarView.snp.makeConstraints { make in
+//                            make.height.equalTo(500)
+//                            make.top.equalToSuperview()
+//                            make.leading.equalToSuperview()
+//                            make.trailing.equalToSuperview()
+//                            make.bottom.equalToSuperview()
+//                        }
+//                        return calendarCell
+                        print("calendarView")
                     case .correct:
                         correctButtonCell.configure(buttonName: "確定")
                         return correctButtonCell
