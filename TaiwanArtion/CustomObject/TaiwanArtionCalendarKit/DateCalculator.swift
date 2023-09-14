@@ -11,7 +11,11 @@ class DateCalculator {
     
     var selectedDateCompletion: ((Date) -> Void)?
     
-    private var selectedDate: Date?
+    private var selectedDate: Date? {
+        didSet {
+            print("selectedDate:\(selectedDate!)")
+        }
+    }
     //calendar
     private let calendar = Calendar.current
     //Date
@@ -25,11 +29,14 @@ class DateCalculator {
     
     private lazy var weekdayOffset = (calendar.component(.weekday, from: firstDayOfMonth) + 5) % 7 // 計算偏移量
     
-    private var eventsString: [String] = ["2023/09/08","2023/09/09"]
+    private var eventsString: [String] = ["2023-09-09","2023-09-10"]
     
     private var eventsDate: [Date] {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd"
+        dateFormat.locale = .current
+        dateFormat.timeZone = .current
         return self.eventsString.map { dateString in
-            let dateFormat = DateFormatter()
             return dateFormat.date(from: dateString) ?? Date()
         }
     }
@@ -57,22 +64,22 @@ class DateCalculator {
     }
     
     func eventDateCellForRowAt(indexPath: IndexPath) -> Bool {
-        let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
-        print("date:\(date)")
-//        print("indexPath.row:",indexPath.row)
-        let isEventDate = eventsDate[indexPath.row] == date
-        return isEventDate
+        let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset + 1, to: firstDayOfMonth)!
+        let isEvent = eventsDate.compactMap { eventDate in
+            eventDate == date
+        }
+        return isEvent.contains(true)
     }
     
     func singleDidSelectedRowAt(indexPath: IndexPath) {
-        let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
+        let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset + 1, to: firstDayOfMonth)!
         selectedDate = date
         selectedDateCompletion?(date)
     }
     
     func multipleSelectedRowAt(indexPaths: [IndexPath]) -> [Date] {
         return indexPaths.map { indexPath in
-            calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset, to: firstDayOfMonth)!
+            calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset + 1, to: firstDayOfMonth)!
         }
     }
 }

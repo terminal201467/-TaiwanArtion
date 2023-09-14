@@ -69,4 +69,9 @@ class DateCollectionViewCell: UICollectionViewCell {
         }
         backgroundImageView.isHidden = isToday ? false : true
     }
+    
+    func changeCurrentSelectedItem(isCurrentSelected: Bool) {
+        dateLabel.textColor = isCurrentSelected ? .white : .brownColor
+        backgroundImageView.isHidden = !isCurrentSelected
+    }
 }
