@@ -19,11 +19,11 @@ class DateCalculator {
     //calendar
     private let calendar = Calendar.current
     //Date
-    private let currentDate = Date()
+    var currentDate = Date()
     //Month
-    private lazy var currentMonth = calendar.component(.month, from: currentDate)
+    lazy var currentMonth = calendar.component(.month, from: currentDate)
     //Year
-    private lazy var currentYear = calendar.component(.year, from: currentDate)
+    lazy var currentYear = calendar.component(.year, from: currentDate)
     
     private lazy var firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate))!
     
@@ -43,6 +43,28 @@ class DateCalculator {
     
     var currentDateString: String {
         return currentDate.formatted()
+    }
+    
+    func nextMonth(completion: @escaping (() -> Void)) {
+        if currentMonth > 12 {
+            currentYear += 1
+            currentMonth = 1
+        } else {
+            currentMonth += 1
+        }
+        print("currentYear:\(currentYear)")
+        print("currentMonth:\(currentMonth)")
+    }
+    
+    func preMonth(completion: @escaping (() -> Void)) {
+        if currentMonth < 1 {
+            currentYear -= 1
+            currentMonth = 12
+        } else {
+            currentMonth -= 1
+        }
+        print("currentYear:\(currentYear)")
+        print("currentMonth:\(currentMonth)")
     }
     
     func setCalendarYear(year: Int) {

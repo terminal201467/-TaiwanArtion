@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TaiwanArtionYearChangedView: UIView {
     
@@ -15,14 +17,14 @@ class TaiwanArtionYearChangedView: UIView {
 
     private let beforeButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(before), for: .touchDown)
+        button.addTarget(TaiwanArtionYearChangedView.self, action: #selector(before), for: .touchUpInside)
         button.setImage(.init(named: "yearBefore"), for: .normal)
         return button
     }()
     
     private let afterButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(after), for: .touchDown)
+        button.addTarget(TaiwanArtionYearChangedView.self, action: #selector(after), for: .touchUpInside)
         button.setImage(.init(named: "yearAfter"), for: .normal)
         return button
     }()

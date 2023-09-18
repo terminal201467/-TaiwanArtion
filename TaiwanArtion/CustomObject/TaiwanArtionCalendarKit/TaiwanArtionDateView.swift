@@ -31,15 +31,16 @@ class TaiwanArtionDateView: UIView {
         setCollectionViewPanGesture()
     }
     
-    private let dateCalculator = DateCalculator()
+    let dateCalculator = DateCalculator()
 
-    private let collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(DateCollectionViewCell.self, forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     

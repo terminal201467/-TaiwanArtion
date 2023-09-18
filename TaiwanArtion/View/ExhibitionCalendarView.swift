@@ -123,7 +123,7 @@ class ExhibitionCalendarView: UIView {
     
     private let tableContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
         view.setSpecificRoundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 20)
         return view
     }()
@@ -137,6 +137,7 @@ class ExhibitionCalendarView: UIView {
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
         tableView.applyShadow(color: .black, opacity: 0.3, offset: CGSize(width: 1, height: 1), radius: 4)
+        tableView.backgroundColor = .white
         return tableView
     }()
     

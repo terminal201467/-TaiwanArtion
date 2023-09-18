@@ -16,6 +16,7 @@ class TaiwanArtionWeekView: UIView {
         collectionView.register(WeekCollectionViewCell.self, forCellWithReuseIdentifier: WeekCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = false
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     

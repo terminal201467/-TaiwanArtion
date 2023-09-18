@@ -30,6 +30,7 @@ class MainDotBarFooterView: UIView {
         collectionView.register(MainDotCollectionViewCell.self, forCellWithReuseIdentifier: MainDotCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
