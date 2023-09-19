@@ -28,7 +28,7 @@ class TaiwanArtionDateView: UIView {
         super.init(frame: frame)
         autoLayout()
         setDelegate()
-        setCollectionViewPanGesture()
+//        setCollectionViewPanGesture()
     }
     
     let dateCalculator = DateCalculator()
@@ -60,35 +60,36 @@ class TaiwanArtionDateView: UIView {
         }
     }
     
-    private func setCollectionViewPanGesture() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        collectionView.addGestureRecognizer(panGesture)
-    }
+//    private func setCollectionViewPanGesture() {
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+//        collectionView.addGestureRecognizer(panGesture)
+//    }
     
-    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        var panSelectedIndexPath: [IndexPath]?
-        switch gesture.state {
-        case .began:
-            panSelectedIndexPath = []
-        case .changed:
-            let location = gesture.location(in: collectionView)
-            if let indexPath = collectionView.indexPathForItem(at: location) {
-                panSelectedIndexPath?.append(indexPath)
-                dateCalculator.multipleSelectedRowAt(indexPaths: panSelectedIndexPath ?? [])
-                if let cell = collectionView.cellForItem(at: indexPath) as? DateCollectionViewCell {
-                    let contentSubview = cell.backgroundImageView
-                    overlayContainerView.addSubview(overlayView)
-                    overlayContainerView.bringSubviewToFront(contentSubview)
-                }
-            }
-            //cell的背景也會變成
-        case .ended:
-            print("ended")
-            //如果有底下的Button的話，button就變成咖啡色
-        default:
-            break
-        }
-    }
+//    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+//        var panSelectedIndexPath: [IndexPath]?
+//        switch gesture.state {
+//        case .began:
+//            panSelectedIndexPath = []
+//        case .changed:
+//            let location = gesture.location(in: collectionView)
+//            print("location:\(location)")
+//            if let indexPath = collectionView.indexPathForItem(at: location) {
+//                panSelectedIndexPath?.append(indexPath)
+//                dateCalculator.multipleSelectedRowAt(indexPaths: panSelectedIndexPath ?? [])
+//                print("panSelectedIndexPath:\(panSelectedIndexPath)")
+//                if let cell = collectionView.cellForItem(at: indexPath) as? DateCollectionViewCell {
+//                    let contentSubview = cell.backgroundImageView
+//                    overlayContainerView.addSubview(overlayView)
+//                    overlayContainerView.bringSubviewToFront(contentSubview)
+//                }
+//            }
+//        case .ended:
+//            print("ended")
+//            //如果有底下的Button的話，button就變成咖啡色
+//        default:
+//            break
+//        }
+//    }
     
     func setYearMonth(year: Int, month: Int) {
         dateCalculator.setCalendarYear(year: year)
@@ -105,10 +106,13 @@ extension TaiwanArtionDateView: UICollectionViewDelegateFlowLayout, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as! DateCollectionViewCell
         let isEvent = dateCalculator.eventDateCellForRowAt(indexPath: indexPath)
         let dateInfo = dateCalculator.dateCellForRowAt(indexPath: indexPath)
-        cell.configure(dateString: dateInfo.dateString, isToday: dateInfo.isToday, isCurrentMonth: dateInfo.isCurrentMonth)
+        cell.configure(dateString: dateInfo.dateString,
+                       isToday: dateInfo.isToday,
+                       isCurrentMonth: dateInfo.isCurrentMonth)
         cell.configureEventDot(isEvent: isEvent)
-        
-        //如果點選了日期，就會先取消原本的日錢
+        let isSelected = dateCalculator.currentSelectRowAt(indexPath: indexPath)
+        cell.changeCurrentSelectedItem(isCurrentSelected: isSelected)
+        //如果點選了日期，就會先取消原本的
         return cell
     }
     
@@ -116,6 +120,7 @@ extension TaiwanArtionDateView: UICollectionViewDelegateFlowLayout, UICollection
         dateCalculator.singleDidSelectedRowAt(indexPath: indexPath)
         dateCalculator.selectedDateCompletion = { date in
             self.selectedDate?(date)
+            print("date:\(date)")
         }
         collectionView.reloadData()
     }

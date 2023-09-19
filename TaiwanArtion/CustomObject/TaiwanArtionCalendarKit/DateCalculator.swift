@@ -93,6 +93,12 @@ class DateCalculator {
         return isEvent.contains(true)
     }
     
+    func currentSelectRowAt(indexPath: IndexPath) -> Bool {
+        let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset + 1, to: firstDayOfMonth)!
+        let isCurrentSelected = calendar.isDate(selectedDate ?? Date(), inSameDayAs: date)
+        return isCurrentSelected
+    }
+    
     func singleDidSelectedRowAt(indexPath: IndexPath) {
         let date = calendar.date(byAdding: .day, value: indexPath.item - weekdayOffset + 1, to: firstDayOfMonth)!
         selectedDate = date

@@ -46,7 +46,6 @@ class TaiwanArtionCalendar: UIView {
     private let titleViewContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -93,7 +92,6 @@ class TaiwanArtionCalendar: UIView {
     
     private var titleView: UIView = {
         let view = UIView()
-        view.isUserInteractionEnabled = true
         return view
     }()
     
