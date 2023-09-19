@@ -39,13 +39,14 @@ class TaiwanArtionCalendar: UIView {
         addContentToContainer()
         addTitleToContainer(by: type)
         setNextPreMonthAction()
-//        setNextPreYearAction()
+        setNextPreYearAction()
     }
     
     //MARK: - ContainerViews
     private let titleViewContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -90,7 +91,11 @@ class TaiwanArtionCalendar: UIView {
     
     //MARK: - TitleViews
     
-    private var titleView: UIView?
+    private var titleView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        return view
+    }()
     
     private var monthChangedTitleView: TaiwanArtionMonthChangedView?
     
@@ -172,39 +177,28 @@ class TaiwanArtionCalendar: UIView {
     private func addTitleToContainer(by type: CalendarType) {
         switch type {
         case .withButton:
-            monthChangedTitleView = TaiwanArtionMonthChangedView()
-            titleView = monthChangedTitleView
+            let view = TaiwanArtionMonthChangedView()
+            monthChangedTitleView = view
+            titleView.addSubview(monthChangedTitleView!)
+            monthChangedTitleView!.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
             buttonViewContainer.isHidden = false
         case .withSearching:
             titleHeaderView = TitleHeaderView()
-            titleView = titleHeaderView
+            titleView.addSubview(titleHeaderView!)
             buttonViewContainer.isHidden = true
         case .inExhibitionCalendar:
-            yearChangedTitleView = TaiwanArtionYearChangedView()
-            yearChangedTitleView?.configure(by: self.dateView.dateCalculator.currentYear,
-                                            by: self.dateView.dateCalculator.currentMonth)
-            yearChangedTitleView?.afterAction = {
-                print("next")
-                self.dateView.dateCalculator.nextMonth {
-                    self.yearChangedTitleView?.configure(by: self.dateView.dateCalculator.currentYear,
-                                                    by: self.dateView.dateCalculator.currentMonth)
-                    self.dateView.collectionView.reloadData()
-                }
+            let view = TaiwanArtionYearChangedView()
+            yearChangedTitleView = view
+            titleView.addSubview(yearChangedTitleView!)
+            yearChangedTitleView!.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
             }
-            
-            yearChangedTitleView?.beforeAction = {
-                print("pre")
-                self.yearChangedTitleView?.configure(by: self.dateView.dateCalculator.currentYear,
-                                                by: self.dateView.dateCalculator.currentMonth)
-                self.dateView.dateCalculator.preMonth {
-                    self.dateView.collectionView.reloadData()
-                }
-            }
-            titleView = yearChangedTitleView
             buttonViewContainer.isHidden = true
         }
-        titleViewContainer.addSubview(titleView!)
-        titleView?.snp.makeConstraints { make in
+        titleViewContainer.addSubview(titleView)
+        titleView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
@@ -218,6 +212,28 @@ class TaiwanArtionCalendar: UIView {
     
     @objc private func correct() {
         correctAction?()
+    }
+    
+    private func setNextPreYearAction() {
+        yearChangedTitleView?.configure(by: self.dateView.dateCalculator.currentYear,
+                                        by: self.dateView.dateCalculator.currentMonth)
+        yearChangedTitleView?.afterAction = {
+            print("next")
+            self.dateView.dateCalculator.nextMonth {
+                self.yearChangedTitleView?.configure(by: self.dateView.dateCalculator.currentYear,
+                                                by: self.dateView.dateCalculator.currentMonth)
+                self.dateView.collectionView.reloadData()
+            }
+        }
+
+        yearChangedTitleView?.beforeAction = {
+            print("pre")
+            self.yearChangedTitleView?.configure(by: self.dateView.dateCalculator.currentYear,
+                                            by: self.dateView.dateCalculator.currentMonth)
+            self.dateView.dateCalculator.preMonth {
+                self.dateView.collectionView.reloadData()
+            }
+        }
     }
     
     private func setNextPreMonthAction() {
@@ -235,20 +251,4 @@ class TaiwanArtionCalendar: UIView {
             }
         }
     }
-    
-//    private func setNextPreYearAction() {
-//        yearChangedTitleView?.afterAction = {
-//            print("next")
-//            self.dateView.dateCalculator.nextMonth {
-//                self.dateView.collectionView.reloadData()
-//            }
-//        }
-//
-//        yearChangedTitleView?.beforeAction = {
-//            print("pre")
-//            self.dateView.dateCalculator.preMonth {
-//                self.dateView.collectionView.reloadData()
-//            }
-//        }
-//    }
 }

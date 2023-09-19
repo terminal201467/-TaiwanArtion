@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 class TaiwanArtionYearChangedView: UIView {
     
@@ -17,15 +15,15 @@ class TaiwanArtionYearChangedView: UIView {
 
     private let beforeButton: UIButton = {
         let button = UIButton()
-        button.addTarget(TaiwanArtionYearChangedView.self, action: #selector(before), for: .touchUpInside)
         button.setImage(.init(named: "yearBefore"), for: .normal)
+        button.addTarget(self, action: #selector(before), for: .touchUpInside)
         return button
     }()
     
     private let afterButton: UIButton = {
         let button = UIButton()
-        button.addTarget(TaiwanArtionYearChangedView.self, action: #selector(after), for: .touchUpInside)
         button.setImage(.init(named: "yearAfter"), for: .normal)
+        button.addTarget(self, action: #selector(after), for: .touchUpInside)
         return button
     }()
     
@@ -48,6 +46,7 @@ class TaiwanArtionYearChangedView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.isUserInteractionEnabled = true
         autoLayout()
     }
     
@@ -55,11 +54,11 @@ class TaiwanArtionYearChangedView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func before() {
+    @objc func before() {
         beforeAction?()
     }
     
-    @objc private func after() {
+    @objc func after() {
         afterAction?()
     }
     

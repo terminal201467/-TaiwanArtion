@@ -25,6 +25,7 @@ class TaiwanArtionMonthView: UIView {
         collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: MonthCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
         return collectionView
     }()

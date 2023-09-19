@@ -22,7 +22,7 @@ class ExhibitionCalendarView: UIView {
     
     //MARK: - NavigationBar
     
-    let navigationBarContainerView: UIView = {
+    private let navigationBarContainerView: UIView = {
         let view = UIView()
         return view
     }()
@@ -41,7 +41,7 @@ class ExhibitionCalendarView: UIView {
         return button
     }()
 
-    private lazy var listButton:  UIButton = {
+    private lazy var listButton: UIButton = {
         let button = UIButton()
         button.setImage(.init(named: "barList"), for: .normal)
         button.addTarget(self, action: #selector(selectedList), for: .touchDown)
@@ -109,7 +109,6 @@ class ExhibitionCalendarView: UIView {
     private lazy var contentScrollView: UIScrollView = {
        let scrollView = UIScrollView()
         scrollView.isScrollEnabled = true
-        scrollView.isUserInteractionEnabled = true
         scrollView.showsVerticalScrollIndicator = false
         scrollView.contentSize = CGSize(width: frame.width, height: 1000)
         return scrollView
@@ -117,7 +116,7 @@ class ExhibitionCalendarView: UIView {
     
     private let calendarContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = .white
         return view
     }()
     
@@ -268,7 +267,7 @@ class ExhibitionCalendarView: UIView {
                 contentContainerview.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 0)
             } else {
                 // Swipe up
-                tableTopConstraint?.update(offset: -550.0)
+                tableTopConstraint?.update(offset: -450.0)
                 isCalendarMode = false
                 contentContainerview.setSpecificRoundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
             }
@@ -291,7 +290,7 @@ class ExhibitionCalendarView: UIView {
     @objc private func selectedList() {
         calendarMode?(false)
         isCalendarMode = false
-        tableTopConstraint?.update(offset: -550.0)
+        tableTopConstraint?.update(offset: -450.0)
         UIView.animate(withDuration: 0.5) {
             self.contentContainerview.layoutIfNeeded()
         }
