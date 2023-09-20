@@ -46,12 +46,12 @@ class FirebaseAuth {
                 ----------------------------------
                 """
                 )
-                let user = User(name: result.user.profile?.name ?? "未知的名字",
-                                gender: "未知的性別",
-                                phone: "未知的電話",
+                let user = User(birth: "未知的生日",
                                 email: result.user.profile?.email ?? "未知的Email",
-                                birth: "未知的生日",
-                                headImage: result.user.profile?.imageURL(withDimension: .zero)?.scheme ?? "未知的大頭貼")
+                                gender: "未知的性別",
+                                headImage: result.user.profile?.imageURL(withDimension: .zero)?.scheme ?? "未知的大頭貼",
+                                phone: "未知的電話",
+                                name: result.user.profile?.name ?? "未知的名字")
                 completion(user)
             }
         }
@@ -110,13 +110,12 @@ class FirebaseAuth {
                             """
                             )
                             let formatter = DateFormatter()
-                            let user = User(name: profile.name ?? "未知的姓名",
-                                            gender: profile.gender ?? "未知的性別",
-                                            phone: "未知的電話",
+                            let user = User(birth: formatter.string(from: profile.birthday ?? Date()) ?? "未知的生日",
                                             email: profile.email ?? "未知的Email",
-                                            birth: formatter.string(from: profile.birthday ?? Date()) ?? "未知的生日",
-                                            headImage: profile.imageURL?.scheme ?? "未知的大頭貼")
-                            
+                                            gender: profile.gender ?? "未知的性別",
+                                            headImage: profile.imageURL?.scheme ?? "未知的大頭貼",
+                                            phone: "未知的電話",
+                                            name: profile.name ?? "未知的姓名")
                             completion(user)
                         }
                     }
@@ -145,12 +144,12 @@ class FirebaseAuth {
                 ----------------------------------
                 """
                 )
-                let user = User(name: result.user.displayName ?? "未知的姓名",
-                                gender: "未知的性別",
-                                phone: result.user.phoneNumber ?? "未知的電話",
+                let user = User(birth: "未知的生日",
                                 email: result.user.email ?? "未知的Email",
-                                birth: "未知的生日",
-                                headImage: result.user.photoURL?.scheme ?? "未知的大頭貼")
+                                gender: "未知的性別",
+                                headImage: result.user.photoURL?.scheme ?? "未知的大頭貼",
+                                phone: "未知的電話",
+                                name: result.user.displayName ?? "未知的名字")
                 completion(user)
             }
         }
@@ -175,12 +174,12 @@ class FirebaseAuth {
                 ----------------------------------
                 """
                 )
-                let user = User(name: result.user.displayName ?? "未知的姓名",
-                                gender: "未知的性別",
-                                phone: result.user.phoneNumber ?? "未知的電話",
+                let user = User(birth: "未知的生日",
                                 email: result.user.email ?? "未知的Email",
-                                birth: "未知的生日",
-                                headImage: result.user.photoURL?.scheme ?? "未知的大頭貼")
+                                gender: "未知的性別",
+                                headImage: "\(result.user.photoURL)",
+                                phone: "未知的電話",
+                                name: result.user.displayName ?? "未知的名字")
                 completion(user)
             }
         }

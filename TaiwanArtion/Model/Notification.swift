@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: - NotifyModel
-struct NotifyModel {
+struct Notification {
     
     var title: String
     var description: String

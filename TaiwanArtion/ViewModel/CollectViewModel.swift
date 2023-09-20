@@ -45,7 +45,7 @@ protocol CollectOutput {
     var collectExhibitionHall: BehaviorRelay<[String]> { get }
     
     //輸出收藏的新聞
-    var collectNews: BehaviorRelay<[NewsModel]> { get }
+    var collectNews: BehaviorRelay<[News]> { get }
     
     //輸出新聞搜尋紀錄
     var collectNewsSearchHistory: BehaviorRelay<[String]> { get }
@@ -91,7 +91,7 @@ class CollectViewModel: CollectInputOutputType, CollectInput, CollectOutput {
     
     var collectExhibitionHall: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
     
-    var collectNews: RxRelay.BehaviorRelay<[NewsModel]> = BehaviorRelay(value: [])
+    var collectNews: RxRelay.BehaviorRelay<[News]> = BehaviorRelay(value: [])
     
     var collectNewsSearchHistory: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
     
@@ -146,7 +146,7 @@ class CollectViewModel: CollectInputOutputType, CollectInput, CollectOutput {
         
     }
     
-    private func fetchFirebaseNewsData(by userID: String, completion: @escaping (([NewsModel]) -> Void)) {
+    private func fetchFirebaseNewsData(by userID: String, completion: @escaping (([News]) -> Void)) {
         
     }
     

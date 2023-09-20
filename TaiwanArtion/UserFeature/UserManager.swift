@@ -301,13 +301,18 @@ class UserManager: UserInputOutputType, UserManagerInput, UserManagerOutput {
             if let error = error {
                 print("error:\(error)")
             } else if let data = data {
-                guard let username = data["username"] as? String,
+                guard let name = data["username"] as? String,
                       let birth = data["birth"] as? String,
                       let email = data["email"] as? String,
                       let gender = data["gender"] as? String,
                       let phone = data["phone"] as? String,
                       let headImage = data["headImage"] as? String else { return }
-                let userInfo = User(name: username, gender: gender, phone: phone, email: email, birth: birth, headImage: headImage)
+                let userInfo = User(birth: birth,
+                                    email: email,
+                                    gender: gender,
+                                    headImage: headImage,
+                                    phone: phone,
+                                    name: name)
                 completion(userInfo)
             }
         }

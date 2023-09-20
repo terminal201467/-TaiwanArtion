@@ -26,7 +26,7 @@ protocol ResultOutput {
     var storeHistoryObservable: Observable<[ExhibitionInfo]> { get }
     
     //新聞觀察序列
-    var storeNewsObservable: Observable<[NewsModel]> { get }
+    var storeNewsObservable: Observable<[News]> { get }
     
     //展覽館觀察序列
     var storeExhibitionHallObservable: Observable<[ExhibitionHallInfo]> { get }
@@ -63,7 +63,7 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
         return Observable.just(storeSearchExhibitionHistorys)
     }
     
-    var storeNewsObservable: Observable<[NewsModel]> {
+    var storeNewsObservable: Observable<[News]> {
         return Observable.just(storeSearchNews)
     }
     
@@ -86,7 +86,7 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
     
     private var storeSearchExhibitionHistorys: [ExhibitionInfo] = []
     
-    private var storeSearchNews: [NewsModel] = []
+    private var storeSearchNews: [News] = []
     
     private var storeExhibitionHalls: [ExhibitionHallInfo] = []
     
@@ -129,7 +129,7 @@ class ResultViewModel: ResultInputOutputType, ResultInput, ResultOutput {
         return searchResult
     }
     
-    private func filterSearchNewsHistory(searchText: String) -> [NewsModel] {
+    private func filterSearchNewsHistory(searchText: String) -> [News] {
         let searchResult = storeSearchNews.filter { news in
             news.title.localizedStandardContains(searchText)
         }

@@ -52,7 +52,7 @@ protocol NewsSearchingOutput {
     var outputNewsFilter: BehaviorRelay<NewsFilterItem> { get }
     
     //輸出藝文新聞篩選過的新聞
-    var outputFilterNews: BehaviorRelay<[NewsModel]> { get }
+    var outputFilterNews: BehaviorRelay<[News]> { get }
     
     //輸出新聞搜尋紀錄
     var outputNewsSearchingHistory: BehaviorRelay<[String]> { get }
@@ -100,7 +100,7 @@ class NewsSearchingViewModel: NewsSearchingType, NewsSearchingInput, NewsSearchi
     
     var outputNewsFilter: RxRelay.BehaviorRelay<NewsFilterItem> = BehaviorRelay(value: .recentNews)
     
-    var outputFilterNews: RxRelay.BehaviorRelay<[NewsModel]> = BehaviorRelay(value: [])
+    var outputFilterNews: RxRelay.BehaviorRelay<[News]> = BehaviorRelay(value: [])
     
     var outputNewsSearchingHistory: RxRelay.BehaviorRelay<[String]> = BehaviorRelay(value: [])
     
@@ -157,17 +157,17 @@ class NewsSearchingViewModel: NewsSearchingType, NewsSearchingInput, NewsSearchi
             
     }
     
-    private func getNewsByMonthFilter(month: Month) -> [NewsModel] {
+    private func getNewsByMonthFilter(month: Month) -> [News] {
         //月份篩選
         return []
     }
     
-    private func getNewsByHabby(habby: HabbyItem) -> [NewsModel] {
+    private func getNewsByHabby(habby: HabbyItem) -> [News] {
         //嗜好篩選
         return []
     }
     
-    private func getNewsBySelected(selectedItem: NewsFilterItem) -> [NewsModel] {
+    private func getNewsBySelected(selectedItem: NewsFilterItem) -> [News] {
         //新聞選擇條件
         return []
     }

@@ -175,8 +175,8 @@ class ExhibitionCardViewModel {
     }
     
     //MARK: - EvaluationTableView
-    var evaluation: EvaluationModel =
-        EvaluationModel(number: 4,
+    var evaluation: Evaluation =
+        Evaluation(number: 4,
                         allCommentCount: 4,
                         allCommentStar: 4,
                         allCommentRate: [.init(contentRichness: 4.6,
@@ -210,7 +210,7 @@ class ExhibitionCardViewModel {
         }
     }
     
-    func evaluationTableCellForRowAt(indexPath: IndexPath) -> EvaluationModel.CommentContent? {
+    func evaluationTableCellForRowAt(indexPath: IndexPath) -> Evaluation.CommentContent? {
         switch EvaluationSection(rawValue: indexPath.section) {
         case .allComment: return evaluation.allCommentContents[indexPath.row]
         case .none: return nil

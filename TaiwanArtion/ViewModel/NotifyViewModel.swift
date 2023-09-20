@@ -39,11 +39,11 @@ class NotifyViewModel {
     
     private var readExhibitions: Set<ExhibitionInfo> = Set<ExhibitionInfo>()
     
-    private var systemNotifications: [NotifyModel] = [
-        NotifyModel(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03"),
-        NotifyModel(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03"),
-        NotifyModel(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03"),
-        NotifyModel(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03")
+    private var systemNotifications: [Notification] = [
+        Notification(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03"),
+        Notification(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03"),
+        Notification(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03"),
+        Notification(title: "APP升級維護公告", description: "為提供您更好的服務及用戶體驗，我們將在2023.04.20  18:00-22:00進行系統升級與維護。", dateString: "2023-06-03")
     ]
     
     private var unreadCount: Int {
@@ -97,7 +97,7 @@ class NotifyViewModel {
         return exhibitions.isEmpty ? nil : exhibitions[indexPath.row]
     }
     
-    func systemNotificationsCellForRowAt(indexPath: IndexPath) -> NotifyModel? {
+    func systemNotificationsCellForRowAt(indexPath: IndexPath) -> Notification? {
         return systemNotifications.isEmpty ? nil : systemNotifications[indexPath.row]
     }
     

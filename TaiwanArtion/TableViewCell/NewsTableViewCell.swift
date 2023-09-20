@@ -16,7 +16,7 @@ class NewsTableViewCell: UITableViewCell {
     
     private let viewModel = HomeViewModel.shared
     
-    var pushToViewController: ((NewsModel) -> Void)?
+    var pushToViewController: ((News) -> Void)?
     
     private let disposeBag = DisposeBag()
     

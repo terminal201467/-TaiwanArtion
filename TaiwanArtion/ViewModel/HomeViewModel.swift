@@ -40,7 +40,7 @@ public protocol HomeViewModelOutput: AnyObject {
     var items: Observable<Items> { get }
     var hotExhibitionRelay: BehaviorRelay<[ExhibitionInfo]> { get }
     var mainPhotoRelay: BehaviorRelay<[ExhibitionInfo]> { get }
-    var newsRelay: BehaviorRelay<[NewsModel]> { get }
+    var newsRelay: BehaviorRelay<[News]> { get }
     var allExhibitionRelay: BehaviorRelay<[ExhibitionInfo]> { get }
 }
 
@@ -76,7 +76,7 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     
     let mainPhotoRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
-    let newsRelay = BehaviorRelay<[NewsModel]>(value: [])
+    let newsRelay = BehaviorRelay<[News]>(value: [])
     
     let allExhibitionRelay = BehaviorRelay<[ExhibitionInfo]>(value: [])
     
@@ -231,21 +231,22 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         }
     }
     
-    func fetchDataNewsExhibition(count: Int, completion: @escaping (([NewsModel]) -> Void)) {
+    func fetchDataNewsExhibition(count: Int, completion: @escaping (([News]) -> Void)) {
         newsDataBase.getRandomDocuments(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
             } else if let data = data {
-                var info: [NewsModel] = []
+                var info: [News] = []
                 data.map { newsData in
                     guard let title = newsData["title"] as? String,
                           let image = newsData["image"] as? String,
                           let date = newsData["date"] as? String,
                           let description = newsData["description"] as? String,
+                          let id = newsData["id"] as? String,
                           let author = newsData["author"] as? String else { return }
                     //這邊的image需要設計沒有相關圖片的圖
                     //分類的部分都會先給定一般
-                    let news = NewsModel(title: title, date: date, author: author, image: image == "" ? "defaultExhibition" : image, description: description)
+                    let news = News(id: id, title: title, date: date, author: author, image: image == "" ? "defaultExhibition" : image, description: description)
                     info.append(news)
                 }
                 completion(info)

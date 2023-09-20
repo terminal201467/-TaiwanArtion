@@ -1,22 +1,11 @@
 //
-//  Model.swift
+//  ExhibitionInfo.swift
 //  TaiwanArtion
 //
 //  Created by Jhen Mu on 2023/5/18.
 //
 
 import Foundation
-import CoreLocation
-
-public struct NewsModel {
-    
-    var title: String
-    var date: String
-    var author: String
-    var image: String
-    var description: String
-    
-}
 
 public struct ExhibitionInfo: Hashable, Equatable {
     
@@ -69,10 +58,10 @@ public struct ExhibitionInfo: Hashable, Equatable {
     var longtitude: String
     
     //評價
-    var evaluation: EvaluationModel?
+    var evaluation: Evaluation?
 }
 
-struct EvaluationModel: Hashable {
+struct Evaluation: Hashable {
     
     var number: Int
     var allCommentCount: Int
@@ -95,28 +84,4 @@ struct CommentRate: Hashable {
     var geoLocation: Double
     var price: Double
     var service: Double
-}
-
-struct ExhibitionHallInfo {
-    
-    var hallImage: String?
-    var title: String
-    var location: String
-    var locationCoordinate: CLLocationCoordinate2D
-    var time: String
-    var telephone: String
-    var adress: String
-    var webSite: String
-    
-}
-
-struct User {
-    
-    var name: String
-    var gender: String
-    var phone: String
-    var email: String
-    var birth: String
-    var headImage: String
-    
 }
