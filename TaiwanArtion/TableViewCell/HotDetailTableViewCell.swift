@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class HotDetailTableViewCell: UITableViewCell {
     
@@ -25,12 +26,21 @@ class HotDetailTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var dateAndLoacationStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [dateLabel, locationIcon, cityLabel])
+    private lazy var locationStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [locationIcon, cityLabel])
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 4
+        stackView.spacing = 2
+        return stackView
+    }()
+    
+    private lazy var dateAndLoacationStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [dateLabel, locationStack])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 3
         return stackView
     }()
     
@@ -45,6 +55,7 @@ class HotDetailTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .black
         label.lineBreakMode = .byWordWrapping
         label.lineBreakStrategy = .standard
         label.numberOfLines = 2
@@ -56,10 +67,10 @@ class HotDetailTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.spacing = 4
+        stackView.spacing = 1
         return stackView
     }()
-    //number + Image
+
     private let exhibitionImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -75,15 +86,11 @@ class HotDetailTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var hotDetailStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [numberLabel, exhibitionImage, detailStack])
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 6
-        stackView.roundCorners(cornerRadius: 12)
-        stackView.backgroundColor = .white
-        return stackView
+    private let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.roundCorners(cornerRadius: 12.0)
+        return view
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -97,7 +104,27 @@ class HotDetailTableViewCell: UITableViewCell {
     
     private func autoLayout() {
         contentView.backgroundColor = .whiteGrayColor
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
+        }
+        
+        containerView.addSubview(numberLabel)
+        numberLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.height.equalTo(19.0)
+            make.width.equalTo(19.0)
+        }
+        
+        containerView.addSubview(exhibitionImage)
         exhibitionImage.snp.makeConstraints { make in
+            make.leading.equalTo(numberLabel.snp.trailing).offset(5)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.width.equalTo(60.0)
             make.height.equalTo(60.0)
         }
@@ -107,12 +134,12 @@ class HotDetailTableViewCell: UITableViewCell {
             make.height.equalTo(12)
         }
         
-        contentView.addSubview(hotDetailStackView)
-        hotDetailStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
-            make.leading.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview().offset(-10)
+        containerView.addSubview(detailStack)
+        detailStack.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.height.equalTo(exhibitionImage.snp.height)
+            make.leading.equalTo(exhibitionImage.snp.trailing).offset(5)
+            make.trailing.equalToSuperview()
         }
     }
 
@@ -121,6 +148,12 @@ class HotDetailTableViewCell: UITableViewCell {
         titleLabel.text = title
         cityLabel.text = location
         dateLabel.text = date
-        exhibitionImage.image = UIImage(named: image)
+        if image == "defaultExhibition" {
+            exhibitionImage.image = UIImage(named: image)
+        } else {
+            if let imageURL = URL(string: image) {
+                exhibitionImage.kf.setImage(with: imageURL)
+            }
+        }
     }
 }

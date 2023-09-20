@@ -25,6 +25,7 @@ class HotHxhibitionTableViewCell: UITableViewCell {
         tableView.register(HotDetailTableViewCell.self, forCellReuseIdentifier: HotDetailTableViewCell.reuseIdentifier)
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
+        tableView.isScrollEnabled = true
         tableView.backgroundColor = .white
         return tableView
     }()
@@ -40,6 +41,7 @@ class HotHxhibitionTableViewCell: UITableViewCell {
     }
     
     private func setTableViewBinding() {
+//        tableView.delegate = self
         viewModel.outputs.hotExhibitionRelay.asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: HotDetailTableViewCell.reuseIdentifier, cellType: HotDetailTableViewCell.self)) { (row, item, cell) in
                 cell.configure(number: "\(row + 1)", title: item.title, location: item.city, date: item.dateString, image: item.image)

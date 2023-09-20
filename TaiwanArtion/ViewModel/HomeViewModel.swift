@@ -120,12 +120,14 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         //主要圖像
         fetchRecentExhibition(count: 5) { info in
             self.mainPhotoRelay.accept(info)
+            
         }
         
         //熱門展覽
-        fetchDataHotExhibition(by: 5) { info in
+        fetchRecentExhibition(count: 8) { info in
             self.hotExhibitionRelay.accept(info)
         }
+        
         
         allExhibitionSelected.subscribe(onNext: { indexPath in
             switch Items(rawValue: indexPath.row) {
