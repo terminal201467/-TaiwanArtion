@@ -28,7 +28,6 @@ class MainPhotosTableViewCell: UITableViewCell {
     private let collectionView: UICollectionView = {
        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 16
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(MainPhotosCollectionViewCell.self, forCellWithReuseIdentifier: MainPhotosCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
@@ -114,7 +113,7 @@ class MainPhotosTableViewCell: UITableViewCell {
 
 extension MainPhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellHeight = frame.height - 60
+        let cellHeight = collectionView.frame.height - (16 * 2)
         let cellWidth = frame.width - 45 * 2
         return CGSize(width: cellWidth, height: cellHeight)
     }

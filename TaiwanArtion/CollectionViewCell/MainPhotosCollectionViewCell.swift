@@ -23,6 +23,7 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
     private let exhibitionImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.roundCorners(cornerRadius: 8)
         return imageView
     }()
     
@@ -58,6 +59,11 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    private let titleStackContainer: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private lazy var titleInfoStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
         stackView.axis = .vertical
@@ -91,7 +97,7 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
         
-        contentView.addSubview(exhibitionImage)
+        backgroundWhiteView.addSubview(exhibitionImage)
         exhibitionImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
@@ -107,11 +113,20 @@ class MainPhotosCollectionViewCell: UICollectionViewCell {
             make.width.equalToSuperview().multipliedBy(40.0 / frame.width)
         }
         
-        contentView.addSubview(titleInfoStack)
-        titleInfoStack.snp.makeConstraints { make in
-            make.top.equalTo(exhibitionImage.snp.bottom).offset(8.0)
+        backgroundWhiteView.addSubview(titleStackContainer)
+        titleStackContainer.snp.makeConstraints { make in
+            make.top.equalTo(exhibitionImage.snp.bottom)
             make.leading.equalTo(exhibitionImage.snp.leading)
             make.trailing.equalTo(exhibitionImage.snp.trailing)
+            make.bottom.equalToSuperview()
+        }
+        
+        titleStackContainer.addSubview(titleInfoStack)
+        titleInfoStack.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-5)
         }
         
         contentView.addSubview(collectButton)
