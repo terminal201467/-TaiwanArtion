@@ -72,19 +72,28 @@ class NotifyTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let beforeLabel: UILabel = {
+    let beforeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .grayTextColor
         return label
     }()
     
-    private lazy var dateLocationStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [dateLabel, iconImage, locationLabel])
+    lazy var locationStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [iconImage, locationLabel])
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 5
+        stackView.spacing = 3
+        return stackView
+    }()
+    
+    private lazy var dateLocationStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [dateLabel, locationStack])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 3
         return stackView
     }()
     
@@ -92,8 +101,8 @@ class NotifyTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLocationStack])
         stackView.axis = .vertical
         stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 2
         return stackView
     }()
     
@@ -124,7 +133,7 @@ class NotifyTableViewCell: UITableViewCell {
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.width.equalTo(125.0)
+            make.width.equalTo(80.0)
             make.height.equalTo(80.0)
         }
         
@@ -142,9 +151,8 @@ class NotifyTableViewCell: UITableViewCell {
         }
         
         infoStack.snp.makeConstraints { make in
-            make.leading.equalTo(exhibitionImage.snp.trailing).offset(16)
-            make.top.equalTo(exhibitionImage.snp.top)
-            make.bottom.equalTo(exhibitionImage.snp.bottom)
+            make.leading.equalTo(exhibitionImage.snp.trailing).offset(12)
+            make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         

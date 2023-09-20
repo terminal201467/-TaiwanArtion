@@ -22,6 +22,7 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
     private let exhibitionImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.roundCorners(cornerRadius: 8)
         return imageView
     }()
     
@@ -35,10 +36,15 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .white
-        label.backgroundColor = .tagYellowColor
         label.textAlignment = .center
-        label.setSpecificRoundCorners(corners: [.layerMaxXMinYCorner, .layerMinXMaxYCorner], radius: 8)
         return label
+    }()
+    
+    private let tagContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .tagYellowColor
+        view.setSpecificRoundCorners(corners: [.layerMaxXMinYCorner, .layerMinXMaxYCorner], radius: 8)
+        return view
     }()
     
     private let titleLabel: UILabel = {
@@ -72,12 +78,21 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var dateStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [dateLabel, iconImage, cityLabel])
+    private lazy var locationStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [iconImage, cityLabel])
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 5
+        stackView.spacing = 2
+        return stackView
+    }()
+    
+    private lazy var dateStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [dateLabel, locationStack])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 3
         return stackView
     }()
     
@@ -86,8 +101,13 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 5
+        stackView.spacing = 3
         return stackView
+    }()
+    
+    private let stackContainerView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -101,7 +121,7 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
     }
     
     private func autoLayout() {
-        addSubview(exhibitionImage)
+        contentView.addSubview(exhibitionImage)
         exhibitionImage.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
@@ -109,7 +129,21 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
             make.height.equalToSuperview().multipliedBy(180.0 / frame.height)
         }
         
-        addSubview(collectButton)
+        contentView.addSubview(tagContainerView)
+        tagContainerView.snp.makeConstraints { make in
+            make.leading.equalTo(exhibitionImage.snp.leading)
+            make.bottom.equalTo(exhibitionImage.snp.bottom)
+            make.width.equalTo(40.0)
+            make.height.equalTo(24.0)
+        }
+        
+        tagContainerView.addSubview(tagLabel)
+        tagLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        contentView.addSubview(collectButton)
         collectButton.snp.makeConstraints { make in
             make.trailing.equalTo(exhibitionImage.snp.trailing).offset(-13)
             make.top.equalTo(exhibitionImage.snp.top).offset(13)
@@ -120,12 +154,21 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(10)
         }
         
-        addSubview(infoStack)
-        infoStack.snp.makeConstraints { make in
-            make.top.equalTo(exhibitionImage.snp.bottom)
-            make.leading.equalTo(exhibitionImage.snp.leading)
-            make.trailing.equalTo(exhibitionImage.snp.trailing)
+        titleLabel.snp.makeConstraints { make in
+            make.height.equalTo(23.0)
+        }
+        
+        contentView.addSubview(stackContainerView)
+        stackContainerView.snp.makeConstraints { make in
+            make.top.equalTo(exhibitionImage.snp.bottom).offset(4.5)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        
+        stackContainerView.addSubview(infoStack)
+        infoStack.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
@@ -140,6 +183,7 @@ class AllExhibitionCollectionViewCell: UICollectionViewCell {
         titleLabel.text = exhibition.title
         dateLabel.text = exhibition.dateString
         cityLabel.text = exhibition.location
+        tagLabel.text = exhibition.tag
     }
     
     private func setCollectButton() {

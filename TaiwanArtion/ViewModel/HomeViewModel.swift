@@ -229,7 +229,6 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         }
     }
     
-    //新聞系統還沒建置好
     func fetchDataNewsExhibition(count: Int, completion: @escaping (([NewsModel]) -> Void)) {
         newsDataBase.getRandomDocuments(count: count) { data, error in
             if let error = error {
@@ -252,7 +251,6 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
         }
     }
     
-    //
     func fetchRecentExhibition(count: Int, completion: @escaping (([ExhibitionInfo]) -> Void)) {
         exhibitionDataBase.getRecentDocuments(count: count) { data, error in
             if let error = error {

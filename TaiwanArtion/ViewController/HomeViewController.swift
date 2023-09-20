@@ -253,7 +253,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case .news:
             switch NewsCell(rawValue: indexPath.row) {
-            case .newsExhibition: return 268.0
+            case .newsExhibition: return 300.0
             case .none: return 0
             }
         case .all:

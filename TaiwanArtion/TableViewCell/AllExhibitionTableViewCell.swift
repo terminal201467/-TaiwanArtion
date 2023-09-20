@@ -25,7 +25,6 @@ class AllExhibitionTableViewCell: UITableViewCell {
     private let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 5
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(AllExhibitionCollectionViewCell.self, forCellWithReuseIdentifier: AllExhibitionCollectionViewCell.reuseIdentifier)
         collectionView.allowsSelection = true
@@ -86,12 +85,12 @@ class AllExhibitionTableViewCell: UITableViewCell {
 extension AllExhibitionTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellHeight = 230.0
-        let cellWidth = (frame.width - 16 * 2 - 12 * 2) / 2
+        let cellHeight = 245.0
+        let cellWidth = (collectionView.frame.width - (16 * 2) - 24) / 2
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        return UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
     }
 }

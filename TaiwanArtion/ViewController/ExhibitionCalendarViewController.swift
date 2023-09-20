@@ -89,6 +89,7 @@ extension ExhibitionCalendarViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NotifyTableViewCell.reuseIdentifier, for: indexPath) as! NotifyTableViewCell
+        cell.beforeLabel.isHidden = true
         let info = viewModel.output.outputExhibitions.value[indexPath.row]
         cell.configure(image: info.image, title: info.title, date: info.dateString, location: info.location, dayBefore: info.dateBefore, tag: info.tag)
         return cell
