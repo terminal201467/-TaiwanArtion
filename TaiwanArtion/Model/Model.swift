@@ -14,6 +14,7 @@ public struct NewsModel {
     var date: String
     var author: String
     var image: String
+    var description: String
     
 }
 

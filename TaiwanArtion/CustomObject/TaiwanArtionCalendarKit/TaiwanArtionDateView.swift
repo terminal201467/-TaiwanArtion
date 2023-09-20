@@ -112,7 +112,6 @@ extension TaiwanArtionDateView: UICollectionViewDelegateFlowLayout, UICollection
         cell.configureEventDot(isEvent: isEvent)
         let isSelected = dateCalculator.currentSelectRowAt(indexPath: indexPath)
         cell.changeCurrentSelectedItem(isCurrentSelected: isSelected)
-        //如果點選了日期，就會先取消原本的
         return cell
     }
     

@@ -34,35 +34,18 @@ class NewsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setCollectionViewBinding()
         autoLayout()
+        setDelegate()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    private func setCollectionViewBinding() {
-//        collectionView.rx.setDelegate(self)
-//
-//        collectionView.rx.itemSelected
-//            .subscribe(onNext: { indexPath in
-//                self.viewModel.inputs.newsExhibitionSelected.onNext(indexPath)
-//            })
-//            .disposed(by: disposeBag)
-        
-//        viewModel.viewDidLoad.newses
-//            .bind(to: collectionView.rx.items(cellIdentifier: NewsCollectionViewCell.reuseIdentifier, cellType: NewsCollectionViewCell.self)) { (row, item, cell) in
-//                cell.configure(image: item.image, title: item.title, date: item.date, author: item.author)
-//            }
-//            .disposed(by: disposeBag)
-        
-//        viewModel.outputs.didSelectedNewsExhibitionRow
-//            .subscribe { news in
-//                self.pushToViewController?(news)
-//            }
-//            .disposed(by: disposeBag)
-//    }
+    private func setDelegate() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
     
     private func autoLayout() {
         contentView.addSubview(collectionView)
@@ -73,16 +56,25 @@ class NewsTableViewCell: UITableViewCell {
     }
 }
 
-extension NewsTableViewCell: UICollectionViewDelegateFlowLayout {
+extension NewsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.newsRelay.value.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.reuseIdentifier, for: indexPath) as! NewsCollectionViewCell
+        let info = viewModel.newsRelay.value[indexPath.row]
+        cell.configure(image: info.image, title: info.title, date: info.date, author: info.author)
+        return cell
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12)
+        return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 12
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 12
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = (collectionView.frame.width - 16 * 2) / 2
+        let cellHeight = 226.0
+        return .init(width: cellWidth, height: cellHeight)
     }
 }

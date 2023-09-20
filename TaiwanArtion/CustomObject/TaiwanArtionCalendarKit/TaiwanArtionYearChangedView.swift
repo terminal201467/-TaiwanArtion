@@ -66,7 +66,7 @@ class TaiwanArtionYearChangedView: UIView {
             make.height.equalTo(25.0)
             make.width.equalTo(25.0)
         }
-        
+
         afterButton.snp.makeConstraints { make in
             make.height.equalTo(25.0)
             make.width.equalTo(25.0)
@@ -80,6 +80,8 @@ class TaiwanArtionYearChangedView: UIView {
         titleStack.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
+            make.height.equalTo(25.0)
+            make.width.equalToSuperview().multipliedBy(0.5)
         }
     }
     

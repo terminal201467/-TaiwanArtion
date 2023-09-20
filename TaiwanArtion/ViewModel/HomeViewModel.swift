@@ -149,14 +149,20 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
             }
         })
         .disposed(by: disposeBag)
+        
+        fetchDataNewsExhibition(count: 5) { info in
+            self.newsRelay.accept(info)
+        }
     }
     
     //MARK: - Firebase
     
-    private let firebase = FirebaseDatabase(collectionName: "exhibitions")
+    private let exhibitionDataBase = FirebaseDatabase(collectionName: "exhibitions")
+    
+    private let newsDataBase = FirebaseDatabase(collectionName: "news")
 
     func fetchDateKind(by month: Month) {
-        firebase.readDocument(month: month.numberText) { data, error in
+        exhibitionDataBase.readDocument(month: month.numberText) { data, error in
             if let error = error {
                 print("error: \(error)")
             } else if data != nil{
@@ -168,7 +174,7 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     //MARK: - Firebase fetch Method
     
     func fetchDataRecentExhibition(by count: Int, completion: @escaping (([ExhibitionInfo]) -> Void)) {
-        firebase.getRandomDocuments(count: count) { data, error in
+        exhibitionDataBase.getRandomDocuments(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
             } else if let data = data {
@@ -197,7 +203,7 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     }
     
     func fetchDataHotExhibition(by count: Int, completion: @escaping (([ExhibitionInfo]) -> Void)) {
-        firebase.getHotDocument(count: count) { data, error in
+        exhibitionDataBase.getHotDocument(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
             } else if let data = data {
@@ -224,13 +230,31 @@ class HomeViewModel: HomeViewModelType, HomeViewModelInput, HomeViewModelOutput 
     }
     
     //新聞系統還沒建置好
-    func fetchDataNewsExhibition() {
-        
+    func fetchDataNewsExhibition(count: Int, completion: @escaping (([NewsModel]) -> Void)) {
+        newsDataBase.getRandomDocuments(count: count) { data, error in
+            if let error = error {
+                print("error:\(error)")
+            } else if let data = data {
+                var info: [NewsModel] = []
+                data.map { newsData in
+                    guard let title = newsData["title"] as? String,
+                          let image = newsData["image"] as? String,
+                          let date = newsData["date"] as? String,
+                          let description = newsData["description"] as? String,
+                          let author = newsData["author"] as? String else { return }
+                    //這邊的image需要設計沒有相關圖片的圖
+                    //分類的部分都會先給定一般
+                    let news = NewsModel(title: title, date: date, author: author, image: image == "" ? "defaultExhibition" : image, description: description)
+                    info.append(news)
+                }
+                completion(info)
+            }
+        }
     }
     
     //
     func fetchRecentExhibition(count: Int, completion: @escaping (([ExhibitionInfo]) -> Void)) {
-        firebase.getRecentDocuments(count: count) { data, error in
+        exhibitionDataBase.getRecentDocuments(count: count) { data, error in
             if let error = error {
                 print("error:\(error)")
             } else if let data = data {

@@ -144,8 +144,8 @@ class ExhibitionCalendarView: UIView {
         super.init(frame: frame)
         setNavigationBarAutoLayout()
         setBackgroundAutoLayout()
-        setupGestures()
         setCalendarModeAutoLayout()
+        setupGestures()
     }
     
     required init?(coder: NSCoder) {
@@ -153,6 +153,12 @@ class ExhibitionCalendarView: UIView {
     }
     
     private func setNavigationBarAutoLayout() {
+        addSubview(rightTopImage)
+        rightTopImage.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+        }
+        
         addSubview(navigationBarContainerView)
         navigationBarContainerView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
@@ -178,12 +184,6 @@ class ExhibitionCalendarView: UIView {
     
     private func setBackgroundAutoLayout() {
         backgroundColor = .caramelColor
-        addSubview(rightTopImage)
-        rightTopImage.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-        }
-        
         addSubview(habbyContainerView)
         habbyContainerView.snp.makeConstraints { make in
             make.top.equalTo(navigationBarContainerView.snp.bottom).offset(24.0)

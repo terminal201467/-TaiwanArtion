@@ -24,7 +24,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         label.textColor = .black
         label.textAlignment = .left
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.lineBreakStrategy = .standard
         label.lineBreakMode = .byWordWrapping
         return label
