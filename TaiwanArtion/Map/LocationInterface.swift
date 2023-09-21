@@ -42,7 +42,7 @@ class LocationInterface: NSObject {
     func searchTheLocations(searchKeyword: String, completion: @escaping ([MKMapItem]) -> Void) {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchKeyword
-        request.region = MKCoordinateRegion(center: getCurrentLocation().coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        request.region = MKCoordinateRegion(center: getCurrentLocation().coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
         
         let search = MKLocalSearch(request: request)
         search.start { response, error in

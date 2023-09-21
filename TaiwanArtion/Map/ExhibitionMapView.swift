@@ -24,6 +24,8 @@ class ExhibitionMapView: UIView {
 
     private let locationQueue = DispatchQueue(label: "mapLocation", attributes: .concurrent)
     
+    private let dispatchGroup = DispatchGroup()
+    
     private let disposeBag = DisposeBag()
     
     var locatedNearSignal: Signal<Void> = Signal.just(())
@@ -74,6 +76,7 @@ class ExhibitionMapView: UIView {
         autoLayout()
         setButtonSubscribtion()
         setMapFeature()
+        findAndStoreCenteredCellIndexPath()
         viewModel.output.outputExhibitionHall
             .asObservable()
             .subscribe(onNext: { info in
@@ -85,6 +88,15 @@ class ExhibitionMapView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func findAndStoreCenteredCellIndexPath() {
+        let centerX = locationContentCollectionView.contentOffset.x + locationContentCollectionView.bounds.width / 2
+        if let indexPath = locationContentCollectionView.indexPathForItem(at: CGPoint(x: centerX, y: locationContentCollectionView.bounds.height / 2)) {
+            print("indexPath:\(indexPath.row)")
+            self.mapView(self.mapView,
+                         didSelect: self.mapView.dequeueReusableAnnotationView(withIdentifier: MapAnnocationView.reuseIdentifier, for: self.mapView.annotations[indexPath.row]))
+        }
     }
     
     private func setLocationContentCollectionView() {
@@ -237,22 +249,17 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationContentCollectionViewCell.reuseIdentifier, for: indexPath) as! LocationContentCollectionViewCell
         cell.configure(hallInfo: viewModel.output.outputExhibitionHall.value[indexPath.row])
         cell.lookUpLocationSignal.emit(onNext: {
-            print("indexPath.row:\(indexPath.row)")
-            self.viewModel.input.inputSelectedAnnotation.accept(self.mapView.selectedAnnotations.first ?? self.mapView.userLocation)
-            self.mapView(self.mapView, didSelect: self.mapView.dequeueReusableAnnotationView(withIdentifier: MapAnnocationView.reuseIdentifier, for: self.mapView.selectedAnnotations.first ?? self.mapView.userLocation))
-            self.mapView.setCenter(self.mapView.selectedAnnotations.first?.coordinate ?? self.mapView.userLocation.coordinate, animated: true)
+            self.mapView(self.mapView,
+                         didSelect: self.mapView.dequeueReusableAnnotationView(withIdentifier: MapAnnocationView.reuseIdentifier, for:self.mapView.annotations[indexPath.row]))
         })
         .disposed(by: disposeBag)
         cell.lookUpExhibitionHallSignal.emit(onNext: {
             //推到展覽館頁面
             print("indexPath.row:\(indexPath.row)")
+            print("ExhibitionHall:",self.viewModel.output.outputExhibitionHall.value[indexPath.row])
         })
         .disposed(by: disposeBag)
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //HighLight定位
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -267,6 +274,10 @@ extension ExhibitionMapView: UICollectionViewDelegateFlowLayout, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16.0
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        findAndStoreCenteredCellIndexPath()
     }
 }
 
