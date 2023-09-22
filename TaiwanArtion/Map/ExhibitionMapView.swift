@@ -24,8 +24,6 @@ class ExhibitionMapView: UIView {
 
     private let locationQueue = DispatchQueue(label: "mapLocation", attributes: .concurrent)
     
-    private let dispatchGroup = DispatchGroup()
-    
     private let disposeBag = DisposeBag()
     
     var locatedNearSignal: Signal<Void> = Signal.just(())

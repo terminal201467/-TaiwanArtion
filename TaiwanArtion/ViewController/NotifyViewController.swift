@@ -63,6 +63,7 @@ class NotifyViewController: UIViewController {
     }
     
     private func setNavigationBar() {
+        navigationController?.navigationBar.isHidden = true
         navigationItem.hidesBackButton = true
     }
     
